@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;ncube/teste.ncl&apos;" deleteContents="false" description="Delete resource &apos;ncube/teste.ncl&apos;" element1="/ncube/teste.ncl" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1502061853576"/>&#x0A;<refactoring comment="Delete resource &apos;ncube/src/NCube/NCube.lua&apos;" deleteContents="false" description="Delete resource &apos;ncube/src/NCube/NCube.lua&apos;" element1="/ncube/src/NCube/NCube.lua" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1502066442140"/>
-</session>
