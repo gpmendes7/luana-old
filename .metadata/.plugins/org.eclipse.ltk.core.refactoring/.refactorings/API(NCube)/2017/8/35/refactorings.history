@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename source module &apos;NCube.NCube.Lua.lua&apos; to &apos;NCube.lua&apos;&#x0D;&#x0A;- Original element: &apos;NCube.Lua.lua&apos;&#x0D;&#x0A;- Renamed element: &apos;NCube.lua&apos;" description="Rename source module &apos;NCube.Lua.lua&apos;" flags="589830" id="org.eclipse.dltk.ui.rename.sourcemodule" input="/src&lt;NCube{NCube.Lua.lua" name="NCube.lua" stamp="1503871279337" version="1.0"/>
+</session>

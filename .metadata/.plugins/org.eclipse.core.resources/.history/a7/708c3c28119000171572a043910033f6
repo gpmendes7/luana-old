@@ -1,0 +1,24 @@
+<?xml version= "1.0" encoding="ISO-8859-1"?>
+<ncl id="teste" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
+ <head>
+  <regionBase>
+   <region id="rg1" height="100%" width="100%"/>
+   <region id="rg2" height="100%" width="100%"/>
+  </regionBase>
+  <regionBase>
+   <region id="rg3" height="100%" width="100%"/>
+  </regionBase>
+  <regionBase>
+   <region height="100%" id="rg4" width="100%">
+    <region height="100%" id="rg5" width="100%"/>
+   </region>
+  </regionBase>
+  <descriptorBase>
+   <descriptor id="d1" region="rg1"/>
+  </descriptorBase>
+ </head>
+ <body>
+  <port id="p1" component="m1"/>
+  <media id="m1" src="media/homem_aranha.mpg" descriptor="d1" type="video/mpeg"/>
+ </body>
+</ncl>
