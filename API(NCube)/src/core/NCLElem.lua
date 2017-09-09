@@ -5,6 +5,7 @@ local NCLElem = Class:createClass{
   childs = nil,
   childsAux = nil,
   childsMap = nil,
+  assMap = nil,
   attributes = nil, 
   ncl = nil,
   seq = nil,
@@ -79,8 +80,37 @@ function NCLElem:getChilds()
     return self.childs
 end
 
+function NCLElem:getChildsAux()
+    return self.childsAux
+end
+
 function NCLElem:getChildsMap()
     return self.childsMap
+end
+
+function NCLElem:getAssMap()
+    return self.assMap
+end
+
+function NCLElem:getDescendants()
+   local descendants = {}
+   
+   local childs = self:getChildsAux()
+   
+   if(childs ~= nil)then
+      for i, child in ipairs(childs) do
+         table.insert(descendants, child)
+         
+         local grandChilds = child:getDescendants()
+         if(grandChilds ~= nil)then
+             for j, grandChild in ipairs(grandChilds) do
+                 table.insert(descendants, grandChild)
+             end
+         end
+      end
+   end
+   
+   return descendants
 end
 
 function NCLElem:addAttribute(attribute, value)
@@ -105,16 +135,16 @@ function NCLElem:getAttributes()
     return self.attributes
 end
 
-function NCLElem:generateElem()   
+function NCLElem:ncl2Table()   
    local s, e, t, u = nil
-   local elemNCL = self:getNcl()    
+   local elemNcl = self:getNcl()    
      
-   _, s = string.find(elemNCL, "<"..self:getName().." ")
-   _, t = string.find(elemNCL, "<"..self:getName()..">")
-   e = string.find(elemNCL, ">")
+   _, s = string.find(elemNcl, "<"..self:getName().." ")
+   _, t = string.find(elemNcl, "<"..self:getName()..">")
+   e = string.find(elemNcl, ">")
 
    if(s ~= nil and t == nil and e ~= nil)then
-     local attributes = string.sub(elemNCL,s,e-1)   
+     local attributes = string.sub(elemNcl,s,e-1)   
      local w = nil
      
      for w in string.gmatch(attributes, "%S+") do
@@ -128,14 +158,14 @@ function NCLElem:generateElem()
      end
    end
    
-   s = string.find(elemNCL, "<"..self:getName())
-   t = string.find(elemNCL, "</"..self:getName()..">")  
-   e = string.find(elemNCL, ">")
+   s = string.find(elemNcl, "<"..self:getName())
+   t = string.find(elemNcl, "</"..self:getName()..">")  
+   e = string.find(elemNcl, ">")
      
    local childsNCL = nil
    
    if(s ~= nil and t ~= nil and e ~= nil)then
-        childsNCL = string.sub(elemNCL, e+1, t-1)   
+        childsNCL = string.sub(elemNcl, e+1, t-1)   
    end              
    
    if(childsNCL ~= nil)then
@@ -167,7 +197,7 @@ function NCLElem:generateElem()
              local childObject = childClass:create()            
              
              childObject:setNcl(childNCL)
-             childObject:generateElem()  
+             childObject:ncl2Table()  
              
              if(self.childsAux == nil)then
                 self.childsAux = {}
@@ -220,7 +250,7 @@ function NCLElem:generateElem()
    end
 end
 
-function NCLElem:generateNcl(deep)
+function NCLElem:table2Ncl(deep)
   local ncl = ""
   
   if(deep == 0 and self:getName() == "ncl")then
@@ -257,10 +287,10 @@ function NCLElem:generateNcl(deep)
                      
          if(nchild > 0)then
             for j, v in ipairs(child) do
-                ncl = ncl..v:generateNcl(deep+1)
+                ncl = ncl..v:table2Ncl(deep+1)
              end    
           else 
-             ncl = ncl..child:generateNcl(deep+1)
+             ncl = ncl..child:table2Ncl(deep+1)
           end          
      end
            
@@ -281,7 +311,7 @@ function NCLElem:getNcl()
 end
 
 function NCLElem:writeNcl()
-  print(self:generateNcl(0))
+  print(self:table2Ncl(0))
 end
 
 return NCLElem

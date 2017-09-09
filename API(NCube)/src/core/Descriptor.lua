@@ -10,6 +10,11 @@ Descriptor.attributes = {
 }
 
 Descriptor.hasAss = true
+
+Descriptor.assMap = {
+  {"region", "regionAss"}
+}
+
 Descriptor.regionAss = nil
 
 function Descriptor:create(attributes)  
