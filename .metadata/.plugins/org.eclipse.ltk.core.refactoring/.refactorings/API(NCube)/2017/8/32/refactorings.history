@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;ncube/src/NCube/NCLElement.lua&apos; to &apos;NCL.lua&apos;" description="Rename resource &apos;NCLElement.lua&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/NCube/NCLElement.lua" name="NCL.lua" stamp="1502559683301" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;ncube/src/teste.lua&apos; to &apos;Teste.lua&apos;" description="Rename resource &apos;teste.lua&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/teste.lua" name="Teste.lua" stamp="1502560991398" updateReferences="true"/>
+</session>

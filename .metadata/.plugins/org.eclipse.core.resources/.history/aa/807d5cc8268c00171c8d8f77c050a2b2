@@ -1,0 +1,69 @@
+local NCLElem = require "NCube/NCLElem"
+
+local Port = require "NCube/Port"
+local Media = require "NCube/Media"
+
+local Body = Class:createClass(NCLElem)
+
+Body.name = "body"
+
+Body.attributes = { 
+  id = nil
+}
+
+Body.childsMap = {
+ ["port"] = {Port, "many", 1}, 
+ ["media"] = {Media, "many", 2}
+}
+
+function Body:create(attributes, empty)
+   local attributes = attributes or {}  
+   local body = Body:new()
+   body:setAttributes(attributes)
+   body:setChilds()  
+   body.childs[1] = {}
+   body.childs[2] = {}
+   return body
+end
+
+function Body:setId(id)
+   self.attributes.id = id
+end
+
+function Body:getId()
+   return self.attributes.id
+end
+
+function Body:addPort(port)
+   table.insert(self:getChild(1), port)
+end
+
+function Body:getPort(i)
+   return self:getChild(1)[i]
+end
+
+function Body:setPorts(...)
+    if(#arg>0)then
+      for i, v in ipairs(arg) do
+          table.insert(self.childs[1], i, v)
+      end
+    end
+end
+
+function Body:addMedia(media)
+   table.insert(self:getChild(2), port)
+end
+
+function Body:getMedia(i)
+   return self:getChild(2)[i]
+end
+
+function Body:setMedias(...)
+    if(#arg>0)then
+      for i, v in ipairs(arg) do
+         table.insert(self.childs[2], i, v)
+      end
+    end
+end
+
+return Body

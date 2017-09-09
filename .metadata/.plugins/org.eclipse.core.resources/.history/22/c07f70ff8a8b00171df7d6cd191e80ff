@@ -1,0 +1,49 @@
+local NCLElem = require "NCube/NCLElem"
+
+local DescriptorBase = Class:createClass(NCLElem)
+
+local Descriptor = require "NCube/Descriptor"
+
+DescriptorBase.name = "descriptorBase"
+
+DescriptorBase.attributes = { 
+  id = nil
+}
+
+DescriptorBase.childsMap = {
+ ["descriptor"] = {Descriptor, "many", 1}
+}
+
+function DescriptorBase:create(attributes)
+   local attributes = attributes or {}  
+   local descriptorBase = DescriptorBase:new()
+   descriptorBase:setAttributes(attributes)
+   descriptorBase:setChilds()  
+   return descriptorBase
+end
+
+function DescriptorBase:setId(id)
+   self.attributes.id = id
+end
+
+function DescriptorBase:getId()
+   return self.attributes.id
+end
+
+function DescriptorBase:addDescriptor(descriptor)
+    table.insert(self:getChild(1), descriptor)
+end
+
+function DescriptorBase:getDescriptor(i)
+    return self:getChild(1)[i]
+end
+
+function DescriptorBase:setDescriptors(...)
+    if(#arg>0)then
+      for i, v in ipairs(arg) do
+          table.insert(self.childs[1], i, v)
+      end
+    end
+end
+
+return DescriptorBase

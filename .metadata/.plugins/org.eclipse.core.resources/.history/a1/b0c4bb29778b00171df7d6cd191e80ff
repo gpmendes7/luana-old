@@ -1,0 +1,20 @@
+<?xml version= "1.0" encoding="ISO-8859-1"?>
+<ncl id="teste" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
+ <head>
+  <regionBase>
+   <region height="100%" id="rgTela" width="100%"/>
+   <region height="100%" id="rgTela2" width="100%"/>
+  </regionBase>
+  <regionBase>
+   <region height="100%" id="rgTela" width="100%"/>
+   <region height="100%" id="rgTela2" width="100%"/>
+  </regionBase>
+  <descriptorBase>
+   <descriptor id="dTrailer" region="rgTela"/>
+  </descriptorBase>
+ </head>
+ <body>
+  <port id="pTrailer" component="trailer"/>
+  <media id="trailer" src="media/homem_aranha.mpg" descriptor="dTrailer" type="video/mpeg"/>
+ </body>
+</ncl>
