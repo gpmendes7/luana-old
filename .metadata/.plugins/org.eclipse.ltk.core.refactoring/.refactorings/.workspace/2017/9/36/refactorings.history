@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename Script project &apos;ncube&apos; to &apos;API(NCube)&apos;&#x0D;&#x0A;- Original element: &apos;ncube&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Script project &apos;ncube&apos;" flags="7" id="org.eclipse.dltk.ui.rename.script.project" input="=ncube" name="API(NCube)" references="true" stamp="1504452350706" version="1.0"/>
-</session>
