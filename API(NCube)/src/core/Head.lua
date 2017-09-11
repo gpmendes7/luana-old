@@ -16,16 +16,16 @@ Head.regionBases = nil
 Head.descriptorBase = nil
 Head.seq = true
 
-function Head:create(empty)
+function Head:create(full)
    local head = Head:new()
       
    head:setChilds()   
    
-   if(empty ~= nil)then      
+   if(full ~= nil)then      
       head.regionBases = {}
       head:addChild({} , 1)
       
-      local descriptorBase = DescriptorBase:create(nil, empty)
+      local descriptorBase = DescriptorBase:create(nil, full)
       head:setDescriptorBase(descriptorBase)
    end
    return head

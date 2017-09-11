@@ -17,14 +17,14 @@ DescriptorBase.childsMap = {
 DescriptorBase.descritptors = nil
 DescriptorBase.seq = true
 
-function DescriptorBase:create(attributes, empty)
+function DescriptorBase:create(attributes, full)
    local attributes = attributes or {}  
    local descriptorBase = DescriptorBase:new()
    
    descriptorBase:setAttributes(attributes)
-   descriptorBase:setChilds()  
+   descriptorBase:setChilds()    
    
-   if(empty ~= nil)then
+   if(full ~= nil)then
       descriptorBase.descriptors = {}
       descriptorBase:addChild({} , 1)
    end

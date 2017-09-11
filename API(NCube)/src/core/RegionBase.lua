@@ -25,10 +25,11 @@ function RegionBase:create(attributes, empty)
     
    regionBase:setAttributes(attributes)
    regionBase:setChilds()  
+   regionBase:setChildsAux()
    
    if(empty ~= nil)then
       regionBase.regions = {}
-      regionBase.childs[1] = {} 
+      regionBase:addChild({} , 1)
    end
    
    return regionBase

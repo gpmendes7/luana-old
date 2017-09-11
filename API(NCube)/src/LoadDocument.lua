@@ -3,11 +3,13 @@ require("core/NCube")
 local doc = Document:create()
 doc:loadNcl("doc.ncl")
 
-local rg1 = doc:getHead():getRegionBaseById("rb1"):getRegionById("rg1")
+print(doc:writeNcl())
 
-local d1 = doc:getHead():getDescriptorBase(1):getDescriptorById("d1")
+print(doc:getDescendantById("rg3"):writeNcl())
 
-print(doc:getChildById("d1"):getRegionAss():writeNcl())
+--print(d1:writeNcl())
+
+--print(doc:getHead():getRegionBaseById("rb1"):getPosChild(rg1))
 
 --local rg3 = Region:create({id="rg3", width="100%", height="100%"})5
 --doc:getHead():getRegionBase(1):addRegion(rg3)

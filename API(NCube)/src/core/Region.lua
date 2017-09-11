@@ -32,7 +32,7 @@ function Region:create(attributes, empty)
    
    if(empty ~= nil)then
       region.regions = {}
-      region.childs[1] = {}
+      region:addChild({} , 1)
    end
    
    return region

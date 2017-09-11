@@ -25,7 +25,7 @@ Document.head = nil
 Document.body = nil
 Document.seq = true
 
-function Document:create(attributes, xmlHead, empty)
+function Document:create(attributes, xmlHead, full)
    local attributes = attributes or {}  
    local xmlHead = xmlHead or {}  
    local document = Document:new()   
@@ -34,9 +34,9 @@ function Document:create(attributes, xmlHead, empty)
    document:setChilds() 
    document:setXmlHead(xmlHead)
    
-   if(empty ~= nil)then
-      document:setHead(Head:create(empty))   
-      document:setBody(Body:create(nil, empty))  
+   if(full ~= nil)then
+      document:setHead(Head:create(full))   
+      document:setBody(Body:create(nil, full))  
    end
 
    return document
@@ -93,7 +93,7 @@ function Document:getBody()
 end
 
 function Document:saveNcl(name)
-   local ncl = self:generateNcl(0)   
+   local ncl = self:table2Ncl(0)   
    local file = io.open(name, "w")       
    file:write(ncl)   
    file:close()
@@ -129,7 +129,7 @@ function Document:loadNcl(name)
                  local objectId = descendant:getAttribute(object)
                  local objectAss = assMap[2]
                  
-                 descendant[objectAss] = self:getChildById(objectId)
+                 descendant[objectAss] = self:getDescendantById(objectId)
               end
            end
        end

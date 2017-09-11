@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="308" environment="org.eclipse.dltk.core.environment.localEnvironment">
+<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="398" environment="org.eclipse.dltk.core.environment.localEnvironment">
   <entries path="C:/Users/gabriel/Desktop/TCC(old)/ncube/src" timestamp="1503863942448" lastAccessTime="1503885130214">
     <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/3940216462/133.idx"/>
   </entries>
@@ -177,4 +177,47 @@
   <entries path="C:/Users/gabriel/Desktop/NCube/API(NCube)/src/oo/Class.lua" timestamp="1495071438000" lastAccessTime="1504454985569">
     <attributes name="indexed" location="2838196607/1721325803/291.idx"/>
   </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core" timestamp="1504456486291" lastAccessTime="1505170456898">
+    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/2957366948/309.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/oo" timestamp="1504456486291" lastAccessTime="1505169587655">
+    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/2957366948/313.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src" timestamp="1505072123089" lastAccessTime="1505170686185">
+    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/2741428069/367.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/Teste.lua" timestamp="1505072385656" lastAccessTime="1505169588035">
+    <attributes name="indexed" location="2838196607/2957366948/381.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/Body.lua" timestamp="1505068421943" lastAccessTime="1505169587358">
+    <attributes name="indexed" location="2838196607/3681954587/371.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/Descriptor.lua" timestamp="1505068428900" lastAccessTime="1505169588475">
+    <attributes name="indexed" location="2838196607/3681954587/397.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/DescriptorBase.lua" timestamp="1505068446615" lastAccessTime="1505169588401">
+    <attributes name="indexed" location="2838196607/3681954587/395.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/Head.lua" timestamp="1505068476269" lastAccessTime="1505169588048">
+    <attributes name="indexed" location="2838196607/3681954587/383.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/Media.lua" timestamp="1505068485921" lastAccessTime="1505169588081">
+    <attributes name="indexed" location="2838196607/3681954587/385.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/NCube.lua" timestamp="1504453023775" lastAccessTime="1505169588128">
+    <attributes name="indexed" location="2838196607/3681954587/387.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/Port.lua" timestamp="1505068498241" lastAccessTime="1505169588141">
+    <attributes name="indexed" location="2838196607/3681954587/389.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/Region.lua" timestamp="1505068536252" lastAccessTime="1505169587910">
+    <attributes name="indexed" location="2838196607/3681954587/379.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/core/RegionBase.lua" timestamp="1505068547770" lastAccessTime="1505169587549">
+    <attributes name="indexed" location="2838196607/3681954587/375.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/oo/Class.lua" timestamp="1495071438000" lastAccessTime="1505169587642">
+    <attributes name="indexed" location="2838196607/4238209508/377.idx"/>
+  </entries>
+  <entries path="C:/Users/gabriel/Desktop/TCC/NCube/API(NCube)/src/CreateDocument.lua" timestamp="1505170685583" lastAccessTime="1505170686185"/>
 </cache:CacheIndex>

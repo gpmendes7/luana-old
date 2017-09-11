@@ -20,14 +20,14 @@ Body.ports = nil
 Body.medias = nil
 Body.seq = false
 
-function Body:create(attributes, empty)
+function Body:create(attributes, full)
    local attributes = attributes or {}  
    local body = Body:new()
    
    body:setAttributes(attributes)
    body:setChilds()  
    
-   if(empty ~= nil)then
+   if(full ~= nil)then
       body.ports = {}
       body:addChild({} , 1)
       
