@@ -41,12 +41,12 @@ function SimpleCondition:getDelay()
    return self.attributes.delay
 end
 
-function SimpleCondition:setDelay(delay)
-   self.attributes.delay = delay
+function SimpleAction:setEventType(eventType)
+   self.attributes.eventType = eventType
 end
 
-function SimpleCondition:getDelay()
-   return self.attributes.delay
+function SimpleAction:getEventType()
+   return self.attributes.eventType
 end
 
 function SimpleCondition:setKey(key)
