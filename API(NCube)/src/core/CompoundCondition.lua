@@ -69,8 +69,6 @@ function CompoundCondition:setSimpleConditions(...)
     end
 end
 
-CompoundCondition.childsMap["compoundCondition"] = {CompoundCondition, "many", 2}
-
 function CompoundCondition:addCompoundCondition(compoundCondition)
     table.insert(self.compoundConditions, compoundCondition)
     table.insert(self:getChild(1), compoundCondition)
@@ -87,5 +85,7 @@ function CompoundCondition:setCompoundCondition(...)
       end
     end
 end
+
+CompoundCondition.childsMap["compoundCondition"] = {CompoundCondition, "many", 2}
 
 return CompoundCondition
