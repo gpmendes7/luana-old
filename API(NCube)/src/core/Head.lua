@@ -1,19 +1,22 @@
 local NCLElem = require "core/NCLElem"
 
-local RegionBase = require "core/RegionBase"
-local DescriptorBase = require "core/DescriptorBase"
-
 local Head = Class:createClass(NCLElem)
 
 Head.name = "head"
 
+local RegionBase = require "core/RegionBase"
+local DescriptorBase = require "core/DescriptorBase"
+local ConnectorBase = require "core/ConnectorBase"
+
 Head.childsMap = {
  ["regionBase"] = {RegionBase, "many", 1}, 
- ["descriptorBase"] = {DescriptorBase, "one", 2}
+ ["descriptorBase"] = {DescriptorBase, "one", 2},
+ ["connectorBase"] = {ConnectorBase, "many", 3}
 }
 
 Head.regionBases = nil
 Head.descriptorBase = nil
+Head.connectorBases = nil
 Head.seq = true
 
 function Head:create(full)
@@ -24,10 +27,14 @@ function Head:create(full)
    if(full ~= nil)then      
       head.regionBases = {}
       head:addChild({} , 1)
-      
+            
       local descriptorBase = DescriptorBase:create(nil, full)
       head:setDescriptorBase(descriptorBase)
+      
+      head.connectorBases = {}
+      head:addChild({} , 3)
    end
+   
    return head
 end
 
@@ -41,9 +48,9 @@ function Head:getRegionBase(i)
 end
 
 function Head:getRegionBaseById(id)
-   for i, v in ipairs(self.regionBases) do
-       if(self.regionBases[i]:getId() == id)then
-          return self.regionBases[i]
+   for i, regionBase in ipairs(self.regionBases) do
+       if(regionBase:getId() == id)then
+          return regionBase
        end
    end
    
@@ -52,7 +59,7 @@ end
 
 function Head:setRegionBases(...)
     if(#arg>0)then
-      for i, v in ipairs(arg[1]) do
+      for i, v in ipairs(arg) do
           self:addRegionBase(v)
       end
     end
@@ -65,6 +72,33 @@ end
 
 function Head:getDescriptorBase()
    return self.descriptorBase
+end
+
+function Head:addConnectorBase(connectorBase)
+    table.insert(self.connectorBases, connectorBase)
+    table.insert(self:getChild(3), connectorBase)
+end
+
+function Head:getConnectorBase(i)
+    return self.connectorBase[i]
+end
+
+function Head:getConnectorBaseById(id)
+   for i, connectorBase in ipairs(self.connectorBases) do
+       if(connectorBase:getId() == id)then
+          return connectorBase
+       end
+   end
+   
+   return nil
+end
+
+function Head:setConnectorBases(...)
+    if(#arg>0)then
+      for i, v in ipairs(arg) do
+          self:addConnectorBase(v)
+      end
+    end
 end
 
 return Head

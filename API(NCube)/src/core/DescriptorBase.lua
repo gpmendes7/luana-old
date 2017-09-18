@@ -2,13 +2,13 @@ local NCLElem = require "core/NCLElem"
 
 local DescriptorBase = Class:createClass(NCLElem)
 
-local Descriptor = require "core/Descriptor"
-
 DescriptorBase.name = "descriptorBase"
 
 DescriptorBase.attributes = { 
   id = nil
 }
+
+local Descriptor = require "core/Descriptor"
 
 DescriptorBase.childsMap = {
  ["descriptor"] = {Descriptor, "many", 1}
@@ -50,9 +50,9 @@ function DescriptorBase:getDescriptor(i)
 end
 
 function DescriptorBase:getDescriptorById(id)
-   for i, v in ipairs(self.descriptors) do
-       if(self.descriptors[i]:getId() == id)then
-          return self.descriptors[i]
+   for i, descriptor in ipairs(self.descriptors) do
+       if(descriptor:getId() == id)then
+          return descriptor
        end
    end
    
