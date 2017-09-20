@@ -12,7 +12,8 @@ CompoundCondition.attributes = {
 local SimpleCondition = require "core/SimpleCondition"
 
 CompoundCondition.childsMap = {
- ["simpleCondition"] = {SimpleCondition, "many", 1}
+ ["simpleCondition"] = {SimpleCondition, "many", 1},
+ ["compoundCondition"] = {CompoundCondition, "many", 2}
 }
 
 CompoundCondition.simpleConditions = nil
@@ -85,7 +86,5 @@ function CompoundCondition:setCompoundCondition(...)
       end
     end
 end
-
-CompoundCondition.childsMap["compoundCondition"] = {CompoundCondition, "many", 2}
 
 return CompoundCondition
