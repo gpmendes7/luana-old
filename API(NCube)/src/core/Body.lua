@@ -18,7 +18,6 @@ Body.childsMap = {
 
 Body.ports = nil
 Body.medias = nil
-Body.seq = false
 
 function Body:create(attributes, full)
    local attributes = attributes or {}  
@@ -26,13 +25,12 @@ function Body:create(attributes, full)
    
    body:setAttributes(attributes)
    body:setChilds()  
+   body.ports = {}
+   body.medias = {}
    
    if(full ~= nil)then
-      body.ports = {}
-      body:addChild({} , 1)
-      
-      body.medias = {}
-      body:addChild({} , 2)
+      body:addPort(Port:create()) 
+      body:addMedia(Media:create()) 
    end
    
    return body
@@ -47,8 +45,8 @@ function Body:getId()
 end
 
 function Body:addPort(port)
-   table.insert(self.ports, port)
-   table.insert(self:getChild(1), port)
+   table.insert(self.ports, port)    
+   self:addChild(port)
 end
 
 function Body:getPort(i)
@@ -74,8 +72,8 @@ function Body:setPorts(...)
 end
 
 function Body:addMedia(media)
-   table.insert(self.medias, media)
-   table.insert(self:getChild(2), media)
+   table.insert(self.medias, media)    
+   self:addChild(media)
 end
 
 function Body:getMedia(i)

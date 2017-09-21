@@ -23,7 +23,6 @@ Document.childsMap = {
 
 Document.head = nil
 Document.body = nil
-Document.seq = true
 
 function Document:create(attributes, xmlHead, full)
    local attributes = attributes or {}  
@@ -129,7 +128,7 @@ function Document:loadNcl(name)
                  local objectId = descendant:getAttribute(object)
                  local objectAss = assMap[2]
                  
-                 descendant[objectAss] = self:getDescendantById(objectId)
+                 descendant[objectAss] = self:getDescendantByAttribute("id", objectId)
               end
            end
        end

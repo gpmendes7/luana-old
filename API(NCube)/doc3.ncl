@@ -31,16 +31,6 @@
         
         <media id="trailer" type="video/mpeg" src="media/homem_aranha.mpg" descriptor="dTrailer" />
         			
-        <media id="logo" type="image/png" src="media/homem_aranha_logo.png" descriptor="dLogo" />
-        
-        <link id="lLogoStart" xconnector="onBeginStart">
-        	<bind role="onBegin" component="trailer" />
-        	<bind role="start" component="logo" />
-        </link>
-        
-        <link id="lLogoStop" xconnector="onEndStop">
-        	<bind role="onEnd" component="trailer" />
-        	<bind role="stop" component="logo" />
-        </link>
+        <media id="logo" type="image/png" src="media/homem_aranha_logo.png" descriptor="dLogo" />       
 	</body>
 </ncl>

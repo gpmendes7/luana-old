@@ -13,9 +13,7 @@
   </descriptorBase>
  </head>
  <body>
-  <port id="p1" component="m1"/>
   <port id="p2" component="m2"/>
-  <media id="m1" src="media/media1.mpg" descriptor="d1" type="video/mpeg"/>
   <media id="m2" src="media/media2.mpg" descriptor="d2" type="video/mpeg"/>
  </body>
 </ncl>

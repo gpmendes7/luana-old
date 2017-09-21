@@ -17,19 +17,17 @@ RegionBase.childsMap = {
 }
 
 RegionBase.regions = nil
-RegionBase.seq = true
 
-function RegionBase:create(attributes, empty)
+function RegionBase:create(attributes, full)
    local attributes = attributes or {}     
    local regionBase = RegionBase:new()  
     
    regionBase:setAttributes(attributes)
    regionBase:setChilds()  
-   regionBase:setChildsAux()
+   regionBase.regions = {}
    
-   if(empty ~= nil)then
-      regionBase.regions = {}
-      regionBase:addChild({} , 1)
+   if(full ~= nil)then    
+      regionBase:addRegion(Region:create())
    end
    
    return regionBase
@@ -60,8 +58,13 @@ function RegionBase:getRegionExt()
 end
 
 function RegionBase:addRegion(region)
-    table.insert(self.regions, region)
-    table.insert(self:getChild(1), region)
+    table.insert(self.regions, region)    
+    local p = self:getLastPosChild("region")
+    if(p ~= nil)then
+       self:addChild(region, p+1)
+    else
+       self:addChild(region, 1)
+    end
 end
 
 function RegionBase:getRegion(i)

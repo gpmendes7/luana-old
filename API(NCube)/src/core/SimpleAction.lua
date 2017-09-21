@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local SimpleAction = Class:createClass(NCLElem)
 
-SimpleAction.name = "SimpleAction"
+SimpleAction.name = "simpleAction"
 
 SimpleAction.attributes = {
   role = nil,

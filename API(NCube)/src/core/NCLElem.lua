@@ -20,17 +20,9 @@ function NCLElem:getName()
     return self.name
 end
 
-function NCLElem:getPosChild(child)
-    for i, chd in ipairs(self:getDescendants()) do
-       if(chd == child)then
-          return i
-       end 
-    end  
-end
-
 function NCLElem:addChild(child, p)
     if(p ~= nil)then
-       self.childs[p] = child
+       table.insert(self.childs, p, child)
     else
        table.insert(self.childs, child)
     end
@@ -38,6 +30,10 @@ end
 
 function NCLElem:removeChild(p)
     table.remove(self.childs, p)
+end
+
+function NCLElem:removeAllChilds()
+    self.childs = {}
 end
 
 function NCLElem:getChild(i)
@@ -55,6 +51,26 @@ end
 
 function NCLElem:getChilds()
     return self.childs
+end
+
+function NCLElem:getPosChild(child)
+    for i, chd in ipairs(self.childs) do
+       if(chd == child)then
+          return i
+       end 
+    end  
+end
+
+function NCLElem:getLastPosChild(child)
+   local p = nil
+   
+   for i, chd in ipairs(self.childs) do
+      if(child == chd:getName())then
+         p = i
+      end
+   end
+      
+   return p
 end
 
 function NCLElem:setChildsAux(...)
@@ -79,7 +95,6 @@ function NCLElem:getAssMap()
 end
 
 function NCLElem:getDescendants()
-  local descendantsAux = {}
   local descendants = {}
   
   local childs = self:getChilds()
@@ -89,80 +104,29 @@ function NCLElem:getDescendants()
   
   if(childs ~= nil)then
      for i=1,nchilds do
-         local child = self:getChild(i)
-         table.insert(descendantsAux, child)
-                     
-         if(getmetatable(child))then
-            descs = child:getDescendants()
-            if(getmetatable(descs))then
-               table.insert(descendantsAux, descs)
-            else
-              for _, desc in ipairs(descs) do
-                 table.insert(descendants, desc)
-              end
-            end
-          else 
-            for j, c in ipairs(child) do
-                descs = c:getDescendants()
-                if(getmetatable(descs))then
-                   table.insert(descendantsAux, descs)
-                else
-                  for _, desc in ipairs(descs) do
-                     table.insert(descendants, desc)
-                  end
-                end
-            end  
-          end          
+         local child = self:getChild(i)         
+         table.insert(descendants, child)  
+                                  
+         descs = child:getDescendants()
+         for _, desc in ipairs(descs) do
+             table.insert(descendants, desc)
+         end       
       end
    end
-   
-   for _, desc in ipairs(descendantsAux) do
-      if(getmetatable(desc))then
-         table.insert(descendants, desc)
-      else
-        for _, d in ipairs(desc) do
-         table.insert(descendants, d) 
-        end
-      end
-   end
-   
+     
    return descendants
 end
 
-function NCLElem:getDescendantById(id) 
-  local childT = nil
-  local childs = self:getChilds()
-  local nchilds = #childs
-  
-  if(childs ~= nil)then
-     for i=1,nchilds do
-         local child = self:getChild(i)
-                     
-         if(getmetatable(child))then
-            if(child["getId"] ~= nil and child:getId() == id)then
-               return child
-            else
-               childT = child:getDescendantById(id)
-               if(childT ~= nil)then
-                 return childT
-               end
-            end 
-          else 
-            for j, c in ipairs(child) do
-                if(c["getId"] ~= nil and c:getId() == id)then
-                   return c
-                else
-                   childT = c:getDescendantById(id)
-                   if(childT ~= nil)then
-                     return childT
-                   end
-                end 
-            end  
-          end          
+function NCLElem:getDescendantByAttribute(attribute, value) 
+   local descs = self:getDescendants()
+   
+   for _, desc in ipairs(descs) do
+      if(desc.attributes ~= nil and desc:getAttribute(attribute) == value)then
+        return desc
       end
    end
    
-   return childT
+   return nil
 end
 
 function NCLElem:addAttribute(attribute, value)
@@ -190,7 +154,7 @@ end
 function NCLElem:ncl2Table()   
    local s, e, t, u, v = nil
    local elemNcl = self:getNcl()    
-     
+      
    _, s = string.find(elemNcl, "<"..self:getName().." ")
    _, t = string.find(elemNcl, "<"..self:getName()..">")
    e = string.find(elemNcl, ">")
@@ -289,32 +253,24 @@ function NCLElem:ncl2Table()
              
              childObject:setNcl(childNcl)
              childObject:ncl2Table()  
+             self:addChild(childObject)
                           
              local cardinality = self:getChildsMap()[childName][2]
-             
+                         
              local p = self:getChildsMap()[childName][3]
-                 
-             if(self.seq)then             
-               if(cardinality == "many")then    
-                  if(self[childName..'s'] == nil and self:getChild(p) == nil)then
+                       
+             if(cardinality == "many")then    
+                if(self[childName..'s'] == nil)then
                      self[childName..'s'] = {}
-                     self.childs[p] = {}
-                  end
-                              
-                  table.insert(self[childName.."s"], childObject) 
-                  table.insert(self:getChild(p), childObject)                
-               else if(cardinality == "one")then                       
-                       self[childName] = childObject 
-                       self:addChild(childObject, p)
-                    end
-               end  
-             else 
-                if(self[childName.."s"] == nil)then
-                     self[childName.."s"] = {}
                 end
-                table.insert(self[childName.."s"], childObject) 
-                self:addChild(childObject)
+                              
+                table.insert(self[childName.."s"], childObject)                
+             else if(cardinality == "one")then                       
+                     self[childName] = childObject                
              end
+                         
+           end 
+            
            if(h ~= nil)then
              childsNcl = string.sub(childsNcl,h+1,string.len(childsNcl))      
              end  
@@ -334,7 +290,7 @@ function NCLElem:table2Ncl(deep)
        ncl = ncl.." "
     end 
   end 
-    
+        
   ncl = ncl.."<"..self:getName()
     
   local attrs = self:getAttributes()
@@ -356,15 +312,8 @@ function NCLElem:table2Ncl(deep)
   if(childs ~= nil)then
      ncl = ncl..">\n"  
      for i=1,nchilds do
-         local child = self:getChild(i)
-                     
-         if(child["table2Ncl"] == nil)then
-            for j, v in ipairs(child) do
-                ncl = ncl..v:table2Ncl(deep+1)
-             end    
-          else 
-             ncl = ncl..child:table2Ncl(deep+1)
-          end          
+         local child = self:getChild(i)                     
+         ncl = ncl..child:table2Ncl(deep+1)         
      end
            
      for i=1,deep do

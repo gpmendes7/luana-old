@@ -58,7 +58,7 @@ function CompoundCondition:addSimpleCondition(simpleCondition)
     table.insert(self:getChild(1), simpleCondition)
 end
 
-function CompoundCondition:getsimpleCondition(i)
+function CompoundCondition:getSimpleCondition(i)
     return self.simpleConditions[i]
 end
 
@@ -72,14 +72,14 @@ end
 
 function CompoundCondition:addCompoundCondition(compoundCondition)
     table.insert(self.compoundConditions, compoundCondition)
-    table.insert(self:getChild(1), compoundCondition)
+    table.insert(self:getChild(2), compoundCondition)
 end
 
 function CompoundCondition:getCompoundCondition(i)
     return self.compoundConditions[i]
 end
 
-function CompoundCondition:setCompoundCondition(...)
+function CompoundCondition:setCompoundConditions(...)
     if(#arg>0)then
       for i, v in ipairs(arg) do
           self:addCompoundCondition(v)

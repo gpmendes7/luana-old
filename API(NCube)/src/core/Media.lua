@@ -14,8 +14,10 @@ Media.attributes = {
 function Media:create(attributes)
    local attributes = attributes or {}    
    local media = Media:new()   
+   
    media:setAttributes(attributes)
    media:setChilds()
+   
    return media
 end
 

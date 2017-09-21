@@ -17,30 +17,31 @@ Head.childsMap = {
 Head.regionBases = nil
 Head.descriptorBase = nil
 Head.connectorBases = nil
-Head.seq = true
 
 function Head:create(full)
-   local head = Head:new()
-      
+   local head = Head:new()     
+    
    head:setChilds()   
+   head.regionBases = {}
+   head.connectorBases = {}
    
-   if(full ~= nil)then      
-      head.regionBases = {}
-      head:addChild({} , 1)
-            
-      local descriptorBase = DescriptorBase:create(nil, full)
-      head:setDescriptorBase(descriptorBase)
-      
-      head.connectorBases = {}
-      head:addChild({} , 3)
+   if(full ~= nil)then            
+      head:addRegionBase(RegionBase:create(nil, full))            
+      head:setDescriptorBase(DescriptorBase:create(nil, full))      
+      head:addConnectorBase(ConnectorBase:create(nil, full))
    end
    
    return head
 end
 
 function Head:addRegionBase(regionBase)
-    table.insert(self.regionBases, regionBase)
-    table.insert(self:getChild(1), regionBase)
+    table.insert(self.regionBases, regionBase)    
+    local p = self:getLastPosChild("regionBase")
+    if(p ~= nil)then
+       self:addChild(regionBase, p+1)
+    else
+       self:addChild(regionBase, 1)
+    end
 end
 
 function Head:getRegionBase(i)
@@ -66,8 +67,23 @@ function Head:setRegionBases(...)
 end
 
 function Head:setDescriptorBase(descriptorBase)
-   self.descriptorBase = descriptorBase
-   self:addChild(descriptorBase, 2)
+   local p = nil 
+   
+   if(self.descriptorBase == nil)then
+      self.descriptorBase = descriptorBase
+      
+      p = self:getLastPosChild("regionBase")      
+      if(p ~= nil)then
+         self:addChild(descriptorBase, p+1)
+       else
+         self:addChild(descriptorBase, 1)
+      end    
+   else
+       p = self:getLastPosChild("descriptorBase")
+       self:removeChild(p)
+       self:addChild(descriptorBase, p)
+   end
+   
 end
 
 function Head:getDescriptorBase()
@@ -75,12 +91,34 @@ function Head:getDescriptorBase()
 end
 
 function Head:addConnectorBase(connectorBase)
-    table.insert(self.connectorBases, connectorBase)
-    table.insert(self:getChild(3), connectorBase)
+    table.insert(self.connectorBases, connectorBase)   
+    
+    local p = nil      
+    
+    p = self:getLastPosChild("connectorBase")    
+    
+    if(p ~= nil)then
+       self:addChild(connectorBase, p+1)
+    else   
+      p = self:getLastPosChild("descriptorBase")    
+       
+      if(p ~= nil)then
+         self:addChild(connectorBase, p+1)
+      else
+         p = self:getLastPosChild("regionBase")   
+           
+         if(p ~= nil)then
+            self:addChild(connectorBase, p+1)
+         else
+             self:addChild(connectorBase, 1)
+         end
+      end
+    end
+  
 end
 
 function Head:getConnectorBase(i)
-    return self.connectorBase[i]
+    return self.connectorBases[i]
 end
 
 function Head:getConnectorBaseById(id)

@@ -22,10 +22,10 @@ function ConnectorBase:create(attributes, full)
      
    connectorBase:setAttributes(attributes)
    connectorBase:setChilds()
-   
+   connectorBase.causalConnectors = {}
+    
    if(full ~= nil)then      
-      connectorBase.causalConnectors = {}
-      connectorBase:addChild({} , 1)
+       connectorBase:addCausalConnector(CausalConnector:create(nil, full))       
    end
    
    return connectorBase
@@ -40,8 +40,13 @@ function ConnectorBase:getId()
 end
 
 function ConnectorBase:addCausalConnector(causalConnector)
-    table.insert(self.causalConnectors, causalConnector)
-    table.insert(self:getChild(1), causalConnector)
+    table.insert(self.causalConnectors, causalConnector)    
+    local p = self:getLastPosChild("causalConnector")
+    if(p ~= nil)then
+       self:addChild(causalConnector, p+1)
+    else
+       self:addChild(causalConnector, 1)
+    end
 end
 
 function ConnectorBase:getCausalConnector(i)

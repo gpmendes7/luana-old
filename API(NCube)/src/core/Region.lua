@@ -21,18 +21,17 @@ Region.childsMap = {
 }
 
 Region.regions = nil 
-Region.seq = true
 
-function Region:create(attributes, empty)
+function Region:create(attributes, full)
    local attributes = attributes or {}  
    local region = Region:new() 
     
    region:setAttributes(attributes)
    region:setChilds() 
+   region.regions = {}
    
-   if(empty ~= nil)then
-      region.regions = {}
-      region:addChild({} , 1)
+   if(full ~= nil)then
+      region:addRegion(Region:create())
    end
    
    return region
@@ -123,8 +122,13 @@ function Region:getZIndex()
 end
 
 function Region:addRegion(region)
-    table.insert(self.regions, region)
-    table.insert(self:getChild(1), region)
+    table.insert(self.regions, region)    
+    local p = self:getLastPosChild("region")
+    if(p ~= nil)then
+       self:addChild(region, p+1)
+    else
+       self:addChild(region, 1)
+    end
 end
 
 function Region:getRegion(i)

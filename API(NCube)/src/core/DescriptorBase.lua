@@ -15,7 +15,6 @@ DescriptorBase.childsMap = {
 }
 
 DescriptorBase.descritptors = nil
-DescriptorBase.seq = true
 
 function DescriptorBase:create(attributes, full)
    local attributes = attributes or {}  
@@ -23,10 +22,10 @@ function DescriptorBase:create(attributes, full)
    
    descriptorBase:setAttributes(attributes)
    descriptorBase:setChilds()    
+   descriptorBase.descriptors = {}
    
    if(full ~= nil)then
-      descriptorBase.descriptors = {}
-      descriptorBase:addChild({} , 1)
+      descriptorBase:addDescriptor(Descriptor:create())     
    end
    
    return descriptorBase
@@ -41,8 +40,13 @@ function DescriptorBase:getId()
 end
 
 function DescriptorBase:addDescriptor(descriptor)
-    table.insert(self.descriptors, descriptor)
-    table.insert(self:getChild(1), descriptor)
+    table.insert(self.descriptors, descriptor)    
+    local p = self:getLastPosChild("descriptor")
+    if(p ~= nil)then
+       self:addChild(descriptor, p+1)
+    else
+       self:addChild(descriptor, 1)
+    end
 end
 
 function DescriptorBase:getDescriptor(i)
