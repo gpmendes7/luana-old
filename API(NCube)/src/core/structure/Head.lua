@@ -1,12 +1,11 @@
 local NCLElem = require "core/NCLElem"
+local RegionBase = require "core/adaptation/RegionBase"
+local DescriptorBase = require "core/adaptation/DescriptorBase"
+local ConnectorBase = require "core/synchronism/ConnectorBase"
 
 local Head = Class:createClass(NCLElem)
 
 Head.name = "head"
-
-local RegionBase = require "core/RegionBase"
-local DescriptorBase = require "core/DescriptorBase"
-local ConnectorBase = require "core/ConnectorBase"
 
 Head.childsMap = {
  ["regionBase"] = {RegionBase, "many", 1}, 

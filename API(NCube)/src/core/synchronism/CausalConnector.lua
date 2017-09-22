@@ -1,4 +1,7 @@
 local NCLElem = require "core/NCLElem"
+local ConnectorParam = require "core/synchronism/ConnectorParam"
+local SimpleCondition = require "core/synchronism/SimpleCondition"
+local SimpleAction = require "core/synchronism/SimpleAction"
 
 local CausalConnector = Class:createClass(NCLElem)
 
@@ -7,10 +10,6 @@ CausalConnector.name = "causalConnector"
 CausalConnector.attributes = {
   id = nil
 }
-
-local ConnectorParam = require "core/ConnectorParam"
-local SimpleCondition = require "core/SimpleCondition"
-local SimpleAction = require "core/SimpleAction"
 
 CausalConnector.childsMap = {
  ["connectorParam"] = {ConnectorParam, "many", 1},

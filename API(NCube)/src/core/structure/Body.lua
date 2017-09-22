@@ -1,7 +1,6 @@
 local NCLElem = require "core/NCLElem"
-
-local Port = require "core/Port"
-local Media = require "core/Media"
+local Port = require "core/interface/Port"
+local Media = require "core/content/Media"
 
 local Body = Class:createClass(NCLElem)
 

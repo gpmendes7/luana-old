@@ -1,4 +1,5 @@
 local NCLElem = require "core/NCLElem"
+local SimpleCondition = require "core/synchronism/SimpleCondition"
 
 local CompoundCondition = Class:createClass(NCLElem)
 
@@ -8,8 +9,6 @@ CompoundCondition.attributes = {
   operator = nil,
   delay = nil
 }
-
-local SimpleCondition = require "core/SimpleCondition"
 
 CompoundCondition.childsMap = {
  ["simpleCondition"] = {SimpleCondition, "many", 1},

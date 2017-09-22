@@ -1,4 +1,5 @@
 local NCLElem = require "core/NCLElem"
+local Descriptor = require "core/adaptation/Descriptor"
 
 local DescriptorBase = Class:createClass(NCLElem)
 
@@ -7,8 +8,6 @@ DescriptorBase.name = "descriptorBase"
 DescriptorBase.attributes = { 
   id = nil
 }
-
-local Descriptor = require "core/Descriptor"
 
 DescriptorBase.childsMap = {
  ["descriptor"] = {Descriptor, "many", 1}

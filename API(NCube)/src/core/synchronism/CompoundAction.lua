@@ -1,4 +1,5 @@
 local NCLElem = require "core/NCLElem"
+local SimpleAction = require "core/synchronism/SimpleAction"
 
 local CompoundAction = Class:createClass(NCLElem)
 
@@ -8,8 +9,6 @@ CompoundAction.attributes = {
   operator = nil,
   delay = nil
 }
-
-local SimpleAction = require "core/SimpleAction"
 
 CompoundAction.childsMap = {
  ["simpleAction"] = {SimpleAction, "many", 1},

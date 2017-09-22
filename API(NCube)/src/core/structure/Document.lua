@@ -1,8 +1,6 @@
 local NCLElem = require "core/NCLElem"
-
-local Head = require "core/Head"
-
-local Body = require "core/Body"
+local Head = require "core/structure/Head"
+local Body = require "core/structure/Body"
 
 local Document = Class:createClass(NCLElem)
 
