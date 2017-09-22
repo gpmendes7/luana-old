@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local SimpleAction = Class:createClass(NCLElem)
+local SimpleAction = NCLElem:extends()
 
 SimpleAction.name = "simpleAction"
 

@@ -1,7 +1,7 @@
 local NCLElem = require "core/NCLElem"
 local SimpleCondition = require "core/synchronism/SimpleCondition"
 
-local CompoundCondition = Class:createClass(NCLElem)
+local CompoundCondition = NCLElem:extends()
 
 CompoundCondition.name = "compoundCondition"
 

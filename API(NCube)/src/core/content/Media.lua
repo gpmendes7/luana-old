@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local Media = Class:createClass(NCLElem)
+local Media = NCLElem:extends()
 
 Media.name = "media"
 

@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local SimpleCondition = Class:createClass(NCLElem)
+local SimpleCondition = NCLElem:extends()
 
 SimpleCondition.name = "simpleCondition"
 

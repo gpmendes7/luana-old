@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local Descriptor = Class:createClass(NCLElem)
+local Descriptor = NCLElem:extends()
 
 Descriptor.name = "descriptor"
 

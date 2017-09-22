@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 local Port = require "core/interface/Port"
 local Media = require "core/content/Media"
 
-local Body = Class:createClass(NCLElem)
+local Body = NCLElem:extends()
 
 Body.name = "body"
 

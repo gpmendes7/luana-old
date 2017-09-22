@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local ConnectorParam = Class:createClass(NCLElem)
+local ConnectorParam = NCLElem:extends()
 
 ConnectorParam .name = "connectorParam"
 

@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 local Head = require "core/structure/Head"
 local Body = require "core/structure/Body"
 
-local Document = Class:createClass(NCLElem)
+local Document = NCLElem:extends()
 
 Document.name = "ncl"
 

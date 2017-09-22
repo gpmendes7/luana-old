@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local Port = Class:createClass(NCLElem)
+local Port = NCLElem:extends()
 
 Port.name = "port"
 

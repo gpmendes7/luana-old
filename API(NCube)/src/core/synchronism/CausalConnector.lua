@@ -3,7 +3,7 @@ local ConnectorParam = require "core/synchronism/ConnectorParam"
 local SimpleCondition = require "core/synchronism/SimpleCondition"
 local SimpleAction = require "core/synchronism/SimpleAction"
 
-local CausalConnector = Class:createClass(NCLElem)
+local CausalConnector = NCLElem:extends()
 
 CausalConnector.name = "causalConnector"
 

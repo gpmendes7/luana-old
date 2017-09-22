@@ -1,7 +1,7 @@
 local NCLElem = require "core/NCLElem"
 local SimpleAction = require "core/synchronism/SimpleAction"
 
-local CompoundAction = Class:createClass(NCLElem)
+local CompoundAction = NCLElem:extends()
 
 CompoundAction.name = "compoundAction"
 

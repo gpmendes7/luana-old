@@ -1,4 +1,4 @@
-Class = require "oo/Class"
+local Class = require "oo/Class"
 
 local NCLElem = Class:createClass{
   name = nil, 
@@ -11,6 +11,10 @@ local NCLElem = Class:createClass{
   seq = nil,
   hasAss = nil
 }
+
+function NCLElem:extends()
+    return Class:createClass(NCLElem)
+end
 
 function NCLElem:setName(name)
     self.name = name

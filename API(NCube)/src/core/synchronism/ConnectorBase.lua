@@ -1,7 +1,7 @@
 local NCLElem = require "core/NCLElem"
 local CausalConnector = require "core/synchronism/CausalConnector"
 
-local ConnectorBase = Class:createClass(NCLElem)
+local ConnectorBase = NCLElem:extends()
 
 ConnectorBase.name = "connectorBase"
 

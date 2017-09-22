@@ -3,7 +3,7 @@ local RegionBase = require "core/adaptation/RegionBase"
 local DescriptorBase = require "core/adaptation/DescriptorBase"
 local ConnectorBase = require "core/synchronism/ConnectorBase"
 
-local Head = Class:createClass(NCLElem)
+local Head = NCLElem:extends()
 
 Head.name = "head"
 

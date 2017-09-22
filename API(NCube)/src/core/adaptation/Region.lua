@@ -1,6 +1,6 @@
 local NCLElem = require "core/NCLElem"
 
-local Region = Class:createClass(NCLElem)
+local Region = NCLElem:extends()
 
 Region.name = "region"
 

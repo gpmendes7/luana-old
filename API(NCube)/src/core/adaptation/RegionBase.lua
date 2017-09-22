@@ -1,7 +1,7 @@
 local NCLElem = require "core/NCLElem"
 local Region = require "core/adaptation/Region"
 
-local RegionBase = Class:createClass(NCLElem)
+local RegionBase = NCLElem:extends()
 
 RegionBase.name = "regionBase"
 

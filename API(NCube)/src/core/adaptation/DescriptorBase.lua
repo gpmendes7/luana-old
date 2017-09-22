@@ -1,7 +1,7 @@
 local NCLElem = require "core/NCLElem"
 local Descriptor = require "core/adaptation/Descriptor"
 
-local DescriptorBase = Class:createClass(NCLElem)
+local DescriptorBase = NCLElem:extends()
 
 DescriptorBase.name = "descriptorBase"
 
