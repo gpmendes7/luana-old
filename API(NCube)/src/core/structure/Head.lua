@@ -35,9 +35,9 @@ end
 
 function Head:addRegionBase(regionBase)
     table.insert(self.regionBases, regionBase)    
-    local p = self:getLastPosChild("regionBase")
+    local p = self:getPosEmpty("regionBase")
     if(p ~= nil)then
-       self:addChild(regionBase, p+1)
+       self:addChild(regionBase, p)
     else
        self:addChild(regionBase, 1)
     end
@@ -69,20 +69,19 @@ function Head:setDescriptorBase(descriptorBase)
    local p = nil 
    
    if(self.descriptorBase == nil)then
-      self.descriptorBase = descriptorBase
-      
-      p = self:getLastPosChild("regionBase")      
+      p = self:getPosEmpty("regionBase")          
       if(p ~= nil)then
-         self:addChild(descriptorBase, p+1)
+         self:addChild(descriptorBase, p)
        else
          self:addChild(descriptorBase, 1)
       end    
    else
-       p = self:getLastPosChild("descriptorBase")
+       p = self:getPosEmpty("descriptorBase") - 1
        self:removeChild(p)
        self:addChild(descriptorBase, p)
    end
    
+    self.descriptorBase = descriptorBase        
 end
 
 function Head:getDescriptorBase()
@@ -91,29 +90,13 @@ end
 
 function Head:addConnectorBase(connectorBase)
     table.insert(self.connectorBases, connectorBase)   
-    
-    local p = nil      
-    
-    p = self:getLastPosChild("connectorBase")    
-    
-    if(p ~= nil)then
-       self:addChild(connectorBase, p+1)
-    else   
-      p = self:getLastPosChild("descriptorBase")    
-       
-      if(p ~= nil)then
-         self:addChild(connectorBase, p+1)
-      else
-         p = self:getLastPosChild("regionBase")   
-           
-         if(p ~= nil)then
-            self:addChild(connectorBase, p+1)
-         else
-             self:addChild(connectorBase, 1)
-         end
-      end
-    end
   
+    local p = self:getPosEmpty("connectorBase", "descriptorBase", "regionBase")  
+    if(p ~= nil)then
+       self:addChild(connectorBase, p)
+    else
+       self:addChild(connectorBase, 1)
+    end
 end
 
 function Head:getConnectorBase(i)

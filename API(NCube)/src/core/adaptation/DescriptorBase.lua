@@ -13,7 +13,7 @@ DescriptorBase.childsMap = {
  ["descriptor"] = {Descriptor, "many", 1}
 }
 
-DescriptorBase.descritptors = nil
+DescriptorBase.descriptors = nil
 
 function DescriptorBase:create(attributes, full)
    local attributes = attributes or {}  

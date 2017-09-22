@@ -32,8 +32,9 @@ function NCLElem:addChild(child, p)
     end
 end
 
-function NCLElem:removeChild(p)
-    table.remove(self.childs, p)
+function NCLElem:removeChild(child)
+    local p = self:getPosChild(child)   
+    table.remove(self.childs, p)  
 end
 
 function NCLElem:removeAllChilds()
@@ -75,6 +76,15 @@ function NCLElem:getLastPosChild(child)
    end
       
    return p
+end
+
+function NCLElem:getPosEmpty(...)      
+   for _, elem in ipairs(arg) do
+      local p = self:getLastPosChild(elem) 
+      if(p ~= nil)then
+         return p + 1
+      end
+   end
 end
 
 function NCLElem:setChildsAux(...)

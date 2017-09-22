@@ -3,25 +3,27 @@ require("core/NCube")
 local doc = Document:create()
 doc:loadNcl("doc.ncl")
 
-doc:writeNcl()
+--doc:writeNcl()
 
 local head = doc:getHead()
-head:writeNcl()
+--head:writeNcl()
 head:getDescriptorBase(1):getDescriptor(1):setAttributes{id="d7", region="rg7"}
+--head:setDescriptorBase(DescriptorBase:create({id = "db"}, 1))
+--head:setDescriptorBase(DescriptorBase:create({id = "db2"}, 1))
+head:removeChild(head:getDescriptorBase(1))
+head:removeChild(head:getRegionBase(1))
 head:getRegionBase(1):getRegion(1):setAttributes{id="rg7", width="100%", height="100%"}
 
 head:addConnectorBase(ConnectorBase:create())
-
 local cb = head:getConnectorBase(1)
-
 cb:setId("cb1")
 cb:addCausalConnector(CausalConnector:create())
 cb:getCausalConnector(1):setId("cc1")
 cb:getCausalConnector(1):setSimpleCondition(SimpleCondition:create{role = "onBegin"})
 cb:getCausalConnector(1):setSimpleAction(SimpleAction:create{role = "start"})
-head:writeNcl()
+--head:writeNcl()
 
-head:getDescendantByAttribute("id", "cb1"):writeNcl()
+--head:getDescendantByAttribute("id", "cb1"):writeNcl()
 
 --print(doc:getHead():writeNcl())
 
