@@ -1,29 +1,24 @@
-local NCube = {}
+Document = require "core/structure/Document"
+Head = require "core/structure/Head"
+Body = require "core/structure/Body"
 
-Document = require "core/Document"
+RegionBase = require "core/adaptation/RegionBase"
+Region = require "core/adaptation/Region"
 
-Head = require "core/Head"
+DescriptorBase = require "core/adaptation/DescriptorBase"
+Descriptor = require "core/adaptation/Descriptor"
 
-RegionBase = require "core/RegionBase"
-Region = require "core/Region"
+ConnectorBase = require "core/synchronism/ConnectorBase"
+CausalConnector = require "core/synchronism/CausalConnector"
 
-DescriptorBase = require "core/DescriptorBase"
-Descriptor = require "core/Descriptor"
+ConnectorParam = require "core/synchronism/ConnectorParam"
 
-ConnectorBase = require "core/ConnectorBase"
-CausalConnector = require "core/CausalConnector"
+SimpleCondition = require "core/synchronism/SimpleCondition"
+CompoundCondition = require "core/synchronism/CompoundCondition"
 
-ConnectorParam = require "core/ConnectorParam"
+SimpleAction = require "core/synchronism/SimpleAction"
+CompoundAction = require "core/synchronism/CompoundAction"
 
-SimpleCondition = require "core/SimpleCondition"
-CompoundCondition = require "core/CompoundCondition"
+Port = require "core/interface/Port"
 
-SimpleAction = require "core/SimpleAction"
-CompoundAction = require "core/CompoundAction"
-
-Body = require "core/Body"
-Port = require "core/Port"
-Media = require "core/Media"
-
-
-return NCube
+Media = require "core/content/Media"
