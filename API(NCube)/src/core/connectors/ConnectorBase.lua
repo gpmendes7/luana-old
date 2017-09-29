@@ -10,7 +10,7 @@ ConnectorBase.attributes = {
 }
 
 ConnectorBase.childsMap = {
- ["causalConnector"] = {CausalConnector, "many", 1}
+ ["causalConnector"] = {CausalConnector, "many"}
 }
 
 ConnectorBase.causalConnectors = nil

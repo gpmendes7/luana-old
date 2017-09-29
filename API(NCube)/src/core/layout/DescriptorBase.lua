@@ -10,7 +10,7 @@ DescriptorBase.attributes = {
 }
 
 DescriptorBase.childsMap = {
- ["descriptor"] = {Descriptor, "many", 1}
+ ["descriptor"] = {Descriptor, "many"}
 }
 
 DescriptorBase.descriptors = nil
@@ -40,9 +40,9 @@ end
 
 function DescriptorBase:addDescriptor(descriptor)
     table.insert(self.descriptors, descriptor)    
-    local p = self:getLastPosChild("descriptor")
+    local p = self:getPosAvailable("descriptor")
     if(p ~= nil)then
-       self:addChild(descriptor, p+1)
+       self:addChild(descriptor, p)
     else
        self:addChild(descriptor, 1)
     end
@@ -68,6 +68,14 @@ function DescriptorBase:setDescriptors(...)
           self:addDescriptor(v)
       end
     end
+end
+
+function DescriptorBase:removeDescriptor(descriptor)
+   self:removeChild(descriptor)
+end
+
+function DescriptorBase:removeDescriptorPos(i)
+   self:removeChild(self.descriptors[i])
 end
 
 return DescriptorBase

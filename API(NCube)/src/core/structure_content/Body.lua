@@ -11,8 +11,8 @@ Body.attributes = {
 }
 
 Body.childsMap = {
- ["port"] = {Port, "many", 1}, 
- ["media"] = {Media, "many", 2}
+ ["port"] = {Port, "many"}, 
+ ["media"] = {Media, "many"}
 }
 
 Body.ports = nil
@@ -70,6 +70,14 @@ function Body:setPorts(...)
     end
 end
 
+function Body:removePort(port)
+   self:removeChild(port)
+end
+
+function Body:removePortPos(i)
+   self:removeChild(self.ports[i])
+end
+
 function Body:addMedia(media)
    table.insert(self.medias, media)    
    self:addChild(media)
@@ -95,6 +103,13 @@ function Body:setMedias(...)
          self:addMedia(v)
       end
     end
+end
+function Body:removeMedia(media)
+   self:removeChild(media)
+end
+
+function Body:removeMediaPos(i)
+   self:removeChild(self.medias[i])
 end
 
 return Body

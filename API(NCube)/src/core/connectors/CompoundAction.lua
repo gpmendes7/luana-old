@@ -11,8 +11,8 @@ CompoundAction.attributes = {
 }
 
 CompoundAction.childsMap = {
- ["simpleAction"] = {SimpleAction, "many", 1},
- ["compoundAction"] = {CompoundAction, "many", 2}
+ ["simpleAction"] = {SimpleAction, "many"},
+ ["compoundAction"] = {CompoundAction, "many"}
 }
 
 CompoundAction.simpleActions = nil
@@ -20,20 +20,19 @@ CompoundAction.compoundActions = nil
 
 function CompoundAction:create(attributes, full)  
    local attributes = attributes or {}  
-   local CompoundAction = CompoundAction:new() 
+   local compoundAction = CompoundAction:new() 
      
-   CompoundAction:setAttributes(attributes)
-   CompoundAction:setChilds()
+   compoundAction:setAttributes(attributes)
+   compoundAction:setChilds()
+   compoundAction.simpleActions = {}
+   compoundAction.compoundActions = {}
    
    if(full ~= nil)then      
-      CompoundAction.simpleActions = {}
-      CompoundAction:addChild({} , 1)
-      
-      CompoundAction.compoundActions = {}
-      CompoundAction:addChild({} , 2)
+      compoundAction:addCompoundAction(CompoundAction:create())
+      compoundAction:addSimpleAction(SimpleAction:create())
    end
    
-   return CompoundAction
+   return compoundAction
 end
 
 function CompoundAction:setOperator(operator)
@@ -53,8 +52,13 @@ function CompoundAction:getDelay()
 end
 
 function CompoundAction:addSimpleAction(simpleAction)
-    table.insert(self.simpleActions, simpleAction)
-    table.insert(self:getChild(1), simpleAction)
+    table.insert(self.simpleActions, simpleAction)    
+    local p = self:getPosAvailable("simpleAction", "compoundAction")
+    if(p ~= nil)then
+       self:addChild(simpleAction, p)
+    else
+       self:addChild(simpleAction, 1)
+    end
 end
 
 function CompoundAction:getSimpleAction(i)
@@ -69,9 +73,22 @@ function CompoundAction:setSimpleActions(...)
     end
 end
 
+function CompoundAction:removeSimpleAction(simpleAction)
+   self:removeChild(simpleAction)
+end
+
+function CompoundAction:removeSimpleActionPos(i)
+   self:removeChild(self.simpleActions[i])
+end
+
 function CompoundAction:addCompoundAction(compoundAction)
-    table.insert(self.compoundActions, compoundAction)
-    table.insert(self:getChild(1), compoundAction)
+    table.insert(self.compoundActions, compoundAction)    
+    local p = self:getPosAvailable("compoundAction", "simpleAction")
+    if(p ~= nil)then
+       self:addChild(compoundAction, p)
+    else
+       self:addChild(compoundAction, 1)
+    end
 end
 
 function CompoundAction:getCompoundAction(i)
@@ -84,6 +101,14 @@ function CompoundAction:setCompoundActions(...)
           self:addCompoundAction(v)
       end
     end
+end
+
+function CompoundAction:removeCompoundAction(compoundAction)
+   self:removeChild(compoundAction)
+end
+
+function CompoundAction:removeCompoundActionPos(i)
+   self:removeChild(self.compoundActions[i])
 end
 
 return CompoundAction

@@ -89,7 +89,7 @@ function Head:setDescriptorBase(descriptorBase)
        self:addChild(descriptorBase, p)
    end
    
-    self.descriptorBase = descriptorBase        
+   self.descriptorBase = descriptorBase        
 end
 
 function Head:getDescriptorBase()

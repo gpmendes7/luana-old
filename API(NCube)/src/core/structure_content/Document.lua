@@ -15,8 +15,8 @@ Document.attributes = {
 }
 
 Document.childsMap = {
- ["head"] = {Head, "one", 1}, 
- ["body"] = {Body, "one", 2}
+ ["head"] = {Head, "one"}, 
+ ["body"] = {Body, "one"}
 }
 
 Document.head = nil

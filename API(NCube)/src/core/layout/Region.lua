@@ -17,7 +17,7 @@ Region.attributes = {
 }
 
 Region.childsMap = {
- ["region"] = {Region, "many", 1}
+ ["region"] = {Region, "many"}
 }
 
 Region.regions = nil 
@@ -123,9 +123,9 @@ end
 
 function Region:addRegion(region)
     table.insert(self.regions, region)    
-    local p = self:getLastPosChild("region")
+    local p = self:getPosAvailable("region")
     if(p ~= nil)then
-       self:addChild(region, p+1)
+       self:addChild(region, p)
     else
        self:addChild(region, 1)
     end
@@ -151,6 +151,14 @@ function Region:setRegions(...)
           self:addRegion(v)
       end
     end
+end
+
+function Region:removeRegion(region)
+   self:removeChild(region)
+end
+
+function Region:removeRegionPos(i)
+   self:removeChild(self.regions[i])
 end
 
 return Region

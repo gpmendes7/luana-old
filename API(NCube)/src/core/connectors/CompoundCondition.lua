@@ -11,8 +11,8 @@ CompoundCondition.attributes = {
 }
 
 CompoundCondition.childsMap = {
- ["simpleCondition"] = {SimpleCondition, "many", 1},
- ["compoundCondition"] = {CompoundCondition, "many", 2}
+ ["simpleCondition"] = {SimpleCondition, "many"},
+ ["compoundCondition"] = {CompoundCondition, "many"}
 }
 
 CompoundCondition.simpleConditions = nil
@@ -24,13 +24,12 @@ function CompoundCondition:create(attributes, full)
      
    compoundCondition:setAttributes(attributes)
    compoundCondition:setChilds()
-   
+   compoundCondition.simpleConditions = {}
+   compoundCondition.compoundConditions = {}
+    
    if(full ~= nil)then      
-      compoundCondition.simpleConditions = {}
-      compoundCondition:addChild({} , 1)
-      
-      compoundCondition.compoundConditions = {}
-      compoundCondition:addChild({} , 2)
+      compoundCondition:addCompoundCondition(CompoundCondition:create())
+      compoundCondition:addSimpleCondition(SimpleCondition:create())
    end
    
    return compoundCondition
@@ -53,8 +52,13 @@ function CompoundCondition:getDelay()
 end
 
 function CompoundCondition:addSimpleCondition(simpleCondition)
-    table.insert(self.simpleConditions, simpleCondition)
-    table.insert(self:getChild(1), simpleCondition)
+    table.insert(self.simpleConditions, simpleCondition)    
+    local p = self:getPosAvailable("simpleCondition", "compoundCondition")
+    if(p ~= nil)then
+       self:addChild(simpleCondition, p)
+    else
+       self:addChild(simpleCondition, 1)
+    end
 end
 
 function CompoundCondition:getSimpleCondition(i)
@@ -69,9 +73,22 @@ function CompoundCondition:setSimpleConditions(...)
     end
 end
 
+function CompoundCondition:removeSimpleCondition(simpleCondition)
+   self:removeChild(simpleCondition)
+end
+
+function CompoundCondition:removeSimpleConditionPos(i)
+   self:removeChild(self.simpleConditions[i])
+end
+
 function CompoundCondition:addCompoundCondition(compoundCondition)
-    table.insert(self.compoundConditions, compoundCondition)
-    table.insert(self:getChild(2), compoundCondition)
+    table.insert(self.compoundConditions, compoundCondition)    
+    local p = self:getPosAvailable("compoundCondition", "simpleCondition")
+    if(p ~= nil)then
+       self:addChild(compoundCondition, p)
+    else
+       self:addChild(compoundCondition, 1)
+    end
 end
 
 function CompoundCondition:getCompoundCondition(i)
@@ -84,6 +101,14 @@ function CompoundCondition:setCompoundConditions(...)
           self:addCompoundCondition(v)
       end
     end
+end
+
+function CompoundCondition:removeCompoundCondition(compoundCondition)
+   self:removeChild(compoundCondition)
+end
+
+function CompoundCondition:removeCompoundConditionPos(i)
+   self:removeChild(self.compoundConditions[i])
 end
 
 return CompoundCondition
