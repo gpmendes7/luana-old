@@ -78,7 +78,7 @@ function NCLElem:getLastPosChild(child)
    return p
 end
 
-function NCLElem:getPosEmpty(...)      
+function NCLElem:getPosAvailable(...)      
    for _, elem in ipairs(arg) do
       local p = self:getLastPosChild(elem) 
       if(p ~= nil)then

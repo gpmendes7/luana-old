@@ -35,7 +35,7 @@ end
 
 function Head:addRegionBase(regionBase)
     table.insert(self.regionBases, regionBase)    
-    local p = self:getPosEmpty("regionBase")
+    local p = self:getPosAvailable("regionBase")
     if(p ~= nil)then
        self:addChild(regionBase, p)
     else
@@ -65,18 +65,26 @@ function Head:setRegionBases(...)
     end
 end
 
+function Head:removeRegionBase(regionBase)
+   self:removeChild(regionBase)
+end
+
+function Head:removeRegionBasePos(i)
+   self:removeChild(self.regionBases[i])
+end
+
 function Head:setDescriptorBase(descriptorBase)
    local p = nil 
    
    if(self.descriptorBase == nil)then
-      p = self:getPosEmpty("regionBase")          
+      p = self:getPosAvailable("regionBase")          
       if(p ~= nil)then
          self:addChild(descriptorBase, p)
        else
          self:addChild(descriptorBase, 1)
       end    
    else
-       p = self:getPosEmpty("descriptorBase") - 1
+       p = self:getPosAvailable("descriptorBase") - 1
        self:removeChild(p)
        self:addChild(descriptorBase, p)
    end
@@ -88,10 +96,15 @@ function Head:getDescriptorBase()
    return self.descriptorBase
 end
 
+function Head:removeDescriptorBase()
+   self:removeChild(self.descriptorBase)
+   self.descriptorBase = nil
+end
+
 function Head:addConnectorBase(connectorBase)
     table.insert(self.connectorBases, connectorBase)   
   
-    local p = self:getPosEmpty("connectorBase", "descriptorBase", "regionBase")  
+    local p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase")  
     if(p ~= nil)then
        self:addChild(connectorBase, p)
     else
@@ -119,6 +132,14 @@ function Head:setConnectorBases(...)
           self:addConnectorBase(v)
       end
     end
+end
+
+function Head:removeConnectorBase(connectorBase)
+   self:removeChild(connectorBase)
+end
+
+function Head:removeConnectorBasePos(i)
+   self:removeChild(self.connectorBases[i])
 end
 
 return Head

@@ -10,9 +10,11 @@ local head = doc:getHead()
 head:getDescriptorBase(1):getDescriptor(1):setAttributes{id="d7", region="rg7"}
 --head:setDescriptorBase(DescriptorBase:create({id = "db"}, 1))
 --head:setDescriptorBase(DescriptorBase:create({id = "db2"}, 1))
-head:removeChild(head:getDescriptorBase(1))
-head:removeChild(head:getRegionBase(1))
+--head:removeRegionBasePos(1)
+--head:setDescriptorBase(DescriptorBase:create({id = "db2"}, 1))
+head:addRegionBase(RegionBase:create())
 head:getRegionBase(1):getRegion(1):setAttributes{id="rg7", width="100%", height="100%"}
+
 
 head:addConnectorBase(ConnectorBase:create())
 local cb = head:getConnectorBase(1)
@@ -21,6 +23,12 @@ cb:addCausalConnector(CausalConnector:create())
 cb:getCausalConnector(1):setId("cc1")
 cb:getCausalConnector(1):setSimpleCondition(SimpleCondition:create{role = "onBegin"})
 cb:getCausalConnector(1):setSimpleAction(SimpleAction:create{role = "start"})
+head:removeConnectorBase(cb)
+
+head:removeRegionBasePos(1)
+head:removeRegionBasePos(2)
+head:removeDescriptorBase(1)
+head:addConnectorBase(ConnectorBase:create())
 --head:writeNcl()
 
 --head:getDescendantByAttribute("id", "cb1"):writeNcl()
