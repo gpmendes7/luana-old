@@ -1,7 +1,7 @@
-local NCLElem = require "core/NCLElem"
-local RegionBase = require "core/adaptation/RegionBase"
-local DescriptorBase = require "core/adaptation/DescriptorBase"
-local ConnectorBase = require "core/synchronism/ConnectorBase"
+local NCLElem = require "core/structure_content/NCLElem"
+local RegionBase = require "core/layout/RegionBase"
+local DescriptorBase = require "core/layout/DescriptorBase"
+local ConnectorBase = require "core/connectors/ConnectorBase"
 
 local Head = NCLElem:extends()
 

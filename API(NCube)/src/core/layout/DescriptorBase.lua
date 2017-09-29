@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local Descriptor = require "core/adaptation/Descriptor"
+local NCLElem = require "core/structure_content/NCLElem"
+local Descriptor = require "core/layout/Descriptor"
 
 local DescriptorBase = NCLElem:extends()
 

@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "core/structure_content/NCLElem"
 local Port = require "core/interface/Port"
-local Media = require "core/content/Media"
+local Media = require "core/structure_content/Media"
 
 local Body = NCLElem:extends()
 

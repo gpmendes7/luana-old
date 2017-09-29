@@ -23,12 +23,6 @@ cb:addCausalConnector(CausalConnector:create())
 cb:getCausalConnector(1):setId("cc1")
 cb:getCausalConnector(1):setSimpleCondition(SimpleCondition:create{role = "onBegin"})
 cb:getCausalConnector(1):setSimpleAction(SimpleAction:create{role = "start"})
-head:removeConnectorBase(cb)
-
-head:removeRegionBasePos(1)
-head:removeRegionBasePos(2)
-head:removeDescriptorBase(1)
-head:addConnectorBase(ConnectorBase:create())
 --head:writeNcl()
 
 --head:getDescendantByAttribute("id", "cb1"):writeNcl()

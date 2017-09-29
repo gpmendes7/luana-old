@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "core/structure_content/NCLElem"
 
 local Descriptor = NCLElem:extends()
 

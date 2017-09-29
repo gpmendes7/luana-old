@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
-local Head = require "core/structure/Head"
-local Body = require "core/structure/Body"
+local NCLElem = require "core/structure_content/NCLElem"
+local Head = require "core/structure_content/Head"
+local Body = require "core/structure_content/Body"
 
 local Document = NCLElem:extends()
 

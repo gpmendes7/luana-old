@@ -1,7 +1,7 @@
-local NCLElem = require "core/NCLElem"
-local ConnectorParam = require "core/synchronism/ConnectorParam"
-local SimpleCondition = require "core/synchronism/SimpleCondition"
-local SimpleAction = require "core/synchronism/SimpleAction"
+local NCLElem = require "core/structure_content/NCLElem"
+local ConnectorParam = require "core/connectors/ConnectorParam"
+local SimpleCondition = require "core/connectors/SimpleCondition"
+local SimpleAction = require "core/connectors/SimpleAction"
 
 local CausalConnector = NCLElem:extends()
 

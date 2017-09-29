@@ -1,24 +1,24 @@
-Document = require "core/structure/Document"
-Head = require "core/structure/Head"
-Body = require "core/structure/Body"
+Document = require "core/structure_content/Document"
+Head = require "core/structure_content/Head"
+Body = require "core/structure_content/Body"
 
-RegionBase = require "core/adaptation/RegionBase"
-Region = require "core/adaptation/Region"
+RegionBase = require "core/layout/RegionBase"
+Region = require "core/layout/Region"
 
-DescriptorBase = require "core/adaptation/DescriptorBase"
-Descriptor = require "core/adaptation/Descriptor"
+DescriptorBase = require "core/layout/DescriptorBase"
+Descriptor = require "core/layout/Descriptor"
 
-ConnectorBase = require "core/synchronism/ConnectorBase"
-CausalConnector = require "core/synchronism/CausalConnector"
+ConnectorBase = require "core/connectors/ConnectorBase"
+CausalConnector = require "core/connectors/CausalConnector"
 
-ConnectorParam = require "core/synchronism/ConnectorParam"
+ConnectorParam = require "core/connectors/ConnectorParam"
 
-SimpleCondition = require "core/synchronism/SimpleCondition"
-CompoundCondition = require "core/synchronism/CompoundCondition"
+SimpleCondition = require "core/connectors/SimpleCondition"
+CompoundCondition = require "core/connectors/CompoundCondition"
 
-SimpleAction = require "core/synchronism/SimpleAction"
-CompoundAction = require "core/synchronism/CompoundAction"
+SimpleAction = require "core/connectors/SimpleAction"
+CompoundAction = require "core/connectors/CompoundAction"
 
 Port = require "core/interface/Port"
 
-Media = require "core/content/Media"
+Media = require "core/structure_content/Media"

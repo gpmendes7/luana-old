@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local CausalConnector = require "core/synchronism/CausalConnector"
+local NCLElem = require "core/structure_content/NCLElem"
+local CausalConnector = require "core/connectors/CausalConnector"
 
 local ConnectorBase = NCLElem:extends()
 
