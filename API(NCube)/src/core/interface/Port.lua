@@ -15,7 +15,6 @@ function Port:create(attributes)
    local port = Port:new()   
    
    port:setAttributes(attributes)
-   port:setChilds()
    
    return port
 end

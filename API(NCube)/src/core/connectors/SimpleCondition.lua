@@ -20,7 +20,6 @@ function SimpleCondition:create(attributes)
    local simpleCondition = SimpleCondition:new() 
      
    simpleCondition:setAttributes(attributes)
-   simpleCondition:setChilds()
    
    return simpleCondition
 end

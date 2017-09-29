@@ -14,7 +14,6 @@ function ConnectorParam:create(attributes)
    local connectorParam = ConnectorParam:new() 
      
    connectorParam:setAttributes(attributes)
-   connectorParam:setChilds()
    
    return connectorParam
 end
