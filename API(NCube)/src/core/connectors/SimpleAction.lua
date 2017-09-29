@@ -24,7 +24,6 @@ function SimpleAction:create(attributes)
    local simpleAction = SimpleAction:new() 
      
    simpleAction:setAttributes(attributes)
-   simpleAction:setChilds()
    
    return simpleAction
 end
