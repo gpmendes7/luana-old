@@ -96,11 +96,11 @@ function Document:saveNcl(name)
    file:close()
 end
 
-function Document:loadNcl(name)
+function Document:readNclFile(name)
    local ncl = "" 
    local isXmlHead = true;
    
-   local file = io.open(name, "a+")
+   local file = io.open(name, "r")
    io.input(file)       
      
    for line in io.lines() do
@@ -113,24 +113,30 @@ function Document:loadNcl(name)
    end  
        
    file:close()
-    
-   self:setNcl(ncl) 
-   self:ncl2Table()
    
+   return ncl
+end
+
+function Document:connectAssociatedElements()
    local descendants = self:getDescendants()
+   
    if(descendants ~= nil)then
-       for i, descendant in ipairs(descendants) do
+       for _, descendant in ipairs(descendants) do
            if(descendant.hasAss == true)then
-             for j, assMap in ipairs(descendant:getAssMap()) do
-                 local object = assMap[1]
-                 local objectId = descendant:getAttribute(object)
-                 local objectAss = assMap[2]
-                 
-                 descendant[objectAss] = self:getDescendantByAttribute("id", objectId)
+              for _, ass in ipairs(descendant:getAssMap()) do
+                 local id = descendant:getAttribute(ass[1])
+                 local field = ass[2]                
+                 descendant[field] = self:getDescendantByAttribute("id", id)
               end
            end
        end
    end
+end
+
+function Document:loadNcl(name)
+   self:setNcl(self:readNclFile(name)) 
+   self:ncl2Table()
+   self:connectAssociatedElements()
 end
 
 return Document
