@@ -3,12 +3,10 @@ local Class = require "oo/Class"
 local NCLElem = Class:createClass{
   name = nil, 
   childs = nil,
-  childsAux = nil,
   childsMap = nil,
   assMap = nil,
   attributes = nil, 
   ncl = nil,
-  seq = nil,
   hasAss = nil
 }
 
@@ -87,19 +85,6 @@ function NCLElem:getPosAvailable(...)
    end
 end
 
-function NCLElem:setChildsAux(...)
-    self.childsAux = {}
-    if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self.childsAux[i] =  v
-      end
-    end
-end
-
-function NCLElem:getChildsAux()
-    return self.childsAux
-end
-
 function NCLElem:getChildsMap()
     return self.childsMap
 end
@@ -165,131 +150,165 @@ function NCLElem:getAttributes()
     return self.attributes
 end
 
-function NCLElem:ncl2Table()   
-   local s, e, t, u, v = nil
-   local elemNcl = self:getNcl()    
-      
-   _, s = string.find(elemNcl, "<"..self:getName().." ")
-   _, t = string.find(elemNcl, "<"..self:getName()..">")
-   e = string.find(elemNcl, ">")
+function NCLElem:readAttributes()
+   local s, e, t, u, w = nil
+       
+   _, s = string.find(self:getNcl(), "<"..self:getName().." ")
+   _, t = string.find(self:getNcl(), "<"..self:getName()..">")
+   e = string.find(self:getNcl(), ">")
 
    if(s ~= nil and t == nil and e ~= nil)then
-     local attributes = string.sub(elemNcl,s,e-1)   
-     local w = nil
+     local attributes = string.sub(self:getNcl(),s,e-1)   
      
      for w in string.gmatch(attributes, "%S+") do
        t = string.find(w, "=")
+       
        if(t ~= nil)then
           local attribute = string.sub(w, 1, t-1)
          
           local valuewithQuotes = string.sub(w,t+2,string.len(w))
-          u = string.find(valuewithQuotes, "\"")
+          u = string.find(valuewithQuotes, "\"")          
           local value = string.sub(valuewithQuotes, 1, u-1)  
+          
           self:addAttribute(attribute, value)
        end
      end
    end
-   
-   s = string.find(elemNcl,">")
-   t = string.sub(elemNcl, 1, s)
+end
+
+function NCLElem:readChildsNcl()
+   local s, t, u = nil
+      
+   s = string.find(self:getNcl(),">")
+   t = string.sub(self:getNcl(), 1, s)
    u = string.find(t,"/>")
-     
-   local childsNcl = nil
    
+   local childsNcl = nil
+        
    if(u == nil)then
-     local _, n = string.gsub(elemNcl, "</"..self:getName()..">", "*")
-     if(n > 1)then
-        childsNcl = elemNcl
-        local p = 0
-        v = 0
-       repeat
-         e, v = string.find(elemNcl, "</"..self:getName()..">", v)
-         p = p + 1
-       until p == n
-     else
-        e, v = string.find(elemNcl, "</"..self:getName()..">")
-     end
-    childsNcl = string.sub(elemNcl, s+1, e-1)
+      local _, n = string.gsub(self:getNcl(), "</"..self:getName()..">", "*")
+      
+      local e, v, w = nil
+      
+      if(n > 1)then
+         childsNcl = self:getNcl()
+         w, v = 0
+
+         repeat
+           e, v = string.find(self:getNcl(), "</"..self:getName()..">", v)
+           w = w + 1
+         until w == n
+      else
+         e, v = string.find(self:getNcl(), "</"..self:getName()..">")
+      end
+     
+      childsNcl = string.sub(self:getNcl(), s+1, e-1)
    end
    
-   if(childsNcl  ~= nil)then
-     repeat     
-       s, e = string.find(childsNcl, "<%a+")      
-       local childName = nil
-       
-       if(s ~= nil and e ~= nil)then
-           childName = string.sub(childsNcl, s+1, e)
+   return childsNcl
+end
+
+function NCLElem:readChildNcl(childsNcl, childName)
+   local s, t, u, v, h = nil
+  
+   s = string.find(childsNcl,">")
+   t = string.sub(childsNcl, 1, s)
+   u = string.find(t,"/>")
            
-           s = string.find(childsNcl,">")
-           t = string.sub(childsNcl, 1, s)
-           u = string.find(t,"/>")
-           local childNcl = nil
-           local h = nil
-           if(u == nil)then
-              v = 0
-              _, v = string.find(childsNcl, "</"..childName..">", v)
-              childNcl = string.sub(childsNcl,1,v)
-              local n1 = 0 
-              local aux1 = childNcl
+   local childNcl = nil
+           
+   if(u == nil)then
+      _, v = string.find(childsNcl, "</"..childName..">")
+      childNcl = string.sub(childsNcl,1,v)
+      
+      local n1 = 0 
+      local aux1 = childNcl
               
-              while(1)do
-               local t = string.find(aux1, "<"..childName)
-               local u = string.find(aux1, ">")
-               if(t ~= nil and u ~= nil)then
-                 local aux2 = string.sub(aux1,t,u)
-                 if(string.find(aux2,"/>") == nil)then
+      while(1)do
+            t = string.find(aux1, "<"..childName)
+            u = string.find(aux1, ">")
+            
+            if(t ~= nil and u ~= nil)then
+               local aux2 = string.sub(aux1,t,u)
+               
+               if(string.find(aux2,"/>") == nil)then
                    n1 = n1 + 1
-                 end
-                 aux1 = string.sub(aux1,u+1,string.len(aux1))
-                else
-                 break
-                end
-              end
-                            
-              v = 0
-              while(1)do
-                _, v = string.find(childsNcl, "</"..childName..">", v)
-                childNcl = string.sub(childsNcl,1,v)
-                local _, n2 = string.gsub(childNcl, "</"..childName..">", "*")
-                h = v
-                if(n1 == n2)then
-                   break
-                end
-              end            
-           else
-              childNcl = string.sub(childsNcl,1,s)
-              h = s
-           end
-           if(childNcl ~= nil)then       
-             local childClass = self:getChildsMap()[childName][1]
+               end
+               
+               aux1 = string.sub(aux1,u+1,string.len(aux1))
+            else
+                break
+            end
+      end
+      
+      v = 0                
+      while(1)do
+            _, v = string.find(childsNcl, "</"..childName..">", v)
+            childNcl = string.sub(childsNcl,1,v)           
+            
+            local _, n2 = string.gsub(childNcl, "</"..childName..">", "*")            
+            h = v
+            
+            if(n1 == n2)then
+               break
+            end
+      end            
+   else
+      childNcl = string.sub(childsNcl,1,s)
+      h = s
+   end
+   
+   return childNcl, h
+end
+
+function NCLElem:buildChild(childName, childNcl)
+    local childClass = self:getChildsMap()[childName][1]
                           
-             local childObject = childClass:create()            
+    local childObject = childClass:create()            
              
-             childObject:setNcl(childNcl)
-             childObject:ncl2Table()  
-             self:addChild(childObject)
+    childObject:setNcl(childNcl)
+    childObject:ncl2Table()  
+    self:addChild(childObject)
                           
-             local cardinality = self:getChildsMap()[childName][2]
-                         
-             local p = self:getChildsMap()[childName][3]
+    local cardinality = self:getChildsMap()[childName][2]
                        
-             if(cardinality == "many")then    
-                if(self[childName..'s'] == nil)then
-                     self[childName..'s'] = {}
-                end
+    if(cardinality == "many")then    
+       if(self[childName..'s'] == nil)then
+          self[childName..'s'] = {}
+       end
                               
-                table.insert(self[childName.."s"], childObject)                
-             else if(cardinality == "one")then                       
-                     self[childName] = childObject                
-             end
+       table.insert(self[childName.."s"], childObject)                
+    elseif(cardinality == "one")then                       
+            self[childName] = childObject                
+    end
                          
+end
+
+function NCLElem:ncl2Table()   
+   self:readAttributes()
+       
+   local childsNcl = self:readChildsNcl()
+  
+   if(childsNcl ~= nil)then
+      local s, e = nil
+      
+      repeat     
+        s, e = string.find(childsNcl, "<%a+")      
+      
+        if(s ~= nil and e ~= nil)then
+           local childName = string.sub(childsNcl, s+1, e)
+
+           local childNcl, h = self:readChildNcl(childsNcl, childName)
+           
+           if(childNcl ~= nil)then       
+              self:buildChild(childName, childNcl)   
            end 
             
            if(h ~= nil)then
-             childsNcl = string.sub(childsNcl,h+1,string.len(childsNcl))      
-             end  
-           end      
-       end      
+             childsNcl = string.sub(childsNcl, h+1, string.len(childsNcl))      
+           end  
+        end            
+ 
      until (string.find(childsNcl, "%a") == nil)
   end
 end
