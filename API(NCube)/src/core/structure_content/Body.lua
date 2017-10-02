@@ -1,6 +1,7 @@
 local NCLElem = require "core/structure_content/NCLElem"
 local Port = require "core/interface/Port"
 local Media = require "core/structure_content/Media"
+local Link = require "core/linking/Link"
 
 local Body = NCLElem:extends()
 
@@ -12,7 +13,8 @@ Body.attributes = {
 
 Body.childsMap = {
  ["port"] = {Port, "many"}, 
- ["media"] = {Media, "many"}
+ ["media"] = {Media, "many"},
+ ["link"] = {Link, "many"}
 }
 
 Body.ports = nil
@@ -125,5 +127,47 @@ function Body:removeMediaPos(i)
    self:removeChildPos(i)
    table.remove(self.medias, i)
 end
+
+function Body:addLink(link)
+   table.insert(self.links, link)    
+   self:addChild(link)
+end
+
+function Body:getLink(i)
+   return self.links[i]
+end
+
+function Body:getLinkById(id)
+   for _, link in ipairs(self.link) do
+       if(link:getId() == id)then
+          return link
+       end
+   end
+   
+   return nil
+end
+
+function Body:setLinks(...)
+    if(#arg>0)then
+      for _, link in ipairs(arg) do
+         self:addMedia(link)
+      end
+    end
+end
+function Body:removeLink(link)
+   self:removeChild(link)
+   
+   for i, lk in ipairs(self.links) do
+       if(link == lk)then
+           table.remove(self.links, i)  
+       end
+   end 
+end
+
+function Body:removeLinkPos(i)
+   self:removeChildPos(i)
+   table.remove(self.links, i)
+end
+
 
 return Body

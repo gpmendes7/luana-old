@@ -24,9 +24,13 @@ function Link:create(attributes, full)
    local link = Link:new() 
      
    link:setAttributes(attributes)
+   link:setChilds() 
+   link.linkParams = {}
+   link.binds = {}
    
    if(full ~= nil)then
-      bind:addBindParam(BindParam:create())     
+      link:addLinkParam(LinkParam:create()) 
+      link:addBind(Bind:create(nil, full))         
    end
    
    return link
@@ -58,24 +62,68 @@ function Link:addLinkParam(linkParam)
     end
 end
 
-function Bind:getLinkParam(i)
+function Link:getLinkParam(i)
     return self.linkParams[i]
 end
 
-function Bind:setLinkParams(...)
+function Link:setLinkParams(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addLinkParam(v)
+      for _, linkParam in ipairs(arg) do
+          self:addLinkParam(linkParam)
       end
     end
 end
 
-function Bind:removeLinkParam(linkParam)
+function Link:removeLinkParam(linkParam)
    self:removeChild(linkParam)
+   
+   for i, lp in ipairs(self.linkParams) do
+       if(linkParam == lp)then
+           table.remove(self.linkParams, i)  
+       end
+   end 
 end
 
-function Bind:removeBindParamPos(i)
-   self:removeChild(self.bindParams[i])
+function Link:removeLinkParamPos(i)
+   self:removeChildPos(i)
+   table.remove(self.linkParams, i)
+end
+
+function Link:addBind(bind)
+    table.insert(self.binds, bind)    
+    local p = self:getPosAvailable("bind")
+    if(p ~= nil)then
+       self:addChild(bind, p)
+    else
+       self:addChild(bind, 1)
+    end
+end
+
+function Link:getBind(i)
+    return self.binds[i]
+end
+
+function Link:setBinds(...)
+    if(#arg>0)then
+      for _, bind in ipairs(arg) do
+          self:addBind(bind)
+      end
+    end
+end
+
+function Link:removeBind(bind)
+   self:removeChild(bind)
+   
+   for i, bd in ipairs(self.binds) do
+       if(bind == bd)then
+          table.remove(self.binds, i)  
+       end
+   end 
+end
+
+function Link:removeBindPos(i)
+   self:removeChildPos(i)
+   table.remove(self.binds, i)
 end
 
 return Link

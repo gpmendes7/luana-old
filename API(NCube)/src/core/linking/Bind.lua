@@ -81,18 +81,25 @@ end
 
 function Bind:setBindParams(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addBindParam(v)
+      for _, bindParam in ipairs(arg) do
+          self:addBindParam(bindParam)
       end
     end
 end
 
 function Bind:removeBindParam(bindParam)
    self:removeChild(bindParam)
+   
+   for i, bp in ipairs(self.bindParams) do
+       if(bindParam == bp)then
+          table.remove(self.bindParams, i)  
+       end
+   end 
 end
 
 function Bind:removeBindParamPos(i)
-   self:removeChild(self.bindParams[i])
+   self:removeChildPos(i)
+   table.remove(self.bindParams, i)
 end
 
 return Bind

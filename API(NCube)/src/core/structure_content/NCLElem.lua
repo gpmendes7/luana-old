@@ -99,22 +99,25 @@ end
 
 function NCLElem:getDescendants()
   local descendants = {}
-  
+
   local childs = self:getChilds()
-  local nchilds = #childs
-  
-  local descs = nil
   
   if(childs ~= nil)then
-     for i=1,nchilds do
-         local child = self:getChild(i)         
-         table.insert(descendants, child)  
-                                  
-         descs = child:getDescendants()
-         for _, desc in ipairs(descs) do
-             table.insert(descendants, desc)
-         end       
-      end
+     local nchilds = #childs
+      
+     local descs = nil
+      
+     if(childs ~= nil)then
+        for i=1,nchilds do
+            local child = self:getChild(i)         
+            table.insert(descendants, child)  
+                                      
+            descs = child:getDescendants()
+            for _, desc in ipairs(descs) do
+                table.insert(descendants, desc)
+            end       
+        end
+     end
    end
      
    return descendants
@@ -304,7 +307,7 @@ function NCLElem:ncl2Table()
 
            local childNcl, h = self:readChildNcl(childsNcl, childName)
            
-           if(childNcl ~= nil)then       
+           if(childNcl ~= nil)then     
               self:buildChild(childName, childNcl)   
            end 
             
@@ -340,22 +343,25 @@ function NCLElem:table2Ncl(deep)
   end 
  
   local childs = self:getChilds()
-  local nchilds = #childs
   
-  if(nchilds == 0)then
-     return ncl.."/>\n"
-  end
-  
-  if(childs ~= nil)then
-     ncl = ncl..">\n"  
-     for i=1,nchilds do
-         local child = self:getChild(i)                     
-         ncl = ncl..child:table2Ncl(deep+1)         
+  if(childs ~= nil)then  
+     local nchilds = #childs
+    
+     if(nchilds == 0)then
+        return ncl.."/>\n"
      end
-           
-     for i=1,deep do
-         ncl = ncl.." "
-     end 
+    
+     if(childs ~= nil)then
+        ncl = ncl..">\n"  
+        for i=1,nchilds do
+            local child = self:getChild(i)                     
+            ncl = ncl..child:table2Ncl(deep+1)         
+        end
+             
+        for i=1,deep do
+            ncl = ncl.." "
+        end 
+     end
   end
   
   return ncl.."</"..self:getName()..">\n"

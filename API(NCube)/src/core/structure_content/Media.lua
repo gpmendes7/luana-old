@@ -17,7 +17,7 @@ function Media:create(attributes)
    
    media:setAttributes(attributes)
    media:setChilds()
-   
+      
    return media
 end
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<ncl id="exemplo2" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
+<ncl id="exemplo3" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
 	<head>		
 		 <regionBase>
 		    <region id="rgTela" width="100%" height="100%">
@@ -14,18 +14,57 @@
 		 </descriptorBase>
 		 
 		 <connectorBase>
-		 	 <causalConnector id="onBeginStart">
+		 	<causalConnector id="onEndStart">
+			 	<simpleCondition role="onEnd" />
+			 	<simpleAction role="start" />
+		    </causalConnector>	
+		    
+		    <causalConnector id="onBeginStart">
 			 	<simpleCondition role="onBegin" />
 			 	<simpleAction role="start" />
-			 </causalConnector>
+		    </causalConnector>		 
+		    
+		    <causalConnector id="onEndStop">
+			 	<simpleCondition role="onEnd" />
+			 	<simpleAction role="stop" />
+		    </causalConnector>	
 		 </connectorBase>
 	</head>
 
 	<body>
-        <port id="pTrailer" component="trailer" />
+        <port id="pTrailer" component="homem_aranha" />
         
-        <media id="trailer" type="video/mpeg" src="media/homem_aranha.mpg" descriptor="dTrailer" />
-        			
-        <media id="logo" type="image/png" src="media/homem_aranha_logo.png" descriptor="dLogo" />
+        <media id="homem_aranha" type="video/mpeg" src="media/homem_aranha.mpg" descriptor="dTrailer" />
+        
+        <media id="planeta_macacos" type="video/mpeg" src="media/planeta_macacos.mpg" descriptor="dTrailer" />
+        		
+        <media id="logoHomemAranha" type="image/png" src="media/homem_aranha_logo.png" descriptor="dLogo" />
+        
+        <media id="logoPlanetaMacacos" type="image/png" src="media/planeta_macacos_logo.png" descriptor="dLogo" />
+         			
+        <link id="lMudaTrailer" xconnector="onEndStart">
+        	<bind role="onEnd" component="homem_aranha" />
+        	<bind role="start" component="planeta_macacos" />
+        </link>
+        
+        <link id="lAtivaLogoHomemAranha" xconnector="onBeginStart">
+        	<bind role="onBegin" component="homem_aranha" />
+        	<bind role="start" component="logoHomemAranha" />
+        </link>
+        
+        <link id="lDesativaLogoHomemAranha" xconnector="onEndStop">
+        	<bind role="onEnd" component="homem_aranha" />
+        	<bind role="stop" component="logoHomemAranha" />
+        </link>
+        
+         <link id="lAtivaLogoPlanetaMacacos" xconnector="onBeginStart">
+        	<bind role="onBegin" component="planeta_macacos" />
+        	<bind role="start" component="logoPlanetaMacacos" />
+        </link>
+        
+        <link id="lDesativaLogoPlanetaMacacos" xconnector="onEndStop">
+        	<bind role="onEnd" component="planeta_macacos" />
+        	<bind role="stop" component="logoPlanetaMacacos" />
+        </link>
 	</body>
 </ncl>

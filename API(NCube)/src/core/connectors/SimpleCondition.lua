@@ -18,7 +18,7 @@ SimpleCondition.attributes = {
 function SimpleCondition:create(attributes)  
    local attributes = attributes or {}  
    local simpleCondition = SimpleCondition:new() 
-     
+   
    simpleCondition:setAttributes(attributes)
    
    return simpleCondition
