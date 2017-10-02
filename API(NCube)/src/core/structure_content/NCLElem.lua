@@ -2,6 +2,7 @@ local Class = require "oo/Class"
 
 local NCLElem = Class:createClass{
   name = nil, 
+  parent = nil,
   childs = nil,
   childsMap = nil,
   assMap = nil,
@@ -20,6 +21,14 @@ end
 
 function NCLElem:getName()
     return self.name
+end
+
+function NCLElem:setParent(parent)
+    self.parent = parent
+end
+
+function NCLElem:getParent()
+    return self.parent
 end
 
 function NCLElem:addChild(child, p)
