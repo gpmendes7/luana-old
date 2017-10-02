@@ -1,4 +1,5 @@
 local Class = require "oo/Class"
+require "valid/Validator"
 
 local NCLElem = Class:createClass{
   name = nil, 
@@ -10,6 +11,22 @@ local NCLElem = Class:createClass{
   ncl = nil,
   hasAss = nil
 }
+
+function NCLElem:create(name, attributes)
+   local attributes = attributes or {}    
+   local nclElem = NCLElem:new()         
+   
+   if(isInvalidString(name))then
+      print("Invalid name!")
+      return nil
+   end
+   
+   nclElem.name = name    
+   nclElem:setChilds()
+   nclElem:setAttributes(attributes)
+ 
+   return nclElem
+end
 
 function NCLElem:extends()
     return Class:createClass(NCLElem)
@@ -37,15 +54,18 @@ function NCLElem:addChild(child, p)
     else
        table.insert(self.childs, child)
     end
+    
+    child:setParent(self)
 end
 
 function NCLElem:removeChild(child)
     local p = self:getPosChild(child)   
-    table.remove(self.childs, p)  
+    self:removeChildPos(p)
 end
 
 function NCLElem:removeChildPos(i)
-    table.remove(self.childs, i)  
+    self:getChild(i):setParent(nil) 
+    table.remove(self.childs, i) 
 end
 
 function NCLElem:removeAllChilds()
@@ -59,8 +79,8 @@ end
 function NCLElem:setChilds(...)
     self.childs = {}
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self.childs[i] =  v
+      for _, child in ipairs(arg) do
+          self:addChild(child)
       end
     end
 end
@@ -145,26 +165,70 @@ function NCLElem:getDescendantByAttribute(attribute, value)
 end
 
 function NCLElem:addAttribute(attribute, value)
-    if(attribute ~= "" and value ~= "")then
-       self.attributes[attribute] = value
+    if(isInvalidString(attribute))then
+       print("Invalid attribute!")
+       return nil
     end
+    
+    if(isInvalidString(value))then
+       print("Invalid value!")
+       return nil
+    end
+   
+    self.attributes[attribute] = value
+end
+
+function NCLElem:removeAttribute(attribute)
+    if(isInvalidString(attribute))then
+       print("Invalid attribute!")
+       return nil
+    end
+    
+    if(self.attributes[attribute] == nil)then
+       print("There is not an attribute "..attribute.."!")
+       return nil
+    end
+    
+    self.attributes[attribute] = nil
 end
 
 function NCLElem:getAttribute(attribute)
+     if(isInvalidString(attribute))then
+       print("Invalid attribute!")
+       return nil
+    end
+    
+    if(self.attributes[attribute] == nil)then
+       print("There is not an attribute called "..attribute.." in the element "..self:getName().."!")
+       return nil
+    end
+    
     return self.attributes[attribute]
 end
 
 function NCLElem:setAttributes(attributes)
-    self.attributes = {}
+    self.attributes = {}    
     local attributes = attributes or {}
-    for i, v in pairs(attributes) do
-       self:addAttribute(i, v)
+    
+    for attribute, value in pairs(attributes) do
+       self:addAttribute(attribute, value)
     end
 end
 
-function NCLElem:getAttributes()
+function NCLElem:getAttributes()  
     return self.attributes
 end
+
+function NCLElem:getNumberOfAttributes()
+    local c = 0
+    
+    for attribute, value in pairs(self.attributes) do
+       c = c + 1
+    end
+    
+    return c
+end
+
 
 function NCLElem:readAttributes()
    local s, e, t, u, w = nil

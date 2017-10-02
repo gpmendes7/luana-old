@@ -57,7 +57,7 @@ doc:getBody():removeAllChilds()
 doc:getBody():addPort(p2)
 doc:getBody():addMedia(m2)
 
-doc:saveNcl("fiesta.ncl")
+doc:saveNcl("fiesta2.ncl")
 
 local rg2 = doc:getDescendantByAttribute("id", "rg2")
 local p = rg2:getPosChild(rg3)
