@@ -53,7 +53,7 @@ function DescriptorBase:getDescriptor(i)
 end
 
 function DescriptorBase:getDescriptorById(id)
-   for i, descriptor in ipairs(self.descriptors) do
+   for _, descriptor in ipairs(self.descriptors) do
        if(descriptor:getId() == id)then
           return descriptor
        end
@@ -64,18 +64,25 @@ end
 
 function DescriptorBase:setDescriptors(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addDescriptor(v)
+      for _, descriptor in ipairs(arg) do
+          self:addDescriptor(descriptor)
       end
     end
 end
 
 function DescriptorBase:removeDescriptor(descriptor)
    self:removeChild(descriptor)
+   
+   for i, dc in ipairs(self.descriptors) do
+       if(descriptor == dc)then
+           table.remove(self.descriptors, i)  
+       end
+   end    
 end
 
 function DescriptorBase:removeDescriptorPos(i)
-   self:removeChild(self.descriptors[i])
+   self:removeChildPos(i)
+   table.remove(self.descriptors, i)
 end
 
 return DescriptorBase

@@ -53,9 +53,9 @@ function Body:getPort(i)
 end
 
 function Body:getPortById(id)
-   for i, v in ipairs(self.ports) do
-       if(self.ports[i]:getId() == id)then
-          return self.ports[i]
+   for _, port in ipairs(self.ports) do
+       if(port:getId() == id)then
+          return port
        end
    end
    
@@ -64,18 +64,25 @@ end
 
 function Body:setPorts(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addPort(v)
+      for _, port in ipairs(arg) do
+          self:addPort(port)
       end
     end
 end
 
 function Body:removePort(port)
    self:removeChild(port)
+   
+   for i, pt in ipairs(self.ports) do
+       if(port == pt)then
+           table.remove(self.ports, i)  
+       end
+   end 
 end
 
 function Body:removePortPos(i)
-   self:removeChild(self.ports[i])
+   self:removeChildPos(i)
+   table.remove(self.ports, i)
 end
 
 function Body:addMedia(media)
@@ -88,9 +95,9 @@ function Body:getMedia(i)
 end
 
 function Body:getMediaById(id)
-   for i, v in ipairs(self.medias) do
-       if(self.medias[i]:getId() == id)then
-          return self.medias[i]
+   for _, media in ipairs(self.medias) do
+       if(media:getId() == id)then
+          return media
        end
    end
    
@@ -99,17 +106,24 @@ end
 
 function Body:setMedias(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-         self:addMedia(v)
+      for _, media in ipairs(arg) do
+         self:addMedia(media)
       end
     end
 end
 function Body:removeMedia(media)
    self:removeChild(media)
+   
+   for i, md in ipairs(self.medias) do
+       if(media == md)then
+           table.remove(self.medias, i)  
+       end
+   end 
 end
 
 function Body:removeMediaPos(i)
-   self:removeChild(self.medias[i])
+   self:removeChildPos(i)
+   table.remove(self.medias, i)
 end
 
 return Body

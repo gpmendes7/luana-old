@@ -59,18 +59,25 @@ end
 
 function Head:setRegionBases(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addRegionBase(v)
+      for _, regionBase in ipairs(arg) do
+          self:addRegionBase(regionBase)
       end
     end
 end
 
 function Head:removeRegionBase(regionBase)
    self:removeChild(regionBase)
+   
+   for i, rb in ipairs(self.regionBases) do
+       if(regionBase == rb)then
+           table.remove(self.regionBases, i)  
+       end
+   end 
 end
 
 function Head:removeRegionBasePos(i)
-   self:removeChild(self.regionBases[i])
+   self:removeChildPos(i)
+   table.remove(self.regionBases, i)
 end
 
 function Head:setDescriptorBase(descriptorBase)
@@ -117,7 +124,7 @@ function Head:getConnectorBase(i)
 end
 
 function Head:getConnectorBaseById(id)
-   for i, connectorBase in ipairs(self.connectorBases) do
+   for _, connectorBase in ipairs(self.connectorBases) do
        if(connectorBase:getId() == id)then
           return connectorBase
        end
@@ -128,18 +135,25 @@ end
 
 function Head:setConnectorBases(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addConnectorBase(v)
+      for _, connectorBase in ipairs(arg) do
+          self:addConnectorBase(connectorBase)
       end
     end
 end
 
 function Head:removeConnectorBase(connectorBase)
    self:removeChild(connectorBase)
+   
+   for i, cb in ipairs(self.connectorBases) do
+       if(connectorBase == cb)then
+           table.remove(self.connectorBases, i)  
+       end
+   end 
 end
 
 function Head:removeConnectorBasePos(i)
-   self:removeChild(self.connectorBases[i])
+   self:removeChildPos(i)
+   table.remove(self.connectorBases, i)
 end
 
 return Head

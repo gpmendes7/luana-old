@@ -67,18 +67,25 @@ end
 
 function CompoundCondition:setSimpleConditions(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addSimpleCondition(v)
+      for i, simpleCondition in ipairs(arg) do
+          self:addSimpleCondition(simpleCondition)
       end
     end
 end
 
 function CompoundCondition:removeSimpleCondition(simpleCondition)
    self:removeChild(simpleCondition)
+   
+   for i, sc in ipairs(self.simpleConditions) do
+       if(simpleCondition == sc)then
+           table.remove(self.simpleConditions, i)  
+       end
+   end 
 end
 
 function CompoundCondition:removeSimpleConditionPos(i)
-   self:removeChild(self.simpleConditions[i])
+   self:removeChildPos(i)
+   table.remove(self.simpleConditions, i)
 end
 
 function CompoundCondition:addCompoundCondition(compoundCondition)
@@ -97,18 +104,25 @@ end
 
 function CompoundCondition:setCompoundConditions(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addCompoundCondition(v)
+      for i, compoundCondition in ipairs(arg) do
+          self:addCompoundCondition(compoundCondition)
       end
     end
 end
 
 function CompoundCondition:removeCompoundCondition(compoundCondition)
    self:removeChild(compoundCondition)
+   
+   for i, cc in ipairs(self.compoundConditions) do
+       if(compoundCondition == cc)then
+           table.remove(self.compoundConditions, i)  
+       end
+   end 
 end
 
 function CompoundCondition:removeCompoundConditionPos(i)
-   self:removeChild(self.compoundConditions[i])
+   self:removeChildPos(i)
+   table.remove(self.compoundConditions, i)
 end
 
 return CompoundCondition

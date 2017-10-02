@@ -35,6 +35,10 @@ function NCLElem:removeChild(child)
     table.remove(self.childs, p)  
 end
 
+function NCLElem:removeChildPos(i)
+    table.remove(self.childs, i)  
+end
+
 function NCLElem:removeAllChilds()
     self.childs = {}
 end

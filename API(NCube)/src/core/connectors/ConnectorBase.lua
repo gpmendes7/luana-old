@@ -53,7 +53,7 @@ function ConnectorBase:getCausalConnector(i)
 end
 
 function ConnectorBase:getCausalConnectorById(id)
-   for i, causalConnector in ipairs(self.causalConnectors) do
+   for _, causalConnector in ipairs(self.causalConnectors) do
        if(causalConnector:getId() == id)then
           return causalConnector
        end
@@ -62,12 +62,27 @@ function ConnectorBase:getCausalConnectorById(id)
    return nil
 end
 
-function ConnectorBase:setRegionBases(...)
+function ConnectorBase:setCausalConnectors(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addRegionBase(v)
+      for _, causalConnector in ipairs(arg) do
+          self:addCausalConnector(causalConnector)
       end
     end
+end
+
+function ConnectorBase:removeCausalConnector(causalConnector)
+   self:removeChild(causalConnector)
+   
+   for i, cc in ipairs(self.causalConnectors) do
+       if(causalConnector == cc)then
+           table.remove(self.causalConnectors, i)  
+       end
+   end 
+end
+
+function ConnectorBase:removeCausalConnectorPos(i)
+   self:removeChildPos(i)
+   table.remove(self.causalConnectors, i)
 end
 
 return ConnectorBase

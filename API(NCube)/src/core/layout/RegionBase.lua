@@ -71,9 +71,9 @@ function RegionBase:getRegion(i)
 end
 
 function RegionBase:getRegionById(id)
-   for i, v in ipairs(self.regions) do
-       if(self.regions[i]:getId() == id)then
-          return self.regions[i]
+   for _, region in ipairs(self.regions) do
+       if(region:getId() == id)then
+          return region
        end
    end
    
@@ -82,18 +82,25 @@ end
 
 function RegionBase:setRegions(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addRegion(v)
+      for _, region in ipairs(arg) do
+          self:addRegion(region)
       end
     end
 end
 
 function RegionBase:removeRegion(region)
    self:removeChild(region)
+      
+   for i, rg in ipairs(self.regions) do
+       if(region == rg)then
+           table.remove(self.regions, i)  
+       end
+   end 
 end
 
 function RegionBase:removeRegionPos(i)
-   self:removeChild(self.regions[i])
+   self:removeChildPos(i)
+   table.remove(self.regions, i)
 end
 
 return RegionBase

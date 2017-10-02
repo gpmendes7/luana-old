@@ -67,18 +67,25 @@ end
 
 function CompoundAction:setSimpleActions(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addSimpleAction(v)
+      for _, simpleAction in ipairs(arg) do
+          self:addSimpleAction(simpleAction)
       end
     end
 end
 
 function CompoundAction:removeSimpleAction(simpleAction)
    self:removeChild(simpleAction)
+   
+   for i, sa in ipairs(self.simpleActions) do
+       if(simpleAction == sa)then
+           table.remove(self.simpleActions, i)  
+       end
+   end 
 end
 
 function CompoundAction:removeSimpleActionPos(i)
-   self:removeChild(self.simpleActions[i])
+   self:removeChildPos(i)
+   table.remove(self.simpleActions, i)
 end
 
 function CompoundAction:addCompoundAction(compoundAction)
@@ -97,18 +104,25 @@ end
 
 function CompoundAction:setCompoundActions(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addCompoundAction(v)
+      for _, compoundAction in ipairs(arg) do
+          self:addCompoundAction(compoundAction)
       end
     end
 end
 
 function CompoundAction:removeCompoundAction(compoundAction)
    self:removeChild(compoundAction)
+   
+   for i, ca in ipairs(self.compoundActions) do
+       if(compoundAction == ca)then
+           table.remove(self.compoundActions, i)  
+       end
+   end 
 end
 
 function CompoundAction:removeCompoundActionPos(i)
-   self:removeChild(self.compoundActions[i])
+   self:removeChildPos(i)
+   table.remove(self.compoundActions, i)
 end
 
 return CompoundAction

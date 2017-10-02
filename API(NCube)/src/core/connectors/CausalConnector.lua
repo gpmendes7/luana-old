@@ -62,14 +62,25 @@ end
 
 function CausalConnector:setConnectorParams(...)
     if(#arg>0)then
-      for i, v in ipairs(arg) do
-          self:addConnectorParam(v)
+      for _, connectorParam in ipairs(arg) do
+          self:addConnectorParam(connectorParam)
       end
     end
 end
 
 function CausalConnector:removeConnectorParam(connectorParam)
    self:removeChild(connectorParam)
+   
+   for i, cp in ipairs(self.connectorParams) do
+       if(connectorParam == cp)then
+           table.remove(self.connectorParams, i)  
+       end
+   end 
+end
+
+function CausalConnector:removeConnectorParamPos(i)
+   self:removeChildPos(i)
+   table.remove(self.connectorParams, i)
 end
 
 function CausalConnector:setSimpleCondition(simpleCondition)

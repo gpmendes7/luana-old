@@ -65,7 +65,6 @@ function Bind:getDescriptor()
    return self.attributes.descriptor
 end
 
-
 function Bind:addBindParam(bindParam)
     table.insert(self.bindParams, bindParam)    
     local p = self:getPosAvailable("bindParam")
