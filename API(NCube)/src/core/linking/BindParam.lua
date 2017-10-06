@@ -4,16 +4,17 @@ local BindParam = NCLElem:extends()
 
 BindParam.name = "bindParam"
 
-BindParam.attributes = {
-  name = nil,
-  value = nil
-}
-
 function BindParam:create(attributes)  
-   local attributes = attributes or {}  
    local bindParam = BindParam:new() 
+   
+   bindParam.attributes = {
+     ["name"] = "",
+     ["value"] = ""
+   }
      
-   bindParam:setAttributes(attributes)
+   if(attributes ~= nil)then
+      bindParam:setAttributes(attributes)
+   end
    
    return bindParam
 end

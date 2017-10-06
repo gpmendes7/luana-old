@@ -4,27 +4,28 @@ local SimpleAction = NCLElem:extends()
 
 SimpleAction.name = "simpleAction"
 
-SimpleAction.attributes = {
-  role = nil,
-  delay = nil,
-  eventType = nil,
-  actionType = nil,
-  value = nil,
-  min = nil,
-  max = nil,
-  qualifier = nil,
-  ["repeat"] = nil,
-  repeatDelay = nil,
-  duration = nil,
-  by = nil
-}
-
 function SimpleAction:create(attributes)  
-   local attributes = attributes or {}  
    local simpleAction = SimpleAction:new() 
-     
-   simpleAction:setAttributes(attributes)
    
+   simpleAction.attributes = {
+      ["role"] = "",
+      ["delay"] = "",
+      ["eventType"] = "",
+      ["actionType"] = "",
+      ["value"] = "",
+      ["min"] = "",
+      ["max"] = "",
+      ["qualifier"] = "",
+      ["repeat"] = "",
+      ["repeatDelay"] = "",
+      ["duration"] = "",
+      ["by"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      simpleAction:setAttributes(attributes)
+   end
+     
    return simpleAction
 end
 

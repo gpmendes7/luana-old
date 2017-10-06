@@ -4,17 +4,19 @@ local LinkParam = NCLElem:extends()
 
 LinkParam.name = "linkParam"
 
-LinkParam.attributes = {
-  name = nil,
-  value = nil
-}
-
 function LinkParam:create(attributes)  
    local attributes = attributes or {}  
    local linkParam = LinkParam:new() 
-     
-   linkParam:setAttributes(attributes)
    
+   linkParam.attributes = {
+      ["name"] = "",
+      ["value"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      linkParam:setAttributes(attributes)
+   end
+      
    return linkParam
 end
 

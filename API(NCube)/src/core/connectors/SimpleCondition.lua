@@ -4,23 +4,24 @@ local SimpleCondition = NCLElem:extends()
 
 SimpleCondition.name = "simpleCondition"
 
-SimpleCondition.attributes = {
-  role = nil,
-  delay = nil,
-  eventType = nil,
-  key = nil,
-  transition = nil,
-  min = nil,
-  max = nil,
-  qualifier = nil
-}
-
-function SimpleCondition:create(attributes)  
-   local attributes = attributes or {}  
+function SimpleCondition:create(attributes)   
    local simpleCondition = SimpleCondition:new() 
    
-   simpleCondition:setAttributes(attributes)
+   simpleCondition.attributes = {
+      ["role"] = "",
+      ["delay"] = "",
+      ["eventType"] = "",
+      ["key"] = "",
+      ["transition"] = "",
+      ["min"] = "",
+      ["max"] = "",
+      ["qualifier"] = ""
+   }
    
+   if(attributes ~= nil)then
+      simpleCondition:setAttributes(attributes)
+   end   
+  
    return simpleCondition
 end
 

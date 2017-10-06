@@ -13,7 +13,7 @@ local NCLElem = Class:createClass{
 }
 
 function NCLElem:create(name, attributes)
-   local attributes = attributes or {}    
+   local attributes = attributes    
    local nclElem = NCLElem:new()         
    
    if(isInvalidString(name))then
@@ -23,7 +23,10 @@ function NCLElem:create(name, attributes)
    
    nclElem.name = name    
    nclElem:setChilds()
-   nclElem:setAttributes(attributes)
+   
+   if(attributes ~= nil)then
+      nclElem:setAttributes(attributes)
+   end
  
    return nclElem
 end
@@ -49,6 +52,24 @@ function NCLElem:getParent()
 end
 
 function NCLElem:addChild(child, p)
+    if(child == nil)then
+       print("Child is nil!")
+       return
+    end
+    
+    local valid = false
+    
+    for chd, _ in pairs(self.childsMap) do
+       if(chd == child:getName())then
+          valid = true
+       end
+    end
+    
+    if(not(valid))then
+       print("Invalid Child! "..child.name.." cannot be added in a "..self.name.." element!")
+       return
+    end
+    
     if(p ~= nil)then
        table.insert(self.childs, p, child)
     else
@@ -77,7 +98,6 @@ function NCLElem:getChild(i)
 end
 
 function NCLElem:setChilds(...)
-    self.childs = {}
     if(#arg>0)then
       for _, child in ipairs(arg) do
           self:addChild(child)
@@ -167,12 +187,25 @@ end
 function NCLElem:addAttribute(attribute, value)
     if(isInvalidString(attribute))then
        print("Invalid attribute!")
-       return nil
+       return
     end
     
-    if(isInvalidString(value))then
+    if(isEmptyOrNil(value))then
        print("Invalid value!")
-       return nil
+       return
+    end
+    
+    local valid = false
+    
+    for att, _ in pairs(self.attributes)do
+       if(att == attribute)then
+          valid = true
+       end
+    end
+    
+    if(not(valid))then
+       print(self.name.." does not have attribute "..attribute.."!")
+       return
     end
    
     self.attributes[attribute] = value
@@ -181,35 +214,53 @@ end
 function NCLElem:removeAttribute(attribute)
     if(isInvalidString(attribute))then
        print("Invalid attribute!")
-       return nil
+       return
     end
     
     if(self.attributes[attribute] == nil)then
        print("There is not an attribute "..attribute.."!")
-       return nil
+       return
     end
     
-    self.attributes[attribute] = nil
+    local valid = false
+    
+    for att, _ in pairs(self.attributes)do
+       if(att == attribute)then
+          valid = true
+       end
+    end
+    
+    if(not(valid))then
+       print(self.name.." does not have attribute "..attribute.."!")
+       return
+    end
+    
+    self.attributes[attribute] = ""
 end
 
 function NCLElem:getAttribute(attribute)
-     if(isInvalidString(attribute))then
+    if(isInvalidString(attribute))then
        print("Invalid attribute!")
        return nil
     end
+        
+    local valid = false
     
-    if(self.attributes[attribute] == nil)then
-       print("There is not an attribute called "..attribute.." in the element "..self:getName().."!")
-       return nil
+    for att, _ in pairs(self.attributes)do
+       if(att == attribute)then
+          valid = true
+       end
+    end
+    
+    if(not(valid))then
+       print(self.name.." does not have attribute "..attribute.."!")
+       return
     end
     
     return self.attributes[attribute]
 end
 
-function NCLElem:setAttributes(attributes)
-    self.attributes = {}    
-    local attributes = attributes or {}
-    
+function NCLElem:setAttributes(attributes)    
     for attribute, value in pairs(attributes) do
        self:addAttribute(attribute, value)
     end
@@ -219,11 +270,13 @@ function NCLElem:getAttributes()
     return self.attributes
 end
 
-function NCLElem:getNumberOfAttributes()
+function NCLElem:getNumberOfFixedAttributes()
     local c = 0
     
     for attribute, value in pairs(self.attributes) do
-       c = c + 1
+       if(not(isInvalidString(value)))then
+          c = c + 1
+       end
     end
     
     return c
@@ -232,7 +285,7 @@ end
 
 function NCLElem:readAttributes()
    local s, e, t, u, w = nil
-       
+
    _, s = string.find(self:getNcl(), "<"..self:getName().." ")
    _, t = string.find(self:getNcl(), "<"..self:getName()..">")
    e = string.find(self:getNcl(), ">")
@@ -341,34 +394,11 @@ function NCLElem:readChildNcl(childsNcl, childName)
    return childNcl, h
 end
 
-function NCLElem:buildChild(childName, childNcl)
-    local childClass = self:getChildsMap()[childName][1]
-                          
-    local childObject = childClass:create()            
-             
-    childObject:setNcl(childNcl)
-    childObject:ncl2Table()  
-    self:addChild(childObject)
-                          
-    local cardinality = self:getChildsMap()[childName][2]
-                       
-    if(cardinality == "many")then    
-       if(self[childName..'s'] == nil)then
-          self[childName..'s'] = {}
-       end
-                              
-       table.insert(self[childName.."s"], childObject)                
-    elseif(cardinality == "one")then                       
-            self[childName] = childObject                
-    end
-                         
-end
-
 function NCLElem:ncl2Table()   
    self:readAttributes()
        
    local childsNcl = self:readChildsNcl()
-  
+
    if(childsNcl ~= nil)then
       local s, e = nil
       
@@ -381,14 +411,33 @@ function NCLElem:ncl2Table()
            local childNcl, h = self:readChildNcl(childsNcl, childName)
            
            if(childNcl ~= nil)then     
-              self:buildChild(childName, childNcl)   
+              local childClass = self:getChildsMap()[childName][1]
+                          
+              local childObject = childClass:create()            
+                       
+              childObject:setNcl(childNcl)
+              childObject:ncl2Table()  
+              self:addChild(childObject)
+                                    
+              local cardinality = self:getChildsMap()[childName][2]
+                                 
+              if(cardinality == "many")then    
+                 if(self[childName..'s'] == nil)then
+                    self[childName..'s'] = {}
+                 end
+                                        
+                 table.insert(self[childName.."s"], childObject)                
+              elseif(cardinality == "one")then                       
+                      self[childName] = childObject                
+              end
+               
            end 
             
            if(h ~= nil)then
              childsNcl = string.sub(childsNcl, h+1, string.len(childsNcl))      
            end  
         end            
- 
+
      until (string.find(childsNcl, "%a") == nil)
   end
 end
@@ -409,7 +458,7 @@ function NCLElem:table2Ncl(deep)
   local attrs = self:getAttributes()
   if(attrs ~= nil)then
     for k, v in pairs(attrs) do
-         if(v ~= nil)then
+         if(not(isInvalidString(v)))then
             ncl = ncl.." "..k.."=".."\""..v.."\""
          end
     end
@@ -419,7 +468,7 @@ function NCLElem:table2Ncl(deep)
   
   if(childs ~= nil)then  
      local nchilds = #childs
-    
+     
      if(nchilds == 0)then
         return ncl.."/>\n"
      end
@@ -435,6 +484,8 @@ function NCLElem:table2Ncl(deep)
             ncl = ncl.." "
         end 
      end
+  else
+      return ncl.."/>\n"
   end
   
   return ncl.."</"..self:getName()..">\n"

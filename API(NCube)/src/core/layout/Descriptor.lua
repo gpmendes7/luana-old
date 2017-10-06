@@ -4,27 +4,6 @@ local Descriptor = NCLElem:extends()
 
 Descriptor.name = "descriptor"
 
-Descriptor.attributes = {
-  id = nil, 
-  player = nil,
-  explicitDur = nil, 
-  region = nil,
-  freeze = nil,
-  moveLeft = nil, 
-  moveRight = nil, 
-  moveUp = nil, 
-  moveDown = nil, 
-  focusIndex = nil, 
-  focusBorderColor = nil, 
-  focusBorderWidth = nil, 
-  focusBorderTransparency = nil, 
-  focusSrc = nil, 
-  focusSelSrc = nil, 
-  selBorderColor = nil, 
-  transIn = nil, 
-  transOut = nil
-}
-
 Descriptor.hasAss = true
 
 Descriptor.assMap = {
@@ -34,11 +13,34 @@ Descriptor.assMap = {
 Descriptor.regionAss = nil
 
 function Descriptor:create(attributes)  
-   local attributes = attributes or {}  
    local descriptor = Descriptor:new() 
+   
+   descriptor.attributes = {
+      ["id"] = "", 
+      ["player"] = "",
+      ["explicitDur"] = "", 
+      ["region"] = "",
+      ["freeze"] = "",
+      ["moveLeft"] = "", 
+      ["moveRight"] = "", 
+      ["moveUp"] = "", 
+      ["moveDown"] = "", 
+      ["focusIndex"] = "", 
+      ["focusBorderColor"] = "", 
+      ["focusBorderWidth"] = "", 
+      ["focusBorderTransparency"] = "", 
+      ["focusSrc"] = "", 
+      ["focusSelSrc"] = "", 
+      ["selBorderColor"] = "", 
+      ["transIn"] = "", 
+      ["transOut"] = ""
+   }     
+   
+   if(attributes ~= nil)then
+      descriptor:setAttributes(attributes)
+   end
      
-   descriptor:setAttributes(attributes)
-   descriptor:setChilds()
+   descriptor.childs = {}
    
    return descriptor
 end

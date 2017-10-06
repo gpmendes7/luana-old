@@ -5,12 +5,6 @@ local RegionBase = NCLElem:extends()
 
 RegionBase.name = "regionBase"
 
-RegionBase.attributes = { 
-  id = nil,
-  device = nil,
-  region = nil 
-}
-
 RegionBase.childsMap = {
  ["region"] = {Region, "many"}
 }
@@ -20,9 +14,18 @@ RegionBase.regions = nil
 function RegionBase:create(attributes, full)
    local attributes = attributes or {}     
    local regionBase = RegionBase:new()  
-    
-   regionBase:setAttributes(attributes)
-   regionBase:setChilds()  
+   
+   regionBase.attributes = { 
+      ["id"] = "",
+      ["device"] = "",
+      ["region"] = "" 
+   }
+   
+   if(attributes ~= nil)then
+      regionBase:setAttributes(attributes)
+   end
+   
+   regionBase.childs = {}  
    regionBase.regions = {}
    
    if(full ~= nil)then    

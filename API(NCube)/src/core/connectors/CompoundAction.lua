@@ -5,11 +5,6 @@ local CompoundAction = NCLElem:extends()
 
 CompoundAction.name = "compoundAction"
 
-CompoundAction.attributes = {
-  operator = nil,
-  delay = nil
-}
-
 CompoundAction.childsMap = {
  ["simpleAction"] = {SimpleAction, "many"},
  ["compoundAction"] = {CompoundAction, "many"}
@@ -18,12 +13,19 @@ CompoundAction.childsMap = {
 CompoundAction.simpleActions = nil
 CompoundAction.compoundActions = nil
 
-function CompoundAction:create(attributes, full)  
-   local attributes = attributes or {}  
-   local compoundAction = CompoundAction:new() 
-     
-   compoundAction:setAttributes(attributes)
-   compoundAction:setChilds()
+function CompoundAction:create(attributes, full)   
+   local compoundAction = CompoundAction:new()  
+   
+   compoundAction.attributes = {
+      ["operator"] = "",
+      ["delay"] = ""
+   }
+       
+   if(attributes ~= nil)then
+      compoundAction:setAttributes(attributes)
+   end
+   
+   compoundAction.childs = {}
    compoundAction.simpleActions = {}
    compoundAction.compoundActions = {}
    

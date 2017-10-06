@@ -6,7 +6,7 @@ local doc = Document:create({id="doc", xmlns="http://www.ncl.org.br/NCL3.0/EDTVP
 
 --doc:getHead():addRegionBase(rb1)
 
-rb1 = doc:getHead():getRegionBase(1)
+local rb1 = doc:getHead():getRegionBase(1)
 
 rb1:setAttributes{id="rb1", device="rbTV"}
 
@@ -21,8 +21,7 @@ local rg2 = Region:create({id="rg2", width="25%", height="25%"}, 1)
 rb1:addRegion(rg2)
 
 local cb = doc:getHead():getConnectorBase(1)
-local p = doc:getHead():getPosChild(cb)
-doc:getHead():removeChild(p)
+doc:getHead():removeChild(cb)
 
 --local rg3 = Region:create{id="rg3", width="50%", height="50%"}
 
@@ -60,7 +59,7 @@ doc:getBody():addMedia(m2)
 doc:saveNcl("fiesta2.ncl")
 
 local rg2 = doc:getDescendantByAttribute("id", "rg2")
-local p = rg2:getPosChild(rg3)
-rg2:removeChild(p)
+local rg3 = doc:getDescendantByAttribute("id", "rg3")
+rg2:removeChild(rg3)
 
 doc:saveNcl("tech.ncl")

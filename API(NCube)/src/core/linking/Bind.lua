@@ -5,13 +5,6 @@ local Bind = NCLElem:extends()
 
 Bind.name = "bind"
 
-Bind.attributes = { 
-  role = nil, 
-  component = nil, 
-  interface = nil, 
-  descriptor = nil
-}
-
 Bind.childsMap = {
  ["bindParam"] = {BindParam, "many"}
 }
@@ -19,11 +12,20 @@ Bind.childsMap = {
 Bind.bindParams = nil
 
 function Bind:create(attributes, full)
-   local attributes = attributes or {}  
    local bind = Bind:new()
    
-   bind:setAttributes(attributes)
-   bind:setChilds()    
+   bind.attributes = { 
+      ["role"] = "", 
+      ["component"] = "", 
+      ["interface"] = "", 
+      ["descriptor"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      bind:setAttributes(attributes)
+   end
+           
+   bind.childs = {}
    bind.bindParams = {}
    
    if(full ~= nil)then

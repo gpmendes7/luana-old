@@ -2,19 +2,20 @@ local NCLElem = require "core/structure_content/NCLElem"
 
 local ConnectorParam = NCLElem:extends()
 
-ConnectorParam .name = "connectorParam"
+ConnectorParam.name = "connectorParam"
 
-ConnectorParam .attributes = {
-  name = nil,
-  type = nil
-}
-
-function ConnectorParam:create(attributes)  
-   local attributes = attributes or {}  
+function ConnectorParam:create(attributes)   
    local connectorParam = ConnectorParam:new() 
-     
-   connectorParam:setAttributes(attributes)
    
+   connectorParam.attributes = {
+     ["name"] = "",
+     ["type"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      connectorParam:setAttributes(attributes)
+   end
+           
    return connectorParam
 end
 

@@ -18,7 +18,6 @@ local function test3()
    assert(isInvalidString(), "Error!")
    assert(isInvalidString(nil), "Error!")
    assert(isInvalidString(""), "Error!")
-   
    assert(not(isInvalidString("ncl")), "Error!")
    assert(isInvalidString(true), "Error!")
    assert(isInvalidString(10), "Error!")

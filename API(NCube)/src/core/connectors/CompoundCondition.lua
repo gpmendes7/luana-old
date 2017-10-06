@@ -5,11 +5,6 @@ local CompoundCondition = NCLElem:extends()
 
 CompoundCondition.name = "compoundCondition"
 
-CompoundCondition.attributes = {
-  operator = nil,
-  delay = nil
-}
-
 CompoundCondition.childsMap = {
  ["simpleCondition"] = {SimpleCondition, "many"},
  ["compoundCondition"] = {CompoundCondition, "many"}
@@ -19,11 +14,18 @@ CompoundCondition.simpleConditions = nil
 CompoundCondition.compoundConditions = nil
 
 function CompoundCondition:create(attributes, full)  
-   local attributes = attributes or {}  
    local compoundCondition = CompoundCondition:new() 
-     
-   compoundCondition:setAttributes(attributes)
-   compoundCondition:setChilds()
+   
+   compoundCondition.attributes = {
+     ["operator"] = "",
+     ["delay"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      compoundCondition:setAttributes(attributes)
+   end
+   
+   compoundCondition.childs = {}
    compoundCondition.simpleConditions = {}
    compoundCondition.compoundConditions = {}
     

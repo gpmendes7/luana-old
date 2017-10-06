@@ -4,17 +4,18 @@ local Port = NCLElem:extends()
 
 Port.name = "port"
 
-Port.attributes = {
-  id = nil,  
-  component = nil,
-  interface = nil
-}
-
 function Port:create(attributes)  
-   local attributes = attributes or {}  
    local port = Port:new()   
    
-   port:setAttributes(attributes)
+   port.attributes = {
+      ["id"] = "",  
+      ["component"] = "",
+      ["interface"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      port:setAttributes(attributes)
+   end
    
    return port
 end

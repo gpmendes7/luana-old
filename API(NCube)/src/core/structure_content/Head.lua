@@ -20,7 +20,7 @@ Head.connectorBases = nil
 function Head:create(full)
    local head = Head:new()     
     
-   head:setChilds()   
+   head.childs = {}  
    head.regionBases = {}
    head.connectorBases = {}
    

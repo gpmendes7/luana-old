@@ -1,84 +1,157 @@
 local NCLElem = require "core/structure_content/NCLElem"
 
+local ElementA = require "core/structure_content/pseudo/ElementA"
+local ElementB = require "core/structure_content/pseudo/ElementB"
+local ElementC = require "core/structure_content/pseudo/ElementC"
+local ElementD = require "core/structure_content/pseudo/ElementD"
+local ElementE = require "core/structure_content/pseudo/ElementE"
+
+
 local function test1()
-   local elem1 = NCLElem:create("elem1")
-   assert(elem1 ~= "nil", "Error!")
+    local  elemA = nil
+    
+    elemA = ElementA:create()   
+    
+    assert(elemA ~= nil, "Error!")
+    assert(elemA:getAttribute("") == nil, "Error!") 
+    assert(elemA:getAttribute(nil) == nil, "Error!") 
+    assert(elemA:getNumberOfFixedAttributes() == 0, "Error!") 
+
+    elemA = ElementA:create({id = "id1", desc = "desc1"})   
    
-   local elem2 = NCLElem:create("elem2")
-   assert(elem2:getName() == "elem2", "Error!")
-   
-   local elem3 = NCLElem:create("elem3")
-   assert(elem3:getChilds() ~= "elem3", "Error!")
-   
-   local elem4 = NCLElem:create("elem4", {id = "e4"})
-   assert(elem4:getAttributes() ~= nil, "Error!")
-   
-   local elem4 = NCLElem:create()
-   assert(elem4 == nil, "Error!")
+    assert(elemA ~= nil, "Error!")
+    assert(elemA:getNumberOfFixedAttributes() == 2, "Error!") 
+    
+    elemA = ElementA:create() 
+    elemA:addAttribute("id", "id1") 
+    elemA:addAttribute("desc", "desc1") 
+    
+    assert(elemA:getAttribute("id") == "id1", "Error!")
+    assert(elemA:getAttribute("desc") == "desc1", "Error!")
+    assert(elemA:getNumberOfFixedAttributes() == 2, "Error!") 
+    
+    elemA = ElementA:create() 
+    elemA:setAttributes({id = "id1", desc = "desc1"}) 
+    
+    assert(elemA:getAttribute("id") == "id1", "Error!")
+    assert(elemA:getAttribute("desc") == "desc1", "Error!")
+    
+    elemA = ElementA:create({x = "x", y = "y", z = "z"}) 
+    
+    assert(elemA:getAttribute("x") == nil, "Error!")  
+    assert(elemA:getAttribute("y") == nil, "Error!") 
+    assert(elemA:getAttribute("z") == nil, "Error!")  
+    assert(elemA:getNumberOfFixedAttributes() == 0, "Error!")  
+    
+    elemA = ElementA:create({id = "id1", desc = "desc1"}) 
+    elemA:removeAttribute("id")
+    
+    assert(elemA:getAttribute("id") == "", "Error!")
+    assert(elemA:getNumberOfFixedAttributes() == 1, "Error!") 
 end
 
 local function test2()
-   local elem1 = NCLElem:create("elem1", {id = "e1"})   
-   local elem2 = NCLElem:create("elem2", {id = "e2"})
-   local elem3 = NCLElem:create("elem3", {id = "e3"}) 
-    
-   elem1:addChild(elem2)   
-   elem1:addChild(elem3)
-   assert(#elem1:getChilds() == 2, "Error!")
-   assert(elem1:getChild(1) == elem2, "Error!")
-   assert(elem2:getParent() == elem1, "Error!")
-   assert(elem1:getChild(2) == elem3, "Error!")
-   assert(elem3:getParent() == elem1, "Error!")
+   local elemA, elemB, elemC = nil
    
-   elem1:removeChild(elem2)
-   assert(#elem1:getChilds() == 1, "Error!")
-   assert(elem2:getParent() == nil, "Error!")
+   elemA = ElementA:create({id = "id1", desc = "desc1"})   
+   elemB = ElementB:create({id = "id2", desc = "desc2"})
+   elemC = ElementC:create({id = "id3", desc = "desc3"})      
+  
+   elemA:addChild(elemB)
+   elemA:addChild(elemC) 
+   elemB:addChild(elemA)
+  
+   assert(#elemA:getChilds() == 2, "Error!")
+   assert(elemA:getChild(1) == elemB, "Error!")
+   assert(elemA:getChild(2) == elemC, "Error!")
    
-   elem1:removeChild(elem3)
-   assert(#elem1:getChilds() == 0, "Error!")
-   assert(elem3:getParent() == nil, "Error!")
+   elemA = ElementA:create({id = "id1", desc = "desc1"}) 
+   elemA:addChild(nil)
+  
+   assert(#elemA:getChilds() == 0, "Error!")
    
-   elem1:setChilds(elem2, elem3)
-   assert(#elem1:getChilds() == 2, "Error!")
-   assert(elem2:getParent() ~= nil, "Error!")
-   assert(elem3:getParent() ~= nil, "Error!")
-   assert(elem1:getPosChild(elem2) == 1, "Error!")
-   assert(elem1:getPosChild(elem3) == 2, "Error!")
+   elemA = ElementA:create({id = "id1", desc = "desc1"})   
+   elemB = ElementB:create({id = "id2", desc = "desc2"})
+   elemC = ElementC:create({id = "id3", desc = "desc3"})
+   elemA:setChilds(elemB, elemC)
    
-   local elem4 = NCLElem:create("elem4", {id = "e4"})
-   elem2:addChild(elem4)
-   local elem5 = NCLElem:create("elem5", {id = "e5"})
-   elem3:addChild(elem5) 
-   assert(#elem1:getDescendants() == 4, "Error!") 
-   assert(elem1:getDescendantByAttribute("id", "e2") ~= nil, "Error!")
-   assert(elem1:getDescendantByAttribute("id", "e3") ~= nil, "Error!")
-   assert(elem1:getDescendantByAttribute("id", "e4") ~= nil, "Error!")
-   assert(elem1:getDescendantByAttribute("id", "e5") ~= nil, "Error!")
-   assert(elem1:getDescendantByAttribute("id", "e6") == nil, "Error!")
+   assert(#elemA:getChilds() == 2, "Error!")
+   
+   elemA = ElementA:create(nil, 1)   
+   
+   assert(#elemA:getChilds() == 3, "Error!")
+   assert(elemA:getChild(1):getName() == "elementA", "Error!")
+   assert(elemA:getChild(2):getName() == "elementB", "Error!")
+   assert(elemA:getChild(3):getName() == "elementC", "Error!")
+   
+   elemA = ElementA:create({id = "id1", desc = "desc1"})   
+   elemB = ElementB:create({id = "id2", desc = "desc2"})
+   elemC = ElementC:create({id = "id3", desc = "desc3"})
+ 
+   elemA:addChild(elemB)
+   elemA:addChild(elemC) 
+   elemA:removeChild(elemB)
+   
+   assert(#elemA:getChilds() == 1, "Error!")
+ 
+   elemA:removeChild(elemC)
+   assert(#elemA:getChilds() == 0, "Error!")
+   
+   elemA = ElementA:create(nil, 1) 
+   elemA:removeChildPos(1)  
+   
+   assert(#elemA:getChilds() == 2, "Error!")
+   
+   elemA = ElementA:create(nil, 1) 
+   elemA:removeAllChilds()  
+   
+   assert(#elemA:getChilds() == 0, "Error!")
 end
 
 local function test3()
-   local elem1 = NCLElem:create("elem1", {id = "e1"})  
+   local elemA, elemB, elemC, elemD, elemE = nil
    
-   elem1:addAttribute("description", "desc1") 
-   assert(elem1:getAttribute("description") == "desc1", "Error!")
+   elemA = ElementA:create({id = "id1", desc = "desc1"})   
+   elemB = ElementB:create({id = "id2", desc = "desc2"})
+   elemC = ElementC:create({id = "id3", desc = "desc3"}) 
+   elemD = ElementD:create({id = "id4", desc = "desc4"})
+   elemE = ElementE:create({id = "id5", desc = "desc5"})
    
-   elem1:addAttribute("", "element 1") 
-   assert(elem1:getAttribute("") == nil, "Error!")
+   elemA:setChilds(elemB, elemC)
+   elemB:addChild(elemD)
+   elemC:addChild(elemE)
    
-   elem1:addAttribute("name", "") 
-   assert(elem1:getAttribute("name") == nil, "Error!")
+   assert(#elemA:getDescendants() == 4, "Error!") 
+   assert(elemA:getDescendantByAttribute("id", "id2") ~= nil, "Error!")
+   assert(elemA:getDescendantByAttribute("id", "id3") ~= nil, "Error!")
+   assert(elemA:getDescendantByAttribute("id", "id4") ~= nil, "Error!")
+   assert(elemA:getDescendantByAttribute("id", "id5") ~= nil, "Error!")
+end
+
+local function test4()
+   local elemA, elemB, elemC, elemD, elemE = nil
    
-   elem1:addAttribute(nil, nil) 
-   assert(elem1:getAttribute(nil) == nil, "Error!")
+   elemA = ElementA:create({id = "id1", desc = "desc1"})   
+   elemB = ElementB:create({id = "id2", desc = "desc2"})
+   elemC = ElementC:create({id = "id3", desc = "desc3"}) 
+   elemD = ElementD:create({id = "id4", desc = "desc4"})
+   elemE = ElementE:create({id = "id5", desc = "desc5"})
+  
+   elemA:setChilds(elemB, elemC)
+   elemB:addChild(elemD)
+   elemC:addChild(elemE)
+  
+   local nclA = elemA:table2Ncl(0)
    
-   elem1:setAttributes{id = "e1", name = "element1", description = "desc1"}
-   assert(elem1:getAttribute("id") == "e1", "Error!")
-   assert(elem1:getAttribute("name") == "element1", "Error!")
-   assert(elem1:getAttribute("description") == "desc1", "Error!")
+   local elemG = ElementA:create()
+   elemG:setNcl(nclA)
+   elemG:ncl2Table()
+   local nclG = elemG:table2Ncl(0)
    
+   assert(nclA == nclG, "Error!") 
 end
 
 test1()
 test2()
 test3()
+test4()

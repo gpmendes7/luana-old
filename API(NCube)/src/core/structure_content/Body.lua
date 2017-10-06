@@ -7,10 +7,6 @@ local Body = NCLElem:extends()
 
 Body.name = "body"
 
-Body.attributes = { 
-  id = nil
-}
-
 Body.childsMap = {
  ["port"] = {Port, "many"}, 
  ["media"] = {Media, "many"},
@@ -21,11 +17,17 @@ Body.ports = nil
 Body.medias = nil
 
 function Body:create(attributes, full)
-   local attributes = attributes or {}  
    local body = Body:new()
    
-   body:setAttributes(attributes)
-   body:setChilds()  
+   body.attributes = { 
+    ["id"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      body:setAttributes(attributes)
+   end
+   
+   body.childs = {}  
    body.ports = {}
    body.medias = {}
    

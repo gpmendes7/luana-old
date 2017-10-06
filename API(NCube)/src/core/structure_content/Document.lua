@@ -8,12 +8,6 @@ Document.name = "ncl"
 
 Document.xmlHead = nil
 
-Document.attributes = { 
-  id = nil,
-  title = nil,
-  xmlns = nil
-}
-
 Document.childsMap = {
  ["head"] = {Head, "one"}, 
  ["body"] = {Body, "one"}
@@ -23,12 +17,20 @@ Document.head = nil
 Document.body = nil
 
 function Document:create(attributes, xmlHead, full)
-   local attributes = attributes or {}  
    local xmlHead = xmlHead or {}  
    local document = Document:new()   
    
-   document:setAttributes(attributes)   
-   document:setChilds() 
+   document.attributes = { 
+      ["id"] = "",
+      ["title"] = "",
+      ["xmlns"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      document:setAttributes(attributes)
+   end
+   
+   document.childs = {}
    document:setXmlHead(xmlHead)
    
    if(full ~= nil)then
@@ -40,27 +42,27 @@ function Document:create(attributes, xmlHead, full)
 end
 
 function Document:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function Document:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function Document:setTitle(title)
-   self.attributes.title = title
+   self:addAttribute("title", title)
 end
 
 function Document:getTitle()
-   return self.attributes.title
+   return self:getAttribute("title")
 end
 
 function Document:setXmlns(xmlns)
-   self.attributes.xmlns = xmlns
+   self:addAttribute("xmlns", xmlns)
 end
 
 function Document:getXmlns()
-   return self.attributes.xmlns
+   return self:getAttribute("xmlns")
 end
 
 function Document:setXmlHead(xmlHead)
@@ -94,6 +96,31 @@ function Document:saveNcl(name)
    local file = io.open(name, "w")       
    file:write(ncl)   
    file:close()
+end
+
+function Document:removeComments(ncl)
+   local newNcl = ncl
+   
+   local t, u = string.find(newNcl,"<!--.-->")
+   
+   if(t == nil and u == nil)then
+       return newNcl
+   end
+  
+   while(1)do
+     local aux1 = string.sub(newNcl, 1, t-1)
+     local aux2 = string.sub(newNcl, u+1, string.len(newNcl))
+     
+     newNcl = aux1..aux2
+     
+     t, u = string.find(newNcl,"<!--.-->")
+     
+     if(t == nil and u == nil)then
+        break
+     end
+   end
+   
+   return newNcl
 end
 
 function Document:readNclFile(name)
@@ -134,7 +161,9 @@ function Document:connectAssociatedElements()
 end
 
 function Document:loadNcl(name)
-   self:setNcl(self:readNclFile(name)) 
+   local ncl = self:readNclFile(name) 
+   ncl = self:removeComments(ncl)
+   self:setNcl(ncl) 
    self:ncl2Table()
    self:connectAssociatedElements()
 end

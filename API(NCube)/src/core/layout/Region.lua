@@ -4,18 +4,6 @@ local Region = NCLElem:extends()
 
 Region.name = "region"
 
-Region.attributes = {
-  id = nil, 
-  title = nil, 
-  left = nil, 
-  right = nil, 
-  top = nil, 
-  bottom = nil, 
-  height = nil, 
-  width = nil, 
-  zIndex = nil
-}
-
 Region.childsMap = {
  ["region"] = {Region, "many"}
 }
@@ -23,11 +11,25 @@ Region.childsMap = {
 Region.regions = nil 
 
 function Region:create(attributes, full)
-   local attributes = attributes or {}  
    local region = Region:new() 
-    
-   region:setAttributes(attributes)
-   region:setChilds() 
+   
+   region.attributes = {
+      ["id"] = "", 
+      ["title"] = "", 
+      ["left"] = "", 
+      ["right"] = "", 
+      ["top"] = "", 
+      ["bottom"] = "", 
+      ["height"] = "", 
+      ["width"] = "", 
+      ["zIndex"] = ""
+   }     
+   
+   if(attributes ~= nil)then
+      region:setAttributes(attributes)
+   end
+   
+   region.childs = {}
    region.regions = {}
    
    if(full ~= nil)then

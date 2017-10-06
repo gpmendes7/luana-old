@@ -5,10 +5,6 @@ local ConnectorBase = NCLElem:extends()
 
 ConnectorBase.name = "connectorBase"
 
-ConnectorBase.attributes = {
-  id = nil
-}
-
 ConnectorBase.childsMap = {
  ["causalConnector"] = {CausalConnector, "many"}
 }
@@ -16,11 +12,17 @@ ConnectorBase.childsMap = {
 ConnectorBase.causalConnectors = nil
 
 function ConnectorBase:create(attributes, full)  
-   local attributes = attributes or {}  
    local connectorBase = ConnectorBase:new() 
+   
+   connectorBase.attributes = {
+      ["id"] = ""
+   }  
+   
+   if(attributes ~= nil)then
+      connectorBase:setAttributes(attributes)
+   end
      
-   connectorBase:setAttributes(attributes)
-   connectorBase:setChilds()
+   connectorBase.childs = {}
    connectorBase.causalConnectors = {}
     
    if(full ~= nil)then      

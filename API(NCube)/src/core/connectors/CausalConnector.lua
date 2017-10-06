@@ -9,10 +9,6 @@ local CausalConnector = NCLElem:extends()
 
 CausalConnector.name = "causalConnector"
 
-CausalConnector.attributes = {
-  id = nil
-}
-
 CausalConnector.childsMap = {
  ["connectorParam"] = {ConnectorParam, "many"},
  ["simpleCondition"] = {SimpleCondition, "one"},
@@ -28,11 +24,17 @@ CausalConnector.simpleAction = nil
 CausalConnector.compoundAction = nil
 
 function CausalConnector:create(attributes)  
-   local attributes = attributes or {}  
    local causalConnector = CausalConnector:new() 
-     
-   causalConnector:setAttributes(attributes)
-   causalConnector:setChilds()
+   
+   causalConnector.attributes = {
+      ["id"] = ""
+   }
+   
+   if(attributes ~= nil)then
+      causalConnector:setAttributes(attributes)
+   end
+  
+   causalConnector.childs = {}
    causalConnector.connectorParams = {}
    
    return causalConnector

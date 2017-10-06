@@ -20,5 +20,6 @@ SimpleAction = require "core/connectors/SimpleAction"
 CompoundAction = require "core/connectors/CompoundAction"
 
 Port = require "core/interface/Port"
+Area = require "core/interface/Area"
 
 Media = require "core/structure_content/Media"

@@ -6,11 +6,6 @@ local Link = NCLElem:extends()
 
 Link.name = "link"
 
-Link.attributes = {
-  id = nil,
-  xconnector = nil
-}
-
 Link.childsMap = {
  ["linkParam"] = {LinkParam, "many"},
  ["bind"] = {Bind, "many"}
@@ -20,11 +15,18 @@ Link.linkParams = nil
 Link.binds = nil
 
 function Link:create(attributes, full)  
-   local attributes = attributes or {}  
    local link = Link:new() 
+   
+   link.attributes = {
+      ["id"] = "",
+      ["xconnector"] = ""
+   }
      
-   link:setAttributes(attributes)
-   link:setChilds() 
+   if(attributes ~= nil)then
+      link:setAttributes(attributes)
+   end
+   
+   link.childs = {} 
    link.linkParams = {}
    link.binds = {}
    
