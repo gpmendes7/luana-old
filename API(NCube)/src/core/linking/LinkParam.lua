@@ -21,19 +21,19 @@ function LinkParam:create(attributes)
 end
 
 function LinkParam:setName(name)
-   self.attributes.name = name
+   self:addAttribute("name", name)
 end
 
 function LinkParam:getName()
-   return self.attributes.name
+   return self:getAttribute("name")
 end
 
 function LinkParam:setValue(value)
-   self.attributes.value = value
+   self:addAttribute("value", value)
 end
 
 function LinkParam:getValue()
-   return self.attributes.value
+   return self:getAttribute("value")
 end
 
 return LinkParam

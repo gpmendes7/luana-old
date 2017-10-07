@@ -5,7 +5,7 @@ local CompoundAction = NCLElem:extends()
 
 CompoundAction.name = "compoundAction"
 
-CompoundAction.childsMap = {
+CompoundAction.childrenMap = {
  ["simpleAction"] = {SimpleAction, "many"},
  ["compoundAction"] = {CompoundAction, "many"}
 }
@@ -25,7 +25,7 @@ function CompoundAction:create(attributes, full)
       compoundAction:setAttributes(attributes)
    end
    
-   compoundAction.childs = {}
+   compoundAction.children = {}
    compoundAction.simpleActions = {}
    compoundAction.compoundActions = {}
    
@@ -38,19 +38,19 @@ function CompoundAction:create(attributes, full)
 end
 
 function CompoundAction:setOperator(operator)
-   self.attributes.operator = operator
+   self:addAttribute("operator", operator)
 end
 
 function CompoundAction:getOperator()
-   return self.attributes.operator
+   return self:getAttribute("operator")
 end
 
 function CompoundAction:setDelay(delay)
-   self.attributes.delay = delay
+   self:addAttribute("delay", delay)
 end
 
 function CompoundAction:getDelay()
-   return self.attributes.delay
+   return self:getAttribute("delay")
 end
 
 function CompoundAction:addSimpleAction(simpleAction)
@@ -63,7 +63,7 @@ function CompoundAction:addSimpleAction(simpleAction)
     end
 end
 
-function CompoundAction:getSimpleAction(i)
+function CompoundAction:getSimpleActionPos(i)
     return self.simpleActions[i]
 end
 
@@ -100,7 +100,7 @@ function CompoundAction:addCompoundAction(compoundAction)
     end
 end
 
-function CompoundAction:getCompoundAction(i)
+function CompoundAction:getCompoundActionPos(i)
     return self.compoundActions[i]
 end
 

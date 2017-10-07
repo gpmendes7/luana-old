@@ -1,15 +1,18 @@
 local NCLElem = require "core/structure_content/NCLElem"
 local Area = require "core/interface/Area"
+local Property = require "core/interface/Property"
 
 local Media = NCLElem:extends()
 
 Media.name = "media"
 
-Media.childsMap = {
- ["area"] = {Area, "many"}
+Media.childrenMap = {
+ ["area"] = {Area, "many"},
+ ["property"] = {Property, "many"}
 }
 
 Media.areas = nil
+Media.propertys = nil
 
 function Media:create(attributes)
    local media = Media:new()   
@@ -25,8 +28,9 @@ function Media:create(attributes)
       media:setAttributes(attributes)
    end
    
-   media.childs = {}
+   media.children = {}
    media.areas = {}
+   media.propertys = {}
       
    return media
 end
@@ -60,12 +64,12 @@ function Media:setDescriptor(descriptor)
 end
 
 function Media:getDescriptor()
-   return self:getAttribute("descriptor", descriptor)
+   return self:getAttribute("descriptor")
 end
 
 function Media:addArea(area)
     table.insert(self.areas, area)    
-    local p = self:getPosAvailable("area")
+    local p = self:getPosAvailable("area", "property")
     if(p ~= nil)then
        self:addChild(area, p)
     else
@@ -108,6 +112,53 @@ end
 function Media:removeAreaPos(i)
    self:removeChildPos(i)
    table.remove(self.areas, i)
+end
+
+function Media:addProperty(property)
+    table.insert(self.propertys, property)    
+    local p = self:getPosAvailable("property", "area")
+    if(p ~= nil)then
+       self:addChild(property, p)
+    else
+       self:addChild(property, 1)
+    end
+end
+
+function Media:getProperty(i)
+    return self.propertys[i]
+end
+
+function Media:getpropertyByName(name)
+   for _, property in ipairs(self.propertys) do
+       if(property:getName() == name)then
+          return property
+       end
+   end
+   
+   return nil
+end
+
+function Media:setPropertys(...)
+    if(#arg>0)then
+      for _, property in ipairs(arg) do
+          self:addProperty(property)
+      end
+    end
+end
+
+function Media:removeProperty(property)
+   self:removeChild(property)
+   
+   for i, pr in ipairs(self.propertys) do
+       if(property == pr)then
+           table.remove(self.propertys, i)  
+       end
+   end    
+end
+
+function Media:removePropertyPos(i)
+   self:removeChildPos(i)
+   table.remove(self.propertys, i)
 end
 
 return Media

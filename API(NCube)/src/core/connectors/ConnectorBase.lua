@@ -5,7 +5,7 @@ local ConnectorBase = NCLElem:extends()
 
 ConnectorBase.name = "connectorBase"
 
-ConnectorBase.childsMap = {
+ConnectorBase.childrenMap = {
  ["causalConnector"] = {CausalConnector, "many"}
 }
 
@@ -22,7 +22,7 @@ function ConnectorBase:create(attributes, full)
       connectorBase:setAttributes(attributes)
    end
      
-   connectorBase.childs = {}
+   connectorBase.children = {}
    connectorBase.causalConnectors = {}
     
    if(full ~= nil)then      
@@ -33,11 +33,11 @@ function ConnectorBase:create(attributes, full)
 end
 
 function ConnectorBase:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function ConnectorBase:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function ConnectorBase:addCausalConnector(causalConnector)
@@ -50,7 +50,7 @@ function ConnectorBase:addCausalConnector(causalConnector)
     end
 end
 
-function ConnectorBase:getCausalConnector(i)
+function ConnectorBase:getCausalConnectorPos(i)
     return self.causalConnectors[i]
 end
 

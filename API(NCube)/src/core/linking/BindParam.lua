@@ -20,19 +20,19 @@ function BindParam:create(attributes)
 end
 
 function BindParam:setName(name)
-   self.attributes.name = name
+   self:addAttribute("name", name)
 end
 
 function BindParam:getName()
-   return self.attributes.name
+   return self:getAttribute("name")
 end
 
 function BindParam:setValue(value)
-   self.attributes.value = value
+   self:addAttribute("value", value)
 end
 
 function BindParam:getValue()
-   return self.attributes.value
+   return self:getAttribute("value")
 end
 
 return BindParam

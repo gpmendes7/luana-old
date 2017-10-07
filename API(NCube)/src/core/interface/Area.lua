@@ -30,7 +30,7 @@ function Area:create(attributes)
 end
 
 function Area:setId(id)
-   self:addAtribute("id", id)
+   self:addAttribute("id", id)
 end
 
 function Area:getId()
@@ -38,7 +38,7 @@ function Area:getId()
 end
 
 function Area:setCoords(coords)
-   self:addAtribute("coords", coords)
+   self:addAttribute("coords", coords)
 end
 
 function Area:getCoords()
@@ -46,7 +46,7 @@ function Area:getCoords()
 end
 
 function Area:setBegin(begin)
-   self:addAtribute("begin", begin)
+   self:addAttribute("begin", begin)
 end
 
 function Area:getBegin()
@@ -54,7 +54,7 @@ function Area:getBegin()
 end
 
 function Area:setEnd(endAtt)
-   self:addAtribute("end", entAtt)
+   self:addAttribute("end", endAtt)
 end
 
 function Area:getEnd()
@@ -62,7 +62,7 @@ function Area:getEnd()
 end
 
 function Area:setBeginText(beginText)
-   self:addAtribute("beginText", beginText)
+   self:addAttribute("beginText", beginText)
 end
 
 function Area:getBeginText()
@@ -70,7 +70,7 @@ function Area:getBeginText()
 end
 
 function Area:setEndText(endText)
-   self:addAtribute("endText", endText)
+   self:addAttribute("endText", endText)
 end
 
 function Area:getEndText()
@@ -78,7 +78,7 @@ function Area:getEndText()
 end
 
 function Area:setBeginPosition(beginPosition)
-   self:addAtribute("beginPosition", beginPosition)
+   self:addAttribute("beginPosition", beginPosition)
 end
 
 function Area:getBeginPosition()
@@ -86,7 +86,7 @@ function Area:getBeginPosition()
 end
 
 function Area:setEndPosition(endPosition)
-   self:addAtribute("endPosition", endPosition)
+   self:addAttribute("endPosition", endPosition)
 end
 
 function Area:getEndPosition()
@@ -94,7 +94,7 @@ function Area:getEndPosition()
 end
 
 function Area:setFirst(first)
-   self:addAtribute("first", first)
+   self:addAttribute("first", first)
 end
 
 function Area:getFirst()
@@ -102,7 +102,7 @@ function Area:getFirst()
 end
 
 function Area:setLast(last)
-   self:addAtribute("last", last)
+   self:addAttribute("last", last)
 end
 
 function Area:getLast()
@@ -110,7 +110,7 @@ function Area:getLast()
 end
 
 function Area:setLabel(label)
-   self:addAtribute("label", label)
+   self:addAttribute("label", label)
 end
 
 function Area:getLabel()
@@ -118,7 +118,7 @@ function Area:getLabel()
 end
 
 function Area:setClip(clip)
-   self:addAtribute("clip", clip)
+   self:addAttribute("clip", clip)
 end
 
 function Area:getClip()

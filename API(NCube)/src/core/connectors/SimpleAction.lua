@@ -30,99 +30,99 @@ function SimpleAction:create(attributes)
 end
 
 function SimpleAction:setRole(role)
-   self.attributes.role = role
+   self:addAttribute("role", role)
 end
 
 function SimpleAction:getRole()
-   return self.attributes.role
+   return self:getAttribute("role")
 end
 
 function SimpleAction:setDelay(delay)
-   self.attributes.delay = delay
+   self:addAttribute("delay", delay)
 end
 
 function SimpleAction:getDelay()
-   return self.attributes.delay
+   return self:getAttribute("delay")
 end
 
 function SimpleAction:setEventType(eventType)
-   self.attributes.eventType = eventType
+   self:addAttribute("eventType", eventType)
 end
 
 function SimpleAction:getEventType()
-   return self.attributes.eventType
+   return self:getAttribute("eventType")
 end
 
 function SimpleAction:setActionType(actionType)
-   self.attributes.actionType = actionType
+   self:addAttribute("actionType", actionType)
 end
 
 function SimpleAction:getActionType()
-   return self.attributes.actionType
+   return self:getAttribute("actionType")
 end
 
 function SimpleAction:setValue(value)
-   self.attributes.value = value
+   self:addAttribute("value", value)
 end
 
 function SimpleAction:getValue()
-   return self.attributes.value
+   return self:getAttribute("value")
 end
 
 function SimpleAction:setMin(min)
-   self.attributes.min = min
+   self:addAttribute("min", min)
 end
 
 function SimpleAction:getMin()
-   return self.attributes.min
+   return self:getAttribute("min")
 end
 
 function SimpleAction:setMax(max)
-   self.attributes.max = max
+   self:addAttribute("max", max)
 end
 
 function SimpleAction:getMax()
-   return self.attributes.max
+   return self:getAttribute("max")
 end
 
 function SimpleAction:setQualifier(qualifier)
-   self.attributes.qualifier = qualifier
+   self:addAttribute("qualifier", qualifier)
 end
 
 function SimpleAction:getQualifier()
-   return self.attributes.qualifier
+   return self:getAttribute("qualifier")
 end
 
 function SimpleAction:setRepeat(rep)
-   self.attributes["repeat"] = rep
+   self:addAttribute("repeat", rep)
 end
 
 function SimpleAction:getRepeat()
-   return self.attributes["repeat"]
+   return self:getAttribute("repeat")
 end
 
 function SimpleAction:setRepeatDelay(repeatDelay)
-   self.attributes.repeatDelay = repeatDelay
+   self:addAttribute("repeatDelay", repeatDelay)
 end
 
 function SimpleAction:getRepeatDelay()
-   return self.attributes.repeatDelay
+   return self:getAttribute("repeatDelay")
 end
 
 function SimpleAction:setDuration(duration)
-   self.attributes.duration = duration
+   self:addAttribute("duration", duration)
 end
 
 function SimpleAction:getDuration()
-   return self.attributes.duration
+   return self:getAttribute("duration")
 end
 
 function SimpleAction:setBy(by)
-   self.attributes.by = by
+   self:addAttribute("by", by)
 end
 
 function SimpleAction:getBy()
-   return self.attributes.by
+   return self:getAttribute("by")
 end
 
 return SimpleAction

@@ -8,7 +8,7 @@ Document.name = "ncl"
 
 Document.xmlHead = nil
 
-Document.childsMap = {
+Document.childrenMap = {
  ["head"] = {Head, "one"}, 
  ["body"] = {Body, "one"}
 }
@@ -30,7 +30,7 @@ function Document:create(attributes, xmlHead, full)
       document:setAttributes(attributes)
    end
    
-   document.childs = {}
+   document.children = {}
    document:setXmlHead(xmlHead)
    
    if(full ~= nil)then

@@ -21,27 +21,27 @@ function Port:create(attributes)
 end
 
 function Port:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function Port:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function Port:setComponent(component)
-   self.attributes.component = component
+   self:addAttribute("component", component)
 end
 
 function Port:getComponent()
-   return self.attributes.component
+   return self:getAttribute("component")
 end
 
 function Port:setInterface(interface)
-   self.attributes.interface = interface
+   self:addAttribute("interface", interface)
 end
 
 function Port:getInterface()
-   return self.attributes.interface
+   return self:getAttribute("interface")
 end
 
 return Port

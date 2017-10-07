@@ -6,7 +6,7 @@ local ElementA = NCLElem:extends()
 
 ElementA.name = "elementA"
 
-ElementA.childsMap = {
+ElementA.childrenMap = {
  ["elementA"] = {ElementA, "many"},
  ["elementB"] = {ElementB, "many"},
  ["elementC"] = {ElementC, "many"}
@@ -29,7 +29,7 @@ function ElementA:create(attributes, full)
       elementA:setAttributes(attributes)
    end
    
-   elementA.childs = {}
+   elementA.children = {}
    elementA.elementsA = {}
    elementA.elementsB = {}
    elementA.elementsC = {}
@@ -44,19 +44,19 @@ function ElementA:create(attributes, full)
 end
 
 function ElementA:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function ElementA:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function ElementA:setDesc(desc)
-   self.attributes.desc = desc
+   self:addAttribute("desc", desc)
 end
 
 function ElementA:getDesc()
-   return self.attributes.desc
+   return self:getAttribute("desc")
 end
 
 function ElementA:addElementA(elementA)
@@ -69,7 +69,7 @@ function ElementA:addElementA(elementA)
     end
 end
 
-function ElementA:getElementA(i)
+function ElementA:getElementAPos(i)
     return self.elementsA[i]
 end
 
@@ -116,7 +116,7 @@ function ElementA:addElementB(elementB)
     end
 end
 
-function ElementA:getElementB(i)
+function ElementA:getElementBPos(i)
     return self.elementsB[i]
 end
 
@@ -163,7 +163,7 @@ function ElementA:addElementC(elementC)
     end
 end
 
-function ElementA:getElementC(i)
+function ElementA:getElementCPos(i)
     return self.elementsC[i]
 end
 

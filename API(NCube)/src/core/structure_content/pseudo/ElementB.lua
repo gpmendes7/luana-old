@@ -5,7 +5,7 @@ local ElementB = NCLElem:extends()
 
 ElementB.name = "elementB"
 
-ElementB.childsMap = {
+ElementB.childrenMap = {
  ["elementD"] = {ElementD, "many"}
 }
 
@@ -24,7 +24,7 @@ function ElementB:create(attributes, full)
       elementB:setAttributes(attributes)
    end
      
-   elementB.childs = {}
+   elementB.children = {}
    elementB.elementsD = {}
    
    if(full ~= nil)then
@@ -35,19 +35,19 @@ function ElementB:create(attributes, full)
 end
 
 function ElementB:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function ElementB:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function ElementB:setDesc(desc)
-   self.attributes.desc = desc
+   self:addAttribute("desc", desc)
 end
 
 function ElementB:getDesc()
-   return self.attributes.desc
+   return self:getAttribute("desc")
 end
 
 function ElementB:addElementD(elementD)
@@ -60,7 +60,7 @@ function ElementB:addElementD(elementD)
     end
 end
 
-function ElementB:getElementD(i)
+function ElementB:getElementDPos(i)
     return self.elementsD[i]
 end
 

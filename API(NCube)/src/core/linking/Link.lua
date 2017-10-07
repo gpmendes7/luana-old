@@ -6,7 +6,7 @@ local Link = NCLElem:extends()
 
 Link.name = "link"
 
-Link.childsMap = {
+Link.childrenMap = {
  ["linkParam"] = {LinkParam, "many"},
  ["bind"] = {Bind, "many"}
 }
@@ -26,7 +26,7 @@ function Link:create(attributes, full)
       link:setAttributes(attributes)
    end
    
-   link.childs = {} 
+   link.children = {} 
    link.linkParams = {}
    link.binds = {}
    
@@ -39,19 +39,19 @@ function Link:create(attributes, full)
 end
 
 function Link:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function Link:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function Link:setXConnector(xconnector)
-   self.attributes.xconnector = xconnector
+   self:addAttribute("xconnector", xconnector)
 end
 
 function Link:getXConnector()
-   return self.attributes.xconnector
+   return self:getAttribute("xconnector")
 end
 
 function Link:addLinkParam(linkParam)
@@ -64,7 +64,7 @@ function Link:addLinkParam(linkParam)
     end
 end
 
-function Link:getLinkParam(i)
+function Link:getLinkParamPos(i)
     return self.linkParams[i]
 end
 
@@ -101,7 +101,7 @@ function Link:addBind(bind)
     end
 end
 
-function Link:getBind(i)
+function Link:getBindPos(i)
     return self.binds[i]
 end
 

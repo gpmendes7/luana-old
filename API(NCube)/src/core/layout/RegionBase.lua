@@ -5,7 +5,7 @@ local RegionBase = NCLElem:extends()
 
 RegionBase.name = "regionBase"
 
-RegionBase.childsMap = {
+RegionBase.childrenMap = {
  ["region"] = {Region, "many"}
 }
 
@@ -25,7 +25,7 @@ function RegionBase:create(attributes, full)
       regionBase:setAttributes(attributes)
    end
    
-   regionBase.childs = {}  
+   regionBase.children = {}  
    regionBase.regions = {}
    
    if(full ~= nil)then    
@@ -36,27 +36,27 @@ function RegionBase:create(attributes, full)
 end
 
 function RegionBase:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function RegionBase:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function RegionBase:setDevice(device)
-   self.attributes.device = device
+   self:addAttribute("device", device)
 end
 
 function RegionBase:getDevice()
-   return self.attributes.device
+   return self:getAttribute("device")
 end
 
-function RegionBase:setRegionExt(region)
-   self.attributes.region = region
+function RegionBase:setRegion(region)
+   self:addAttribute("region", region)
 end
 
-function RegionBase:getRegionExt()
-   return self.attributes.region
+function RegionBase:getRegion()
+   return self:getAttribute("region")
 end
 
 function RegionBase:addRegion(region)
@@ -69,7 +69,7 @@ function RegionBase:addRegion(region)
     end
 end
 
-function RegionBase:getRegion(i)
+function RegionBase:getRegionPos(i)
     return self.regions[i]
 end
 

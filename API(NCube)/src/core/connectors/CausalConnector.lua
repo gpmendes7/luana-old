@@ -9,7 +9,7 @@ local CausalConnector = NCLElem:extends()
 
 CausalConnector.name = "causalConnector"
 
-CausalConnector.childsMap = {
+CausalConnector.childrenMap = {
  ["connectorParam"] = {ConnectorParam, "many"},
  ["simpleCondition"] = {SimpleCondition, "one"},
  ["compoundCondition"] = {CompoundCondition, "one"},
@@ -34,18 +34,18 @@ function CausalConnector:create(attributes)
       causalConnector:setAttributes(attributes)
    end
   
-   causalConnector.childs = {}
+   causalConnector.children = {}
    causalConnector.connectorParams = {}
    
    return causalConnector
 end
 
 function CausalConnector:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function CausalConnector:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function CausalConnector:addConnectorParam(connectorParam)
@@ -58,7 +58,7 @@ function CausalConnector:addConnectorParam(connectorParam)
     end
 end
 
-function CausalConnector:getConnectorParam(i)
+function CausalConnector:getConnectorParamPos(i)
     return self.connectorParams[i]
 end
 

@@ -7,7 +7,7 @@ local Body = NCLElem:extends()
 
 Body.name = "body"
 
-Body.childsMap = {
+Body.childrenMap = {
  ["port"] = {Port, "many"}, 
  ["media"] = {Media, "many"},
  ["link"] = {Link, "many"}
@@ -27,7 +27,7 @@ function Body:create(attributes, full)
       body:setAttributes(attributes)
    end
    
-   body.childs = {}  
+   body.children = {}  
    body.ports = {}
    body.medias = {}
    
@@ -40,11 +40,11 @@ function Body:create(attributes, full)
 end
 
 function Body:setId(id)
-   self.attributes.id = id
+    self:addAttribute("id", id)
 end
 
 function Body:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function Body:addPort(port)
@@ -52,7 +52,7 @@ function Body:addPort(port)
    self:addChild(port)
 end
 
-function Body:getPort(i)
+function Body:getPortPos(i)
    return self.ports[i]
 end
 
@@ -94,7 +94,7 @@ function Body:addMedia(media)
    self:addChild(media)
 end
 
-function Body:getMedia(i)
+function Body:getMediaPos(i)
    return self.medias[i]
 end
 
@@ -135,7 +135,7 @@ function Body:addLink(link)
    self:addChild(link)
 end
 
-function Body:getLink(i)
+function Body:getLinkPos(i)
    return self.links[i]
 end
 

@@ -4,7 +4,7 @@ local Region = NCLElem:extends()
 
 Region.name = "region"
 
-Region.childsMap = {
+Region.childrenMap = {
  ["region"] = {Region, "many"}
 }
 
@@ -29,7 +29,7 @@ function Region:create(attributes, full)
       region:setAttributes(attributes)
    end
    
-   region.childs = {}
+   region.children = {}
    region.regions = {}
    
    if(full ~= nil)then
@@ -40,67 +40,67 @@ function Region:create(attributes, full)
 end
 
 function Region:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function Region:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function Region:setTitle(title)
-   self.attributes.title = title
+   self:addAttribute("title", title)
 end
 
 function Region:getTitle()
-   return self.attributes.title
+   return self:getAttribute("title")
 end
 
 function Region:setLeft(left)
-   self.attributes.left = left
+   self:addAttribute("left", left)
 end
 
 function Region:getLeft()
-   return self.attributes.left
+   return self:getAttribute("left")
 end
 
 function Region:setRight(right)
-   self.attributes.right = right
+   self:addAttribute("right", right)
 end
 
 function Region:getRight()
-   return self.attributes.right
+   return self:getAttribute("right")
 end
 
 function Region:setTop(top)
-   self.attributes.top = top
+   self:addAttribute("top", top)
 end
 
 function Region:getTop()
-   return self.attributes.top
+   return self:getAttribute("top")
 end
 
 function Region:setBottom(bottom)
-   self.attributes.bottom = bottom
+   self:addAttribute("bottom", bottom)
 end
 
 function Region:getBottom()
-   return self.attributes.bottom
+   return self:getAttribute("bottom")
 end
 
 function Region:setHeight(height)
-   self.attributes.height = height
+   self:addAttribute("height", height)
 end
 
 function Region:getHeight()
-   return self.attributes.height
+   return self:getAttribute("height")
 end
 
 function Region:setWidth(width)
-   self.attributes.width = width
+   self:addAttribute("width", width)
 end
 
 function Region:getWidth()
-   return self.attributes.width
+   return self:getAttribute("width")
 end
 
 function Region:setDim(height, width) 
@@ -116,11 +116,11 @@ function Region:setPos(left, right, top, bottom)
 end
 
 function Region:setZIndex(zIndex)
-   self.attributes.zIndex = zIndex
+   self:addAttribute("zIndex", zIndex)
 end
 
 function Region:getZIndex()
-   return self.attributes.zIndex
+   return self:getAttribute("zIndex")
 end
 
 function Region:addRegion(region)
@@ -133,7 +133,7 @@ function Region:addRegion(region)
     end
 end
 
-function Region:getRegion(i)
+function Region:getRegionPos(i)
     return self.regions[i]
 end
 

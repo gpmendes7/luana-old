@@ -1,6 +1,5 @@
 function isEmptyOrNil(v)
     if(v == nil or v  == "")then
-       print("Empty or nil value!")
        return true
     else   
        return false
@@ -9,7 +8,6 @@ end
 
 function isNotString(v)
     if(type(v) ~= "string")then
-       print("Invalid string!")
        return true
     else   
        return false
@@ -18,7 +16,6 @@ end
 
 function isInvalidString(v)
    if(isEmptyOrNil(v) or isNotString(v))then
-       print("Is not a valid string!")
        return true
     else   
        return false

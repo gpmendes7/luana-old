@@ -61,28 +61,28 @@ local function test2()
    elemA:addChild(elemC) 
    elemB:addChild(elemA)
   
-   assert(#elemA:getChilds() == 2, "Error!")
+   assert(#elemA:getChildren() == 2, "Error!")
    assert(elemA:getChild(1) == elemB, "Error!")
    assert(elemA:getChild(2) == elemC, "Error!")
    
    elemA = ElementA:create({id = "id1", desc = "desc1"}) 
    elemA:addChild(nil)
   
-   assert(#elemA:getChilds() == 0, "Error!")
+   assert(#elemA:getChildren() == 0, "Error!")
    
    elemA = ElementA:create({id = "id1", desc = "desc1"})   
    elemB = ElementB:create({id = "id2", desc = "desc2"})
    elemC = ElementC:create({id = "id3", desc = "desc3"})
-   elemA:setChilds(elemB, elemC)
+   elemA:setChildren(elemB, elemC)
    
-   assert(#elemA:getChilds() == 2, "Error!")
+   assert(#elemA:getChildren() == 2, "Error!")
    
    elemA = ElementA:create(nil, 1)   
    
-   assert(#elemA:getChilds() == 3, "Error!")
-   assert(elemA:getChild(1):getName() == "elementA", "Error!")
-   assert(elemA:getChild(2):getName() == "elementB", "Error!")
-   assert(elemA:getChild(3):getName() == "elementC", "Error!")
+   assert(#elemA:getChildren() == 3, "Error!")
+   assert(elemA:getChild(1):getNameElem() == "elementA", "Error!")
+   assert(elemA:getChild(2):getNameElem() == "elementB", "Error!")
+   assert(elemA:getChild(3):getNameElem() == "elementC", "Error!")
    
    elemA = ElementA:create({id = "id1", desc = "desc1"})   
    elemB = ElementB:create({id = "id2", desc = "desc2"})
@@ -92,20 +92,20 @@ local function test2()
    elemA:addChild(elemC) 
    elemA:removeChild(elemB)
    
-   assert(#elemA:getChilds() == 1, "Error!")
+   assert(#elemA:getChildren() == 1, "Error!")
  
    elemA:removeChild(elemC)
-   assert(#elemA:getChilds() == 0, "Error!")
+   assert(#elemA:getChildren() == 0, "Error!")
    
    elemA = ElementA:create(nil, 1) 
    elemA:removeChildPos(1)  
    
-   assert(#elemA:getChilds() == 2, "Error!")
+   assert(#elemA:getChildren() == 2, "Error!")
    
    elemA = ElementA:create(nil, 1) 
-   elemA:removeAllChilds()  
+   elemA:removeAllChildren()  
    
-   assert(#elemA:getChilds() == 0, "Error!")
+   assert(#elemA:getChildren() == 0, "Error!")
 end
 
 local function test3()
@@ -117,7 +117,7 @@ local function test3()
    elemD = ElementD:create({id = "id4", desc = "desc4"})
    elemE = ElementE:create({id = "id5", desc = "desc5"})
    
-   elemA:setChilds(elemB, elemC)
+   elemA:setChildren(elemB, elemC)
    elemB:addChild(elemD)
    elemC:addChild(elemE)
    
@@ -137,7 +137,7 @@ local function test4()
    elemD = ElementD:create({id = "id4", desc = "desc4"})
    elemE = ElementE:create({id = "id5", desc = "desc5"})
   
-   elemA:setChilds(elemB, elemC)
+   elemA:setChildren(elemB, elemC)
    elemB:addChild(elemD)
    elemC:addChild(elemE)
   

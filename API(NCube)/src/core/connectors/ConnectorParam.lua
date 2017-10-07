@@ -20,19 +20,19 @@ function ConnectorParam:create(attributes)
 end
 
 function ConnectorParam:setName(name)
-   self.attributes.name = name
+   self:addAttribute("name", name)
 end
 
 function ConnectorParam:getName()
-   return self.attributes.name
+   return self:getAttribute("name")
 end
 
 function ConnectorParam:setType(type)
-   self.attributes.type = type
+   self:addAttribute("type", type)
 end
 
 function ConnectorParam:getType()
-   return self.attributes.type
+   return self:getAttribute("type")
 end
 
 return ConnectorParam

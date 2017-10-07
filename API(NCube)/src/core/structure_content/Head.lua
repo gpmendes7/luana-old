@@ -7,7 +7,7 @@ local Head = NCLElem:extends()
 
 Head.name = "head"
 
-Head.childsMap = {
+Head.childrenMap = {
  ["regionBase"] = {RegionBase, "many", 1}, 
  ["descriptorBase"] = {DescriptorBase, "one", 2},
  ["connectorBase"] = {ConnectorBase, "many", 3}
@@ -20,7 +20,7 @@ Head.connectorBases = nil
 function Head:create(full)
    local head = Head:new()     
     
-   head.childs = {}  
+   head.children = {}  
    head.regionBases = {}
    head.connectorBases = {}
    

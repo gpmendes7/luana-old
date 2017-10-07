@@ -21,5 +21,6 @@ CompoundAction = require "core/connectors/CompoundAction"
 
 Port = require "core/interface/Port"
 Area = require "core/interface/Area"
+Property = require "core/interface/Property"
 
 Media = require "core/structure_content/Media"

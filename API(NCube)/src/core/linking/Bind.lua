@@ -5,7 +5,7 @@ local Bind = NCLElem:extends()
 
 Bind.name = "bind"
 
-Bind.childsMap = {
+Bind.childrenMap = {
  ["bindParam"] = {BindParam, "many"}
 }
 
@@ -25,7 +25,7 @@ function Bind:create(attributes, full)
       bind:setAttributes(attributes)
    end
            
-   bind.childs = {}
+   bind.children = {}
    bind.bindParams = {}
    
    if(full ~= nil)then
@@ -36,35 +36,35 @@ function Bind:create(attributes, full)
 end
 
 function Bind:setRole(role)
-   self.attributes.role = role
+   self:addAttribute("role", role)
 end
 
 function Bind:getRole()
-   return self.attributes.role
+   return self:getAttribute("role")
 end
 
 function Bind:setComponent(component)
-   self.attributes.component = component
+   self:addAttribute("component", component)
 end
 
 function Bind:getComponent()
-   return self.attributes.component
+   return self:getAttribute("component")
 end
 
 function Bind:setInterface(interface)
-   self.attributes.interface = interface
+   self:addAttribute("interface", interface)
 end
 
 function Bind:getInterface()
-   return self.attributes.interface
+   return self:getAttribute("interface")
 end
 
 function Bind:setDescriptor(descriptor)
-   self.attributes.descriptor = descriptor
+   self:addAttribute("descriptor", descriptor)
 end
 
 function Bind:getDescriptor()
-   return self.attributes.descriptor
+   return self:getAttribute("descriptor")
 end
 
 function Bind:addBindParam(bindParam)
@@ -77,7 +77,7 @@ function Bind:addBindParam(bindParam)
     end
 end
 
-function Bind:getBindParam(i)
+function Bind:getBindParamPos(i)
     return self.bindParams[i]
 end
 

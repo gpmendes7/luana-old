@@ -22,19 +22,19 @@ function ElementD:create(attributes)
 end
 
 function ElementD:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function ElementD:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function ElementD:setDesc(desc)
-   self.attributes.desc = desc
+   self:addAttribute("desc", desc)
 end
 
 function ElementD:getDesc()
-   return self.attributes.desc
+   return self:getAttribute("desc")
 end
 
 return ElementD

@@ -40,41 +40,41 @@ function Descriptor:create(attributes)
       descriptor:setAttributes(attributes)
    end
      
-   descriptor.childs = {}
+   descriptor.children = {}
    
    return descriptor
 end
 
 function Descriptor:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function Descriptor:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function Descriptor:setPlayer(player)
-   self.attributes.player = player
+   self:addAttribute("player", player)
 end
 
 function Descriptor:getPlayer()
-   return self.attributes.player
+   return self:getAttribute("player")
 end
 
 function Descriptor:setExplicitDur(explicitDur)
-   self.attributes.explicitDur = explicitDur
+   self:addAttribute("explicitDur", explicitDur)
 end
 
 function Descriptor:getExplicitDur()
-   return self.attributes.explicitDur
+   return self:getAttribute("explicitDur")
 end
 
 function Descriptor:setRegion(region)
-   self.attributes.region = region
+   self:addAttribute("region", region)
 end
 
 function Descriptor:getRegion()
-   return self.attributes.region
+   return self:getAttribute("region")
 end
 
 function Descriptor:setRegionAss(regionAss)
@@ -86,115 +86,115 @@ function Descriptor:getRegionAss()
 end
 
 function Descriptor:setFreeze(freeze)
-   self.attributes.freeze = freeze
+   self:addAttribute("freeze", freeze)
 end
 
 function Descriptor:getFreeze()
-   return self.attributes.freeze
+   return self:getAttribute("freeze")
 end
 
 function Descriptor:setMoveLeft(moveLeft)
-   self.attributes.moveLeft = moveLeft
+   self:addAttribute("moveLeft", moveLeft)
 end
 
 function Descriptor:getMoveLeft()
-   return self.attributes.moveLeft
+   return self:getAttribute("moveLeft")
 end
 
 function Descriptor:setMoveRight(moveRight)
-   self.attributes.moveRight = moveRight
+   self:addAttribute("moveRight", moveRight)
 end
 
 function Descriptor:getMoveRight()
-   return self.attributes.moveRight
+   return self:getAttribute("moveRight")
 end
 
 function Descriptor:setMoveUp(moveUp)
-   self.attributes.moveUp = moveUp
+   self:addAttribute("moveUp", moveUp)
 end
 
 function Descriptor:getMoveUp()
-   return self.attributes.moveUp
+   return self:getAttribute("moveUp")
 end
 
 function Descriptor:setMoveDown(moveDown)
-   self.attributes.moveDown = moveDown
+   self:addAttribute("moveDown", moveDown)
 end
 
 function Descriptor:getMoveDown()
-   return self.attributes.moveDown
+   return self:getAttribute("moveDown")
 end
 
 function Descriptor:setFocusIndex(focusIndex)
-   self.attributes.focusIndex = focusIndex
+   self:addAttribute("focusIndex", focusIndex)
 end
 
 function Descriptor:getFocusIndex()
-   return self.attributes.focusIndex
+   return self:getAttribute("focusIndex")
 end
 
 function Descriptor:setFocusBorderColor(focusBorderColor)
-   self.attributes.focusBorderColor = focusBorderColor
+   self:addAttribute("focusBorderColor", focusBorderColor)
 end
 
 function Descriptor:getFocusBorderColor()
-   return self.attributes.focusBorderColor
+   return self:getAttribute("focusBorderColor")
 end
 
 function Descriptor:setFocusBorderWidth(focusBorderWidth)
-   self.attributes.focusBorderWidth = focusBorderWidth
+   self:addAttribute("focusBorderWidth", focusBorderWidth)
 end
 
 function Descriptor:getFocusBorderWidth()
-   return self.attributes.focusBorderWidth
+   return self:getAttribute("focusBorderWidth")
 end
 
 function Descriptor:setFocusBorderTransparency(focusBorderTransparency)
-   self.attributes.focusBorderTransparency = focusBorderTransparency
+   self:addAttribute("focusBorderTransparency", focusBorderTransparency)
 end
 
 function Descriptor:getFocusBorderTransparency()
-   return self.attributes.focusBorderTransparency
+   return self:getAttribute("focusBorderTransparency")
 end
 
 function Descriptor:setFocusSrc(focusSrc)
-   self.attributes.focusSrc = focusSrc
+   self:addAttribute("focusSrc", focusSrc)
 end
 
 function Descriptor:getFocusSrc()
-   return self.attributes.focusSrc
+   return self:getAttribute("focusSrc")
 end
 
 function Descriptor:setFocusSelSrc(focusSelSrc)
-   self.attributes.focusSelSrc = focusSelSrc
+   self:addAttribute("focusSelSrc", focusSelSrc)
 end
 
 function Descriptor:getFocusSelSrc()
-   return self.attributes.focusSelSrc
+   return self:getAttribute("focusSelSrc")
 end
 
 function Descriptor:setSelBorderColor(selBorderColor)
-   self.attributes.selBorderColor = selBorderColor
+   self:addAttribute("selBorderColor", selBorderColor)
 end
 
 function Descriptor:getSelBorderColor()
-   return self.attributes.selBorderColor
+   return self:getAttribute("selBorderColor")
 end
 
 function Descriptor:setTransIn(transIn)
-   self.attributes.transIn = transIn
+   self:addAttribute("transIn", transIn)
 end
 
 function Descriptor:getTransIn()
-   return self.attributes.transIn
+   return self:getAttribute("transIn")
 end
 
 function Descriptor:setTransOut(transOut)
-   self.attributes.transOut = transOut
+   self:addAttribute("transOut", transOut)
 end
 
 function Descriptor:getTransOut()
-   return self.attributes.transOut
+   return self:getAttribute("transOut")
 end
 
 return Descriptor

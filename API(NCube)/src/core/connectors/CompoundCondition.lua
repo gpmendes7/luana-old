@@ -5,7 +5,7 @@ local CompoundCondition = NCLElem:extends()
 
 CompoundCondition.name = "compoundCondition"
 
-CompoundCondition.childsMap = {
+CompoundCondition.childrenMap = {
  ["simpleCondition"] = {SimpleCondition, "many"},
  ["compoundCondition"] = {CompoundCondition, "many"}
 }
@@ -25,7 +25,7 @@ function CompoundCondition:create(attributes, full)
       compoundCondition:setAttributes(attributes)
    end
    
-   compoundCondition.childs = {}
+   compoundCondition.children = {}
    compoundCondition.simpleConditions = {}
    compoundCondition.compoundConditions = {}
     
@@ -38,19 +38,19 @@ function CompoundCondition:create(attributes, full)
 end
 
 function CompoundCondition:setOperator(operator)
-   self.attributes.operator = operator
+   self:addAttribute("operator", operator)
 end
 
 function CompoundCondition:getOperator()
-   return self.attributes.operator
+   return self:getAttribute("operator")
 end
 
 function CompoundCondition:setDelay(delay)
-   self.attributes.delay = delay
+   self:addAttribute("delay", delay)
 end
 
 function CompoundCondition:getDelay()
-   return self.attributes.delay
+   return self:getAttribute("delay")
 end
 
 function CompoundCondition:addSimpleCondition(simpleCondition)
@@ -63,7 +63,7 @@ function CompoundCondition:addSimpleCondition(simpleCondition)
     end
 end
 
-function CompoundCondition:getSimpleCondition(i)
+function CompoundCondition:getSimpleConditionPos(i)
     return self.simpleConditions[i]
 end
 
@@ -100,7 +100,7 @@ function CompoundCondition:addCompoundCondition(compoundCondition)
     end
 end
 
-function CompoundCondition:getCompoundCondition(i)
+function CompoundCondition:getCompoundConditionPos(i)
     return self.compoundConditions[i]
 end
 

@@ -5,7 +5,7 @@ local DescriptorBase = NCLElem:extends()
 
 DescriptorBase.name = "descriptorBase"
 
-DescriptorBase.childsMap = {
+DescriptorBase.childrenMap = {
  ["descriptor"] = {Descriptor, "many"}
 }
 
@@ -22,7 +22,7 @@ function DescriptorBase:create(attributes, full)
       descriptorBase:setAttributes(attributes)
    end
    
-   descriptorBase.childs = {}    
+   descriptorBase.children = {}    
    descriptorBase.descriptors = {}
    
    if(full ~= nil)then
@@ -33,11 +33,11 @@ function DescriptorBase:create(attributes, full)
 end
 
 function DescriptorBase:setId(id)
-   self.attributes.id = id
+   self:addAttribute("id", id)
 end
 
 function DescriptorBase:getId()
-   return self.attributes.id
+   return self:getAttribute("id")
 end
 
 function DescriptorBase:addDescriptor(descriptor)
@@ -50,7 +50,7 @@ function DescriptorBase:addDescriptor(descriptor)
     end
 end
 
-function DescriptorBase:getDescriptor(i)
+function DescriptorBase:getDescriptorPos(i)
     return self.descriptors[i]
 end
 
