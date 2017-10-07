@@ -2,74 +2,82 @@ local NCLElem = require "core/structure_content/NCLElem"
 local Port = require "core/interface/Port"
 local Property = require "core/interface/Property"
 local Media = require "core/structure_content/Media"
-local Context = require "core/structure_content/Context"
 local Link = require "core/linking/Link"
 
-local Body = NCLElem:extends()
+local Context = NCLElem:extends()
 
-Body.name = "body"
+Context.name = "context"
 
-Body.childrenMap = {
- ["port"] = {Port, "many"}, 
- ["property"] = {Property, "many"},
+Context.childrenMap = {
+ ["port"] = {Port, "many"},
+ ["property"] = {Property, "many"},  
  ["media"] = {Media, "many"},
  ["context"] = {Context, "many"},
  ["link"] = {Link, "many"}
 }
 
-Body.ports = nil
-Body.propertys = nil
-Body.medias = nil
-Body.contexts = nil
-Body.links = nil
+Context.ports = nil
+Context.propertys = nil
+Context.medias = nil
+Context.contexts = nil
+Context.links = nil
 
-function Body:create(attributes, full)
-   local body = Body:new()
+function Context:create(attributes, full)
+   local context = Context:new()
    
-   body.attributes = { 
-    ["id"] = ""
+   context.attributes = { 
+    ["id"] = "",
+    ["refer"] = ""
    }
    
    if(attributes ~= nil)then
-      body:setAttributes(attributes)
+      context:setAttributes(attributes)
    end
    
-   body.children = {}  
-   body.ports = {}
-   body.propertys = {}
-   body.medias = {}
-   body.contexts = {}
-   body.links = {}
+   context.children = {}  
+   context.ports = {}
+   context.propertys = {}
+   context.medias = {}
+   context.contexts = {}
+   context.links = {}
    
    if(full ~= nil)then
-      body:addPort(Port:create()) 
-      body:addProperty(Property:create()) 
-      body:addMedia(Media:create(nil, full))
-      body:addContext(Context:create(nil, full))  
-      body:addLink(Link:create(nil, full)) 
+      context:addPort(Port:create()) 
+      context:addProperty(Property:create()) 
+      context:addMedia(Media:create(nil, full))
+      context:addContext(Context:create())  
+      context:addLink(Link:create(nil, full))  
    end
    
-   return body
+   return context
 end
 
-function Body:setId(id)
+function Context:setId(id)
     self:addAttribute("id", id)
 end
 
-function Body:getId()
+function Context:getId()
    return self:getAttribute("id")
 end
 
-function Body:addPort(port)
+function Context:setRefer(refer)
+    self:addAttribute("refer", refer)
+end
+
+function Context:getRefer()
+   return self:getAttribute("refer")
+end
+
+function Context:addPort(port)
    table.insert(self.ports, port)    
    self:addChild(port)
 end
 
-function Body:getPortPos(i)
+function Context:getPortPos(i)
    return self.ports[i]
 end
 
-function Body:getPortById(id)
+function Context:getPortById(id)
    for _, port in ipairs(self.ports) do
        if(port:getId() == id)then
           return port
@@ -79,7 +87,7 @@ function Body:getPortById(id)
    return nil
 end
 
-function Body:setPorts(...)
+function Context:setPorts(...)
     if(#arg>0)then
       for _, port in ipairs(arg) do
           self:addPort(port)
@@ -87,7 +95,7 @@ function Body:setPorts(...)
     end
 end
 
-function Body:removePort(port)
+function Context:removePort(port)
    self:removeChild(port)
    
    for i, pt in ipairs(self.ports) do
@@ -97,21 +105,21 @@ function Body:removePort(port)
    end 
 end
 
-function Body:removePortPos(i)
+function Context:removePortPos(i)
    self:removeChildPos(i)
    table.remove(self.ports, i)
 end
 
-function Body:addProperty(property)
+function Context:addProperty(property)
    table.insert(self.propertys, property)    
    self:addChild(property)
 end
 
-function Body:getProperty(i)
+function Context:getProperty(i)
     return self.propertys[i]
 end
 
-function Body:getpropertyByName(name)
+function Context:getpropertyByName(name)
    for _, property in ipairs(self.propertys) do
        if(property:getName() == name)then
           return property
@@ -121,7 +129,7 @@ function Body:getpropertyByName(name)
    return nil
 end
 
-function Body:setPropertys(...)
+function Context:setPropertys(...)
     if(#arg>0)then
       for _, property in ipairs(arg) do
           self:addProperty(property)
@@ -129,7 +137,7 @@ function Body:setPropertys(...)
     end
 end
 
-function Body:removeProperty(property)
+function Context:removeProperty(property)
    self:removeChild(property)
    
    for i, pr in ipairs(self.propertys) do
@@ -144,16 +152,16 @@ function Media:removePropertyPos(i)
    table.remove(self.propertys, i)
 end
 
-function Body:addMedia(media)
+function Context:addMedia(media)
    table.insert(self.medias, media)    
    self:addChild(media)
 end
 
-function Body:getMediaPos(i)
+function Context:getMediaPos(i)
    return self.medias[i]
 end
 
-function Body:getMediaById(id)
+function Context:getMediaById(id)
    for _, media in ipairs(self.medias) do
        if(media:getId() == id)then
           return media
@@ -163,14 +171,14 @@ function Body:getMediaById(id)
    return nil
 end
 
-function Body:setMedias(...)
+function Context:setMedias(...)
     if(#arg>0)then
       for _, media in ipairs(arg) do
          self:addMedia(media)
       end
     end
 end
-function Body:removeMedia(media)
+function Context:removeMedia(media)
    self:removeChild(media)
    
    for i, md in ipairs(self.medias) do
@@ -180,21 +188,21 @@ function Body:removeMedia(media)
    end 
 end
 
-function Body:removeMediaPos(i)
+function Context:removeMediaPos(i)
    self:removeChildPos(i)
    table.remove(self.medias, i)
 end
 
-function Body:addContext(context)
+function Context:addContext(context)
    table.insert(self.contexts, context)    
    self:addChild(context)
 end
 
-function Body:getContextPos(i)
+function Context:getContextPos(i)
    return self.contexts[i]
 end
 
-function Body:getContextById(id)
+function Context:getContextById(id)
    for _, context in ipairs(self.contexts) do
        if(context:getId() == id)then
           return context
@@ -204,7 +212,7 @@ function Body:getContextById(id)
    return nil
 end
 
-function Body:setContexts(...)
+function Context:setContexts(...)
     if(#arg>0)then
       for _, context in ipairs(arg) do
          self:addContext(context)
@@ -212,7 +220,7 @@ function Body:setContexts(...)
     end
 end
 
-function Body:removeContext(context)
+function Context:removeContext(context)
    self:removeChild(context)
    
    for i, ct in ipairs(self.contexts) do
@@ -222,21 +230,21 @@ function Body:removeContext(context)
    end 
 end
 
-function Body:removeContextPos(i)
+function Context:removeContextPos(i)
    self:removeChildPos(i)
    table.remove(self.contexts, i)
 end
 
-function Body:addLink(link)
+function Context:addLink(link)
    table.insert(self.links, link)    
    self:addChild(link)
 end
 
-function Body:getLinkPos(i)
+function Context:getLinkPos(i)
    return self.links[i]
 end
 
-function Body:getLinkById(id)
+function Context:getLinkById(id)
    for _, link in ipairs(self.links) do
        if(link:getId() == id)then
           return link
@@ -246,14 +254,14 @@ function Body:getLinkById(id)
    return nil
 end
 
-function Body:setLinks(...)
+function Context:setLinks(...)
     if(#arg>0)then
       for _, link in ipairs(arg) do
          self:addMedia(link)
       end
     end
 end
-function Body:removeLink(link)
+function Context:removeLink(link)
    self:removeChild(link)
    
    for i, lk in ipairs(self.links) do
@@ -263,10 +271,10 @@ function Body:removeLink(link)
    end 
 end
 
-function Body:removeLinkPos(i)
+function Context:removeLinkPos(i)
    self:removeChildPos(i)
    table.remove(self.links, i)
 end
 
 
-return Body
+return Context

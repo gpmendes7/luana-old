@@ -14,7 +14,7 @@ Media.childrenMap = {
 Media.areas = nil
 Media.propertys = nil
 
-function Media:create(attributes)
+function Media:create(attributes, full)
    local media = Media:new()   
    
    media.attributes = {
@@ -31,6 +31,11 @@ function Media:create(attributes)
    media.children = {}
    media.areas = {}
    media.propertys = {}
+   
+   if(full ~= nil)then
+      media:addArea(Area:create())
+      media:addProperty(Property:create())
+   end
       
    return media
 end
