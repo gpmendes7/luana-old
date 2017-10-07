@@ -1,8 +1,15 @@
 local NCLElem = require "core/structure_content/NCLElem"
+local DescriptorParam = require "core/layout/DescriptorParam"
 
 local Descriptor = NCLElem:extends()
 
 Descriptor.name = "descriptor"
+
+Descriptor.childrenMap = {
+ ["descriptorParam"] = {DescriptorParam, "many"}
+}
+
+Descriptor.descriptorParams = nil
 
 Descriptor.hasAss = true
 
@@ -41,6 +48,7 @@ function Descriptor:create(attributes)
    end
      
    descriptor.children = {}
+   descriptor.descriptorParams = {}
    
    return descriptor
 end
@@ -195,6 +203,43 @@ end
 
 function Descriptor:getTransOut()
    return self:getAttribute("transOut")
+end
+
+function Descriptor:addDescriptorParam(descriptorParam)
+    table.insert(self.descriptorParams, descriptorParam)    
+    local p = self:getPosAvailable("descriptorParam")
+    if(p ~= nil)then
+       self:addChild(descriptorParam, p)
+    else
+       self:addChild(descriptorParam, 1)
+    end
+end
+
+function Descriptor:getDescriptorParamPos(i)
+    return self.descriptorParams[i]
+end
+
+function Descriptor:setDescriptorParams(...)
+    if(#arg>0)then
+      for _, descriptorParam in ipairs(arg) do
+          self:addDescriptorParam(descriptorParam)
+      end
+    end
+end
+
+function Descriptor:removeDescriptorParam(descriptorParam)
+   self:removeChild(descriptorParam)
+   
+   for i, dp in ipairs(self.descriptorParams) do
+       if(descriptorParam == dp)then
+          table.remove(self.descriptorParams, i)  
+       end
+   end 
+end
+
+function Descriptor:removeDescriptorParamPos(i)
+   self:removeChildPos(i)
+   table.remove(self.descriptorParams, i)
 end
 
 return Descriptor

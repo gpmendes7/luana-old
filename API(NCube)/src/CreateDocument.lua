@@ -12,7 +12,7 @@ rb1:setAttributes{id="rb1", device="rbTV"}
 
 --local rg1 = Region:create{id="rg1", width="100%", height="100%"}
 
-local rg1 = rb1:getRegion(1):setAttributes{id="rg1", width="100%", height="100%"}
+local rg1 = rb1:getRegionPos(1):setAttributes{id="rg1", width="100%", height="100%"}
 
 --rb1:addRegion(rg1)
 
@@ -25,7 +25,7 @@ doc:getHead():removeChild(cb)
 
 --local rg3 = Region:create{id="rg3", width="50%", height="50%"}
 
-local rg3 = rg2:getRegion(1):setAttributes{id="rg3", width="50%", height="50%"}
+local rg3 = rg2:getRegionPos(1):setAttributes{id="rg3", width="50%", height="50%"}
 
 --rg2:addRegion(rg3)
 
@@ -33,7 +33,7 @@ local db = doc:getHead():getDescriptorBase()
 
 --local d1 = Descriptor:create{id="d1", region="rg1"}
 
-local d1 = db:getDescriptor(1):setAttributes{id="d1", region="rg1"}
+local d1 = db:getDescriptorPos(1):setAttributes{id="d1", region="rg1"}
 
 local d2 = Descriptor:create{id="d2", region="rg2"}
 
@@ -51,7 +51,7 @@ local p2 = Port:create{id="p2", component="m2"}
 
 local m2 = Media:create{id ="m2", src="media/media2.mpg", type="video/mpeg", descriptor="d2"}
 
-doc:getBody():removeAllChilds()
+doc:getBody():removeAllChildren()
 
 doc:getBody():addPort(p2)
 doc:getBody():addMedia(m2)
@@ -60,6 +60,6 @@ doc:saveNcl("fiesta2.ncl")
 
 local rg2 = doc:getDescendantByAttribute("id", "rg2")
 local rg3 = doc:getDescendantByAttribute("id", "rg3")
-rg2:removeChild(rg3)
+rg2:removeRegion(rg3)
 
 doc:saveNcl("tech.ncl")
