@@ -1,4 +1,4 @@
-local NCLElem = require "core/structure_content/NCLElem"
+local NCLElem = require "core/content/NCLElem"
 local Region = require "core/layout/Region"
 
 local RegionBase = NCLElem:extends()

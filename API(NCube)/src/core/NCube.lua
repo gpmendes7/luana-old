@@ -1,6 +1,6 @@
-Document = require "core/structure_content/Document"
-Head = require "core/structure_content/Head"
-Body = require "core/structure_content/Body"
+Document = require "core/content/Document"
+Head = require "core/content/Head"
+Body = require "core/content/Body"
 
 RegionBase = require "core/layout/RegionBase"
 Region = require "core/layout/Region"
@@ -23,4 +23,5 @@ Port = require "core/interface/Port"
 Area = require "core/interface/Area"
 Property = require "core/interface/Property"
 
-Media = require "core/structure_content/Media"
+Media = require "core/content/Media"
+Context = require "core/content/Context"

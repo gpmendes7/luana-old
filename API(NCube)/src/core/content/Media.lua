@@ -1,4 +1,4 @@
-local NCLElem = require "core/structure_content/NCLElem"
+local NCLElem = require "core/content/NCLElem"
 local Area = require "core/interface/Area"
 local Property = require "core/interface/Property"
 

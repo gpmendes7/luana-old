@@ -1,4 +1,4 @@
-local NCLElem = require "core/structure_content/NCLElem"
+local NCLElem = require "core/content/NCLElem"
 local ConnectorParam = require "core/connectors/ConnectorParam"
 local SimpleCondition = require "core/connectors/SimpleCondition"
 local CompoundCondition = require "core/connectors/CompoundCondition"

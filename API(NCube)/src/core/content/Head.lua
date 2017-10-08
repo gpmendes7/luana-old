@@ -1,4 +1,4 @@
-local NCLElem = require "core/structure_content/NCLElem"
+local NCLElem = require "core/content/NCLElem"
 local RegionBase = require "core/layout/RegionBase"
 local DescriptorBase = require "core/layout/DescriptorBase"
 local ConnectorBase = require "core/connectors/ConnectorBase"

@@ -1,5 +1,5 @@
-local NCLElem = require "core/structure_content/NCLElem"
-local ElementE = require "core/structure_content/pseudo/ElementE"
+local NCLElem = require "core/content/NCLElem"
+local ElementE = require "core/content/pseudo/ElementE"
 
 local ElementC = NCLElem:extends()
 
