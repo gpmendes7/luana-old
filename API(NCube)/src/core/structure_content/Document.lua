@@ -6,15 +6,10 @@ local Document = NCLElem:extends()
 
 Document.name = "ncl"
 
-Document.xmlHead = nil
-
 Document.childrenMap = {
  ["head"] = {Head, "one"}, 
  ["body"] = {Body, "one"}
 }
-
-Document.head = nil
-Document.body = nil
 
 function Document:create(attributes, xmlHead, full)
    local xmlHead = xmlHead or {}  
@@ -74,21 +69,31 @@ function Document:getXmlHead()
 end
 
 function Document:setHead(head)
-   self.head = head
    self:addChild(head, 1)
+   self.head = head
 end
 
 function Document:getHead()
    return self.head
 end
 
+function Document:removeHead(head)
+   self:removeChild(head)
+   self.head = nil
+end
+
 function Document:setBody(body)
-   self.body = body
    self:addChild(body, 2)
+   self.body = body
 end
 
 function Document:getBody()
    return self.body
+end
+
+function Document:removeBody(body)
+   self:removeChild(body)
+   self.body = nil
 end
 
 function Document:saveNcl(name)

@@ -9,15 +9,11 @@ Descriptor.childrenMap = {
  ["descriptorParam"] = {DescriptorParam, "many"}
 }
 
-Descriptor.descriptorParams = nil
-
 Descriptor.hasAss = true
 
 Descriptor.assMap = {
   {"region", "regionAss"}
 }
-
-Descriptor.regionAss = nil
 
 function Descriptor:create(attributes)  
    local descriptor = Descriptor:new() 

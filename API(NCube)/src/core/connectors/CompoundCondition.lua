@@ -10,9 +10,6 @@ CompoundCondition.childrenMap = {
  ["compoundCondition"] = {CompoundCondition, "many"}
 }
 
-CompoundCondition.simpleConditions = nil
-CompoundCondition.compoundConditions = nil
-
 function CompoundCondition:create(attributes, full)  
    local compoundCondition = CompoundCondition:new() 
    

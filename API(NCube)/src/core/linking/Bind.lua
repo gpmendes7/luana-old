@@ -9,8 +9,6 @@ Bind.childrenMap = {
  ["bindParam"] = {BindParam, "many"}
 }
 
-Bind.bindParams = nil
-
 function Bind:create(attributes, full)
    local bind = Bind:new()
    

@@ -8,8 +8,6 @@ Region.childrenMap = {
  ["region"] = {Region, "many"}
 }
 
-Region.regions = nil 
-
 function Region:create(attributes, full)
    local region = Region:new() 
    

@@ -9,8 +9,6 @@ RegionBase.childrenMap = {
  ["region"] = {Region, "many"}
 }
 
-RegionBase.regions = nil
-
 function RegionBase:create(attributes, full)
    local attributes = attributes or {}     
    local regionBase = RegionBase:new()  

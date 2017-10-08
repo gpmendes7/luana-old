@@ -10,9 +10,6 @@ CompoundAction.childrenMap = {
  ["compoundAction"] = {CompoundAction, "many"}
 }
 
-CompoundAction.simpleActions = nil
-CompoundAction.compoundActions = nil
-
 function CompoundAction:create(attributes, full)   
    local compoundAction = CompoundAction:new()  
    

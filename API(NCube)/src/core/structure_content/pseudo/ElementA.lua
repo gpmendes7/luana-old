@@ -12,11 +12,6 @@ ElementA.childrenMap = {
  ["elementC"] = {ElementC, "many"}
 }
 
-ElementA.attributes = nil
-ElementA.elementsA = nil
-ElementA.elementsB = nil
-ElementA.elementsC = nil
-
 function ElementA:create(attributes, full)   
    local elementA = ElementA:new()   
    

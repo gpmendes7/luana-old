@@ -1,5 +1,3 @@
-local NCLElem = require "core/structure_content/NCLElem"
-
 local ElementA = require "core/structure_content/pseudo/ElementA"
 local ElementB = require "core/structure_content/pseudo/ElementB"
 local ElementC = require "core/structure_content/pseudo/ElementC"

@@ -16,12 +16,6 @@ Context.childrenMap = {
  ["link"] = {Link, "many"}
 }
 
-Context.ports = nil
-Context.propertys = nil
-Context.medias = nil
-Context.contexts = nil
-Context.links = nil
-
 function Context:create(attributes, full)
    local context = Context:new()
    

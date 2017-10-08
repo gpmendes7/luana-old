@@ -11,9 +11,6 @@ Link.childrenMap = {
  ["bind"] = {Bind, "many"}
 }
 
-Link.linkParams = nil
-Link.binds = nil
-
 function Link:create(attributes, full)  
    local link = Link:new() 
    

@@ -17,12 +17,6 @@ Body.childrenMap = {
  ["link"] = {Link, "many"}
 }
 
-Body.ports = nil
-Body.propertys = nil
-Body.medias = nil
-Body.contexts = nil
-Body.links = nil
-
 function Body:create(attributes, full)
    local body = Body:new()
    

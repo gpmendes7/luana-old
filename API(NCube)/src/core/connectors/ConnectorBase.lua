@@ -9,8 +9,6 @@ ConnectorBase.childrenMap = {
  ["causalConnector"] = {CausalConnector, "many"}
 }
 
-ConnectorBase.causalConnectors = nil
-
 function ConnectorBase:create(attributes, full)  
    local connectorBase = ConnectorBase:new() 
    

@@ -13,10 +13,6 @@ Head.childrenMap = {
  ["connectorBase"] = {ConnectorBase, "many", 3}
 }
 
-Head.regionBases = nil
-Head.descriptorBase = nil
-Head.connectorBases = nil
-
 function Head:create(full)
    local head = Head:new()     
     

@@ -17,12 +17,6 @@ CausalConnector.childrenMap = {
  ["compoundAction"] = {CompoundAction, "one"}
 }
 
-CausalConnector.connectorParams = nil
-CausalConnector.simpleCondition = nil
-CausalConnector.compoundCondition = nil
-CausalConnector.simpleAction = nil
-CausalConnector.compoundAction = nil
-
 function CausalConnector:create(attributes)  
    local causalConnector = CausalConnector:new() 
    

@@ -9,8 +9,6 @@ DescriptorBase.childrenMap = {
  ["descriptor"] = {Descriptor, "many"}
 }
 
-DescriptorBase.descriptors = nil
-
 function DescriptorBase:create(attributes, full) 
    local descriptorBase = DescriptorBase:new()
    

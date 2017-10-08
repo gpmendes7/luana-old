@@ -11,9 +11,6 @@ Media.childrenMap = {
  ["property"] = {Property, "many"}
 }
 
-Media.areas = nil
-Media.propertys = nil
-
 function Media:create(attributes, full)
    local media = Media:new()   
    
