@@ -16,6 +16,9 @@ Document = require "core/content/Document"
 Head = require "core/content/Head"
 Media = require "core/content/Media"
 
+-- core/content
+ImportBase = require "core/importation/ImportBase"
+
 -- core/interface
 Area = require "core/interface/Area"
 Port = require "core/interface/Port"
