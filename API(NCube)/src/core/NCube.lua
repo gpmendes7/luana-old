@@ -3,7 +3,10 @@ Head = require "core/content/Head"
 Body = require "core/content/Body"
 
 Rule = require "core/switches/Rule"
+RuleBase = require "core/switches/RuleBase"
 CompositeRule = require "core/switches/CompositeRule"
+
+DefaultComponent = require "core/switches/DefaultComponent"
 
 RegionBase = require "core/layout/RegionBase"
 Region = require "core/layout/Region"

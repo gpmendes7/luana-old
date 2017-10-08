@@ -1,4 +1,5 @@
 local NCLElem = require "core/content/NCLElem"
+local RuleBase = require "core/switches/RuleBase"
 local RegionBase = require "core/layout/RegionBase"
 local DescriptorBase = require "core/layout/DescriptorBase"
 local ConnectorBase = require "core/connectors/ConnectorBase"
@@ -8,6 +9,7 @@ local Head = NCLElem:extends()
 Head.name = "head"
 
 Head.childrenMap = {
+ ["ruleBase"] = {RuleBase, "many"}, 
  ["regionBase"] = {RegionBase, "many"}, 
  ["descriptorBase"] = {DescriptorBase, "one"},
  ["connectorBase"] = {ConnectorBase, "many"}
@@ -17,10 +19,12 @@ function Head:create(full)
    local head = Head:new()     
     
    head.children = {}  
+   head.ruleBases = {}
    head.regionBases = {}
    head.connectorBases = {}
    
-   if(full ~= nil)then            
+   if(full ~= nil)then   
+      head:addRuleBase(RuleBase:create(nil, full))         
       head:addRegionBase(RegionBase:create(nil, full))            
       head:setDescriptorBase(DescriptorBase:create(nil, full))      
       head:addConnectorBase(ConnectorBase:create(nil, full))
@@ -29,9 +33,56 @@ function Head:create(full)
    return head
 end
 
+function Head:addRuleBase(ruleBase)
+    table.insert(self.ruleBases, ruleBase)    
+    local p = self:getPosAvailable("ruleBase")
+    if(p ~= nil)then
+       self:addChild(ruleBase, p)
+    else
+       self:addChild(ruleBase, 1)
+    end
+end
+
+function Head:getRuleBase(i)
+    return self.ruleBases[i]
+end
+
+function Head:getRuleBaseById(id)
+   for i, ruleBase in ipairs(self.ruleBases) do
+       if(ruleBase:getId() == id)then
+          return ruleBase
+       end
+   end
+   
+   return nil
+end
+
+function Head:setRuleBases(...)
+    if(#arg>0)then
+      for _, ruleBase in ipairs(arg) do
+          self:addRuleBase(ruleBase)
+      end
+    end
+end
+
+function Head:removeRuleBase(ruleBase)
+   self:removeChild(ruleBase)
+   
+   for i, rb in ipairs(self.ruleBases) do
+       if(ruleBase == rb)then
+           table.remove(self.ruleBases, i)  
+       end
+   end 
+end
+
+function Head:removeRuleBasePos(i)
+   self:removeChildPos(i)
+   table.remove(self.ruleBases, i)
+end
+
 function Head:addRegionBase(regionBase)
     table.insert(self.regionBases, regionBase)    
-    local p = self:getPosAvailable("regionBase")
+    local p = self:getPosAvailable("regionBase", "ruleBase")
     if(p ~= nil)then
        self:addChild(regionBase, p)
     else
@@ -80,7 +131,7 @@ function Head:setDescriptorBase(descriptorBase)
    local p = nil 
    
    if(self.descriptorBase == nil)then
-      p = self:getPosAvailable("regionBase")          
+      p = self:getPosAvailable("regionBase", "ruleBase")          
       if(p ~= nil)then
          self:addChild(descriptorBase, p)
        else
@@ -107,7 +158,7 @@ end
 function Head:addConnectorBase(connectorBase)
     table.insert(self.connectorBases, connectorBase)   
   
-    local p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase")  
+    local p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase", "ruleBase")  
     if(p ~= nil)then
        self:addChild(connectorBase, p)
     else
