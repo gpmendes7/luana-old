@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local ElementB = require "core/content/pseudo/ElementB"
 local ElementC = require "core/content/pseudo/ElementC"
 

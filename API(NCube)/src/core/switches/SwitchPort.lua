@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local Mapping = require "core/switches/Mapping"
 
 local SwitchPort = NCLElem:extends()

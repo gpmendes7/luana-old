@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local SimpleAction = require "core/connectors/SimpleAction"
 
 local CompoundAction = NCLElem:extends()

@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local Port = require "core/interface/Port"
 local Property = require "core/interface/Property"
 local Media = require "core/content/Media"

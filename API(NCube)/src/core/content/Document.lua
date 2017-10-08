@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local Head = require "core/content/Head"
 local Body = require "core/content/Body"
 

@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local RuleBase = require "core/switches/RuleBase"
 local RegionBase = require "core/layout/RegionBase"
 local DescriptorBase = require "core/layout/DescriptorBase"

@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local BindParam = require "core/linking/BindParam"
 
 local Bind = NCLElem:extends()

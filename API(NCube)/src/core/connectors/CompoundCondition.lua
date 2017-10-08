@@ -1,4 +1,4 @@
-local NCLElem = require "core/content/NCLElem"
+local NCLElem = require "core/NCLElem"
 local SimpleCondition = require "core/connectors/SimpleCondition"
 
 local CompoundCondition = NCLElem:extends()
