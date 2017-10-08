@@ -8,9 +8,9 @@ local Head = NCLElem:extends()
 Head.name = "head"
 
 Head.childrenMap = {
- ["regionBase"] = {RegionBase, "many", 1}, 
- ["descriptorBase"] = {DescriptorBase, "one", 2},
- ["connectorBase"] = {ConnectorBase, "many", 3}
+ ["regionBase"] = {RegionBase, "many"}, 
+ ["descriptorBase"] = {DescriptorBase, "one"},
+ ["connectorBase"] = {ConnectorBase, "many"}
 }
 
 function Head:create(full)

@@ -27,8 +27,8 @@ function CompoundAction:create(attributes, full)
    compoundAction.compoundActions = {}
    
    if(full ~= nil)then      
-      compoundAction:addCompoundAction(CompoundAction:create())
       compoundAction:addSimpleAction(SimpleAction:create())
+      compoundAction:addCompoundAction(CompoundAction:create())
    end
    
    return compoundAction

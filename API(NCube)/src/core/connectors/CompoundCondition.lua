@@ -26,9 +26,9 @@ function CompoundCondition:create(attributes, full)
    compoundCondition.simpleConditions = {}
    compoundCondition.compoundConditions = {}
     
-   if(full ~= nil)then      
+   if(full ~= nil)then  
+      compoundCondition:addSimpleCondition(SimpleCondition:create())    
       compoundCondition:addCompoundCondition(CompoundCondition:create())
-      compoundCondition:addSimpleCondition(SimpleCondition:create())
    end
    
    return compoundCondition

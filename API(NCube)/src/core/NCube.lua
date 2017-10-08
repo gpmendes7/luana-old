@@ -2,6 +2,9 @@ Document = require "core/content/Document"
 Head = require "core/content/Head"
 Body = require "core/content/Body"
 
+Rule = require "core/switches/Rule"
+CompositeRule = require "core/switches/CompositeRule"
+
 RegionBase = require "core/layout/RegionBase"
 Region = require "core/layout/Region"
 
