@@ -2,7 +2,9 @@ local NCLElem = require "core/NCLElem"
 local Port = require "core/interface/Port"
 local Property = require "core/interface/Property"
 local Media = require "core/content/Media"
-local Context = require "core/content/Context"
+local CompositeNodes = require "core/content/CompositeNode"
+local Context = CompositeNodes[1]
+local Switch = CompositeNodes[2]
 local Link = require "core/linking/Link"
 
 local Body = NCLElem:extends()
@@ -14,6 +16,7 @@ Body.childrenMap = {
  ["property"] = {Property, "many"},
  ["media"] = {Media, "many"},
  ["context"] = {Context, "many"},
+ ["switch"] = {Switch, "many"},
  ["link"] = {Link, "many"}
 }
 
@@ -33,6 +36,7 @@ function Body:create(attributes, full)
    body.propertys = {}
    body.medias = {}
    body.contexts = {}
+   body.switchs = {}
    body.links = {}
    
    if(full ~= nil)then
@@ -40,6 +44,7 @@ function Body:create(attributes, full)
       body:addProperty(Property:create()) 
       body:addMedia(Media:create(nil, full))
       body:addContext(Context:create(nil, full))  
+      body:addSwitch(Switch:create(nil, full))  
       body:addLink(Link:create(nil, full)) 
    end
    
@@ -54,9 +59,9 @@ function Body:getId()
    return self:getAttribute("id")
 end
 
-function Body:addPort(port)
-   table.insert(self.ports, port)    
+function Body:addPort(port)   
    self:addChild(port)
+   table.insert(self.ports, port) 
 end
 
 function Body:getPortPos(i)
@@ -97,8 +102,8 @@ function Body:removePortPos(i)
 end
 
 function Body:addProperty(property)
-   table.insert(self.propertys, property)    
    self:addChild(property)
+   table.insert(self.propertys, property)    
 end
 
 function Body:getProperty(i)
@@ -139,8 +144,8 @@ function Media:removePropertyPos(i)
 end
 
 function Body:addMedia(media)
-   table.insert(self.medias, media)    
    self:addChild(media)
+   table.insert(self.medias, media)    
 end
 
 function Body:getMediaPos(i)
@@ -180,8 +185,8 @@ function Body:removeMediaPos(i)
 end
 
 function Body:addContext(context)
-   table.insert(self.contexts, context)    
    self:addChild(context)
+   table.insert(self.contexts, context)    
 end
 
 function Body:getContextPos(i)
@@ -221,9 +226,52 @@ function Body:removeContextPos(i)
    table.remove(self.contexts, i)
 end
 
+function Body:addSwitch(switch)
+   table.insert(self.switchs, switch)    
+   self:addChild(switch)
+end
+
+function Body:getSwitchPos(i)
+   return self.switchs[i]
+end
+
+function Body:getSwitchById(id)
+   for _, switch in ipairs(self.switchs) do
+       if(switch:getId() == id)then
+          return switch
+       end
+   end
+   
+   return nil
+end
+
+function Body:setSwitchs(...)
+    if(#arg>0)then
+      for _, switch in ipairs(arg) do
+         self:addSwitch(switch)
+      end
+    end
+end
+
+function Body:removeSwitch(switch)
+   self:removeChild(switch)
+   
+   for i, ct in ipairs(self.switchs) do
+       if(switch == ct)then
+           table.remove(self.switchs, i)  
+       end
+   end 
+end
+
+function Body:removeSwitchPos(i)
+   self:removeChildPos(i)
+   table.remove(self.switchs, i)
+end
+
+
 function Body:addLink(link)
-   table.insert(self.links, link)    
    self:addChild(link)
+   table.insert(self.links, link)    
 end
 
 function Body:getLinkPos(i)

@@ -156,8 +156,7 @@ function Head:removeDescriptorBase()
 end
 
 function Head:addConnectorBase(connectorBase)
-    table.insert(self.connectorBases, connectorBase)   
-  
+    table.insert(self.connectorBases, connectorBase)    
     local p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase", "ruleBase")  
     if(p ~= nil)then
        self:addChild(connectorBase, p)

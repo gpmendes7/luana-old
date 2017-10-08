@@ -17,7 +17,6 @@ function NCLElem:create(name, attributes)
    local nclElem = NCLElem:new()         
    
    if(isInvalidString(name))then
-      print("Invalid name!")
       return nil
    end
    
@@ -399,8 +398,7 @@ function NCLElem:ncl2Table()
                  local map = self.childrenMap[childName]
               
                  if(map ~= nil)then
-                    local childClass = map[1]
-                                
+                    local childClass = map[1]       
                     local childObject = childClass:create()            
                              
                     childObject:setNcl(childNcl)

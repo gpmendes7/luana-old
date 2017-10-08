@@ -9,7 +9,9 @@ SimpleCondition = require "core/connectors/SimpleCondition"
 
 -- core/content
 Body = require "core/content/Body"
-Context = require "core/content/Context"
+CompositeNodes = require "core/content/CompositeNode"
+Context = CompositeNodes[1]
+Switch = CompositeNodes[2]
 Document = require "core/content/Document"
 Head = require "core/content/Head"
 Media = require "core/content/Media"
@@ -33,10 +35,10 @@ Link = require "core/linking/Link"
 LinkParam = require "core/linking/LinkParam"
 
 -- core/linking
+BindRule = require "core/switches/BindRule"
 CompositeRule = require "core/switches/CompositeRule"
 DefaultComponent = require "core/switches/DefaultComponent"
 Mapping = require "core/switches/Mapping"
 Rule = require "core/switches/Rule"
 RuleBase = require "core/switches/RuleBase"
-Switch = require "core/switches/Switch"
 SwitchPort = require "core/switches/SwitchPort"
