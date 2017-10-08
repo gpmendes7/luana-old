@@ -7,6 +7,7 @@ RuleBase = require "core/switches/RuleBase"
 CompositeRule = require "core/switches/CompositeRule"
 
 DefaultComponent = require "core/switches/DefaultComponent"
+Mapping = require "core/switches/Mapping"
 
 RegionBase = require "core/layout/RegionBase"
 Region = require "core/layout/Region"
