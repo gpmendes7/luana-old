@@ -58,13 +58,8 @@ function RegionBase:getRegion()
 end
 
 function RegionBase:addRegion(region)
-    table.insert(self.regions, region)    
-    local p = self:getPosAvailable("region")
-    if(p ~= nil)then
-       self:addChild(region, p)
-    else
-       self:addChild(region, 1)
-    end
+   self:addChild(region)
+   table.insert(self.regions, region) 
 end
 
 function RegionBase:getRegionPos(i)

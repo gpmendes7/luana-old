@@ -70,13 +70,8 @@ function Media:getDescriptor()
 end
 
 function Media:addArea(area)
-    table.insert(self.areas, area)    
-    local p = self:getPosAvailable("area", "property")
-    if(p ~= nil)then
-       self:addChild(area, p)
-    else
-       self:addChild(area, 1)
-    end
+   self:addChild(area)
+   table.insert(self.areas, area) 
 end
 
 function Media:getArea(i)
@@ -117,13 +112,8 @@ function Media:removeAreaPos(i)
 end
 
 function Media:addProperty(property)
-    table.insert(self.propertys, property)    
-    local p = self:getPosAvailable("property", "area")
-    if(p ~= nil)then
-       self:addChild(property, p)
-    else
-       self:addChild(property, 1)
-    end
+   self:addChild(property)
+   table.insert(self.propertys, property) 
 end
 
 function Media:getProperty(i)

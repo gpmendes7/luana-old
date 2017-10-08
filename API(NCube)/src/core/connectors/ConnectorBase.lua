@@ -39,13 +39,8 @@ function ConnectorBase:getId()
 end
 
 function ConnectorBase:addCausalConnector(causalConnector)
-    table.insert(self.causalConnectors, causalConnector)    
-    local p = self:getLastPosChild("causalConnector")
-    if(p ~= nil)then
-       self:addChild(causalConnector, p+1)
-    else
-       self:addChild(causalConnector, 1)
-    end
+   self:addChild(causalConnector)
+   table.insert(self.causalConnectors, causalConnector)
 end
 
 function ConnectorBase:getCausalConnectorPos(i)
