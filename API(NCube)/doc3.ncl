@@ -24,11 +24,12 @@
 	<body>
        <port id="pScript" component="script" interface="desenho"/>
        
-       <media id="script" src="script8.lua" descriptor="dScript">
+       	   
+	   <media id="script" src="script8.lua" descriptor="dScript">
        	 <area id="desenho"/>
 		 <property name="somar"/>
 		 <area id="exibir"/>
-	   </media>
+	   </media>       
 	  
 	   <link id="lClica" xconnector="onKeySelectionSet">
 		<bind component="script" role="onSelection">
@@ -38,6 +39,7 @@
 			<bindParam name="var" value="1"/>
 		</bind>
 	   </link>
+
 	  
 	</body>
 </ncl>

@@ -60,8 +60,13 @@ function Body:getId()
 end
 
 function Body:addPort(port)   
-   self:addChild(port)
-   table.insert(self.ports, port) 
+   table.insert(self.ports, port)    
+   local p = self:getPosAvailable("link") - 1
+   if(p ~= nil)then
+      self:addChild(port, p)
+   else
+      self:addChild(port, 1)
+   end
 end
 
 function Body:getPortPos(i)
@@ -102,8 +107,13 @@ function Body:removePortPos(i)
 end
 
 function Body:addProperty(property)
-   self:addChild(property)
    table.insert(self.propertys, property)    
+   local p = self:getPosAvailable("link") - 1
+   if(p ~= nil)then
+      self:addChild(property, p)
+   else
+      self:addChild(property, 1)
+   end  
 end
 
 function Body:getProperty(i)
@@ -144,8 +154,13 @@ function Media:removePropertyPos(i)
 end
 
 function Body:addMedia(media)
-   self:addChild(media)
    table.insert(self.medias, media)    
+   local p = self:getPosAvailable("link") - 1
+   if(p ~= nil)then
+      self:addChild(media, p)
+   else
+      self:addChild(media, 1)
+   end     
 end
 
 function Body:getMediaPos(i)
@@ -185,8 +200,13 @@ function Body:removeMediaPos(i)
 end
 
 function Body:addContext(context)
-   self:addChild(context)
    table.insert(self.contexts, context)    
+   local p = self:getPosAvailable("link") - 1
+   if(p ~= nil)then
+      self:addChild(context, p)
+   else
+      self:addChild(context, 1)
+   end       
 end
 
 function Body:getContextPos(i)
@@ -228,7 +248,12 @@ end
 
 function Body:addSwitch(switch)
    table.insert(self.switchs, switch)    
-   self:addChild(switch)
+   local p = self:getPosAvailable("link") - 1
+   if(p ~= nil)then
+      self:addChild(switch, p)
+   else
+      self:addChild(switch, 1)
+   end       
 end
 
 function Body:getSwitchPos(i)
@@ -270,8 +295,13 @@ end
 
 
 function Body:addLink(link)
-   self:addChild(link)
    table.insert(self.links, link)    
+   local p = self:getPosAvailable("link")
+   if(p ~= nil)then
+      self:addChild(link, p)
+   else
+      self:addChild(link, 1)
+   end          
 end
 
 function Body:getLinkPos(i)

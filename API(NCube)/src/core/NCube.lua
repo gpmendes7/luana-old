@@ -47,3 +47,6 @@ Mapping = require "core/switches/Mapping"
 Rule = require "core/switches/Rule"
 RuleBase = require "core/switches/RuleBase"
 SwitchPort = require "core/switches/SwitchPort"
+
+-- core/transition
+Transition = require "core/transition/Transition"
