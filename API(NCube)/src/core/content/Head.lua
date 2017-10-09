@@ -1,4 +1,5 @@
 local NCLElem = require "core/NCLElem"
+local ImportedDocumentBase = require "core/importation/ImportedDocumentBase"
 local RuleBase = require "core/switches/RuleBase"
 local TransitionBase = require "core/transition/TransitionBase"
 local RegionBase = require "core/layout/RegionBase"
@@ -10,6 +11,7 @@ local Head = NCLElem:extends()
 Head.name = "head"
 
 Head.childrenMap = {
+ ["importedDocumentBase"] = {ImportedDocumentBase, "one"}, 
  ["ruleBase"] = {RuleBase, "one"}, 
  ["transitionBase"] = {TransitionBase, "one"}, 
  ["regionBase"] = {RegionBase, "many"}, 
@@ -22,9 +24,9 @@ function Head:create(full)
     
    head.children = {}
    head.regionBases = {}
-   head.connectorBases = {}
    
    if(full ~= nil)then   
+      head:setImportedDocumentBase(ImportedDocumentBase:create(nil, full)) 
       head:setRuleBase(RuleBase:create(nil, full)) 
       head:setTransitionBase(TransitionBase:create(nil, full))           
       head:addRegionBase(RegionBase:create(nil, full))            
@@ -33,6 +35,20 @@ function Head:create(full)
    end
    
    return head
+end
+
+function Head:setImportedDocumentBase(importedDocumentBase)
+   self:addChild(importedDocumentBase, 1)
+   self.importedDocumentBase = importedDocumentBase  
+end
+
+function Head:getImportedDocumentBase()
+   return self.importedDocumentBase
+end
+
+function Head:removeImportedDocumentBase()
+   self:removeChild(self.importedDocumentBase)
+   self.importedDocumentBase = nil
 end
 
 function Head:setRuleBase(ruleBase)

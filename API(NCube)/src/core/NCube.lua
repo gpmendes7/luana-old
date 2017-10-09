@@ -18,6 +18,7 @@ Media = require "core/content/Media"
 
 -- core/content
 ImportBase = require "core/importation/ImportBase"
+ImportedDocumentBase = require "core/importation/ImportedDocumentBase"
 ImportNCL = require "core/importation/ImportNCL"
 
 -- core/interface
