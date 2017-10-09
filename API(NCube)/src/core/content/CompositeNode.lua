@@ -467,7 +467,7 @@ function Switch:removeBindRule(bindRule)
    end    
 end
 
-function Media:removeBindRulePos(i)
+function Switch:removeBindRulePos(i)
    self:removeChildPos(i)
    table.remove(self.bindRules, i)
 end

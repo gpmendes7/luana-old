@@ -37,10 +37,12 @@ BindParam = require "core/linking/BindParam"
 Link = require "core/linking/Link"
 LinkParam = require "core/linking/LinkParam"
 
--- core/linking
+-- core/switches
 BindRule = require "core/switches/BindRule"
 CompositeRule = require "core/switches/CompositeRule"
 DefaultComponent = require "core/switches/DefaultComponent"
+DefaultDescriptor = require "core/switches/DefaultDescriptor"
+DescriptorSwitch = require "core/switches/DescriptorSwitch"
 Mapping = require "core/switches/Mapping"
 Rule = require "core/switches/Rule"
 RuleBase = require "core/switches/RuleBase"

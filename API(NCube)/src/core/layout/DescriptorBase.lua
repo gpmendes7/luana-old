@@ -1,4 +1,6 @@
 local NCLElem = require "core/NCLElem"
+local DescriptorSwitch = require "core/switches/DescriptorSwitch"
+local ImportBase = require "core/importation/ImportBase"
 local Descriptor = require "core/layout/Descriptor"
 
 local DescriptorBase = NCLElem:extends()
@@ -6,6 +8,8 @@ local DescriptorBase = NCLElem:extends()
 DescriptorBase.name = "descriptorBase"
 
 DescriptorBase.childrenMap = {
+ ["descriptorSwitch"] = {DescriptorSwitch, "many"},
+ ["importBase"] = {ImportBase, "many"},
  ["descriptor"] = {Descriptor, "many"}
 }
 
@@ -21,10 +25,14 @@ function DescriptorBase:create(attributes, full)
    end
    
    descriptorBase.children = {}    
+   descriptorBase.importBases = {} 
    descriptorBase.descriptors = {}
+   descriptorBase.descriptorSwitchs = {}
    
    if(full ~= nil)then
-      descriptorBase:addDescriptor(Descriptor:create())     
+      descriptorBase:addImportBase(ImportBase:create())  
+      descriptorBase:addDescriptor(Descriptor:create(nil, full))
+      descriptorBase:addDescriptorSwitch(DescriptorSwitch:create(nil, full))      
    end
    
    return descriptorBase
@@ -38,14 +46,51 @@ function DescriptorBase:getId()
    return self:getAttribute("id")
 end
 
-function DescriptorBase:addDescriptor(descriptor)
-    table.insert(self.descriptors, descriptor)    
-    local p = self:getPosAvailable("descriptor")
-    if(p ~= nil)then
-       self:addChild(descriptor, p)
-    else
-       self:addChild(descriptor, 1)
+function DescriptorBase:addImportBase(importBase)
+   self:addChild(importBase)
+   table.insert(self.importBases, importBase)
+end
+
+function DescriptorBase:getImportBasePos(i)
+    return self.importBases[i]
+end
+
+function DescriptorBase:getImportBaseByAlias(alias)
+   for _, importBase in ipairs(self.importBases) do
+       if(importBase:getAlias() == alias)then
+          return importBase
+       end
+   end
+   
+   return nil
+end
+
+function DescriptorBase:setImportBases(...)
+    if(#arg>0)then
+      for _, importBase in ipairs(arg) do
+          self:addRule(importBase)
+      end
     end
+end
+
+function DescriptorBase:removeImportBase(importBase)
+   self:removeChild(importBase)
+   
+   for i, ib in ipairs(self.importBases) do
+       if(importBase == ib)then
+           table.remove(self.importBases, i)  
+       end
+   end    
+end
+
+function DescriptorBase:removeImportBasePos(i)
+   self:removeChildPos(i)
+   table.remove(self.importBases, i)
+end
+
+function DescriptorBase:addDescriptor(descriptor)
+   self:addChild(descriptor)
+   table.insert(self.descriptors, descriptor)
 end
 
 function DescriptorBase:getDescriptorPos(i)
@@ -83,6 +128,48 @@ end
 function DescriptorBase:removeDescriptorPos(i)
    self:removeChildPos(i)
    table.remove(self.descriptors, i)
+end
+
+function DescriptorBase:addDescriptorSwitch(descriptorSwitch)
+   self:addChild(descriptorSwitch)
+   table.insert(self.descriptorSwitchs, descriptorSwitch)
+end
+
+function DescriptorBase:getDescriptorSwitchPos(i)
+    return self.descriptorSwitchs[i]
+end
+
+function DescriptorBase:getDescriptorSwitchById(id)
+   for _, descriptorSwitch in ipairs(self.descriptorSwitchs) do
+       if(descriptorSwitch:getId() == id)then
+          return descriptorSwitch
+       end
+   end
+   
+   return nil
+end
+
+function DescriptorBase:setDescriptorSwitchs(...)
+    if(#arg>0)then
+      for _, descriptorSwitch in ipairs(arg) do
+          self:addDescriptorSwitch(descriptorSwitch)
+      end
+    end
+end
+
+function DescriptorBase:removeDescriptorSwitch(descriptorSwitch)
+   self:removeChild(descriptorSwitch)
+   
+   for i, dc in ipairs(self.descriptorSwitchs) do
+       if(descriptorSwitch == dc)then
+           table.remove(self.descriptorSwitchs, i)  
+       end
+   end    
+end
+
+function DescriptorBase:removeDescriptorSwitchPos(i)
+   self:removeChildPos(i)
+   table.remove(self.descriptorSwitchs, i)
 end
 
 return DescriptorBase

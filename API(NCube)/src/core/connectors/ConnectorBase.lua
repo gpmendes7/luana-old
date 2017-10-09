@@ -1,4 +1,5 @@
 local NCLElem = require "core/NCLElem"
+local ImportBase = require "core/importation/ImportBase"
 local CausalConnector = require "core/connectors/CausalConnector"
 
 local ConnectorBase = NCLElem:extends()
@@ -6,6 +7,7 @@ local ConnectorBase = NCLElem:extends()
 ConnectorBase.name = "connectorBase"
 
 ConnectorBase.childrenMap = {
+ ["importBase"] = {ImportBase, "many"},
  ["causalConnector"] = {CausalConnector, "many"}
 }
 
@@ -21,10 +23,12 @@ function ConnectorBase:create(attributes, full)
    end
      
    connectorBase.children = {}
+   connectorBase.importBases = {} 
    connectorBase.causalConnectors = {}
     
-   if(full ~= nil)then      
-       connectorBase:addCausalConnector(CausalConnector:create(nil, full))       
+   if(full ~= nil)then    
+      connectorBase:addImportBase(ImportBase:create())    
+      connectorBase:addCausalConnector(CausalConnector:create(nil, full))       
    end
    
    return connectorBase
@@ -36,6 +40,48 @@ end
 
 function ConnectorBase:getId()
    return self:getAttribute("id")
+end
+
+function ConnectorBase:addImportBase(importBase)
+   self:addChild(importBase)
+   table.insert(self.importBases, importBase)
+end
+
+function ConnectorBase:getImportBasePos(i)
+    return self.importBases[i]
+end
+
+function ConnectorBase:getImportBaseByAlias(alias)
+   for _, importBase in ipairs(self.importBases) do
+       if(importBase:getAlias() == alias)then
+          return importBase
+       end
+   end
+   
+   return nil
+end
+
+function ConnectorBase:setImportBases(...)
+    if(#arg>0)then
+      for _, importBase in ipairs(arg) do
+          self:addRule(importBase)
+      end
+    end
+end
+
+function ConnectorBase:removeImportBase(importBase)
+   self:removeChild(importBase)
+   
+   for i, ib in ipairs(self.importBases) do
+       if(importBase == ib)then
+           table.remove(self.importBases, i)  
+       end
+   end    
+end
+
+function ConnectorBase:removeImportBasePos(i)
+   self:removeChildPos(i)
+   table.remove(self.importBases, i)
 end
 
 function ConnectorBase:addCausalConnector(causalConnector)

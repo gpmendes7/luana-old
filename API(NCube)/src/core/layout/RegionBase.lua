@@ -1,4 +1,5 @@
 local NCLElem = require "core/NCLElem"
+local ImportBase = require "core/importation/ImportBase"
 local Region = require "core/layout/Region"
 
 local RegionBase = NCLElem:extends()
@@ -6,6 +7,7 @@ local RegionBase = NCLElem:extends()
 RegionBase.name = "regionBase"
 
 RegionBase.childrenMap = {
+ ["importBase"] = {ImportBase, "many"},
  ["region"] = {Region, "many"}
 }
 
@@ -23,10 +25,12 @@ function RegionBase:create(attributes, full)
       regionBase:setAttributes(attributes)
    end
    
-   regionBase.children = {}  
+   regionBase.children = {} 
+   regionBase.importBases = {} 
    regionBase.regions = {}
    
-   if(full ~= nil)then    
+   if(full ~= nil)then  
+      regionBase:addImportBase(ImportBase:create())  
       regionBase:addRegion(Region:create())
    end
    
@@ -55,6 +59,48 @@ end
 
 function RegionBase:getRegion()
    return self:getAttribute("region")
+end
+
+function RegionBase:addImportBase(importBase)
+   self:addChild(importBase)
+   table.insert(self.importBases, importBase)
+end
+
+function RegionBase:getImportBasePos(i)
+    return self.importBases[i]
+end
+
+function RegionBase:getImportBaseByAlias(alias)
+   for _, importBase in ipairs(self.importBases) do
+       if(importBase:getAlias() == alias)then
+          return importBase
+       end
+   end
+   
+   return nil
+end
+
+function RegionBase:setImportBases(...)
+    if(#arg>0)then
+      for _, importBase in ipairs(arg) do
+          self:addRule(importBase)
+      end
+    end
+end
+
+function RegionBase:removeImportBase(importBase)
+   self:removeChild(importBase)
+   
+   for i, ib in ipairs(self.importBases) do
+       if(importBase == ib)then
+           table.remove(self.importBases, i)  
+       end
+   end    
+end
+
+function RegionBase:removeImportBasePos(i)
+   self:removeChildPos(i)
+   table.remove(self.importBases, i)
 end
 
 function RegionBase:addRegion(region)

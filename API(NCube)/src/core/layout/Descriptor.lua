@@ -15,7 +15,7 @@ Descriptor.assMap = {
   {"region", "regionAss"}
 }
 
-function Descriptor:create(attributes)  
+function Descriptor:create(attributes, full)  
    local descriptor = Descriptor:new() 
    
    descriptor.attributes = {
@@ -45,6 +45,10 @@ function Descriptor:create(attributes)
      
    descriptor.children = {}
    descriptor.descriptorParams = {}
+      
+   if(full ~= nil)then
+      descriptor:addDescriptorParam(DescriptorParam:create())     
+   end
    
    return descriptor
 end
@@ -202,13 +206,8 @@ function Descriptor:getTransOut()
 end
 
 function Descriptor:addDescriptorParam(descriptorParam)
-    table.insert(self.descriptorParams, descriptorParam)    
-    local p = self:getPosAvailable("descriptorParam")
-    if(p ~= nil)then
-       self:addChild(descriptorParam, p)
-    else
-       self:addChild(descriptorParam, 1)
-    end
+   self:addChild(descriptorParam)
+   table.insert(self.descriptorParams, descriptorParam)
 end
 
 function Descriptor:getDescriptorParamPos(i)
