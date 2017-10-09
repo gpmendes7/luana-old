@@ -73,9 +73,9 @@ end
 
 function Context:addPort(port)
    table.insert(self.ports, port)    
-   local p = self:getPosAvailable("link") - 1
+   local p = self:getPosAvailable("link")
    if(p ~= nil)then
-      self:addChild(port, p)
+      self:addChild(port, p-1)
    else
       self:addChild(port, 1)
    end 
@@ -119,8 +119,13 @@ function Context:removePortPos(i)
 end
 
 function Context:addProperty(property)
-   self:addChild(property)
    table.insert(self.propertys, property)    
+   local p = self:getPosAvailable("link")
+   if(p ~= nil)then
+      self:addChild(property, p-1)
+   else
+      self:addChild(property, 1)
+   end    
 end
 
 function Context:getProperty(i)
@@ -162,9 +167,9 @@ end
 
 function Context:addMedia(media)
    table.insert(self.medias, media)    
-   local p = self:getPosAvailable("link") - 1
+   local p = self:getPosAvailable("link")
    if(p ~= nil)then
-      self:addChild(media, p)
+      self:addChild(media, p-1)
    else
       self:addChild(media, 1)
    end    
@@ -208,9 +213,9 @@ end
 
 function Context:addContext(context)
    table.insert(self.contexts, context)    
-   local p = self:getPosAvailable("link") - 1
+   local p = self:getPosAvailable("link")
    if(p ~= nil)then
-      self:addChild(context, p)
+      self:addChild(context, p-1)
    else
       self:addChild(context, 1)
    end    
@@ -301,9 +306,9 @@ end
 
 function Context:addSwitch(switch)
    table.insert(self.switchs, switch)    
-   local p = self:getPosAvailable("link") - 1
+   local p = self:getPosAvailable("link")
    if(p ~= nil)then
-      self:addChild(switch, p)
+      self:addChild(switch, p-1)
    else
       self:addChild(switch, 1)
    end

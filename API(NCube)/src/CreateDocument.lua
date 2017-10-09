@@ -1,12 +1,21 @@
 require("core/NCube")
 
-local doc = Document:create({id="doc", xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile"}, "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>", 1)
+local doc = Document:create({id="doc", xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile"}, "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>")
 
 --local rb1 = RegionBase:create({id="rb1", device="rbTV"}, 1)
 
---doc:getHead():addRegionBase(rb1)
+doc:setHead(Head:create())
+doc:setBody(Body:create())
 
-local rb1 = doc:getHead():getRegionBase(1)
+doc:getHead():addRegionBase(RegionBase:create())
+doc:getHead():getRegionBasePos(1):addRegion(Region:create())
+
+doc:getHead():setDescriptorBase(DescriptorBase:create())
+doc:getHead():getDescriptorBase():addDescriptor(Descriptor:create())
+
+doc:getHead():addConnectorBase(ConnectorBase:create())
+
+local rb1 = doc:getHead():getRegionBasePos(1)
 
 rb1:setAttributes{id="rb1", device="rbTV"}
 
@@ -19,9 +28,6 @@ local rg1 = rb1:getRegionPos(1):setAttributes{id="rg1", width="100%", height="10
 local rg2 = Region:create({id="rg2", width="25%", height="25%"}, 1)
 
 rb1:addRegion(rg2)
-
-local cb = doc:getHead():getConnectorBase(1)
-doc:getHead():removeChild(cb)
 
 --local rg3 = Region:create{id="rg3", width="50%", height="50%"}
 
@@ -50,8 +56,6 @@ doc:getBody():addMedia(m1)
 local p2 = Port:create{id="p2", component="m2"}
 
 local m2 = Media:create{id ="m2", src="media/media2.mpg", type="video/mpeg", descriptor="d2"}
-
-doc:getBody():removeAllChildren()
 
 doc:getBody():addPort(p2)
 doc:getBody():addMedia(m2)

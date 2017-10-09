@@ -43,7 +43,7 @@ function Head:addRuleBase(ruleBase)
     end
 end
 
-function Head:getRuleBase(i)
+function Head:getRuleBasePos(i)
     return self.ruleBases[i]
 end
 
@@ -90,7 +90,7 @@ function Head:addRegionBase(regionBase)
     end
 end
 
-function Head:getRegionBase(i)
+function Head:getRegionBasePos(i)
     return self.regionBases[i]
 end
 
