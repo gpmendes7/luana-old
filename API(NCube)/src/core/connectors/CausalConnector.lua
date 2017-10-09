@@ -91,7 +91,7 @@ function CausalConnector:setSimpleCondition(simpleCondition)
       end 
    else
       p = self:getPosAvailable("simpleCondition", "compoundCondition") - 1
-      self:removeChild(p)
+      self:removeChildPos(p)
       self:addChild(simpleCondition, p)
    end
    
@@ -120,7 +120,7 @@ function CausalConnector:setCompoundCondition(compoundCondition)
       end 
    else
       p = self:getPosAvailable("compoundCondition", "simpleCondition") - 1
-      self:removeChild(p)
+      self:removeChildPos(p)
       self:addChild(compoundCondition, p)
    end
    
@@ -149,7 +149,7 @@ function CausalConnector:setSimpleAction(simpleAction)
       end 
    else
       p = self:getPosAvailable("simpleAction", "compoundAction") - 1
-      self:removeChild(p)
+      self:removeChildPos(p)
       self:addChild(simpleAction, p)
    end
    
@@ -178,7 +178,7 @@ function CausalConnector:setCompoundAction(compoundAction)
       end 
    else
       p = self:getPosAvailable("compoundAction", "simpleAction") - 1
-      self:removeChild(p)
+      self:removeChildPos(p)
       self:addChild(compoundAction, p)
    end
    

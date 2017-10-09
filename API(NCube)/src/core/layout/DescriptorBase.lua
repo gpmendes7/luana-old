@@ -46,6 +46,48 @@ function DescriptorBase:getId()
    return self:getAttribute("id")
 end
 
+function DescriptorBase:addDescriptorSwitch(descriptorSwitch)
+   self:addChild(descriptorSwitch)
+   table.insert(self.descriptorSwitchs, descriptorSwitch)
+end
+
+function DescriptorBase:getDescriptorSwitchPos(i)
+    return self.descriptorSwitchs[i]
+end
+
+function DescriptorBase:getDescriptorSwitchById(id)
+   for _, descriptorSwitch in ipairs(self.descriptorSwitchs) do
+       if(descriptorSwitch:getId() == id)then
+          return descriptorSwitch
+       end
+   end
+   
+   return nil
+end
+
+function DescriptorBase:setDescriptorSwitchs(...)
+    if(#arg>0)then
+      for _, descriptorSwitch in ipairs(arg) do
+          self:addDescriptorSwitch(descriptorSwitch)
+      end
+    end
+end
+
+function DescriptorBase:removeDescriptorSwitch(descriptorSwitch)
+   self:removeChild(descriptorSwitch)
+   
+   for i, dc in ipairs(self.descriptorSwitchs) do
+       if(descriptorSwitch == dc)then
+           table.remove(self.descriptorSwitchs, i)  
+       end
+   end    
+end
+
+function DescriptorBase:removeDescriptorSwitchPos(i)
+   self:removeChildPos(i)
+   table.remove(self.descriptorSwitchs, i)
+end
+
 function DescriptorBase:addImportBase(importBase)
    self:addChild(importBase)
    table.insert(self.importBases, importBase)
@@ -128,48 +170,6 @@ end
 function DescriptorBase:removeDescriptorPos(i)
    self:removeChildPos(i)
    table.remove(self.descriptors, i)
-end
-
-function DescriptorBase:addDescriptorSwitch(descriptorSwitch)
-   self:addChild(descriptorSwitch)
-   table.insert(self.descriptorSwitchs, descriptorSwitch)
-end
-
-function DescriptorBase:getDescriptorSwitchPos(i)
-    return self.descriptorSwitchs[i]
-end
-
-function DescriptorBase:getDescriptorSwitchById(id)
-   for _, descriptorSwitch in ipairs(self.descriptorSwitchs) do
-       if(descriptorSwitch:getId() == id)then
-          return descriptorSwitch
-       end
-   end
-   
-   return nil
-end
-
-function DescriptorBase:setDescriptorSwitchs(...)
-    if(#arg>0)then
-      for _, descriptorSwitch in ipairs(arg) do
-          self:addDescriptorSwitch(descriptorSwitch)
-      end
-    end
-end
-
-function DescriptorBase:removeDescriptorSwitch(descriptorSwitch)
-   self:removeChild(descriptorSwitch)
-   
-   for i, dc in ipairs(self.descriptorSwitchs) do
-       if(descriptorSwitch == dc)then
-           table.remove(self.descriptorSwitchs, i)  
-       end
-   end    
-end
-
-function DescriptorBase:removeDescriptorSwitchPos(i)
-   self:removeChildPos(i)
-   table.remove(self.descriptorSwitchs, i)
 end
 
 return DescriptorBase

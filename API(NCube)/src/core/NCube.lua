@@ -50,3 +50,4 @@ SwitchPort = require "core/switches/SwitchPort"
 
 -- core/transition
 Transition = require "core/transition/Transition"
+TransitionBase = require "core/transition/TransitionBase"
