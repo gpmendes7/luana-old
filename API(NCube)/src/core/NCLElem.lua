@@ -267,7 +267,7 @@ end
 
 
 function NCLElem:readAttributes()
-   local s, e, t, u, w = nil
+   local s, e, t, u, r, v, w, z = nil
 
    _, s = string.find(self.ncl, "<"..self.name.." ")
    _, t = string.find(self.ncl, "<"..self.name..">")
@@ -276,18 +276,19 @@ function NCLElem:readAttributes()
    if(s ~= nil and t == nil and e ~= nil)then
      local attributes = string.sub(self.ncl,s,e-1)   
      
-     for w in string.gmatch(attributes, "%S+") do
-       t = string.find(w, "=")
-       
-       if(t ~= nil)then
-          local attribute = string.sub(w, 1, t-1)
-         
-          local valuewithQuotes = string.sub(w,t+2,string.len(w))
-          u = string.find(valuewithQuotes, "\"")          
-          local value = string.sub(valuewithQuotes, 1, u-1)  
+     u, r = string.find(attributes, "%S+=")
+
+     while (u ~= nil and r ~= nil) do
+            local attribute = string.sub(attributes, u, r-1)
+            v, w = string.find(attributes, "\"", u+1)
+            z = string.find(attributes, "\"", w+1)
+            
+            local value = string.sub(attributes, v+1,z-1)  
+            
+            self:addAttribute(attribute, value)
           
-          self:addAttribute(attribute, value)
-       end
+            attributes = string.sub(attributes, z+1, string.len(attributes))
+            u, r = string.find(attributes, "%S+=")
      end
    end
 end

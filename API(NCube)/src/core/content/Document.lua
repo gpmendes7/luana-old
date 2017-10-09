@@ -18,7 +18,9 @@ function Document:create(attributes, xmlHead, full)
    document.attributes = { 
       ["id"] = "",
       ["title"] = "",
-      ["xmlns"] = ""
+      ["xmlns"] = "",
+      ["xmlns:xsi"] = "",
+      ["xsi:schemaLocation"] = ""
    }
    
    if(attributes ~= nil)then
@@ -58,6 +60,22 @@ end
 
 function Document:getXmlns()
    return self:getAttribute("xmlns")
+end
+
+function Document:setXsi(xsi)
+   self:addAttribute("xmlns:xsi", xsi)
+end
+
+function Document:getXsi()
+   return self:getAttribute("xmlns:xsi")
+end
+
+function Document:setSchemaLocation(schemaLocation)
+   self:addAttribute("xsi:schemaLocation", schemaLocation)
+end
+
+function Document:getSchemaLocation()
+   return self:getAttribute("xsi:schemaLocation")
 end
 
 function Document:setXmlHead(xmlHead)
