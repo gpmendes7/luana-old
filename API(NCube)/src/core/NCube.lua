@@ -39,6 +39,9 @@ BindParam = require "core/linking/BindParam"
 Link = require "core/linking/Link"
 LinkParam = require "core/linking/LinkParam"
 
+-- core/metadata
+Meta = require "core/metadata/Meta"
+
 -- core/switches
 BindRule = require "core/switches/BindRule"
 CompositeRule = require "core/switches/CompositeRule"
