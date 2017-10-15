@@ -1,11 +1,15 @@
 -- core/connectores
+AssessmentStatement = require "core/connectors/AssessmentStatement"
+AttributeAssessment = require "core/connectors/AttributeAssessment"
 CausalConnector = require "core/connectors/CausalConnector"
 CompoundAction = require "core/connectors/CompoundAction"
 CompoundCondition = require "core/connectors/CompoundCondition"
+CompoundStatement = require "core/connectors/CompoundStatement"
 ConnectorBase = require "core/connectors/ConnectorBase"
 ConnectorParam = require "core/connectors/ConnectorParam"
 SimpleAction = require "core/connectors/SimpleAction"
 SimpleCondition = require "core/connectors/SimpleCondition"
+ValueAssessment = require "core/connectors/ValueAssessment"
 
 -- core/content
 Body = require "core/content/Body"

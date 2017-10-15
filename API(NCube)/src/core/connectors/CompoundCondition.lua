@@ -1,5 +1,7 @@
 local NCLElem = require "core/NCLElem"
 local SimpleCondition = require "core/connectors/SimpleCondition"
+local AssessmentStatement = require "core/connectors/AssessmentStatement"
+local CompoundStatement = require "core/connectors/CompoundStatement"
 
 local CompoundCondition = NCLElem:extends()
 
@@ -7,7 +9,9 @@ CompoundCondition.name = "compoundCondition"
 
 CompoundCondition.childrenMap = {
  ["simpleCondition"] = {SimpleCondition, "many"},
- ["compoundCondition"] = {CompoundCondition, "many"}
+ ["compoundCondition"] = {CompoundCondition, "many"},
+ ["assessmentStatement"] = {AssessmentStatement, "many"},
+ ["compoundStatement"] = {CompoundStatement, "many"}
 }
 
 function CompoundCondition:create(attributes, full)  
@@ -25,10 +29,14 @@ function CompoundCondition:create(attributes, full)
    compoundCondition.children = {}
    compoundCondition.simpleConditions = {}
    compoundCondition.compoundConditions = {}
+   compoundCondition.assessmentStatements = {}
+   compoundCondition.compoundStatements = {}
     
    if(full ~= nil)then  
       compoundCondition:addSimpleCondition(SimpleCondition:create())    
       compoundCondition:addCompoundCondition(CompoundCondition:create())
+      compoundCondition:addAssessmentStatement(AssessmentStatement:create())
+      compoundCondition:addCompoundStatement(CompoundStatement:create())
    end
    
    return compoundCondition
@@ -52,7 +60,7 @@ end
 
 function CompoundCondition:addSimpleCondition(simpleCondition)
     table.insert(self.simpleConditions, simpleCondition)    
-    local p = self:getPosAvailable("simpleCondition", "compoundCondition")
+    local p = self:getPosAvailable("simpleCondition", "compoundCondition", "assessmentStatement", "compoundStatement")
     if(p ~= nil)then
        self:addChild(simpleCondition, p)
     else
@@ -89,7 +97,7 @@ end
 
 function CompoundCondition:addCompoundCondition(compoundCondition)
     table.insert(self.compoundConditions, compoundCondition)    
-    local p = self:getPosAvailable("compoundCondition", "simpleCondition")
+    local p = self:getPosAvailable("compoundCondition", "simpleCondition", "assessmentStatement", "compoundStatement")
     if(p ~= nil)then
        self:addChild(compoundCondition, p)
     else
@@ -122,6 +130,80 @@ end
 function CompoundCondition:removeCompoundConditionPos(i)
    self:removeChildPos(i)
    table.remove(self.compoundConditions, i)
+end
+
+function CompoundCondition:addAssessmentStatement(assessmentStatement)
+    table.insert(self.assessmentStatements, assessmentStatement)    
+    local p = self:getPosAvailable("assessmentStatement", "compoundStatement", "simpleCondition", "compoundCondition")
+    if(p ~= nil)then
+       self:addChild(assessmentStatement, p)
+    else
+       self:addChild(assessmentStatement, 1)
+    end
+end
+
+function CompoundCondition:getAssessmentStatementPos(i)
+    return self.assessmentStatements[i]
+end
+
+function CompoundCondition:setAssessmentStatements(...)
+    if(#arg>0)then
+      for _, assessmentStatement in ipairs(arg) do
+          self:addAssessmentStatement(assessmentStatement)
+      end
+    end
+end
+
+function CompoundCondition:removeAssessmentStatement(assessmentStatement)
+   self:removeChild(assessmentStatement)
+   
+   for i, as in ipairs(self.assessmentStatements) do
+       if(assessmentStatement == as)then
+           table.remove(self.assessmentStatements, i)  
+       end
+   end 
+end
+
+function CompoundCondition:removeAssessmentStatementPos(i)
+   self:removeChildPos(i)
+   table.remove(self.assessmentStatements, i)
+end
+
+function CompoundCondition:addCompoundStatement(compoundStatement)
+    table.insert(self.compoundStatements, compoundStatement)    
+    local p = self:getPosAvailable("compoundStatement", "assessmentStatement", "simpleCondition", "compoundCondition")
+    if(p ~= nil)then
+       self:addChild(compoundStatement, p)
+    else
+       self:addChild(compoundStatement, 1)
+    end
+end
+
+function CompoundCondition:getCompoundStatementPos(i)
+    return self.compoundStatements[i]
+end
+
+function CompoundCondition:setCompoundStatements(...)
+    if(#arg>0)then
+      for _, compoundStatement in ipairs(arg) do
+          self:addCompoundStatement(compoundStatement)
+      end
+    end
+end
+
+function CompoundCondition:removeCompoundStatement(compoundStatement)
+   self:removeChild(compoundStatement)
+   
+   for i, cs in ipairs(self.compoundStatements) do
+       if(compoundStatement == cs)then
+           table.remove(self.compoundStatements, i)  
+       end
+   end 
+end
+
+function CompoundCondition:removeCompoundStatementPos(i)
+   self:removeChildPos(i)
+   table.remove(self.compoundStatements, i)
 end
 
 return CompoundCondition
