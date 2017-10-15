@@ -5,7 +5,7 @@ local Port = require "core/interface/Port"
 local Property = require "core/interface/Property"
 local Media = require "core/content/Media"
 local Link = require "core/linking/Link"
-
+local Meta = require "core/metadata/Meta"
 
 local Context = NCLElem:extends()
 local Switch = NCLElem:extends()
@@ -20,7 +20,8 @@ Context.childrenMap = {
  ["media"] = {Media, "many"},
  ["context"] = {Context, "many"},
  ["link"] = {Link, "many"},
- ["switch"] = {Switch, "many"}
+ ["switch"] = {Switch, "many"},
+ ["meta"] = {Meta, "many"}
 }
 
 function Context:create(attributes, full)
@@ -42,6 +43,7 @@ function Context:create(attributes, full)
    context.contexts = {}
    context.links = {}
    context.switchs = {}
+   context.metas = {}
    
    if(full ~= nil)then
       context:addPort(Port:create()) 
@@ -50,6 +52,7 @@ function Context:create(attributes, full)
       context:addContext(Context:create())  
       context:addLink(Link:create(nil, full))  
       context:addSwitch(Switch:create())  
+      context:addMeta(Meta:create()) 
    end
    
    return context
@@ -77,7 +80,7 @@ function Context:addPort(port)
    if(p ~= nil)then
       self:addChild(port, p-1)
    else
-      self:addChild(port, 1)
+      self:addChild(port)
    end 
 end
 
@@ -124,7 +127,7 @@ function Context:addProperty(property)
    if(p ~= nil)then
       self:addChild(property, p-1)
    else
-      self:addChild(property, 1)
+      self:addChild(property)
    end    
 end
 
@@ -171,7 +174,7 @@ function Context:addMedia(media)
    if(p ~= nil)then
       self:addChild(media, p-1)
    else
-      self:addChild(media, 1)
+      self:addChild(media)
    end    
 end
 
@@ -217,7 +220,7 @@ function Context:addContext(context)
    if(p ~= nil)then
       self:addChild(context, p-1)
    else
-      self:addChild(context, 1)
+      self:addChild(context)
    end    
 end
 
@@ -264,7 +267,7 @@ function Context:addLink(link)
    if(p ~= nil)then
       self:addChild(link, p)
    else
-      self:addChild(link, 1)
+      self:addChild(link)
    end     
 end
 
@@ -349,6 +352,42 @@ end
 function Context:removeSwitchPos(i)
    self:removeChildPos(i)
    table.remove(self.switchs, i)
+end
+
+function Context:addMeta(meta)
+   table.insert(self.metas, meta)    
+   local p = self:getPosAvailable("link")
+   if(p ~= nil)then
+      self:addChild(meta, p-1)
+   else
+      self:addChild(meta)
+   end          
+end
+
+function Context:getMetaPos(i)
+   return self.metas[i]
+end
+
+function Context:setMetas(...)
+    if(#arg>0)then
+      for _, meta in ipairs(arg) do
+         self:addMedia(meta)
+      end
+    end
+end
+function Context:removeMeta(meta)
+   self:removeChild(meta)
+   
+   for i, mt in ipairs(self.metas) do
+       if(meta == mt)then
+           table.remove(self.metas, i)  
+       end
+   end 
+end
+
+function Context:removeMetaPos(i)
+   self:removeChildPos(i)
+   table.remove(self.metas, i)
 end
 
 -- Classe Switch -- 
