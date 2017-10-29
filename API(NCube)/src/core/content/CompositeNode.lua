@@ -6,6 +6,7 @@ local Property = require "core/interface/Property"
 local Media = require "core/content/Media"
 local Link = require "core/linking/Link"
 local Meta = require "core/metadata/Meta"
+local MetaData = require "core/metadata/MetaData"
 
 local Context = NCLElem:extends()
 local Switch = NCLElem:extends()
@@ -21,7 +22,8 @@ Context.childrenMap = {
  ["context"] = {Context, "many"},
  ["link"] = {Link, "many"},
  ["switch"] = {Switch, "many"},
- ["meta"] = {Meta, "many"}
+ ["meta"] = {Meta, "many"},
+ ["metadata"] = {MetaData, "one"}
 }
 
 function Context:create(attributes, full)
@@ -53,6 +55,7 @@ function Context:create(attributes, full)
       context:addLink(Link:create(nil, full))  
       context:addSwitch(Switch:create())  
       context:addMeta(Meta:create()) 
+      context:setMetaData(MetaData:create())
    end
    
    return context
@@ -388,6 +391,20 @@ end
 function Context:removeMetaPos(i)
    self:removeChildPos(i)
    table.remove(self.metas, i)
+end
+
+function Context:setMetaData(metaData)
+   self:addChild(metaData, 1)
+   self.metaData = metaData  
+end
+
+function Context:getMetaData()
+   return self.metaData
+end
+
+function Context:removeMetaData()
+   self:removeChild(self.metaData)
+   self.metaData = nil
 end
 
 -- Classe Switch -- 

@@ -5,6 +5,7 @@ local TransitionBase = require "core/transition/TransitionBase"
 local RegionBase = require "core/layout/RegionBase"
 local DescriptorBase = require "core/layout/DescriptorBase"
 local ConnectorBase = require "core/connectors/ConnectorBase"
+local MetaData = require "core/metadata/MetaData"
 
 local Head = NCLElem:extends()
 
@@ -16,7 +17,8 @@ Head.childrenMap = {
  ["transitionBase"] = {TransitionBase, "one"}, 
  ["regionBase"] = {RegionBase, "many"}, 
  ["descriptorBase"] = {DescriptorBase, "one"},
- ["connectorBase"] = {ConnectorBase, "one"}
+ ["connectorBase"] = {ConnectorBase, "one"},
+ ["metadata"] = {MetaData, "one"}
 }
 
 function Head:create(full)
@@ -32,6 +34,7 @@ function Head:create(full)
       head:addRegionBase(RegionBase:create(nil, full))            
       head:setDescriptorBase(DescriptorBase:create(nil, full))      
       head:setConnectorBase(ConnectorBase:create(nil, full))
+      head:setMetaData(MetaData:create())
    end
    
    return head
@@ -208,6 +211,34 @@ end
 function Head:removeConnectorBase()
    self:removeChild(self.connectorBase)
    self.connectorBase = nil
+end
+
+function Head:setMetaData(metaData)
+   local p = nil 
+   
+   if(self.metaData == nil)then
+      p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase", "transitionBase", "ruleBase", "importedDocumentBase")          
+      if(p ~= nil)then
+         self:addChild(metaData, p)
+       else
+         self:addChild(metaData, 1)
+      end    
+   else
+       p = self:getPosAvailable("metadata") - 1
+       self:removeChildPos(p)
+       self:addChild(metaData, p)
+   end
+   
+   self.metaData = metaData  
+end
+
+function Head:getMetaData()
+   return self.metaData
+end
+
+function Head:removeMetaData()
+   self:removeChild(self.metaData)
+   self.metaData = nil
 end
 
 return Head

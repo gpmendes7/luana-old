@@ -125,7 +125,7 @@ function Document:removeComments(ncl)
    local newNcl = ncl
    
    local t, u = string.find(newNcl,"<!--.-->")
-   
+    
    if(t == nil and u == nil)then
        return newNcl
    end

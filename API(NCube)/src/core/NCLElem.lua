@@ -295,7 +295,7 @@ end
 
 function NCLElem:readChildrenNcl()
    local s, t, u = nil
-      
+    
    s = string.find(self.ncl,">")
    t = string.sub(self.ncl, 1, s)
    u = string.find(t,"/>")
@@ -326,7 +326,7 @@ function NCLElem:readChildrenNcl()
 end
 
 function NCLElem:readChildNcl(childrenNcl, childName)
-   local s, t, u, v, h = nil
+   local s, t, u, v, h, w, z = nil
   
    s = string.find(childrenNcl,">")
    t = string.sub(childrenNcl, 1, s)
@@ -335,37 +335,42 @@ function NCLElem:readChildNcl(childrenNcl, childName)
    local childNcl = nil
            
    if(u == nil)then
-      _, v = string.find(childrenNcl, "</"..childName..">")
+      _, v = string.find(childrenNcl, "</"..childName..">", s)
       childNcl = string.sub(childrenNcl,1,v)
       
       local n1 = 0 
       local aux1 = childNcl
-              
+       
       while(1)do
-            t = string.find(aux1, "<"..childName)
-            u = string.find(aux1, ">")
+            w, v = string.find(aux1, "<"..childName..">")
+            t, z = string.find(aux1, "<"..childName.." ")
+            u = string.find(aux1, ">", z)
             
-            if(t ~= nil and u ~= nil)then
-               local aux2 = string.sub(aux1,t,u)
-               
-               if(string.find(aux2,"/>") == nil)then
-                   n1 = n1 + 1
-               end
-               
-               aux1 = string.sub(aux1,u+1,string.len(aux1))
+            if(w ~= nil)then    
+               n1 = n1 + 1
+               aux1 = string.sub(aux1,v+1,string.len(aux1))
+            elseif(t ~= nil and u ~= nil)then
+                   local aux2 = string.sub(aux1,t,u)
+        
+                   if(string.find(aux2,"/>") == nil)then
+              
+                       n1 = n1 + 1
+                   end
+                   
+                   aux1 = string.sub(aux1,u+1,string.len(aux1))
             else
                 break
             end
       end
-      
+   
       v = 0                
       while(1)do
             _, v = string.find(childrenNcl, "</"..childName..">", v)
             childNcl = string.sub(childrenNcl,1,v)           
-            
+
             local _, n2 = string.gsub(childNcl, "</"..childName..">", "*")            
             h = v
-            
+         
             if(n1 == n2)then
                break
             end
@@ -375,25 +380,26 @@ function NCLElem:readChildNcl(childrenNcl, childName)
       h = s
    end
    
+   print("childNcl de "..self:getNameElem())
+   print(childNcl)
    return childNcl, h
 end
 
 function NCLElem:ncl2Table()   
    self:readAttributes()
-       
    local childrenNcl = self:readChildrenNcl()
-
    if(childrenNcl ~= nil)then
       local s, e = nil
-      
+      print(self:getNameElem()) 
+      print("childrenNcl"..childrenNcl) 
       repeat     
         s, e = string.find(childrenNcl, "<%a+")      
-      
+
         if(s ~= nil and e ~= nil)then
            local childName = string.sub(childrenNcl, s+1, e)
 
            local childNcl, h = self:readChildNcl(childrenNcl, childName)
-           
+   
            if(childNcl ~= nil)then                   
               if(self.childrenMap ~= nil)then
                  local map = self.childrenMap[childName]

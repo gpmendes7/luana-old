@@ -18,6 +18,8 @@ function Media:create(attributes, full)
       ["id"] = "",  
       ["src"] = "",
       ["type"] = "",
+      ["refer"] = "",
+      ["instance"] = "",
       ["descriptor"] = ""
    }
       
@@ -59,6 +61,22 @@ end
 
 function Media:getType()
    return self:getAttribute("type")
+end
+
+function Media:setRefer(refer)
+   self:addAttribute("refer", refer)
+end
+
+function Media:getRefer()
+   return self:getAttribute("refer")
+end
+
+function Media:setInstance(instance)
+   self:addAttribute("instance", instance)
+end
+
+function Media:getInstance()
+   return self:getAttribute("instance")
 end
 
 function Media:setDescriptor(descriptor)

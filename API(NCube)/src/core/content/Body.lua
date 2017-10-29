@@ -7,6 +7,7 @@ local Context = CompositeNodes[1]
 local Switch = CompositeNodes[2]
 local Link = require "core/linking/Link"
 local Meta = require "core/metadata/Meta"
+local MetaData = require "core/metadata/MetaData"
 
 local Body = NCLElem:extends()
 
@@ -19,7 +20,8 @@ Body.childrenMap = {
  ["context"] = {Context, "many"},
  ["switch"] = {Switch, "many"},
  ["link"] = {Link, "many"},
- ["meta"] = {Meta, "many"}
+ ["meta"] = {Meta, "many"},
+ ["metadata"] = {MetaData, "one"}
 }
 
 function Body:create(attributes, full)
@@ -50,6 +52,7 @@ function Body:create(attributes, full)
       body:addSwitch(Switch:create(nil, full))  
       body:addLink(Link:create(nil, full)) 
       body:addMeta(Meta:create(nil, full)) 
+      body:setMetaData(MetaData:create())
    end
    
    return body
@@ -378,6 +381,20 @@ end
 function Body:removeMetaPos(i)
    self:removeChildPos(i)
    table.remove(self.metas, i)
+end
+
+function Body:setMetaData(metaData)   
+   self:addChild(metaData, 1)
+   self.metaData = metaData  
+end
+
+function Body:getMetaData()
+   return self.metaData
+end
+
+function Body:removeMetaData()
+   self:removeChild(self.metaData)
+   self.metaData = nil
 end
 
 return Body
