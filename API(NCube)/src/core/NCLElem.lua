@@ -304,7 +304,6 @@ function NCLElem:readChildrenNcl()
         
    if(u == nil)then
       local _, n = string.gsub(self.ncl, "</"..self.name..">", "*")
-      
       local e, v, w = nil
       
       if(n > 1)then
@@ -318,88 +317,119 @@ function NCLElem:readChildrenNcl()
       else
          e, v = string.find(self.ncl, "</"..self.name..">")
       end
-     
+    
       childrenNcl = string.sub(self.ncl, s+1, e-1)
    end
+   
+   --print("childrenNcl")
+   --print(childrenNcl)
    
    return childrenNcl
 end
 
 function NCLElem:readChildNcl(childrenNcl, childName)
-   local s, t, u, v, h, w, z = nil
-  
-   s = string.find(childrenNcl,">")
-   t = string.sub(childrenNcl, 1, s)
-   u = string.find(t,"/>")
-           
-   local childNcl = nil
-           
-   if(u == nil)then
-      _, v = string.find(childrenNcl, "</"..childName..">", s)
-      childNcl = string.sub(childrenNcl,1,v)
-      
-      local n1 = 0 
-      local aux1 = childNcl
-       
-      while(1)do
-            w, v = string.find(aux1, "<"..childName..">")
-            t, z = string.find(aux1, "<"..childName.." ")
-            u = string.find(aux1, ">", z)
-            
-            if(w ~= nil)then    
-               n1 = n1 + 1
-               aux1 = string.sub(aux1,v+1,string.len(aux1))
-            elseif(t ~= nil and u ~= nil)then
-                   local aux2 = string.sub(aux1,t,u)
-        
-                   if(string.find(aux2,"/>") == nil)then
-              
-                       n1 = n1 + 1
-                   end
-                   
-                   aux1 = string.sub(aux1,u+1,string.len(aux1))
-            else
-                break
-            end
-      end
-   
-      v = 0                
-      while(1)do
-            _, v = string.find(childrenNcl, "</"..childName..">", v)
-            childNcl = string.sub(childrenNcl,1,v)           
+   local s = string.find(childrenNcl, "<")
+   local e = string.find(childrenNcl, ">")
+   local t, u = nil  
 
-            local _, n2 = string.gsub(childNcl, "</"..childName..">", "*")            
-            h = v
-         
-            if(n1 == n2)then
-               break
-            end
-      end            
-   else
-      childNcl = string.sub(childrenNcl,1,s)
-      h = s
-   end
+   print(string.sub(childrenNcl, 1, e))
+ 
+   local aux1 = string.sub(childrenNcl, s, e)
+   print("aux1 (cima) "..aux1)  
    
-   print("childNcl de "..self:getNameElem())
-   print(childNcl)
-   return childNcl, h
+   if(string.find(aux1,"/>") ~= nil)then
+      print("sub (cima) "..aux1)
+      return aux1, e
+   else
+     t, u = string.find(childrenNcl, "</"..childName..">") 
+   
+       while(1)do
+        aux1 = string.sub(childrenNcl, s, u)
+        print("procurar "..aux1)
+        
+        local aux2, n1 = string.gsub(aux1, "<"..childName..">", "opening_tag")
+        print("n1 "..n1)
+        print(aux2)
+        
+        local aux3 = aux1
+        local n2 = 0
+        local r, z = string.find(aux3, "<"..childName.." ")
+        
+        while(r ~= nil and z ~= nil)do
+           print("aux3 "..aux3)       
+           local y = string.find(aux3, ">", z)
+           print("teste"..string.sub(aux3, 1,y))
+           local aux4 = string.sub(aux3,r,y)
+           print("aux4 "..aux4)
+        
+           if(string.find(aux4, "/>") == nil)then
+              n2 = n2 + 1
+           end
+  
+           r, z = string.find(aux3, "<"..childName.." ", y)       
+        end
+        
+        print("n2"..n2)
+        
+        --local aux2, n2 = string.gsub(aux1, "<c2 ", "opening_tag")
+        --print(aux2)
+        --print("n2 "..n2)
+        local nopening = n1 + n2
+        print("nopening "..nopening)
+        local aux2, nclosing = string.gsub(aux1, "</"..childName..">", "closing_tag")
+        print(aux2)
+        print("nclosing "..nclosing)
+        
+        if(nopening == nclosing)then
+           local p = 1
+           
+           for i = 1,nclosing do
+               _, p = string.find(childrenNcl , "</"..childName..">", p)
+               p = p + 1
+           end
+          
+           print("p "..p)
+           print("retorno "..string.sub(childrenNcl, s, p))
+           
+           return string.sub(childrenNcl, s, p), p
+        end
+        
+        t, u = string.find(childrenNcl, "</"..childName..">", u)   
+     end
+end
 end
 
-function NCLElem:ncl2Table()   
+function NCLElem:ncl2Table()  
+   local s, e = nil
+   --print("ncl ".. self.ncl)
+   if(self:getNameElem() == "metadata")then
+      local _, s = string.find(self:getNcl(), "<metadata>")
+      local e = string.find(self:getNcl(), "</metadata>")      
+      self:setRdfTree(string.sub(self:getNcl(), s+1, e-1)) 
+      return
+   end 
+     
    self:readAttributes()
+
    local childrenNcl = self:readChildrenNcl()
    if(childrenNcl ~= nil)then
-      local s, e = nil
-      print(self:getNameElem()) 
-      print("childrenNcl"..childrenNcl) 
+      --print("ncl "..self.ncl)
+      --print("childrenNcl "..childrenNcl)
       repeat     
         s, e = string.find(childrenNcl, "<%a+")      
 
         if(s ~= nil and e ~= nil)then
            local childName = string.sub(childrenNcl, s+1, e)
-
+           
+               --print("element "..self:getNameElem())
+              -- print("children")
+              -- print(childrenNcl)
+               --print("ncl")
+               ---print(self.ncl)
+           print("ncl"..self.ncl)
+           print("children"..childrenNcl)
            local childNcl, h = self:readChildNcl(childrenNcl, childName)
-   
+           print("childNcl"..childNcl)
            if(childNcl ~= nil)then                   
               if(self.childrenMap ~= nil)then
                  local map = self.childrenMap[childName]
@@ -428,7 +458,9 @@ function NCLElem:ncl2Table()
            end 
             
            if(h ~= nil)then
+             -- print("chidren (antes)"..childrenNcl)
              childrenNcl = string.sub(childrenNcl, h+1, string.len(childrenNcl))      
+            -- print("chidren (depois)"..childrenNcl)
            end  
         end            
 
@@ -436,7 +468,7 @@ function NCLElem:ncl2Table()
   end
 end
 
-function NCLElem:table2Ncl(deep)
+function NCLElem:table2Ncl(deep)  
   local ncl = ""
   
   if(deep == 0 and self.name == "ncl")then
@@ -446,7 +478,17 @@ function NCLElem:table2Ncl(deep)
        ncl = ncl.." "
     end 
   end 
-        
+  
+  if(self.name == "metadata")then
+     ncl = ncl.."<metadata>"..self:getRdfTree()
+     
+     for i=1,deep do
+         ncl = ncl.." "
+     end 
+     
+     return ncl.."</metadata>\n"    
+  end
+          
   ncl = ncl.."<"..self.name
     
   local attrs = self.attributes

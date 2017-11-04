@@ -79,12 +79,13 @@
  !++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 <connectorBase>
+   <importBase alias="connBase" 
+               documentURI="composerConnectorBase.conn"/>
                
    <causalConnector id="onKeySelectionAbortNStopNStartN">
-      <simpleCondition role="onSelection" key="$keyCode"/>
       <connectorParam name="keyCode"/>
-      
-     <compoundAction operator="seq">
+      <simpleCondition role="onSelection" key="$keyCode"/>
+      <compoundAction operator="seq">
          <simpleAction role="abort"
                        max="unbounded" qualifier="par"/>
          <simpleAction role="stop"
@@ -93,8 +94,6 @@
                        max="unbounded" qualifier="par"/>
       </compoundAction>
    </causalConnector>
-   
-   <importBase alias="connBase" documentURI="composerConnectorBase.conn"/>
    
    <causalConnector id="onKeySelectionAttStateTestStartN">
       <connectorParam name="value"/>

@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <ncl id="main" xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
-
 <!-- ####################################################################################
- ! Copyright (C) 2010 DATAPREV - Empresa de Tecnologia e InformaÃ§Ãµes da PrevidÃªncia Social - Brasil
+ ! Copyright (C) 2010 DATAPREV - Empresa de Tecnologia e Informações da Previdência Social - Brasil
  !
- ! Este arquivo Ã© parte do programa  TVDS - TV DIGITAL SOCIAL 
+ ! Este arquivo é parte do programa  TVDS - TV DIGITAL SOCIAL 
  !
- ! O TVDS Ã© um software livre; vocÃª pode redistribuÃ­Â­-lo e/ou modificÃ¡-lo dentro dos termos da LicenÃ§a PÃºblica Geral GNU como 
- ! publicada pela FundaÃ§Ã£o do Software Livre (FSF); na versÃ£o 2 da LicenÃ§a, ou (na sua opniÃ£o) qualquer versÃ£o.
+ ! O TVDS é um software livre; você pode redistribuí­-lo e/ou modificá-lo dentro dos termos da Licença Pública Geral GNU como 
+ ! publicada pela Fundação do Software Livre (FSF); na versão 2 da Licença, ou (na sua opnião) qualquer versão.
  !
- ! Este programa Ã© distribuÃ­do na esperanÃ§a que possa ser Ãºtil, mas SEM NENHUMA GARANTIA; sem uma garantia implÃ­cita de ADEQUAÃ‡ÃƒO a qualquer
- ! MERCADO ou APLICAÃ‡ÃƒO EM PARTICULAR. Veja a LicenÃ§a PÃºblica Geral GNU para maiores detalhes.
+ ! Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer
+ ! MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU para maiores detalhes.
  !
- ! VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU, sob o tÃ­tulo "LICENCA.txt", junto com este programa, se nÃ£o, escreva para a 
- ! FundaÃ§Ã£o do Software Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
+ ! Você deve ter recebido uma cópia da Licença Pública Geral GNU, sob o título "LICENCA.txt", junto com este programa, se não, escreva para a 
+ ! Fundação do Software Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
  !
 -->
 <!-- ####################################################################################
- !	 ## MAIN: Arquivo NCL com as definiÃ§Ãµes da tela inicial e controles do menu principal. 
+ !	 ## MAIN: Arquivo NCL com as definições da tela inicial e controles do menu principal. 
  !	 #################################################################################### -->
 
-<!-- ## CabeÃ§alho ## -->
+<!-- [## Cabeçalho ## -->
 <head>
-	<!-- ## Documentos importados: Arquivos NCL com as definiÃ§Ãµes do conteÃºdo das opÃ§Ãµes dos itens do menu ## -->
+	<!-- ## Documentos importados: Arquivos NCL com as definições do conteúdo das opções dos itens do menu ## -->
 	<importedDocumentBase>
 		<importNCL alias="cal" documentURI="calPagamento.ncl"       />
 		<importNCL alias="cen" documentURI="central135.ncl"         />
@@ -32,7 +31,7 @@
 		<importNCL alias="twp" documentURI="twitterPrevidencia.ncl" /> 
 	</importedDocumentBase>
 
-	<!-- ## Bases de regiÃµes, descritores e conectores. DefiniÃ§Ãµes encontradas nos documentos referidos. -->		
+	<!-- ## Bases de regiões, descritores e conectores. Definições encontradas nos documentos referidos. -->		
 	<regionBase>
 		<importBase alias="reg" documentURI="regioes.ncl" />
 	</regionBase>
@@ -48,11 +47,11 @@
 
 <!-- ## Corpo ## -->
 <body>
-		<!-- ## MÃ­dias que iniciarÃ£o quando o arquivo for disparado  -->
+		<!-- ## Mídias que iniciarão quando o arquivo for disparado  -->
 		<port id="portaVideo" 		   component="videoo" 		  />
 		<port id="portaInteratividade" component="interatividade" />
 
-		<!-- ## DeclaraÃ§Ãµes de MÃ­dia --> 
+		<!-- ## Declarações de Mídia --> 
 		<media id="videoo" src="imagens/C35.mpeg" descriptor="des#descritorVideo">
 			<property name="bounds" value="0,0,100%,100%" />
 		</media>
@@ -60,8 +59,8 @@
 
 		<!-- ## Elos ## --> 
 
-		<!-- Ao selecionar o botÃ£o VERMELHO na tela "inicial", acesso ao menu principal.
-		 !	 MÃ­dia do botÃ£o de interatividade Ã© parada, e o contexto do menu Ã© iniciado. -->
+		<!-- Ao selecionar o botão VERMELHO na tela "inicial", acesso ao menu principal.
+		 !	 Mídia do botão de interatividade é parada, e o contexto do menu é iniciado. -->
 		<link xconnector="con#naSelecaoDeTeclaPararIniciar">
 	   		<bind role="onSelection" component="interatividade">
 				<bindParam name="tecla" value="RED" />
@@ -70,7 +69,7 @@
 			<bind component="ctxMenu" 	  	  role="start" />
 		</link>
 
-		<!-- ## Ao terminar o vÃ­deo, reiniciÃ¡-lo. Loop para manter o vÃ­deo ativo. ##-->
+		<!-- ## Ao terminar o vídeo, reiniciá-lo. Loop para manter o vídeo ativo. ##-->
 		
 		<link xconnector="con#aoTerminarIniciar" id="aoTerminarVideoIniciarVideo" >
 				<bind role="onEnd" component="videoo" /> 
@@ -80,7 +79,7 @@
 		<!-- ## Contexto: Menu Principal ## --> 
 
 		<context id="ctxMenu" >
-			<!-- ## MÃ­dias que iniciarÃ£o quando o contexto for disparado --> 	
+			<!-- ## Mídias que iniciarão quando o contexto for disparado --> 	
 			<port id="portaCabecalho"	 	  			    component="cabecalho" 					/>
 			<port id="portaMenuServicos" 	   			    component="menuServicos" 				/>
 			<port id="portaMenuBotaoCalendarioPagamento"    component="menuBotaoCalPagamento" 		/>
@@ -94,7 +93,7 @@
 			<port id="portaMenuRodape"					    component="menuRodape"					/>
 			<port id="portaMenuBotaoSelCalendarioPagamento" component="menuBotaoSelCalPagamento" 	/>
 
-			<!-- ## DeclaraÃ§Ãµes das mÃ­dias do contexto. --> 
+			<!-- ## Declarações das mídias do contexto. --> 
 			<media id="fundo"  	  						type="image/png" src="imagens/fundo.png" 	   						 descriptor="des#descritorFundo" />
 			<media id="cabecalho" 						type="image/png" src="imagens/cabecalho.png" 		     	 	 	 descriptor="des#descritorCabecalho" />
 			<media id="menuServicos" 			 	 	type="image/png" src="imagens/menu/menuServicos.png" 		     	 descriptor="des#descritorMenuServicos" />
@@ -149,7 +148,7 @@
 			<context id="twitterDataprev"    refer="twd#maintwiDataprev"       /> 
 			<context id="twitterPrevidencia" refer="twp#maintwiPrevidencia"    /> 
 
-		<!-- ## Quando selecionado CalendÃ¡rio Pagamento: ## -->
+		<!-- ## Quando selecionado Calendário Pagamento: ## -->
 		
 			<!-- ## Tecla Baixo: Seleciona Central 135. -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
@@ -162,7 +161,7 @@
 		    	<bind role="stop"  component="menuDescricaoCalPagamento" />
 			</link>
 
-			<!-- ## Tecla Cima: Seleciona opÃ§Ã£o Sair. -->
+			<!-- ## Tecla Cima: Seleciona opção Sair. -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelCalPagamento" > 
 					<bindParam name="tecla" value="CURSOR_UP"/>
@@ -174,7 +173,7 @@
 	    		<bind role="stop"  component="menuDescricaoCalPagamento" />
 			</link>
 				
-			<!-- ## Tecla Enter: Acesso ao conteÃºdo. -->
+			<!-- ## Tecla Enter: Acesso ao conteúdo. -->
 			<link xconnector="con#naSelecaoDeTeclaSetarPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelCalPagamento" > 
 					<bindParam name="tecla" value="ENTER"/>
@@ -198,7 +197,7 @@
 				<bind role="start" component="fundo"					   />					
 			</link>
 
-			<!-- ## Ao encerrar todas as mÃ­dias do contexto CalendÃ¡rio Pagamento, iniciar menu novamente. -->			
+			<!-- ## Ao encerrar todas as mídias do contexto Calendário Pagamento, iniciar menu novamente. -->			
 			<link xconnector="con#aoTerminarPararIniciarSetar" >
 				<bind role="onEnd" component="calendario" /> 
 				
@@ -247,7 +246,7 @@
 	    		<bind role="stop"   component="menuDescricaoCentral135"         />
 			</link>
 				
-			<!-- ## Tecla Enter: Acesso ao conteÃºdo. -->
+			<!-- ## Tecla Enter: Acesso ao conteúdo. -->
 			<link xconnector="con#naSelecaoDeTeclaSetarPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelCentral135" > 
 					<bindParam name="tecla" value="ENTER" />
@@ -271,7 +270,7 @@
 				<bind role="start" component="fundo"					   />					
 			</link>
 
-			<!-- ## Ao encerrar todas as mÃ­dias do contexto Central 135, iniciar menu novamente. -->			
+			<!-- ## Ao encerrar todas as mídias do contexto Central 135, iniciar menu novamente. -->			
 			<link xconnector="con#aoTerminarPararIniciarSetar" >
 				<bind role="onEnd" component="central135" /> 
 				
@@ -294,9 +293,9 @@
 		    	
 			</link>
 				
-		<!-- ## Quando selecionado Tabela ContribuiÃ§Ã£o -->
+		<!-- ## Quando selecionado Tabela Contribuição -->
 		
-			<!-- ## Tecla baixo: Seleciona Localizar AgÃªcia -->
+			<!-- ## Tecla baixo: Seleciona Localizar Agêcia -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelTabelaContribuicao" > 
 					<bindParam name="tecla" value="CURSOR_DOWN" />
@@ -320,7 +319,7 @@
 		    	<bind role="stop"  component="menuDescricaoTabelaContribuicao" />
 			</link>
 
-			<!-- ## Tecla Enter: Acesso ao ConteÃºdos -->
+			<!-- ## Tecla Enter: Acesso ao Conteúdos -->
 			<link xconnector="con#naSelecaoDeTeclaSetarPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelTabelaContribuicao" > 
 					<bindParam name="tecla" value="ENTER" />
@@ -345,7 +344,7 @@
 				<bind role="start" component="fundo"					   />					
 			</link>
 
-			<!-- ## Ao encerrar todas as mÃ­dias do contexto Tabela Contribuicao, iniciar menu novamente. -->			
+			<!-- ## Ao encerrar todas as mídias do contexto Tabela Contribuicao, iniciar menu novamente. -->			
 
 			<link xconnector="con#aoTerminarPararIniciarSetar" >
 				<bind role="onEnd" component="tabelaContribuicao" /> 
@@ -369,7 +368,7 @@
 		    	
 			</link>
 
-			<!-- ## Quando selecionado Localizar AgÃªncia... ###  -->
+			<!-- ## Quando selecionado Localizar Agência... ###  -->
 	
 			<!-- ## Tecla Cima: Seleciona Tabela Contribuicao. -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
@@ -395,7 +394,7 @@
 		    	<bind role="stop"  component="menuDescricaoLocalizarAgencia" />
 			</link>
 
-			<!-- ## Tecla Enter: Acesso ao conteÃºdo do contexto Localizar AgÃªncia.  -->
+			<!-- ## Tecla Enter: Acesso ao conteúdo do contexto Localizar Agência.  -->
 			<link xconnector="con#naSelecaoDeTeclaSetarPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelLocalizarAgencia" > 
 					<bindParam name="tecla" value="ENTER"/>
@@ -420,7 +419,7 @@
 				<bind role="start" component="fundo"					   />					
 			</link>
 
-			<!-- ## Ao encerrar todas as mÃ­dias do contexto Localizar AgÃªncia, iniciar menu novamente. -->			
+			<!-- ## Ao encerrar todas as mídias do contexto Localizar Agência, iniciar menu novamente. -->			
 			<link xconnector="con#aoTerminarPararIniciarSetar" >
 				<bind role="onEnd" component="localizarAgencia" /> 
 				
@@ -456,7 +455,7 @@
     			<bind role="stop"  component="menuDescricaoTwitter" />
 			</link>		
 
-			<!-- ## Tecla Cima: Seleciona Localizar AgÃªncia. -->
+			<!-- ## Tecla Cima: Seleciona Localizar Agência. -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelTwitter" > 
 					<bindParam name="tecla" value="CURSOR_UP" />
@@ -468,6 +467,9 @@
     			<bind role="stop"  component="menuDescricaoTwitter" 		 />
 			</link>
 
+			<!-- ## Tecla Enter : Acesso a novas opções. 
+			 !   -> Twitter Previdencia 
+			 !   -> Twitter Dataprev -->
 			
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelTwitter" > 
@@ -522,7 +524,7 @@
 			
 			</link>
 
-			<!-- ## Tecla Enter: Acessa o conteÃºdo. -->
+			<!-- ## Tecla Enter: Acessa o conteúdo. -->
 			<link xconnector="con#naSelecaoDeTeclaSetarPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelTwitterDataprev" > 
 					<bindParam name="tecla" value="ENTER" />
@@ -547,7 +549,7 @@
 				<bind role="start" component="fundo"					   />					
 			</link>
 
-			<!-- ## Ao encerrar todas as mÃ­dias do contexto Twitter Dataprev, reiniciar menu. -->						
+			<!-- ## Ao encerrar todas as mídias do contexto Twitter Dataprev, reiniciar menu. -->						
 			<link xconnector="con#aoTerminarPararIniciarSetar" >
 				<bind role="onEnd" component="twitterDataprev" /> 
 				
@@ -596,7 +598,7 @@
     			<bind role="start" component="menuDescricaoVoltar" 			   />
 			</link>
 
-			<!-- ## Tecla Enter: Acessa o conteÃºdo. -->			
+			<!-- ## Tecla Enter: Acessa o conteúdo. -->			
 			<link xconnector="con#naSelecaoDeTeclaSetarPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelTwitterPrevidencia" > 
 					<bindParam name="tecla" value="ENTER" />
@@ -621,7 +623,7 @@
 				<bind role="start" component="fundo"					   />					
 			</link>
 
-			<!-- ## Ao encerrar todas as mÃ­dias do contexto Twitter Previdencia, reiniciar menu. -->						
+			<!-- ## Ao encerrar todas as mídias do contexto Twitter Previdencia, reiniciar menu. -->						
 			<link xconnector="con#aoTerminarPararIniciarSetar" >
 				<bind role="onEnd" component="twitterPrevidencia" /> 
 				
@@ -670,7 +672,7 @@
     			<bind role="start" component="menuDescricaoTwitterDataprev" />
 			</link>
 
-			<!-- ## Tecla Enter: Acesso ao ConteÃºdo. -->
+			<!-- ## Tecla Enter: Acesso ao Conteúdo. -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelVoltar" > 
 					<bindParam name="tecla" value="ENTER" />
@@ -697,7 +699,7 @@
 				
 		<!-- ## Quando selecionado Sair: -->
 		
-			<!-- ## Tecla Baixo: Acesso CalendÃ¡rio Pagamento. -->
+			<!-- ## Tecla Baixo: Acesso Calendário Pagamento. -->
 			<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 				<bind role="onSelection" component="menuBotaoSelSair" > 
 					<bindParam name="tecla" value="CURSOR_DOWN" />
@@ -721,7 +723,7 @@
 	    		<bind role="stop"  component="menuDescricaoSair"    />
 			</link>			
 
-			<!-- ## Tecla Enter: Executa a aÃ§Ã£o. -->
+			<!-- ## Tecla Enter: Executa a ação. -->
 		   	<link xconnector="con#naSelecaoDeTeclaPararIniciar" >
 	   				<bind role="onSelection" component="menuBotaoSelSair">
 						<bindParam name="tecla" value="ENTER" />

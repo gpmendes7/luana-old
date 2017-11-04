@@ -124,7 +124,10 @@ end
 function Document:removeComments(ncl)
    local newNcl = ncl
    
-   local t, u = string.find(newNcl,"<!--.-->")
+   newNcl = string.gsub(newNcl, "->", "end_comm")
+   
+   local t = string.find(newNcl,"<!--")
+   local _, u = string.find(newNcl,"-end_comm")
     
    if(t == nil and u == nil)then
        return newNcl
@@ -133,10 +136,10 @@ function Document:removeComments(ncl)
    while(1)do
      local aux1 = string.sub(newNcl, 1, t-1)
      local aux2 = string.sub(newNcl, u+1, string.len(newNcl))
-     
      newNcl = aux1..aux2
-     
-     t, u = string.find(newNcl,"<!--.-->")
+
+     t = string.find(newNcl,"<!--")
+     _, u = string.find(newNcl,"-end_comm")
      
      if(t == nil and u == nil)then
         break
@@ -147,22 +150,29 @@ function Document:removeComments(ncl)
 end
 
 function Document:readNclFile(name)
-   local ncl = "" 
+   local ncl = nil 
    local isXmlHead = true;
    
    local file = io.open(name, "r")
-   io.input(file)       
-     
-   for line in io.lines() do
-      if(isXmlHead)then
-         self:setXmlHead(line)
-         isXmlHead = false
-      else
-         ncl = ncl..line.."\n"
-      end
-   end  
+   
+   if(file ~= nil)then
+      io.input(file)       
+      
+      ncl = ""
        
-   file:close()
+      for line in io.lines() do
+         if(isXmlHead)then
+            self:setXmlHead(line)
+            isXmlHead = false
+         else
+               ncl = ncl..line.."\n"
+         end
+      end  
+         
+      file:close()
+     
+      ncl = self:removeComments(ncl)
+   end
    
    return ncl
 end
@@ -185,10 +195,15 @@ end
 
 function Document:loadNcl(name)
    local ncl = self:readNclFile(name) 
-   ncl = self:removeComments(ncl)
-   self:setNcl(ncl) 
-   self:ncl2Table()
-   self:connectAssociatedElements()
+   
+   if(ncl == nil)then
+      print("Error! File "..name.." does not exist!")
+   else     
+     --print(ncl)
+     self:setNcl(ncl) 
+     self:ncl2Table()
+     self:connectAssociatedElements()
+   end
 end
 
 return Document

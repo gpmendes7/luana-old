@@ -5,6 +5,7 @@ local TransitionBase = require "core/transition/TransitionBase"
 local RegionBase = require "core/layout/RegionBase"
 local DescriptorBase = require "core/layout/DescriptorBase"
 local ConnectorBase = require "core/connectors/ConnectorBase"
+local Meta = require "core/metadata/Meta"
 local MetaData = require "core/metadata/MetaData"
 
 local Head = NCLElem:extends()
@@ -18,6 +19,7 @@ Head.childrenMap = {
  ["regionBase"] = {RegionBase, "many"}, 
  ["descriptorBase"] = {DescriptorBase, "one"},
  ["connectorBase"] = {ConnectorBase, "one"},
+ ["meta"] = {Meta, "many"},
  ["metadata"] = {MetaData, "one"}
 }
 
@@ -26,6 +28,7 @@ function Head:create(full)
     
    head.children = {}
    head.regionBases = {}
+   head.metas = {}
    
    if(full ~= nil)then   
       head:setImportedDocumentBase(ImportedDocumentBase:create(nil, full)) 
@@ -34,6 +37,7 @@ function Head:create(full)
       head:addRegionBase(RegionBase:create(nil, full))            
       head:setDescriptorBase(DescriptorBase:create(nil, full))      
       head:setConnectorBase(ConnectorBase:create(nil, full))
+      head:addMeta(Meta:create(nil, full)) 
       head:setMetaData(MetaData:create())
    end
    
@@ -189,7 +193,8 @@ function Head:setConnectorBase(connectorBase)
    local p = nil 
    
    if(self.connectorBase == nil)then
-      p = self:getPosAvailable("descriptorBase", "regionBase", "transitionBase", "ruleBase", "importedDocumentBase")          
+      p = self:getPosAvailable("descriptorBase", "regionBase", "transitionBase", 
+                               "ruleBase", "importedDocumentBase")          
       if(p ~= nil)then
          self:addChild(connectorBase, p)
        else
@@ -213,32 +218,70 @@ function Head:removeConnectorBase()
    self.connectorBase = nil
 end
 
-function Head:setMetaData(metaData)
+function Head:addMeta(meta)
+   table.insert(self.metas, meta)    
+   local p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase", 
+                             "transitionBase", "ruleBase", "importedDocumentBase")
+   if(p ~= nil)then
+      self:addChild(meta, p-1)
+   else
+      self:addChild(meta)
+   end          
+end
+
+function Head:getMetaPos(i)
+   return self.metas[i]
+end
+
+function Head:setMetas(...)
+    if(#arg>0)then
+      for _, meta in ipairs(arg) do
+         self:addMedia(meta)
+      end
+    end
+end
+function Head:removeMeta(meta)
+   self:removeChild(meta)
+   
+   for i, mt in ipairs(self.metas) do
+       if(meta == mt)then
+           table.remove(self.metas, i)  
+       end
+   end 
+end
+
+function Head:removeMetaPos(i)
+   self:removeChildPos(i)
+   table.remove(self.metas, i)
+end
+
+function Head:setMetaData(metadata)
    local p = nil 
    
-   if(self.metaData == nil)then
-      p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase", "transitionBase", "ruleBase", "importedDocumentBase")          
+   if(self.metadata == nil)then
+      p = self:getPosAvailable("meta", "connectorBase", "descriptorBase", "regionBase", 
+                               "transitionBase", "ruleBase", "importedDocumentBase")          
       if(p ~= nil)then
-         self:addChild(metaData, p)
+         self:addChild(metadata, p)
        else
-         self:addChild(metaData, 1)
+         self:addChild(metadata, 1)
       end    
    else
        p = self:getPosAvailable("metadata") - 1
        self:removeChildPos(p)
-       self:addChild(metaData, p)
+       self:addChild(metadata, p)
    end
    
-   self.metaData = metaData  
+   self.metadata = metadata  
 end
 
 function Head:getMetaData()
-   return self.metaData
+   return self.metadata
 end
 
 function Head:removeMetaData()
-   self:removeChild(self.metaData)
-   self.metaData = nil
+   self:removeChild(self.metadata)
+   self.metadata = nil
 end
 
 return Head
