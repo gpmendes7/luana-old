@@ -83,7 +83,7 @@ end
 function RegionBase:setImportBases(...)
     if(#arg>0)then
       for _, importBase in ipairs(arg) do
-          self:addRule(importBase)
+          self:addImportBase(importBase)
       end
     end
 end
