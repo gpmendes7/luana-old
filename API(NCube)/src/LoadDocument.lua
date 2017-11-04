@@ -1,7 +1,7 @@
 require("core/NCube")
 
 local doc = Document:create()
-doc:loadNcl("docs/exemplometa.ncl")
+-- doc:loadNcl("docs/exemplometa.ncl")
 
 -- doc:loadNcl("docs/comerciaisproview/ComerciaisProview.ncl")
 -- doc:loadNcl("docs/comerciaisproview/regionBase.reg")

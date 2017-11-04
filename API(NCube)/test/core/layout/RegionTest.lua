@@ -5,7 +5,15 @@ local function test1()
    
    region = Region:create()
    assert(region ~= nil, "Error!")
-   assert(region:getId() == "", "Error!")    
+   assert(region:getId() == "", "Error!")  
+   assert(region:getTitle() == "", "Error!")
+   assert(region:getLeft() == "", "Error!")
+   assert(region:getRight() == "", "Error!")
+   assert(region:getTop() == "", "Error!")
+   assert(region:getBottom() == "", "Error!")
+   assert(region:getHeight() == "", "Error!")
+   assert(region:getWidth() == "", "Error!")
+   assert(region:getZIndex() == "", "Error!")  
 end
 
 local function test2()
