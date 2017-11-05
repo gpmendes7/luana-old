@@ -13,7 +13,7 @@ doc:getHead():getRegionBasePos(1):addRegion(Region:create())
 doc:getHead():setDescriptorBase(DescriptorBase:create())
 doc:getHead():getDescriptorBase():addDescriptor(Descriptor:create())
 
-doc:getHead():addConnectorBase(ConnectorBase:create())
+doc:getHead():setConnectorBase(ConnectorBase:create())
 
 local rb1 = doc:getHead():getRegionBasePos(1)
 
@@ -60,10 +60,10 @@ local m2 = Media:create{id ="m2", src="media/media2.mpg", type="video/mpeg", des
 doc:getBody():addPort(p2)
 doc:getBody():addMedia(m2)
 
-doc:saveNcl("fiesta2.ncl")
+doc:saveNcl("teste.ncl")
 
 local rg2 = doc:getDescendantByAttribute("id", "rg2")
 local rg3 = doc:getDescendantByAttribute("id", "rg3")
 rg2:removeRegion(rg3)
 
-doc:saveNcl("tech.ncl")
+doc:saveNcl("teste2.ncl")
