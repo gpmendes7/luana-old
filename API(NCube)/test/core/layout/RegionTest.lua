@@ -110,6 +110,10 @@ local function test5()
    assert(region1:getRegionById("region3") == nil, "Error!")
 end
 
+local function test6()
+   local Document
+end
+
 test1()
 test2()
 test3()

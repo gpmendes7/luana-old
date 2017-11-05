@@ -12,7 +12,7 @@ Document.childrenMap = {
 }
 
 function Document:create(attributes, xmlHead, full)
-   local xmlHead = xmlHead or {}  
+   local xmlHead = xmlHead or nil  
    local document = Document:new()   
    
    document.attributes = { 
@@ -87,7 +87,7 @@ function Document:getXmlHead()
 end
 
 function Document:setHead(head)
-   self:addChild(head, 1)
+   self:setChild(head, 1)
    self.head = head
 end
 
@@ -101,7 +101,7 @@ function Document:removeHead(head)
 end
 
 function Document:setBody(body)
-   self:addChild(body, 2)
+   self:setChild(body, 2)
    self.body = body
 end
 

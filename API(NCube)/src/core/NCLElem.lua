@@ -86,6 +86,26 @@ function NCLElem:removeAllChildren()
     self.children = {}
 end
 
+function NCLElem:setChild(child, p)
+    if(child == nil)then
+       return
+    end
+    
+    local valid = false
+    
+    for chd, _ in pairs(self.childrenMap) do
+       if(chd == child.name)then
+          valid = true
+       end
+    end
+    
+    if(not(valid))then
+       return
+    end
+    
+    self.children[p] = child
+end
+
 function NCLElem:getChild(i)
     return self.children[i]
 end
@@ -472,7 +492,9 @@ function NCLElem:table2Ncl(deep)
   local ncl = ""
   
   if(deep == 0 and self.name == "ncl")then
-     ncl = self:getXmlHead().."\n"
+     if(self:getXmlHead() ~= nil and self:getXmlHead() ~= "")then
+        ncl = ncl..self:getXmlHead().."\n"
+     end
   else
     for i=1,deep do
        ncl = ncl.." "
@@ -480,7 +502,11 @@ function NCLElem:table2Ncl(deep)
   end 
   
   if(self.name == "metadata")then
-     ncl = ncl.."<metadata>"..self:getRdfTree()
+     ncl = ncl.."<metadata>"
+     
+     if(self:getRdfTree() ~= nil and self:getRdfTree() ~= "")then
+        ncl = ncl..self:getRdfTree()
+     end
      
      for i=1,deep do
          ncl = ncl.." "
