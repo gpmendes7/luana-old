@@ -9,8 +9,6 @@ Descriptor.childrenMap = {
  ["descriptorParam"] = {DescriptorParam, "many"}
 }
 
-Descriptor.hasAss = true
-
 Descriptor.assMap = {
   {"region", "regionAss"}
 }

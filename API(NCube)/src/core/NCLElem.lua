@@ -8,8 +8,7 @@ local NCLElem = Class:createClass{
   childrenMap = nil,
   assMap = nil,
   attributes = nil, 
-  ncl = nil,
-  hasAss = nil
+  ncl = nil
 }
 
 function NCLElem:create(name, attributes)

@@ -182,10 +182,12 @@ function Document:connectAssociatedElements()
    
    if(descendants ~= nil)then
        for _, descendant in ipairs(descendants) do
-           if(descendant.hasAss == true)then
+           if(descendant["assMap"] ~= nil)then
               for _, ass in ipairs(descendant:getAssMap()) do
                  local id = descendant:getAttribute(ass[1])
+                                            
                  local field = ass[2]                
+                 
                  descendant[field] = self:getDescendantByAttribute("id", id)
               end
            end

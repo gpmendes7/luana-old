@@ -11,6 +11,10 @@ Link.childrenMap = {
  ["bind"] = {Bind, "many"}
 }
 
+Link.assMap = {
+  {"xconnector", "causalConnectorAss"}
+}
+
 function Link:create(attributes, full)  
    local link = Link:new() 
    
@@ -49,6 +53,14 @@ end
 
 function Link:getXConnector()
    return self:getAttribute("xconnector")
+end
+
+function Link:setCausalConnectorAss(causalConnectorAss)
+   self.causalConnectorAss = causalConnectorAss
+end
+
+function Link:getCausalConnectorAss()
+   return self.causalConnectorAss
 end
 
 function Link:addLinkParam(linkParam)
