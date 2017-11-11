@@ -71,60 +71,24 @@ function NCLElem:addChild(child, p)
     child:setParent(self)
 end
 
+function NCLElem:getChild(p)
+    return self.children[p]
+end
+
 function NCLElem:removeChild(child)
     local p = self:getPosChild(child)   
     self:removeChildPos(p)
 end
 
-function NCLElem:removeChildPos(i)
-    self:getChild(i):setParent(nil) 
-    table.remove(self.children, i) 
-end
-
-function NCLElem:removeAllChildren()
-    self.children = {}
-end
-
-function NCLElem:setChild(child, p)
-    if(child == nil)then
-       return
-    end
-    
-    local valid = false
-    
-    for chd, _ in pairs(self.childrenMap) do
-       if(chd == child.name)then
-          valid = true
-       end
-    end
-    
-    if(not(valid))then
-       return
-    end
-    
-    self.children[p] = child
-end
-
-function NCLElem:getChild(i)
-    return self.children[i]
-end
-
-function NCLElem:setChildren(...)
-    if(#arg>0)then
-      for _, child in ipairs(arg) do
-          self:addChild(child)
-      end
-    end
-end
-
-function NCLElem:getChildren()
-    return self.children
+function NCLElem:removeChildPos(p)
+    self:getChild(p):setParent(nil) 
+    table.remove(self.children, p) 
 end
 
 function NCLElem:getPosChild(child)
-    for i, chd in ipairs(self.children) do
+    for p, chd in ipairs(self.children) do
        if(chd == child)then
-          return i
+          return p
        end 
     end  
 end
@@ -148,6 +112,26 @@ function NCLElem:getPosAvailable(...)
          return p + 1
       end
    end
+end
+
+function NCLElem:setChildren(...)
+    if(#arg>0)then
+      for _, child in ipairs(arg) do
+          self:addChild(child)
+      end
+    end
+end
+
+function NCLElem:getChildren()
+    return self.children
+end
+
+function NCLElem:removeAllChildren()
+    for _, child in ipairs(self.children) do
+       child:setParent(nil) 
+    end
+    
+    self.children = {}
 end
 
 function NCLElem:getChildrenMap()

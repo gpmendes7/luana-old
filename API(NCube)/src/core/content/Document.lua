@@ -86,8 +86,15 @@ function Document:getXmlHead()
    return self.xmlHead
 end
 
-function Document:setHead(head)
-   self:setChild(head, 1)
+function Document:setHead(head)      
+   if(self.head == nil)then
+      self:addChild(head, 1)
+   else
+       local p = self:getPosAvailable("head") - 1
+       self:removeChildPos(p)
+       self:addChild(head, p)
+   end
+   
    self.head = head
 end
 
@@ -100,8 +107,21 @@ function Document:removeHead(head)
    self.head = nil
 end
 
-function Document:setBody(body)
-   self:setChild(body, 2)
+function Document:setBody(body)   
+   local p = nil 
+   
+   if(self.body == nil)then
+      p = self:getPosAvailable("head")          
+      if(p ~= nil)then
+         self:addChild(body, p)
+       else
+         self:addChild(body, 1)
+      end    
+   else
+       p = self:getPosAvailable("body") - 1
+       self:removeChildPos(p)
+       self:addChild(body, p)
+   end
    self.body = body
 end
 
