@@ -126,8 +126,8 @@ function Region:addRegion(region)
    table.insert(self.regions, region)
 end
 
-function Region:getRegionPos(i)
-    return self.regions[i]
+function Region:getRegionPos(p)
+    return self.regions[p]
 end
 
 function Region:getRegionById(id)
@@ -151,16 +151,16 @@ end
 function Region:removeRegion(region)
    self:removeChild(region)
       
-   for i, rg in ipairs(self.regions) do
+   for p, rg in ipairs(self.regions) do
        if(region == rg)then
-           table.remove(self.regions, i)  
+           table.remove(self.regions, p)  
        end
    end 
 end
 
-function Region:removeRegionPos(i)
-   self:removeChildPos(i)
-   table.remove(self.regions, i)
+function Region:removeRegionPos(p)
+   self:removeChildPos(p)
+   table.remove(self.regions, p)
 end
 
 return Region

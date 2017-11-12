@@ -66,8 +66,8 @@ function RegionBase:addImportBase(importBase)
    table.insert(self.importBases, importBase)
 end
 
-function RegionBase:getImportBasePos(i)
-    return self.importBases[i]
+function RegionBase:getImportBasePos(p)
+    return self.importBases[p]
 end
 
 function RegionBase:getImportBaseByAlias(alias)
@@ -91,16 +91,16 @@ end
 function RegionBase:removeImportBase(importBase)
    self:removeChild(importBase)
    
-   for i, ib in ipairs(self.importBases) do
+   for p, ib in ipairs(self.importBases) do
        if(importBase == ib)then
-           table.remove(self.importBases, i)  
+           table.remove(self.importBases, p)  
        end
    end    
 end
 
-function RegionBase:removeImportBasePos(i)
-   self:removeChildPos(i)
-   table.remove(self.importBases, i)
+function RegionBase:removeImportBasePos(p)
+   self:removeChildPos(p)
+   table.remove(self.importBases, p)
 end
 
 function RegionBase:addRegion(region)
@@ -108,8 +108,8 @@ function RegionBase:addRegion(region)
    table.insert(self.regions, region) 
 end
 
-function RegionBase:getRegionPos(i)
-    return self.regions[i]
+function RegionBase:getRegionPos(p)
+    return self.regions[p]
 end
 
 function RegionBase:getRegionById(id)
@@ -133,16 +133,16 @@ end
 function RegionBase:removeRegion(region)
    self:removeChild(region)
       
-   for i, rg in ipairs(self.regions) do
+   for p, rg in ipairs(self.regions) do
        if(region == rg)then
-           table.remove(self.regions, i)  
+           table.remove(self.regions, p)  
        end
    end 
 end
 
-function RegionBase:removeRegionPos(i)
-   self:removeChildPos(i)
-   table.remove(self.regions, i)
+function RegionBase:removeRegionPos(p)
+   self:removeChildPos(p)
+   table.remove(self.regions, p)
 end
 
 return RegionBase

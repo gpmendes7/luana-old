@@ -118,16 +118,16 @@ end
 function DescriptorBase:removeImportBase(importBase)
    self:removeChild(importBase)
    
-   for i, ib in ipairs(self.importBases) do
+   for p, ib in ipairs(self.importBases) do
        if(importBase == ib)then
-           table.remove(self.importBases, i)  
+           table.remove(self.importBases, p)  
        end
    end    
 end
 
-function DescriptorBase:removeImportBasePos(i)
-   self:removeChildPos(i)
-   table.remove(self.importBases, i)
+function DescriptorBase:removeImportBasePos(p)
+   self:removeChildPos(p)
+   table.remove(self.importBases, p)
 end
 
 function DescriptorBase:addDescriptor(descriptor)
@@ -135,8 +135,8 @@ function DescriptorBase:addDescriptor(descriptor)
    table.insert(self.descriptors, descriptor)
 end
 
-function DescriptorBase:getDescriptorPos(i)
-    return self.descriptors[i]
+function DescriptorBase:getDescriptorPos(p)
+    return self.descriptors[p]
 end
 
 function DescriptorBase:getDescriptorById(id)
@@ -160,16 +160,16 @@ end
 function DescriptorBase:removeDescriptor(descriptor)
    self:removeChild(descriptor)
    
-   for i, dc in ipairs(self.descriptors) do
+   for p, dc in ipairs(self.descriptors) do
        if(descriptor == dc)then
-           table.remove(self.descriptors, i)  
+           table.remove(self.descriptors, p)  
        end
    end    
 end
 
-function DescriptorBase:removeDescriptorPos(i)
-   self:removeChildPos(i)
-   table.remove(self.descriptors, i)
+function DescriptorBase:removeDescriptorPos(p)
+   self:removeChildPos(p)
+   table.remove(self.descriptors, p)
 end
 
 return DescriptorBase

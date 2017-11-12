@@ -208,8 +208,8 @@ function Descriptor:addDescriptorParam(descriptorParam)
    table.insert(self.descriptorParams, descriptorParam)
 end
 
-function Descriptor:getDescriptorParamPos(i)
-    return self.descriptorParams[i]
+function Descriptor:getDescriptorParamPos(p)
+    return self.descriptorParams[p]
 end
 
 function Descriptor:setDescriptorParams(...)
@@ -223,16 +223,16 @@ end
 function Descriptor:removeDescriptorParam(descriptorParam)
    self:removeChild(descriptorParam)
    
-   for i, dp in ipairs(self.descriptorParams) do
+   for p, dp in ipairs(self.descriptorParams) do
        if(descriptorParam == dp)then
-          table.remove(self.descriptorParams, i)  
+          table.remove(self.descriptorParams, p)  
        end
    end 
 end
 
-function Descriptor:removeDescriptorParamPos(i)
-   self:removeChildPos(i)
-   table.remove(self.descriptorParams, i)
+function Descriptor:removeDescriptorParamPos(p)
+   self:removeChildPos(p)
+   table.remove(self.descriptorParams, p)
 end
 
 return Descriptor
