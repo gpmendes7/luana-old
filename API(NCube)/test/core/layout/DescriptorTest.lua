@@ -149,8 +149,78 @@ local function test5()
    assert(descriptor1:getDescendantByAttribute("name", "transparency") == nil, "Error!")
 end
 
+local function test6()
+   local descriptor = nil
+   
+   local nclExp, nclRet, atts = nil
+   
+   atts = {
+      ["id"] = "descriptor", 
+      ["player"] = "player",
+      ["explicitDur"] = "3s", 
+      ["region"] = "region",
+      ["freeze"] = "true",
+      ["moveLeft"] = "3", 
+      ["moveRight"] = "1", 
+      ["moveUp"] = "1", 
+      ["moveDown"] = "3", 
+      ["focusIndex"] = "2", 
+      ["focusBorderColor"] = "white", 
+      ["focusBorderWidth"] = "3", 
+      ["focusBorderTransparency"] = "0.5", 
+      ["focusSrc"] = "media/imagem1.gif", 
+      ["focusSelSrc"] = "media/imagem2.gif", 
+      ["selBorderColor"] = "white", 
+      ["transIn"] = "transition1", 
+      ["transOut"] = "transition2"
+   }    
+      
+   descriptor = Descriptor:create(atts)
+   
+   nclExp = "<descriptor"   
+   for attribute, value in pairs(descriptor:getAttributes()) do
+      nclExp = nclExp.." "..attribute.."=\""..value.."\""
+   end 
+  
+   nclExp = nclExp.."/>\n"
+
+   nclRet = descriptor:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
+local function test7()
+   local descriptor = nil
+   
+   local descriptorParam1, descriptorParam2, descriptorParam3 = nil
+   
+   local nclExp, nclRet = nil
+   
+   descriptor = Descriptor:create{["id"] = "descriptor"}
+   nclExp = "<descriptor id=\"descriptor\">\n"
+      
+   descriptorParam1 =  DescriptorParam:create{["name"] = "soundLevel"}
+   nclExp = nclExp.." <descriptorParam name=\"soundLevel\"/>\n"  
+   
+   descriptorParam2 =  DescriptorParam:create{["name"] = "transparency"}
+   nclExp = nclExp.." <descriptorParam name=\"transparency\"/>\n"  
+   
+   descriptorParam3 =  DescriptorParam:create{["name"] = "visible"}
+   nclExp = nclExp.." <descriptorParam name=\"visible\"/>\n"  
+   
+   nclExp = nclExp.."</descriptor>\n"  
+
+   descriptor:setDescriptorParams(descriptorParam1, descriptorParam2, descriptorParam3)      
+   
+   nclRet = descriptor:table2Ncl(0)
+  
+   assert(nclExp == nclRet, "Error!")
+end
+
 test1()
 test2()
 test3()
 test4()
 test5()
+test6()
+test7()

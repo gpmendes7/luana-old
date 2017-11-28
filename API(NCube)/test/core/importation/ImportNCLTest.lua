@@ -34,6 +34,32 @@ local function test3()
    assert(importNCL:getDocumentURI() == "document1.ncl", "Error!") 
 end
 
+local function test4()
+   local importNCL = nil
+   
+   local nclExp, nclRet, atts = nil
+   
+   atts = {
+    ["alias"] = "doc1",
+    ["documentURI"] = "document1.ncl"
+   }    
+      
+   importNCL = ImportNCL:create(atts)
+   
+   nclExp = "<importNCL"   
+   for attribute, value in pairs(importNCL:getAttributes()) do
+      nclExp = nclExp.." "..attribute.."=\""..value.."\""
+   end 
+   
+   nclExp = nclExp.."/>\n"
+
+   nclRet = importNCL:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
+
 test1()
 test2()
 test3()
+test4()

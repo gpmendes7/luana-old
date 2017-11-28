@@ -111,7 +111,62 @@ local function test5()
 end
 
 local function test6()
-   local Document
+   local region = nil
+   
+   local nclExp, nclRet, atts = nil
+   
+   atts = {
+      ["id"] = "region", 
+      ["title"] = "title", 
+      ["left"] = "50%", 
+      ["right"] = "25%", 
+      ["top"] = "50%", 
+      ["bottom"] = "25%", 
+      ["height"] = "80%", 
+      ["width"] = "80%", 
+      ["zIndex"] = "3"
+   }    
+      
+   region = Region:create(atts)
+   
+   nclExp = "<region"   
+   for attribute, value in pairs(region:getAttributes()) do
+      nclExp = nclExp.." "..attribute.."=\""..value.."\""
+   end 
+   
+   nclExp = nclExp.."/>\n"
+
+   nclRet = region:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
+local function test7()
+   local region1, region2, region3, region4 = nil
+   
+   local nclExp, nclRet = nil
+      
+   region1 = Region:create{["id"] = "rg1"}
+   nclExp = "<region id=\"rg1\">\n"  
+      
+   region2 = Region:create{["id"] = "rg2"}
+   nclExp = nclExp.." <region id=\"rg2\"/>\n"  
+   
+   region3 = Region:create{["id"] = "rg3"}
+   nclExp = nclExp.." <region id=\"rg3\">\n"
+   
+   region4 = Region:create{["id"] = "rg4"}
+   nclExp = nclExp.."  <region id=\"rg4\"/>\n"
+   
+   nclExp = nclExp.." </region>\n"
+   nclExp = nclExp.."</region>\n"
+   
+   region1:setRegions(region2, region3)
+   region3:addRegion(region4)
+         
+   nclRet = region1:table2Ncl(0)
+   
+   assert(nclExp == nclRet, "Error!")
 end
 
 test1()
@@ -119,3 +174,5 @@ test2()
 test3()
 test4()
 test5()
+test6()
+test7()

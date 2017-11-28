@@ -63,9 +63,36 @@ local function test5()
    assert(importedDocumentBase1:getDescendantByAttribute("alias","doc2") == nil, "Error!")
 end
 
+local function test6()
+   local importedDocumentBase = nil
+   local importNCL1, importNCL2, importNCL3 = nil
+   
+   local nclExp, nclRet = nil
+   
+   importedDocumentBase = ImportedDocumentBase:create{["id"] = "importedDocumentBase"}
+   nclExp = "<importedDocumentBase id=\"importedDocumentBase\">\n" 
+      
+   importNCL1 = ImportNCL:create{["alias"] = "doc1"}
+   nclExp = nclExp.." <importNCL alias=\"doc1\"/>\n"  
+      
+   importNCL2 = ImportNCL:create{["alias"] = "doc2"}
+   nclExp = nclExp.." <importNCL alias=\"doc2\"/>\n"
+   
+   importNCL3 = ImportNCL:create{["alias"] = "doc3"}
+   nclExp = nclExp.." <importNCL alias=\"doc3\"/>\n"
+   
+   nclExp = nclExp.."</importedDocumentBase>\n"
+   
+   importedDocumentBase:setImportNCLs(importNCL1, importNCL2, importNCL3)   
+          
+   nclRet = importedDocumentBase:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
 
 test1()
 test2()
 test3()
 test4()
 test5()
+test6()

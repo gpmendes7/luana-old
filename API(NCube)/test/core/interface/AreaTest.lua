@@ -84,6 +84,41 @@ local function test3()
    assert(area:getClip() == "endOffset", "Error!")  
 end
 
+local function test4()
+   local area = nil
+   
+   local nclExp, nclRet, atts = nil
+   
+   atts = {
+      ["id"] = "a1", 
+      ["coords"] = "4, 5", 
+      ["begin"] = "5s", 
+      ["end"] = "10s", 
+      ["beginText"] = "begin",
+      ["endText"] = "end", 
+      ["beginPosition"] = "5",
+      ["endPosition"] = "10", 
+      ["first"] = "100f", 
+      ["last"] = "200f", 
+      ["label"] = "area1", 
+      ["clip"] = "endOffset"
+   }    
+      
+   area = Area:create(atts)
+   
+   nclExp = "<area"   
+   for attribute, value in pairs(area:getAttributes()) do
+      nclExp = nclExp.." "..attribute.."=\""..value.."\""
+   end 
+   
+   nclExp = nclExp.."/>\n"
+
+   nclRet = area:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
 test1()
 test2()
 test3()
+test4()
