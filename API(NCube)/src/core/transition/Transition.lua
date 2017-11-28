@@ -121,7 +121,7 @@ function Transition:setBorderColor(borderColor)
     self:addAttribute("borderColor", borderColor)
 end
 
-function Transition:geBorderColor()
+function Transition:getBorderColor()
    return self:getAttribute("borderColor")
 end
 

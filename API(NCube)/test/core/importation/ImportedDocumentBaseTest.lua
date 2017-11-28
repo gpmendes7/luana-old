@@ -13,7 +13,7 @@ local function test2()
    local importedDocumentBase = nil
    
    local atts = {
-      ["id"] = "importedDocumentBase1",
+      ["id"] = "importedDocumentBase1"
    }     
    
    importedDocumentBase = ImportedDocumentBase:create(atts)
@@ -65,6 +65,29 @@ end
 
 local function test6()
    local importedDocumentBase = nil
+   
+   local nclExp, nclRet, atts = nil
+   
+   atts = {
+    ["id"] = "importedDocumentBase1"
+   }    
+      
+   importedDocumentBase = ImportedDocumentBase:create(atts)
+   
+   nclExp = "<importedDocumentBase"   
+   for attribute, value in pairs(importedDocumentBase:getAttributes()) do
+      nclExp = nclExp.." "..attribute.."=\""..value.."\""
+   end 
+   
+   nclExp = nclExp.."/>\n"
+
+   nclRet = importedDocumentBase:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
+local function test7()
+   local importedDocumentBase = nil
    local importNCL1, importNCL2, importNCL3 = nil
    
    local nclExp, nclRet = nil
@@ -96,3 +119,4 @@ test3()
 test4()
 test5()
 test6()
+test7()
