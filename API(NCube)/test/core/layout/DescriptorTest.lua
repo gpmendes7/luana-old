@@ -132,21 +132,21 @@ local function test4()
 end
 
 local function test5()
-   local descriptor1 = Descriptor:create{["id"] = "descriptor1"}
+   local descriptor = Descriptor:create{["id"] = "descriptor"}
    local descriptorParam1 = DescriptorParam:create{["name"] = "soundLevel", ["value"] = "0.9"}
    local descriptorParam2 = DescriptorParam:create{["name"] = "transparency", ["value"] = "60%"}
    local descriptorParam3 = DescriptorParam:create{["name"] = "visible", ["value"] = "false"}
  
-   descriptor1:setDescriptorParams(descriptorParam1, descriptorParam2, descriptorParam3)
-   assert(descriptor1:getDescendantByAttribute("name", "soundLevel") ~= nil, "Error!")
-   assert(descriptor1:getDescendantByAttribute("name", "transparency") ~= nil, "Error!")  
-   assert(descriptor1:getDescendantByAttribute("name", "visible") ~= nil, "Error!") 
+   descriptor:setDescriptorParams(descriptorParam1, descriptorParam2, descriptorParam3)
+   assert(descriptor:getDescendantByAttribute("name", "soundLevel") ~= nil, "Error!")
+   assert(descriptor:getDescendantByAttribute("name", "transparency") ~= nil, "Error!")  
+   assert(descriptor:getDescendantByAttribute("name", "visible") ~= nil, "Error!") 
     
-   descriptor1:removeDescriptorParam(descriptorParam1)
-   assert(descriptor1:getDescendantByAttribute("name", "soundLevel") == nil, "Error!")
+   descriptor:removeDescriptorParam(descriptorParam1)
+   assert(descriptor:getDescendantByAttribute("name", "soundLevel") == nil, "Error!")
    
-   descriptor1:removeDescriptorParamPos(1)
-   assert(descriptor1:getDescendantByAttribute("name", "transparency") == nil, "Error!")
+   descriptor:removeDescriptorParamPos(1)
+   assert(descriptor:getDescendantByAttribute("name", "transparency") == nil, "Error!")
 end
 
 local function test6()

@@ -47,8 +47,8 @@ function TransitionBase:addImportBase(importBase)
    table.insert(self.importBases, importBase)
 end
 
-function TransitionBase:getImportBasePos(i)
-    return self.importBases[i]
+function TransitionBase:getImportBasePos(p)
+    return self.importBases[p]
 end
 
 function TransitionBase:getImportBaseByAlias(alias)
@@ -64,7 +64,7 @@ end
 function TransitionBase:setImportBases(...)
     if(#arg>0)then
       for _, importBase in ipairs(arg) do
-          self:addRule(importBase)
+          self:addImportBase(importBase)
       end
     end
 end
@@ -72,16 +72,16 @@ end
 function TransitionBase:removeImportBase(importBase)
    self:removeChild(importBase)
    
-   for i, ib in ipairs(self.importBases) do
+   for p, ib in ipairs(self.importBases) do
        if(importBase == ib)then
-           table.remove(self.importBases, i)  
+           table.remove(self.importBases, p)  
        end
    end    
 end
 
-function TransitionBase:removeImportBasePos(i)
-   self:removeChildPos(i)
-   table.remove(self.importBases, i)
+function TransitionBase:removeImportBasePos(p)
+   self:removeChildPos(p)
+   table.remove(self.importBases, p)
 end
 
 function TransitionBase:addTransition(transition)
@@ -89,8 +89,8 @@ function TransitionBase:addTransition(transition)
    table.insert(self.transitions, transition)
 end
 
-function TransitionBase:getTransitionPos(i)
-    return self.transitions[i]
+function TransitionBase:getTransitionPos(p)
+    return self.transitions[p]
 end
 
 function TransitionBase:getTransitionById(id)
@@ -114,16 +114,16 @@ end
 function TransitionBase:removeTransition(transition)
    self:removeChild(transition)
    
-   for i, ts in ipairs(self.transitions) do
+   for p, ts in ipairs(self.transitions) do
        if(transition == ts)then
-           table.remove(self.transitions, i)  
+           table.remove(self.transitions, p)  
        end
    end    
 end
 
-function TransitionBase:removeTransitionPos(i)
-   self:removeChildPos(i)
-   table.remove(self.transitions, i)
+function TransitionBase:removeTransitionPos(p)
+   self:removeChildPos(p)
+   table.remove(self.transitions, p)
 end
 
 return TransitionBase
