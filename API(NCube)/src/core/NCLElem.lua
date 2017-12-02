@@ -485,7 +485,7 @@ function NCLElem:table2Ncl(deep)
   end 
   
   if(self.name == "metadata")then
-     ncl = ncl.."<metadata>"
+     ncl = ncl.."<metadata>\n"
      
      if(self:getRdfTree() ~= nil and self:getRdfTree() ~= "")then
         ncl = ncl..self:getRdfTree()
