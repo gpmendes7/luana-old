@@ -17,7 +17,11 @@ function AssessmentStatement:create(attributes, full)
    assessmentStatement.attributes = {
       ["comparator"] = ""
    }     
-    
+   
+   if(attributes ~= nil)then
+      assessmentStatement:setAttributes(attributes)
+   end 
+   
    assessmentStatement.children = {}
    assessmentStatement.attributeAssessments = {}
    
@@ -37,14 +41,15 @@ function AssessmentStatement:getComparator()
    return self:getAttribute("comparator")
 end
 
-function AssessmentStatement:addAttributeAssessment(attributeAssessment)
-   table.insert(self.attributeAssessments, attributeAssessment)    
+function AssessmentStatement:addAttributeAssessment(attributeAssessment)            
+   table.insert(self.attributeAssessments, attributeAssessment) 
    local p = self:getPosAvailable("attributeAssessment")
+   
    if(p ~= nil)then
       self:addChild(attributeAssessment, p)
    else
       self:addChild(attributeAssessment, 1)
-   end          
+   end   
 end
 
 function AssessmentStatement:getAttributeAssessmentPos(i)
@@ -54,7 +59,7 @@ end
 function AssessmentStatement:setAttributeAssessments(...)
     if(#arg>0)then
       for _, attributeAssessment in ipairs(arg) do
-         self:addMedia(attributeAssessment)
+         self:addAttributeAssessment(attributeAssessment)
       end
     end
 end
@@ -74,7 +79,7 @@ function AssessmentStatement:removeAttributeAssessmentPos(i)
    table.remove(self.attributeAssessments, i)
 end
 
-function AssessmentStatement:setValueAssessment(valueAssessment)
+function AssessmentStatement:setValueAssessment(valueAssessment)   
    local p = nil 
    
    if(self.valueAssessment == nil)then
