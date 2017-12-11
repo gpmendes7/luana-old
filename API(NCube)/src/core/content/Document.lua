@@ -221,7 +221,6 @@ function Document:loadNcl(name)
    if(ncl == nil)then
       print("Error! File "..name.." does not exist!")
    else     
-     --print(ncl)
      self:setNcl(ncl) 
      self:ncl2Table()
      self:connectAssociatedElements()
