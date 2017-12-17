@@ -17,7 +17,7 @@
    </descriptor>
   </descriptorBase>
   <connectorBase>
-   <importBase documentURI="test/createDocument/docs/connectorBase2.conn" alias="connectors"/>
+   <importBase documentURI="connectorBase2.conn" alias="connectors"/>
   </connectorBase>
  </head>
  <body>

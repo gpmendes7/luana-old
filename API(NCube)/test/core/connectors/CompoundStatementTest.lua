@@ -102,9 +102,9 @@ local function test6()
    end 
   
    nclExp = nclExp.."/>\n"
-print(nclExp)
+
    nclRet = compoundStatement:table2Ncl(0)
-print(nclRet)
+
    assert(nclExp == nclRet, "Error!")
 end
 

@@ -33,10 +33,7 @@ local doc = Document:create()
 -- doc:loadNcl("docs/nclcd/exemplo11.conn")
 -- doc:loadNcl("docs/nclcd/exemplo11.ncl")
 -- doc:loadNcl("docs/nclcd/exemplo12.ncl")
-
--- doc:loadNcl("docs/nclcd/exemplo12.conn")
 -- doc:loadNcl("docs/nclcd/exemplo13.ncl")
--- doc:getBody():getDescendantByAttribute("id", "lSelectBotaoVerde"):getCausalConnectorAss():writeNcl()
 -- doc:loadNcl("docs/nclcd/exemplo14.ncl")
 -- doc:loadNcl("docs/nclcd/exercicio01.ncl")
 -- doc:loadNcl("docs/nclcd/exercicio02.ncl")
@@ -70,7 +67,5 @@ local doc = Document:create()
 -- doc:loadNcl("docs/tvdigitalsocial/tabelaContribuicao.ncl")
 -- doc:loadNcl("docs/tvdigitalsocial/twitterDataprev.ncl")
 -- doc:loadNcl("docs/tvdigitalsocial/twitterPrevidencia.ncl")
-
---doc:getDescendantByAttribute("id", "ctxCondominio"):writeNcl()
 
 doc:writeNcl()

@@ -176,7 +176,13 @@ function NCLElem:getDescendantByAttribute(attribute, value)
       end
    end
    
-   return targetDescs
+   if(#targetDescs == 1)then
+      return targetDescs[1]
+   elseif(#targetDescs > 2)then 
+          return targetDescs
+   end
+   
+   return nil
 end
 
 function NCLElem:addAttribute(attribute, value)    

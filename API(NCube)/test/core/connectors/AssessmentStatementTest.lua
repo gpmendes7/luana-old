@@ -64,7 +64,7 @@ local function test5()
    assessmentStatement:setAttributeAssessments(attributeAssessment1, attributeAssessment2)
    assert(assessmentStatement:getDescendantByAttribute("role", "attNodeTest1") ~= nil, "Error!")
    assert(assessmentStatement:getDescendantByAttribute("role", "attNodeTest2") ~= nil, "Error!")  
-    
+
    assessmentStatement:removeAttributeAssessment(attributeAssessment1)
    assert(assessmentStatement:getDescendantByAttribute("role", "attNodeTest1") == nil, "Error!")
    

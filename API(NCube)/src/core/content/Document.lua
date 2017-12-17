@@ -208,7 +208,7 @@ function Document:connectAssociatedElements()
                                             
                  local field = ass[2]                
                  
-                 descendant[field] = self:getDescendantByAttribute("id", id)
+                 descendant[field] = self:getDescendantByAttribute("id", id)[1]
               end
            end
        end
