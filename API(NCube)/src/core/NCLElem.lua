@@ -168,14 +168,15 @@ end
 
 function NCLElem:getDescendantByAttribute(attribute, value) 
    local descs = self:getDescendants()
+   local targetDescs = {}
    
    for _, desc in ipairs(descs) do
       if(desc.attributes ~= nil and desc:getAttribute(attribute) == value)then
-        return desc
+        table.insert(targetDescs, desc)
       end
    end
    
-   return nil
+   return targetDescs
 end
 
 function NCLElem:addAttribute(attribute, value)    

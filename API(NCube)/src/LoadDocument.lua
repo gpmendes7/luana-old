@@ -2,8 +2,6 @@ require("core/NCube")
 
 local doc = Document:create()
 
--- doc:loadNcl("docs/exemplometa.ncl")
-
 -- doc:loadNcl("docs/comerciaisproview/ComerciaisProview.ncl")
 -- doc:loadNcl("docs/comerciaisproview/regionBase.reg")
 
@@ -35,6 +33,7 @@ local doc = Document:create()
 -- doc:loadNcl("docs/nclcd/exemplo11.conn")
 -- doc:loadNcl("docs/nclcd/exemplo11.ncl")
 -- doc:loadNcl("docs/nclcd/exemplo12.ncl")
+
 -- doc:loadNcl("docs/nclcd/exemplo12.conn")
 -- doc:loadNcl("docs/nclcd/exemplo13.ncl")
 -- doc:getBody():getDescendantByAttribute("id", "lSelectBotaoVerde"):getCausalConnectorAss():writeNcl()

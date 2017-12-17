@@ -50,7 +50,6 @@ local video1 = Media:create(
 body:addMedia(video1) 
 doc:setBody(body)
 
-
 local fileName = "test/createDocument/docs/document1.ncl"
 doc:saveNcl(fileName)
 os.execute("java -jar ncl-validator-1.4.20.jar -nl pt_BR "..fileName)
