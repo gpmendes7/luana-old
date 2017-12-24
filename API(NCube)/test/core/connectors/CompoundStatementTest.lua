@@ -46,14 +46,14 @@ local function test4()
    compoundStatement:addAssessmentStatement(AssessmentStatement:create())
    assert(compoundStatement:getAssessmentStatementPos(2) ~= nil, "Error!")
    
-   compoundStatement = CompoundStatement:create(nil, 1)
+   compoundStatement:addCompoundStatement(CompoundStatement:create())
+   assert(compoundStatement:getCompoundStatementPos(2) ~= nil, "Error!") 
+   
+   compoundStatement = CompoundStatement:create()
    compoundStatement:addAssessmentStatement(AssessmentStatement:create{["comparator"] = "eq"})
    assert(compoundStatement:getDescendantByAttribute("comparator", "eq") ~= nil, "Error!")
 
-   compoundStatement = CompoundStatement:create(nil, 1)
-   compoundStatement:addCompoundStatement(CompoundStatement:create())
-   assert(compoundStatement:getCompoundStatementPos(1) ~= nil, "Error!") 
-
+   compoundStatement = CompoundStatement:create()
    compoundStatement:addCompoundStatement(CompoundStatement:create{["operator"] = "and"})
    assert(compoundStatement:getDescendantByAttribute("operator", "and") ~= nil, "Error!") 
 end
@@ -108,9 +108,32 @@ local function test6()
    assert(nclExp == nclRet, "Error!")
 end
 
+local function test7()
+   local compoundStatement = nil
+   
+   local assessmentStatement = nil
+   
+   local nclExp, nclRet = nil
+   
+   compoundStatement = CompoundStatement:create{["operator"] = "and"}
+   nclExp = "<compoundStatement operator=\"and\">\n"
+      
+   assessmentStatement = AssessmentStatement:create{["comparator"] = "eq"}
+   nclExp = nclExp.." <assessmentStatement comparator=\"eq\"/>\n"  
+  
+   nclExp = nclExp.."</compoundStatement>\n"  
+
+   compoundStatement:addAssessmentStatement(assessmentStatement)       
+   
+   nclRet = compoundStatement:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
 test1()
 test2()
 test3()
 test4()
 test5()
 test6()
+test7()
