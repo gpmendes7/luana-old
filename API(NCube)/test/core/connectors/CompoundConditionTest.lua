@@ -149,13 +149,7 @@ local function test6()
    assert(nclExp == nclRet, "Error!")
 end
 
-local function test7()
-    local compoundCondition1 = CompoundCondition:create{["operator"] = "and"}
-   local simpleCondition = SimpleCondition:create{["role"] = "onSelection"}
-   local assessmentStatement = AssessmentStatement:create{["comparator"] = "eq"}
-   local compoundStatement = CompoundStatement:create{["operator"] = "and"}  
-   local compoundCondition2 = CompoundCondition:create{["operator"] = "or"}
-   
+local function test7()   
    local compoundCondition1 = nil
    
    local simpleCondition, assessmentStatement, compoundStatement, compoundCondition2 = nil
@@ -168,7 +162,7 @@ local function test7()
    simpleCondition = SimpleCondition:create{["role"] = "onSelection"}
    nclExp = nclExp.." <simpleCondition role=\"onSelection\"/>\n"
    
-      compoundCondition2 = CompoundCondition:create{["operator"] = "or"}
+   compoundCondition2 = CompoundCondition:create{["operator"] = "or"}
    nclExp = nclExp.." <compoundCondition operator=\"or\"/>\n" 
       
    assessmentStatement = AssessmentStatement:create{["comparator"] = "eq"}
