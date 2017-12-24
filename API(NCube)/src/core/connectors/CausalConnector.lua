@@ -17,7 +17,7 @@ CausalConnector.childrenMap = {
  ["compoundAction"] = {CompoundAction, "one"}
 }
 
-function CausalConnector:create(attributes)  
+function CausalConnector:create(attributes, full)  
    local causalConnector = CausalConnector:new() 
    
    causalConnector.attributes = {
@@ -30,6 +30,12 @@ function CausalConnector:create(attributes)
   
    causalConnector.children = {}
    causalConnector.connectorParams = {}
+   
+   if(full ~= nil)then
+      causalConnector:addConnectorParam(ConnectorParam:create())
+      causalConnector:setCompoundCondition(CompoundCondition:create())
+      causalConnector:setCompoundAction(CompoundAction:create())
+   end
    
    return causalConnector
 end
