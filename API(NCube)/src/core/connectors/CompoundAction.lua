@@ -52,12 +52,7 @@ end
 
 function CompoundAction:addSimpleAction(simpleAction)
     table.insert(self.simpleActions, simpleAction)    
-    local p = self:getPosAvailable("simpleAction", "compoundAction")
-    if(p ~= nil)then
-       self:addChild(simpleAction, p)
-    else
-       self:addChild(simpleAction, 1)
-    end
+    self:addChild(simpleAction)
 end
 
 function CompoundAction:getSimpleActionPos(i)
@@ -89,12 +84,7 @@ end
 
 function CompoundAction:addCompoundAction(compoundAction)
     table.insert(self.compoundActions, compoundAction)    
-    local p = self:getPosAvailable("compoundAction", "simpleAction")
-    if(p ~= nil)then
-       self:addChild(compoundAction, p)
-    else
-       self:addChild(compoundAction, 1)
-    end
+    self:addChild(compoundAction)
 end
 
 function CompoundAction:getCompoundActionPos(i)

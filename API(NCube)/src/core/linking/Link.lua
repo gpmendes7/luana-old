@@ -65,12 +65,7 @@ end
 
 function Link:addLinkParam(linkParam)
     table.insert(self.linkParams, linkParam)    
-    local p = self:getPosAvailable("linkParam", "bind")
-    if(p ~= nil)then
-       self:addChild(linkParam, p)
-    else
-       self:addChild(linkParam, 1)
-    end
+    self:addChild(linkParam)
 end
 
 function Link:getLinkParamPos(p)
@@ -102,12 +97,7 @@ end
 
 function Link:addBind(bind)
     table.insert(self.binds, bind)    
-    local p = self:getPosAvailable("bind", "linkParam")
-    if(p ~= nil)then
-       self:addChild(bind, p)
-    else
-       self:addChild(bind, 1)
-    end
+    self:addChild(bind)
 end
 
 function Link:getBindPos(p)
