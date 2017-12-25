@@ -52,12 +52,7 @@ end
 
 function CompoundStatement:addAssessmentStatement(assessmentStatement)
     table.insert(self.assessmentStatements, assessmentStatement)    
-    local p = self:getPosAvailable("assessmentStatement", "compoundStatement")
-    if(p ~= nil)then
-       self:addChild(assessmentStatement, p)
-    else
-       self:addChild(assessmentStatement, 1)
-    end
+    self:addChild(assessmentStatement)
 end
 
 function CompoundStatement:getAssessmentStatementPos(i)
@@ -89,12 +84,7 @@ end
 
 function CompoundStatement:addCompoundStatement(compoundStatement)
     table.insert(self.compoundStatements, compoundStatement)    
-    local p = self:getPosAvailable("compoundStatement", "assessmentStatement")
-    if(p ~= nil)then
-       self:addChild(compoundStatement, p)
-    else
-       self:addChild(compoundStatement, 1)
-    end
+    self:addChild(compoundStatement)
 end
 
 function CompoundStatement:getCompoundStatementPos(i)

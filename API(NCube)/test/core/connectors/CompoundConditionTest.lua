@@ -172,9 +172,9 @@ local function test7()
    nclExp = nclExp.."</compoundCondition>\n"  
 
    compoundCondition1:addSimpleCondition(simpleCondition) 
+   compoundCondition1:addCompoundCondition(compoundCondition2)
    compoundCondition1:addAssessmentStatement(assessmentStatement)       
    compoundCondition1:addCompoundStatement(compoundStatement) 
-   compoundCondition1:addCompoundCondition(compoundCondition2) 
    
    nclRet = compoundCondition1:table2Ncl(0)
 

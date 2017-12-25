@@ -60,12 +60,7 @@ end
 
 function CompoundCondition:addSimpleCondition(simpleCondition)
     table.insert(self.simpleConditions, simpleCondition)    
-    local p = self:getPosAvailable("simpleCondition", "compoundCondition", "assessmentStatement", "compoundStatement")
-    if(p ~= nil)then
-       self:addChild(simpleCondition, p)
-    else
-       self:addChild(simpleCondition, 1)
-    end
+    self:addChild(simpleCondition)
 end
 
 function CompoundCondition:getSimpleConditionPos(i)
@@ -97,12 +92,7 @@ end
 
 function CompoundCondition:addCompoundCondition(compoundCondition)
     table.insert(self.compoundConditions, compoundCondition)    
-    local p = self:getPosAvailable("compoundCondition", "simpleCondition", "assessmentStatement", "compoundStatement")
-    if(p ~= nil)then
-       self:addChild(compoundCondition, p)
-    else
-       self:addChild(compoundCondition, 1)
-    end
+    self:addChild(compoundCondition)
 end
 
 function CompoundCondition:getCompoundConditionPos(i)
@@ -134,12 +124,7 @@ end
 
 function CompoundCondition:addAssessmentStatement(assessmentStatement)
     table.insert(self.assessmentStatements, assessmentStatement)    
-    local p = self:getPosAvailable("assessmentStatement", "compoundStatement", "simpleCondition", "compoundCondition")
-    if(p ~= nil)then
-       self:addChild(assessmentStatement, p)
-    else
-       self:addChild(assessmentStatement, 1)
-    end
+    self:addChild(assessmentStatement)
 end
 
 function CompoundCondition:getAssessmentStatementPos(i)
@@ -171,12 +156,7 @@ end
 
 function CompoundCondition:addCompoundStatement(compoundStatement)
     table.insert(self.compoundStatements, compoundStatement)    
-    local p = self:getPosAvailable("compoundStatement", "assessmentStatement", "simpleCondition", "compoundCondition")
-    if(p ~= nil)then
-       self:addChild(compoundStatement, p)
-    else
-       self:addChild(compoundStatement, 1)
-    end
+    self:addChild(compoundStatement)
 end
 
 function CompoundCondition:getCompoundStatementPos(i)
