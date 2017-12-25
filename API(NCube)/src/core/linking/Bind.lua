@@ -75,8 +75,8 @@ function Bind:addBindParam(bindParam)
     end
 end
 
-function Bind:getBindParamPos(i)
-    return self.bindParams[i]
+function Bind:getBindParamPos(p)
+    return self.bindParams[p]
 end
 
 function Bind:setBindParams(...)
@@ -90,16 +90,16 @@ end
 function Bind:removeBindParam(bindParam)
    self:removeChild(bindParam)
    
-   for i, bp in ipairs(self.bindParams) do
+   for p, bp in ipairs(self.bindParams) do
        if(bindParam == bp)then
-          table.remove(self.bindParams, i)  
+          table.remove(self.bindParams, p)  
        end
    end 
 end
 
-function Bind:removeBindParamPos(i)
-   self:removeChildPos(i)
-   table.remove(self.bindParams, i)
+function Bind:removeBindParamPos(p)
+   self:removeChildPos(p)
+   table.remove(self.bindParams, p)
 end
 
 return Bind
