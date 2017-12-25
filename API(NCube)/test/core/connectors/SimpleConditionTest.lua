@@ -30,7 +30,6 @@ local function test2()
    }     
    
    simpleCondition = SimpleCondition:create(atts)
-   assert(simpleCondition ~= nil, "Error!")
    assert(simpleCondition:getRole() == "onSelection", "Error!")  
    assert(simpleCondition:getDelay() == "0.3s", "Error!")  
    assert(simpleCondition:getEventType() == "selection", "Error!")  
@@ -55,7 +54,6 @@ local function test3()
    simpleCondition:setMax("unbounded")  
    simpleCondition:setQualifier("or")   
    
-   assert(simpleCondition ~= nil, "Error!")
    assert(simpleCondition:getRole() == "onSelection", "Error!")  
    assert(simpleCondition:getDelay() == "0.3s", "Error!")  
    assert(simpleCondition:getEventType() == "selection", "Error!")  

@@ -18,7 +18,6 @@ local function test2()
    }     
    
    transitionBase = TransitionBase:create(atts)
-   assert(transitionBase ~= nil, "Error!")
    assert(transitionBase:getId() == "transitionBase", "Error!") 
 end
 
@@ -29,7 +28,6 @@ local function test3()
    
    transitionBase:setId("transitionBase")
    
-   assert(transitionBase ~= nil, "Error!")
    assert(transitionBase:getId() == "transitionBase", "Error!") 
 end
 
@@ -43,17 +41,11 @@ local function test4()
    transitionBase:addImportBase(ImportBase:create())
    assert(transitionBase:getImportBasePos(2) ~= nil, "Error!")
    
-   transitionBase:addImportBase(ImportBase:create())
-   assert(transitionBase:getImportBasePos(3) ~= nil, "Error!")
-   
-   transitionBase:addImportBase(ImportBase:create{["alias"] = "connBase"})
-   assert(transitionBase:getDescendantByAttribute("alias", "connBase") ~= nil, "Error!")   
-   
    transitionBase:addTransition(Transition:create())
    assert(transitionBase:getTransitionPos(2) ~= nil, "Error!")
    
-   transitionBase:addTransition(Transition:create())
-   assert(transitionBase:getTransitionPos(3) ~= nil, "Error!")
+   transitionBase:addImportBase(ImportBase:create{["alias"] = "connBase"})
+   assert(transitionBase:getDescendantByAttribute("alias", "connBase") ~= nil, "Error!")   
    
    transitionBase:addTransition(Transition:create{["id"] = "transition"})
    assert(transitionBase:getDescendantByAttribute("id", "transition") ~= nil, "Error!")   

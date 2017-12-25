@@ -16,7 +16,6 @@ local function test2()
    }     
    
    valueAssessment = ValueAssessment:create(atts)
-   assert(valueAssessment ~= nil, "Error!")
    assert(valueAssessment:getValue() == "false", "Error!")  
 end
 
@@ -27,7 +26,6 @@ local function test3()
    
    valueAssessment:setValue("false")  
    
-   assert(valueAssessment ~= nil, "Error!")
    assert(valueAssessment:getValue() == "false", "Error!")  
 end
 

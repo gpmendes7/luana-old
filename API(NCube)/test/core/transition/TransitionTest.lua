@@ -38,7 +38,6 @@ local function test2()
    }     
    
    transition = Transition:create(atts)
-   assert(transition ~= nil, "Error!")
    assert(transition:getId() == "transition", "Error!")  
    assert(transition:getType() == "barWipe", "Error!")  
    assert(transition:getSubType() == "leftToRight", "Error!")
@@ -71,7 +70,6 @@ local function test3()
    transition:setBorderWidth("2")  
    transition:setBorderColor("white")
    
-   assert(transition ~= nil, "Error!")
    assert(transition:getId() == "transition", "Error!")  
    assert(transition:getType() == "barWipe", "Error!")  
    assert(transition:getSubType() == "leftToRight", "Error!")
