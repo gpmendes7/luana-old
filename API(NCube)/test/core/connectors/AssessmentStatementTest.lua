@@ -18,7 +18,6 @@ local function test2()
    }     
    
    assessmentStatement = AssessmentStatement:create(atts)
-   assert(assessmentStatement ~= nil, "Error!")
    assert(assessmentStatement:getComparator() == "eq", "Error!")
 end
 
@@ -29,7 +28,6 @@ local function test3()
    
    assessmentStatement:setComparator("eq")
    
-   assert(assessmentStatement ~= nil, "Error!")
    assert(assessmentStatement:getComparator() == "eq", "Error!")
 end
 

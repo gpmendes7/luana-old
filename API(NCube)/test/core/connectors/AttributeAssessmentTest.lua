@@ -24,7 +24,6 @@ local function test2()
    }     
    
    attributeAssessment = AttributeAssessment:create(atts)
-   assert(attributeAssessment ~= nil, "Error!")
    assert(attributeAssessment:getRole() == "attNodeTest", "Error!")  
    assert(attributeAssessment:getEventType() == "attNodeTest", "Error!") 
    assert(attributeAssessment:getKey() == "CURSOR_DOWN", "Error!")  
@@ -43,7 +42,6 @@ local function test3()
    attributeAssessment:setAttributeType("nodeProperty")  
    attributeAssessment:setOffset("off")   
    
-   assert(attributeAssessment ~= nil, "Error!")
    assert(attributeAssessment:getRole() == "attNodeTest", "Error!")  
    assert(attributeAssessment:getEventType() == "attNodeTest", "Error!") 
    assert(attributeAssessment:getKey() == "CURSOR_DOWN", "Error!")  

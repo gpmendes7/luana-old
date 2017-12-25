@@ -18,7 +18,6 @@ local function test2()
    }     
    
    meta = Meta:create(atts)
-   assert(meta ~= nil, "Error!")
    assert(meta:getName() == "", "Error!")  
    assert(meta:getContent() == "", "Error!")
 end
@@ -31,7 +30,6 @@ local function test3()
    meta:setName("meta1")
    meta:setContent("content1")  
 
-   assert(meta ~= nil, "Error!")
    assert(meta:getName() == "meta1", "Error!")  
    assert(meta:getContent() == "content1", "Error!")
 end

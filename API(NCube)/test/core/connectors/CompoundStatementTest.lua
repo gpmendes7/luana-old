@@ -19,7 +19,6 @@ local function test2()
    }     
    
    compoundStatement = CompoundStatement:create(atts)
-   assert(compoundStatement ~= nil, "Error!")
    assert(compoundStatement:getOperator() == "and", "Error!") 
    assert(compoundStatement:getIsNegated() == "true", "Error!") 
 end
@@ -32,7 +31,6 @@ local function test3()
    compoundStatement:setOperator("and") 
    compoundStatement:setIsNegated("true") 
    
-   assert(compoundStatement ~= nil, "Error!")
    assert(compoundStatement:getOperator() == "and", "Error!") 
    assert(compoundStatement:getIsNegated() == "true", "Error!") 
 end

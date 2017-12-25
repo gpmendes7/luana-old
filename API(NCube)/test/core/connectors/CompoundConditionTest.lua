@@ -21,7 +21,6 @@ local function test2()
    }     
    
    compoundCondition = CompoundCondition:create(atts)
-   assert(compoundCondition ~= nil, "Error!")
    assert(compoundCondition:getOperator() == "and", "Error!") 
    assert(compoundCondition:getDelay() == "10s", "Error!") 
 end
@@ -34,7 +33,6 @@ local function test3()
    compoundCondition:setOperator("and") 
    compoundCondition:setDelay("10s") 
    
-   assert(compoundCondition ~= nil, "Error!")
    assert(compoundCondition:getOperator() == "and", "Error!") 
    assert(compoundCondition:getDelay() == "10s", "Error!") 
 end

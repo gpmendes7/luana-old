@@ -26,7 +26,6 @@ local function test2()
    }     
    
    document = Document:create(atts, "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>")
-   assert(document ~= nil, "Error!")
    assert(document:getId() == "document", "Error!")
    assert(document:getTitle() == "title", "Error!")
    assert(document:getXmlns() == "xmlns", "Error!")

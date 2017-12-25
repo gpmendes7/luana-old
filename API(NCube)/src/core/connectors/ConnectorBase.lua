@@ -47,8 +47,8 @@ function ConnectorBase:addImportBase(importBase)
    table.insert(self.importBases, importBase)
 end
 
-function ConnectorBase:getImportBasePos(i)
-    return self.importBases[i]
+function ConnectorBase:getImportBasePos(p)
+    return self.importBases[p]
 end
 
 function ConnectorBase:getImportBaseByAlias(alias)
@@ -72,16 +72,16 @@ end
 function ConnectorBase:removeImportBase(importBase)
    self:removeChild(importBase)
    
-   for i, ib in ipairs(self.importBases) do
+   for p, ib in ipairs(self.importBases) do
        if(importBase == ib)then
-           table.remove(self.importBases, i)  
+           table.remove(self.importBases, p)  
        end
    end    
 end
 
-function ConnectorBase:removeImportBasePos(i)
-   self:removeChildPos(i)
-   table.remove(self.importBases, i)
+function ConnectorBase:removeImportBasePos(p)
+   self:removeChildPos(p)
+   table.remove(self.importBases, p)
 end
 
 function ConnectorBase:addCausalConnector(causalConnector)
@@ -89,8 +89,8 @@ function ConnectorBase:addCausalConnector(causalConnector)
    table.insert(self.causalConnectors, causalConnector)
 end
 
-function ConnectorBase:getCausalConnectorPos(i)
-    return self.causalConnectors[i]
+function ConnectorBase:getCausalConnectorPos(p)
+    return self.causalConnectors[p]
 end
 
 function ConnectorBase:getCausalConnectorById(id)
@@ -114,16 +114,16 @@ end
 function ConnectorBase:removeCausalConnector(causalConnector)
    self:removeChild(causalConnector)
    
-   for i, cc in ipairs(self.causalConnectors) do
+   for p, cc in ipairs(self.causalConnectors) do
        if(causalConnector == cc)then
-           table.remove(self.causalConnectors, i)  
+           table.remove(self.causalConnectors, p)  
        end
    end 
 end
 
-function ConnectorBase:removeCausalConnectorPos(i)
-   self:removeChildPos(i)
-   table.remove(self.causalConnectors, i)
+function ConnectorBase:removeCausalConnectorPos(p)
+   self:removeChildPos(p)
+   table.remove(self.causalConnectors, p)
 end
 
 return ConnectorBase

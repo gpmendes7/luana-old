@@ -18,7 +18,6 @@ local function test2()
    }     
    
    connectorParam = ConnectorParam:create(atts)
-   assert(connectorParam ~= nil, "Error!")
    assert(connectorParam:getName() == "var", "Error!")  
    assert(connectorParam:getType() == "integer", "Error!") 
 end
@@ -31,7 +30,6 @@ local function test3()
    connectorParam:setName("var")  
    connectorParam:setType("integer") 
    
-   assert(connectorParam ~= nil, "Error!")
    assert(connectorParam:getName() == "var", "Error!")  
    assert(connectorParam:getType() == "integer", "Error!") 
 end

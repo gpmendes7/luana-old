@@ -19,7 +19,6 @@ local function test2()
    }     
    
    compoundAction = CompoundAction:create()
-   assert(compoundAction ~= nil, "Error!")
    assert(compoundAction:getOperator() == "", "Error!") 
    assert(compoundAction:getDelay() == "", "Error!")   
 end
@@ -32,7 +31,6 @@ local function test3()
    compoundAction:setOperator("and") 
    compoundAction:setDelay("10s") 
    
-   assert(compoundAction ~= nil, "Error!")
    assert(compoundAction:getOperator() == "and", "Error!") 
    assert(compoundAction:getDelay() == "10s", "Error!") 
 end

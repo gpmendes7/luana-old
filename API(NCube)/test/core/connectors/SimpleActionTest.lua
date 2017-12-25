@@ -38,7 +38,6 @@ local function test2()
    }     
    
    simpleAction = SimpleAction:create(atts)
-   assert(simpleAction ~= nil, "Error!")
    assert(simpleAction:getRole() == "set", "Error!")  
    assert(simpleAction:getDelay() == "0.3s", "Error!")  
    assert(simpleAction:getEventType() == "attribution", "Error!")  
@@ -71,7 +70,6 @@ local function test3()
    simpleAction:setDuration("3")  
    simpleAction:setBy("4")   
    
-   assert(simpleAction ~= nil, "Error!")
    assert(simpleAction:getRole() == "set", "Error!")  
    assert(simpleAction:getDelay() == "0.3s", "Error!")  
    assert(simpleAction:getEventType() == "attribution", "Error!")  

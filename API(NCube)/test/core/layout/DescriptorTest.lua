@@ -52,7 +52,6 @@ local function test2()
    }     
    
    descriptor = Descriptor:create(atts)
-   assert(descriptor ~= nil, "Error!")
    assert(descriptor:getId() == "descriptor", "Error!")
    assert(descriptor:getPlayer() == "player", "Error!")     
    assert(descriptor:getExplicitDur() == "3s", "Error!")   
@@ -97,7 +96,6 @@ local function test3()
    descriptor:setTransIn("transition1") 
    descriptor:setTransOut("transition2")
    
-   assert(descriptor ~= nil, "Error!")
    assert(descriptor:getId() == "descriptor", "Error!")
    assert(descriptor:getPlayer() == "player", "Error!")     
    assert(descriptor:getExplicitDur() == "3s", "Error!")   
