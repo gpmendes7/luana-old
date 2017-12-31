@@ -13,13 +13,13 @@ local function test2()
    local bindRule = nil
    
    local atts = {
-     ["constituent"] = "",
-     ["rule"] = ""
+     ["constituent"] = "audio1",
+     ["rule"] = "rPt"
    }     
    
    bindRule = BindRule:create(atts)
-   assert(bindRule:getConstituent() == "", "Error!")  
-   assert(bindRule:getRule() == "", "Error!")  
+   assert(bindRule:getConstituent() == "audio1", "Error!")  
+   assert(bindRule:getRule() == "rPt", "Error!") 
 end
 
 local function test3()

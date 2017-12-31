@@ -15,17 +15,17 @@ local function test2()
    local rule = nil
    
    local atts = {
-    ["id"] = "",  
-    ["var"] = "", 
-    ["comparator"] = "", 
-    ["value"] = ""
+    ["id"] = "r1",  
+    ["var"] = "idioma", 
+    ["comparator"] = "eq", 
+    ["value"] = "pt"
    }     
    
    rule = Rule:create(atts)
-   assert(rule:getId() == "", "Error!")  
-   assert(rule:getVar() == "", "Error!")  
-   assert(rule:getComparator() == "", "Error!")
-   assert(rule:getValue() == "", "Error!") 
+   assert(rule:getId() == "r1", "Error!")  
+   assert(rule:getVar() == "idioma", "Error!")  
+   assert(rule:getComparator() == "eq", "Error!")
+   assert(rule:getValue() == "pt", "Error!") 
 end
 
 local function test3()
