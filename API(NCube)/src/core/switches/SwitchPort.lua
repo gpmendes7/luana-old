@@ -40,12 +40,7 @@ end
 
 function SwitchPort:addMapping(mapping)
     table.insert(self.mappings, mapping)    
-    local p = self:getPosAvailable("mapping")
-    if(p ~= nil)then
-       self:addChild(mapping, p)
-    else
-       self:addChild(mapping, 1)
-    end
+    self:addChild(mapping)
 end
 
 function SwitchPort:getMappingPos(i)
