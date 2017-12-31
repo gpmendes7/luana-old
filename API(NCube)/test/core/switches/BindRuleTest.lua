@@ -58,7 +58,6 @@ local function test4()
    assert(nclExp == nclRet, "Error!")
 end
 
-
 test1()
 test2()
 test3()
