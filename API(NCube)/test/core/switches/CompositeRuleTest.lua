@@ -107,11 +107,7 @@ local function test6()
    assert(nclExp == nclRet, "Error!")
 end
 
-local function test7()   
- local compositeRule1 = CompositeRule:create{["id"] = "cr1"}
-   local rule = Rule:create{["id"] = "r1"}
-   local compositeRule2 = CompositeRule:create{["id"] = "cr2"}
-   
+local function test7()      
    local compositeRule1 = nil 
     
    local rule, compositeRule2 = nil
