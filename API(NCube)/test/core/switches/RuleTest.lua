@@ -44,6 +44,33 @@ local function test3()
    assert(rule:getValue() == "pt", "Error!") 
 end
 
+local function test4()
+   local rule = nil
+   
+   local nclExp, nclRet, atts = nil
+   
+   atts = {
+    ["id"] = "r1",  
+    ["var"] = "idioma", 
+    ["comparator"] = "eq", 
+    ["value"] = "pt"
+   }    
+      
+   rule = Rule:create(atts)
+   
+   nclExp = "<rule"   
+   for attribute, value in pairs(rule:getAttributes()) do
+      nclExp = nclExp.." "..attribute.."=\""..value.."\""
+   end 
+  
+   nclExp = nclExp.."/>\n"
+
+   nclRet = rule:table2Ncl(0)
+
+   assert(nclExp == nclRet, "Error!")
+end
+
 test1()
 test2()
 test3()
+test4()
