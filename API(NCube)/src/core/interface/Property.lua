@@ -20,19 +20,19 @@ function Property:create(attributes)
    return property
 end
 
-function Property:setAttName(name)
+function Property:setName(name)
    self:addAttribute("name", name)
 end
 
-function Property:getAttName()
+function Property:getName()
    return self:getAttribute("name")
 end
 
-function Property:setAttValue(value)
+function Property:setValue(value)
    self:addAttribute("value", value)
 end
 
-function Property:getAttValue()
+function Property:getValue()
    return self:getAttribute("value")
 end
 

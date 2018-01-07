@@ -92,7 +92,7 @@ function Media:addArea(area)
    table.insert(self.areas, area) 
 end
 
-function Media:getArea(i)
+function Media:getAreaPos(i)
     return self.areas[i]
 end
 
@@ -134,11 +134,11 @@ function Media:addProperty(property)
    table.insert(self.propertys, property) 
 end
 
-function Media:getProperty(i)
+function Media:getPropertyPos(i)
     return self.propertys[i]
 end
 
-function Media:getpropertyByName(name)
+function Media:getPropertyByName(name)
    for _, property in ipairs(self.propertys) do
        if(property:getName() == name)then
           return property
