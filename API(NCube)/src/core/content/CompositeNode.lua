@@ -446,6 +446,7 @@ function Switch:create(attributes, full)
    if(full ~= nil)then
       switch:setDefaultComponent(DefaultComponent:create()) 
       switch:addSwitchPort(SwitchPort:create(nil, full)) 
+      switch:addBindRule(BindRule:create()) 
       switch:addMedia(Media:create(nil, full))
       switch:addContext(Context:create())  
       switch:addSwitch(Switch:create())  
@@ -521,7 +522,7 @@ function Switch:removeSwitchPort(switchPort)
    end    
 end
 
-function Media:removeSwitchPortPos(i)
+function Switch:removeSwitchPortPos(i)
    self:removeChildPos(i)
    table.remove(self.switchPorts, i)
 end
