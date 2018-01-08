@@ -164,13 +164,6 @@ local function test6()
 end
 
 local function test7()
-     local defaultComponent = DefaultComponent:create{["component"] = "comp"}
-   local switchPort = SwitchPort:create{["id"] = "sp1"}
-   local bindRule = BindRule:create{["constituent"] = "audio1"}
-   local media = Media:create{["id"] = "m1"}
-   local context = Context:create{["id"] = "c1"}
-   local switch2 = Switch:create{["id"] = "s2"}
-
    local switch1 = nil
    
    local defaultComponent, switchPort, bindRule = nil
