@@ -20,7 +20,7 @@ Head.childrenMap = {
  ["descriptorBase"] = {DescriptorBase, "one"},
  ["connectorBase"] = {ConnectorBase, "one"},
  ["meta"] = {Meta, "many"},
- ["metadata"] = {MetaData, "one"}
+ ["metadata"] = {MetaData, "many"}
 }
 
 function Head:create(full)
@@ -29,6 +29,7 @@ function Head:create(full)
    head.children = {}
    head.regionBases = {}
    head.metas = {}
+   head.metadatas = {}
    
    if(full ~= nil)then   
       head:setImportedDocumentBase(ImportedDocumentBase:create(nil, full)) 
@@ -38,7 +39,7 @@ function Head:create(full)
       head:setDescriptorBase(DescriptorBase:create(nil, full))      
       head:setConnectorBase(ConnectorBase:create(nil, full))
       head:addMeta(Meta:create(nil, full)) 
-      head:setMetaData(MetaData:create())
+      head:addMetaData(MetaData:create())
    end
    
    return head
@@ -129,7 +130,7 @@ function Head:getRegionBasePos(i)
 end
 
 function Head:getRegionBaseById(id)
-   for i, regionBase in ipairs(self.regionBases) do
+   for _, regionBase in ipairs(self.regionBases) do
        if(regionBase:getId() == id)then
           return regionBase
        end
@@ -149,9 +150,9 @@ end
 function Head:removeRegionBase(regionBase)
    self:removeChild(regionBase)
    
-   for i, rb in ipairs(self.regionBases) do
+   for p, rb in ipairs(self.regionBases) do
        if(regionBase == rb)then
-           table.remove(self.regionBases, i)  
+           table.remove(self.regionBases, p)  
        end
    end 
 end
@@ -243,9 +244,9 @@ end
 function Head:removeMeta(meta)
    self:removeChild(meta)
    
-   for i, mt in ipairs(self.metas) do
+   for p, mt in ipairs(self.metas) do
        if(meta == mt)then
-           table.remove(self.metas, i)  
+           table.remove(self.metas, p)  
        end
    end 
 end
@@ -255,33 +256,42 @@ function Head:removeMetaPos(i)
    table.remove(self.metas, i)
 end
 
-function Head:setMetaData(metadata)
-   local p = nil 
-   
-   if(self.metadata == nil)then
-      p = self:getPosAvailable("meta", "connectorBase", "descriptorBase", "regionBase", 
-                               "transitionBase", "ruleBase", "importedDocumentBase")          
-      if(p ~= nil)then
-         self:addChild(metadata, p)
-       else
-         self:addChild(metadata, 1)
-      end    
+function Head:addMetaData(metadata)
+   table.insert(self.metadatas, metadata)  
+   local p = self:getPosAvailable("meta", "connectorBase", "descriptorBase", "regionBase", 
+                                  "transitionBase", "ruleBase", "importedDocumentBase")          
+   if(p ~= nil)then
+      self:addChild(metadata, p-1)
    else
-       p = self:getPosAvailable("metadata") - 1
-       self:removeChildPos(p)
-       self:addChild(metadata, p)
-   end
+      self:addChild(metadata, 1)
+   end    
+end
+
+function Head:getMetaDataPos(p)
+   return self.metadatas[p]
+end
+
+function Head:setMetaDatas(...)
+    if(#arg>0)then
+      for _, metadata in ipairs(arg) do
+         self:addMedia(metadata)
+      end
+    end
+end
+
+function Head:removeMetaData(metadata)
+   self:removeChild(metadata)
    
-   self.metadata = metadata  
+   for p, mt in ipairs(self.metadatas) do
+       if(metadata == mt)then
+           table.remove(self.metadatas, p)  
+       end
+   end
 end
 
-function Head:getMetaData()
-   return self.metadata
-end
-
-function Head:removeMetaData()
-   self:removeChild(self.metadata)
-   self.metadata = nil
+function Head:removeMetaDataPos(p)
+   self:removeChildPos(p)
+   table.remove(self.metadatas, p)
 end
 
 return Head
