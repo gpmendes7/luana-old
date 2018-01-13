@@ -46,6 +46,7 @@ function Context:create(attributes, full)
    context.links = {}
    context.switchs = {}
    context.metas = {}
+   context.metadatas = {}
    
    if(full ~= nil)then
       context:addPort(Port:create()) 
@@ -55,7 +56,7 @@ function Context:create(attributes, full)
       context:addLink(Link:create(nil, full))  
       context:addSwitch(Switch:create())  
       context:addMeta(Meta:create()) 
-      context:setMetaData(MetaData:create())
+      context:addMetaData(MetaData:create())
    end
    
    return context
@@ -358,18 +359,37 @@ function Context:removeMetaPos(i)
    table.remove(self.metas, i)
 end
 
-function Context:setMetaData(metaData)
-   self:addChild(metaData)
-   self.metaData = metaData  
+function Context:addMetaData(metadata)
+   table.insert(self.metadatas, metadata)  
+   local p = self:getPosAvailable("meta", "connectorBase", "descriptorBase", "regionBase", 
+                                  "transitionBase", "ruleBase", "importedDocumentBase")          
+   if(p ~= nil)then
+      self:addChild(metadata, p-1)
+   else
+      self:addChild(metadata, 1)
+   end    
 end
 
-function Context:getMetaData()
-   return self.metaData
+function Context:getMetaDataPos(p)
+   return self.metadatas[p]
 end
 
-function Context:removeMetaData()
-   self:removeChild(self.metaData)
-   self.metaData = nil
+function Context:setMetaDatas(...)
+    if(#arg>0)then
+      for _, metadata in ipairs(arg) do
+         self:addMedia(metadata)
+      end
+    end
+end
+
+function Context:removeMetaData(metadata)
+   self:removeChild(metadata)
+   
+   for p, mt in ipairs(self.metadatas) do
+       if(metadata == mt)then
+           table.remove(self.metadatas, p)  
+       end
+   end
 end
 
 -- Classe Switch -- 

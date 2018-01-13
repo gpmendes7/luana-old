@@ -53,7 +53,7 @@ local function test4()
    assert(context:getLinkPos(1) ~= nil, "Error!")
    assert(context:getSwitchPos(1) ~= nil, "Error!")
    assert(context:getMetaPos(1) ~= nil, "Error!")
-   assert(context:getMetaData(1) ~= nil, "Error!")
+   assert(context:getMetaDataPos(1) ~= nil, "Error!")
    
    context:addPort(Port:create())
    assert(context:getPortPos(2) ~= nil, "Error!")
@@ -76,6 +76,9 @@ local function test4()
    context:addMeta(Meta:create())
    assert(context:getMetaPos(2) ~= nil, "Error!")
    
+   context:addMetaData(MetaData:create())
+   assert(context:getMetaDataPos(2) ~= nil, "Error!")
+   
    context:addPort(Port:create{["id"] = "p1"})
    assert(context:getPortById("p1") ~= nil, "Error!")   
    
@@ -97,9 +100,8 @@ local function test4()
    context:addMeta(Meta:create{["name"] = "mt"})
    assert(context:getDescendantByAttribute("name", "mt") ~= nil, "Error!")
    
-   context = Context:create()
-   context:setMetaData(MetaData:create())
-   assert(context:getMetaData(1) ~= nil, "Error!")
+   context:addMetaData(MetaData:create())
+   assert(context:getMetaDataPos(1) ~= nil, "Error!")
 end
 
 local function test5()
@@ -110,7 +112,7 @@ local function test5()
    local context2 = Context:create{["id"] = "c2"}
    local switch = Switch:create{["id"] = "s1"}
    local meta = Meta:create{["name"] = "mt"}
-   local metaData = MetaData:create()
+   local metadata = MetaData:create()
     
    context1:addPort(port)    
    context1:removePort(port)
@@ -160,9 +162,13 @@ local function test5()
    context1:removeMetaPos(1)
    assert(context1:getDescendantByAttribute("name", "mt") == nil, "Error!")
         
-   context1:setMetaData(metaData)    
-   context1:removeMetaData(metaData)
-   assert(context1:getMetaData(1) == nil, "Error!")
+   context1:addMetaData(metadata)    
+   context1:removeMetaData(metadata)
+   assert(context1:getMetaDataPos(1) == nil, "Error!")  
+   
+   context1:addMeta(meta)    
+   context1:removeMetaPos(1)
+   assert(context1:getMetaDataPos(1) == nil, "Error!")
 end
 
 local function test6()
@@ -189,16 +195,7 @@ local function test6()
    assert(nclExp == nclRet, "Error!")
 end
 
-local function test7()
-   local context1 = Context:create{["id"] = "c1"}
-   local port = Port:create{["id"] = "p1"}
-   local property = Property:create{["name"] = "sound"}
-   local media = Media:create{["id"] = "m1"}
-   local context2 = Context:create{["id"] = "c2"}
-   local switch = Switch:create{["id"] = "s1"}
-   local meta = Meta:create{["name"] = "mt"}
-   local metaData = MetaData:create()
-   
+local function test7()   
    local context1 = nil
    
    local port, property, media = nil
