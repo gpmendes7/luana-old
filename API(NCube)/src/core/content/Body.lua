@@ -21,7 +21,7 @@ Body.childrenMap = {
  ["switch"] = {Switch, "many"},
  ["link"] = {Link, "many"},
  ["meta"] = {Meta, "many"},
- ["metadata"] = {MetaData, "one"}
+ ["metadata"] = {MetaData, "many"}
 }
 
 function Body:create(attributes, full)
@@ -43,6 +43,7 @@ function Body:create(attributes, full)
    body.switchs = {}
    body.links = {}
    body.metas = {}
+   body.metadatas = {}
    
    if(full ~= nil)then
       body:addPort(Port:create()) 
@@ -52,7 +53,7 @@ function Body:create(attributes, full)
       body:addSwitch(Switch:create(nil, full))  
       body:addLink(Link:create(nil, full)) 
       body:addMeta(Meta:create(nil, full)) 
-      body:setMetaData(MetaData:create())
+      body:addMetaData(MetaData:create())
    end
    
    return body
@@ -101,16 +102,16 @@ end
 function Body:removePort(port)
    self:removeChild(port)
    
-   for i, pt in ipairs(self.ports) do
+   for p, pt in ipairs(self.ports) do
        if(port == pt)then
-           table.remove(self.ports, i)  
+           table.remove(self.ports, p)  
        end
    end 
 end
 
-function Body:removePortPos(i)
-   self:removeChildPos(i)
-   table.remove(self.ports, i)
+function Body:removePortPos(p)
+   self:removeChildPos(p)
+   table.remove(self.ports, p)
 end
 
 function Body:addProperty(property)
@@ -123,11 +124,11 @@ function Body:addProperty(property)
    end  
 end
 
-function Body:getProperty(i)
-    return self.propertys[i]
+function Body:getPropertyPos(p)
+    return self.propertys[p]
 end
 
-function Body:getpropertyByName(name)
+function Body:getPropertyByName(name)
    for _, property in ipairs(self.propertys) do
        if(property:getName() == name)then
           return property
@@ -148,16 +149,16 @@ end
 function Body:removeProperty(property)
    self:removeChild(property)
    
-   for i, pr in ipairs(self.propertys) do
+   for p, pr in ipairs(self.propertys) do
        if(property == pr)then
-           table.remove(self.propertys, i)  
+           table.remove(self.propertys, p)  
        end
    end    
 end
 
-function Media:removePropertyPos(i)
-   self:removeChildPos(i)
-   table.remove(self.propertys, i)
+function Body:removePropertyPos(p)
+   self:removeChildPos(p)
+   table.remove(self.propertys, p)
 end
 
 function Body:addMedia(media)
@@ -170,8 +171,8 @@ function Body:addMedia(media)
    end     
 end
 
-function Body:getMediaPos(i)
-   return self.medias[i]
+function Body:getMediaPos(p)
+   return self.medias[p]
 end
 
 function Body:getMediaById(id)
@@ -194,16 +195,16 @@ end
 function Body:removeMedia(media)
    self:removeChild(media)
    
-   for i, md in ipairs(self.medias) do
+   for p, md in ipairs(self.medias) do
        if(media == md)then
-           table.remove(self.medias, i)  
+           table.remove(self.medias, p)  
        end
    end 
 end
 
-function Body:removeMediaPos(i)
-   self:removeChildPos(i)
-   table.remove(self.medias, i)
+function Body:removeMediaPos(p)
+   self:removeChildPos(p)
+   table.remove(self.medias, p)
 end
 
 function Body:addContext(context)
@@ -216,8 +217,8 @@ function Body:addContext(context)
    end       
 end
 
-function Body:getContextPos(i)
-   return self.contexts[i]
+function Body:getContextPos(p)
+   return self.contexts[p]
 end
 
 function Body:getContextById(id)
@@ -241,16 +242,16 @@ end
 function Body:removeContext(context)
    self:removeChild(context)
    
-   for i, ct in ipairs(self.contexts) do
+   for p, ct in ipairs(self.contexts) do
        if(context == ct)then
-           table.remove(self.contexts, i)  
+           table.remove(self.contexts, p)  
        end
    end 
 end
 
-function Body:removeContextPos(i)
-   self:removeChildPos(i)
-   table.remove(self.contexts, i)
+function Body:removeContextPos(p)
+   self:removeChildPos(p)
+   table.remove(self.contexts, p)
 end
 
 function Body:addSwitch(switch)
@@ -263,8 +264,8 @@ function Body:addSwitch(switch)
    end       
 end
 
-function Body:getSwitchPos(i)
-   return self.switchs[i]
+function Body:getSwitchPos(p)
+   return self.switchs[p]
 end
 
 function Body:getSwitchById(id)
@@ -288,16 +289,16 @@ end
 function Body:removeSwitch(switch)
    self:removeChild(switch)
    
-   for i, ct in ipairs(self.switchs) do
+   for p, ct in ipairs(self.switchs) do
        if(switch == ct)then
-           table.remove(self.switchs, i)  
+           table.remove(self.switchs, p)  
        end
    end 
 end
 
-function Body:removeSwitchPos(i)
-   self:removeChildPos(i)
-   table.remove(self.switchs, i)
+function Body:removeSwitchPos(p)
+   self:removeChildPos(p)
+   table.remove(self.switchs, p)
 end
 
 
@@ -311,8 +312,8 @@ function Body:addLink(link)
    end          
 end
 
-function Body:getLinkPos(i)
-   return self.links[i]
+function Body:getLinkPos(p)
+   return self.links[p]
 end
 
 function Body:getLinkById(id)
@@ -335,16 +336,16 @@ end
 function Body:removeLink(link)
    self:removeChild(link)
    
-   for i, lk in ipairs(self.links) do
+   for p, lk in ipairs(self.links) do
        if(link == lk)then
-           table.remove(self.links, i)  
+           table.remove(self.links, p)  
        end
    end 
 end
 
-function Body:removeLinkPos(i)
-   self:removeChildPos(i)
-   table.remove(self.links, i)
+function Body:removeLinkPos(p)
+   self:removeChildPos(p)
+   table.remove(self.links, p)
 end
 
 function Body:addMeta(meta)
@@ -371,30 +372,54 @@ end
 function Body:removeMeta(meta)
    self:removeChild(meta)
    
-   for i, mt in ipairs(self.metas) do
+   for p, mt in ipairs(self.metas) do
        if(meta == mt)then
-           table.remove(self.metas, i)  
+           table.remove(self.metas, p)  
        end
    end 
 end
 
-function Body:removeMetaPos(i)
-   self:removeChildPos(i)
-   table.remove(self.metas, i)
+function Body:removeMetaPos(p)
+   self:removeChildPos(p)
+   table.remove(self.metas, p)
 end
 
-function Body:setMetaData(metaData)   
-   self:addChild(metaData, 1)
-   self.metaData = metaData  
+function Body:addMetaData(metadata)
+   table.insert(self.metadatas, metadata)  
+   local p = self:getPosAvailable("meta", "connectorBase", "descriptorBase", "regionBase", 
+                                  "transitionBase", "ruleBase", "importedDocumentBase")          
+   if(p ~= nil)then
+      self:addChild(metadata, p-1)
+   else
+      self:addChild(metadata, 1)
+   end    
 end
 
-function Body:getMetaData()
-   return self.metaData
+function Body:getMetaDataPos(p)
+   return self.metadatas[p]
 end
 
-function Body:removeMetaData()
-   self:removeChild(self.metaData)
-   self.metaData = nil
+function Body:setMetaDatas(...)
+    if(#arg>0)then
+      for _, metadata in ipairs(arg) do
+         self:addMedia(metadata)
+      end
+    end
+end
+
+function Body:removeMetaData(metadata)
+   self:removeChild(metadata)
+   
+   for p, mt in ipairs(self.metadatas) do
+       if(metadata == mt)then
+           table.remove(self.metadatas, p)  
+       end
+   end
+end
+
+function Body:removeMetaDataPos(p)
+   self:removeChildPos(p)
+   table.remove(self.metadatas, p)
 end
 
 return Body

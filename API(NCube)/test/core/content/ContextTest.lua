@@ -110,6 +110,7 @@ local function test5()
    local property = Property:create{["name"] = "sound"}
    local media = Media:create{["id"] = "m1"}
    local context2 = Context:create{["id"] = "c2"}
+   local link = Link:create{["id"] = "l1"}
    local switch = Switch:create{["id"] = "s1"}
    local meta = Meta:create{["name"] = "mt"}
    local metadata = MetaData:create()
@@ -145,6 +146,14 @@ local function test5()
    context1:addContext(context2)    
    context1:removeContextPos(1)
    assert(context1:getContextById("c2") == nil, "Error!")  
+   
+   context1:addLink(link)    
+   context1:removeLink(link)
+   assert(context1:getLinkById("s1") == nil, "Error!")   
+   
+   context1:addLink(link)    
+   context1:removeLinkPos(1)
+   assert(context1:getLinkById("s1") == nil, "Error!")  
    
    context1:addSwitch(switch)    
    context1:removeSwitch(switch)
@@ -198,9 +207,9 @@ end
 local function test7()   
    local context1 = nil
    
-   local port, property, media = nil
+   local port, property, media, context2 = nil
    
-   local context2, switch, meta, metaData = nil
+   local link, switch, meta, metaData = nil
    
    local nclExp, nclRet = nil
    
@@ -219,6 +228,9 @@ local function test7()
    context2 = Context:create{["id"] = "c2"}
    nclExp = nclExp.." <context id=\"c2\"/>\n" 
    
+   link = Link:create{["id"] = "l1"}
+   nclExp = nclExp.." <link id=\"l1\"/>\n" 
+   
    switch = Switch:create{["id"] = "s1"}
    nclExp = nclExp.." <switch id=\"s1\"/>\n" 
    
@@ -231,6 +243,7 @@ local function test7()
    context1:addProperty(property)  
    context1:addMedia(media)  
    context1:addContext(context2)  
+   context1:addLink(link)  
    context1:addSwitch(switch)    
    context1:addMeta(meta)    
    
