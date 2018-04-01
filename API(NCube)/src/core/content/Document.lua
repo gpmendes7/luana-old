@@ -1,3 +1,4 @@
+local Validator = require "valid/Validator"
 local NCLElem = require "core/NCLElem"
 local Head = require "core/content/Head"
 local Body = require "core/content/Body"
@@ -11,55 +12,62 @@ Document.childrenMap = {
  ["body"] = {Body, "one"}
 }
 
+Document.attributesMap = {
+  ["id"] = "string",
+  ["title"] = "string",
+  ["xmlns"] = "string",
+  ["xmlns:xsi"] = "string",
+  ["xsi:schemaLocation"] = "string"
+}
+
 function Document:create(attributes, xmlHead, full)
-   local xmlHead = xmlHead or nil  
-   local document = Document:new()   
-   
-   document.attributes = { 
-      ["id"] = "",
-      ["title"] = "",
-      ["xmlns"] = "",
-      ["xmlns:xsi"] = "",
-      ["xsi:schemaLocation"] = ""
-   }
+    local xmlHead = xmlHead or nil  
+    local document = Document:new()   
+     
+    document.id = nil;
+    document.title = nil;
+    document.xmlns = nil;
+    document["xmlns:xsi"] = nil;
+    document["xsi:schemaLocation"] = nil;
    
    if(attributes ~= nil)then
-      document:setAttributes(attributes)
+      document:setAttributes(attributes);
    end
    
-   document.children = {}
-   document:setXmlHead(xmlHead)
+   document.children = {};
+   
+   document:setXmlHead(xmlHead);
    
    if(full ~= nil)then
-      document:setHead(Head:create(full))   
-      document:setBody(Body:create(nil, full))  
+      document:setHead(Head:create(full));   
+      document:setBody(Body:create(nil, full));
    end
 
    return document
 end
 
 function Document:setId(id)
-   self:addAttribute("id", id)
+   self:addAttribute("id", id);
 end
 
 function Document:getId()
-   return self:getAttribute("id")
+   return self:getAttribute("id");
 end
 
 function Document:setTitle(title)
-   self:addAttribute("title", title)
+   self:addAttribute("title", title);
 end
 
 function Document:getTitle()
-   return self:getAttribute("title")
+   return self:getAttribute("title");
 end
 
 function Document:setXmlns(xmlns)
-   self:addAttribute("xmlns", xmlns)
+   self:addAttribute("xmlns", xmlns);
 end
 
 function Document:getXmlns()
-   return self:getAttribute("xmlns")
+   return self:getAttribute("xmlns");
 end
 
 function Document:setXsi(xsi)
@@ -67,7 +75,7 @@ function Document:setXsi(xsi)
 end
 
 function Document:getXsi()
-   return self:getAttribute("xmlns:xsi")
+   return self:getAttribute("xmlns:xsi");
 end
 
 function Document:setSchemaLocation(schemaLocation)
@@ -75,11 +83,13 @@ function Document:setSchemaLocation(schemaLocation)
 end
 
 function Document:getSchemaLocation()
-   return self:getAttribute("xsi:schemaLocation")
+   return self:getAttribute("xsi:schemaLocation");
 end
 
 function Document:setXmlHead(xmlHead)
-   self.xmlHead = xmlHead
+   if(not Validator:isInvalidString(xmlHead))then
+      self.xmlHead = xmlHead;
+   end   
 end
 
 function Document:getXmlHead()

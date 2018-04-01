@@ -1,0 +1,2 @@
+master: branch principal do repositório.
+attributes: branch com as refatorações feitas sobre os atributos das classes.

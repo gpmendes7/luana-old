@@ -14,6 +14,7 @@ local doc = Document:create()
 
 -- doc:loadNcl("docs/luaRocks/main.ncl")
 
+-- doc:loadNcl("docs/nclcd/exemplo01.ncl")
 -- doc:loadNcl("docs/nclcd/composerConnectorBase.conn")
 -- doc:loadNcl("docs/nclcd/exemplo02.ncl")
 -- doc:loadNcl("docs/nclcd/exemplo02.conn")
