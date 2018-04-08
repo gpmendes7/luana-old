@@ -220,183 +220,183 @@ function NCLElem:getAttribute(attribute)
 end
 
 function NCLElem:getAttributesMap()
-    return self.attributesMap
+    return self.attributesMap;
 end
 
 function NCLElem:setAttributes(attributes)    
     for attribute, value in pairs(attributes) do
-       self:addAttribute(attribute, value)
+       self:addAttribute(attribute, value);
     end
 end
 
 function NCLElem:getAttributes()  
-    return self.attributes
+    return self.attributes;
 end
 
 function NCLElem:readAttributes()
-   local s, e, t, u, r, v, w, z = nil
+   local s, e, t, u, r, v, w, z;
 
-   _, s = string.find(self.ncl, "<"..self.name.." ")
-   _, t = string.find(self.ncl, "<"..self.name..">")
-   e = string.find(self.ncl, ">")
+   _, s = string.find(self.ncl, "<"..self.name.." ");
+   _, t = string.find(self.ncl, "<"..self.name..">");
+   e = string.find(self.ncl, ">");
 
    if(s ~= nil and t == nil and e ~= nil)then
-     local attributes = string.sub(self.ncl,s,e-1)   
+     local attributes = string.sub(self.ncl,s,e-1);   
      
-     u, r = string.find(attributes, "%S+=")
+     u, r = string.find(attributes, "%S+=");
 
      while (u ~= nil and r ~= nil) do
-            local attribute = string.sub(attributes, u, r-1)
-            v, w = string.find(attributes, "\"", u+1)
-            z = string.find(attributes, "\"", w+1)
+            local attribute = string.sub(attributes, u, r-1);
+            v, w = string.find(attributes, "\"", u+1);
+            z = string.find(attributes, "\"", w+1);
             
-            local value = string.sub(attributes, v+1,z-1)  
+            local value = string.sub(attributes, v+1,z-1);  
             
-            self:addAttribute(attribute, value)
+            self:addAttribute(attribute, value);
           
-            attributes = string.sub(attributes, z+1, string.len(attributes))
-            u, r = string.find(attributes, "%S+=")
+            attributes = string.sub(attributes, z+1, string.len(attributes));
+            u, r = string.find(attributes, "%S+=");
      end
    end
 end
 
 function NCLElem:readChildrenNcl()
-   local s, t, u = nil
+   local s, t, u;
     
-   s = string.find(self.ncl,">")
-   t = string.sub(self.ncl, 1, s)
-   u = string.find(t,"/>")
+   s = string.find(self.ncl,">");
+   t = string.sub(self.ncl, 1, s);
+   u = string.find(t,"/>");
    
-   local childrenNcl = nil
+   local childrenNcl;
         
    if(u == nil)then
-      local _, n = string.gsub(self.ncl, "</"..self.name..">", "*")
-      local e, v, w = nil
+      local _, n = string.gsub(self.ncl, "</"..self.name..">", "*");
+      local e, v, w;
       
       if(n > 1)then
-         childrenNcl = self.ncl
-         w, v = 0
+         childrenNcl = self.ncl;
+         w, v = 0;
 
          repeat
-           e, v = string.find(self.ncl, "</"..self.name..">", v)
-           w = w + 1
+           e, v = string.find(self.ncl, "</"..self.name..">", v);
+           w = w + 1;
          until w == n
       else
-         e, v = string.find(self.ncl, "</"..self.name..">")
+         e, v = string.find(self.ncl, "</"..self.name..">");
       end
     
-      childrenNcl = string.sub(self.ncl, s+1, e-1)
+      childrenNcl = string.sub(self.ncl, s+1, e-1);
    end
    
-   return childrenNcl
+   return childrenNcl;
 end
 
 function NCLElem:readChildNcl(childrenNcl, childName)
-   local s = string.find(childrenNcl, "<")
-   local e = string.find(childrenNcl, ">")
-   local t, u = nil  
+   local s = string.find(childrenNcl, "<");
+   local e = string.find(childrenNcl, ">");
+   local t, u; 
  
-   local aux1 = string.sub(childrenNcl, s, e)  
+   local aux1 = string.sub(childrenNcl, s, e); 
    
    if(string.find(aux1,"/>") ~= nil)then
-      return aux1, e
+      return aux1, e;
    else
-     t, u = string.find(childrenNcl, "</"..childName..">") 
+     t, u = string.find(childrenNcl, "</"..childName..">"); 
    
        while(1)do
-        aux1 = string.sub(childrenNcl, s, u)
+        aux1 = string.sub(childrenNcl, s, u);
         
-        local aux2, n1 = string.gsub(aux1, "<"..childName..">", "opening_tag")
+        local aux2, n1 = string.gsub(aux1, "<"..childName..">", "opening_tag");
         
-        local aux3 = aux1
-        local n2 = 0
-        local r, z = string.find(aux3, "<"..childName.." ")
+        local aux3 = aux1;
+        local n2 = 0;
+        local r, z = string.find(aux3, "<"..childName.." ");
         
         while(r ~= nil and z ~= nil)do       
-           local y = string.find(aux3, ">", z)
-           local aux4 = string.sub(aux3,r,y)
+           local y = string.find(aux3, ">", z);
+           local aux4 = string.sub(aux3,r,y);
         
            if(string.find(aux4, "/>") == nil)then
-              n2 = n2 + 1
+              n2 = n2 + 1;
            end
   
-           r, z = string.find(aux3, "<"..childName.." ", y)       
+           r, z = string.find(aux3, "<"..childName.." ", y);       
         end
 
-        local nopening = n1 + n2
-        local aux2, nclosing = string.gsub(aux1, "</"..childName..">", "closing_tag")
+        local nopening = n1 + n2;
+        local aux2, nclosing = string.gsub(aux1, "</"..childName..">", "closing_tag");
         
         if(nopening == nclosing)then
-           local p = 1
+           local p = 1;
            
            for i = 1,nclosing do
-               _, p = string.find(childrenNcl , "</"..childName..">", p)
-               p = p + 1
+               _, p = string.find(childrenNcl , "</"..childName..">", p);
+               p = p + 1;
            end
           
-           return string.sub(childrenNcl, s, p), p
+           return string.sub(childrenNcl, s, p), p;
         end
         
-        t, u = string.find(childrenNcl, "</"..childName..">", u)   
+        t, u = string.find(childrenNcl, "</"..childName..">", u);   
      end
 end
 end
 
 function NCLElem:ncl2Table()  
-   local s, e = nil
+   local s, e;
 
    if(self:getNameElem() == "metadata")then
-      local _, s = string.find(self:getNcl(), "<metadata>")
-      local e = string.find(self:getNcl(), "</metadata>")      
-      self:setRdfTree(string.sub(self:getNcl(), s+1, e-1)) 
+      local _, s = string.find(self:getNcl(), "<metadata>");
+      local e = string.find(self:getNcl(), "</metadata>");      
+      self:setRdfTree(string.sub(self:getNcl(), s+1, e-1)); 
       return
    end 
      
-   self:readAttributes()
+   self:readAttributes();
 
-   local childrenNcl = self:readChildrenNcl()
+   local childrenNcl = self:readChildrenNcl();
    if(childrenNcl ~= nil)then
       repeat     
-        s, e = string.find(childrenNcl, "<%a+")      
+        s, e = string.find(childrenNcl, "<%a+");      
 
         if(s ~= nil and e ~= nil)then
         
-           local childName = string.sub(childrenNcl, s+1, e)
-           local childNcl, h = self:readChildNcl(childrenNcl, childName)
+           local childName = string.sub(childrenNcl, s+1, e);
+           local childNcl, h = self:readChildNcl(childrenNcl, childName);
            
            if(childNcl ~= nil)then                   
               if(self.childrenMap ~= nil)then
-                 local map = self.childrenMap[childName]
+                 local map = self.childrenMap[childName];
               
                  if(map ~= nil)then
-                    local childClass = map[1]       
-                    local childObject = childClass:create()            
+                    local childClass = map[1];      
+                    local childObject = childClass:create();            
                              
-                    childObject:setNcl(childNcl)
-                    childObject:ncl2Table()  
-                    self:addChild(childObject)
+                    childObject:setNcl(childNcl);
+                    childObject:ncl2Table();
+                    self:addChild(childObject);
                                           
-                    local cardinality = map[2]
+                    local cardinality = map[2];
                                        
                     if(cardinality == "many")then    
                        if(self[childName..'s'] == nil)then
-                          self[childName..'s'] = {}
+                          self[childName..'s'] = {};
                        end
                                               
-                       table.insert(self[childName.."s"], childObject)                
+                       table.insert(self[childName.."s"], childObject);                
                     elseif(cardinality == "one")then                       
-                            self[childName] = childObject                
+                           self[childName] = childObject;                
                     end
                  end
                end  
            end 
             
            if(h ~= nil)then
-             childrenNcl = string.sub(childrenNcl, h+1, string.len(childrenNcl))      
+             childrenNcl = string.sub(childrenNcl, h+1, string.len(childrenNcl));      
            end  
         end            
 
-     until (string.find(childrenNcl, "%a") == nil)
+     until (string.find(childrenNcl, "%a") == nil);
   end
 end
 
@@ -430,24 +430,12 @@ function NCLElem:table2Ncl(deep)
           
   ncl = ncl.."<"..self.name;
     
-  local attrs = self.attributes;
-  if(attrs ~= nil)then
-    for k, v in pairs(attrs) do
-         if(not Validator:isInvalidString(v))then
-            ncl = ncl.." "..k.."=".."\""..v.."\"";
-         end
-    end
-  else
-     local attMap = self.attributesMap;
-     if(attMap ~= nil)then
-       for attribute, typeAtt in pairs(self.attributesMap) do
+  for attribute, typeAtt in pairs(self.attributesMap) do
            if(self[attribute] ~= nil 
               and self.attributesMap[attribute] == type(typeAtt))then
                 ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\"";
            end
-       end
-     end
-  end 
+   end
  
   local children = self.children;
   
@@ -488,4 +476,4 @@ function NCLElem:writeNcl()
   print(self:table2Ncl(0));
 end
 
-return NCLElem
+return NCLElem;

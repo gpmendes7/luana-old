@@ -89,74 +89,74 @@ local function test3()
    status, err = pcall(document["setXmlHead"], document, 55.2);
    assert(not(status), "Error!");
 end
---
---local function test4()
---   local document1, document2, n1, n2 = nil;
---      
---   document1 = Document:create(nil, nil, 1);
---   assert(document1:getHead() ~= nil, "Error!");
---   assert(document1:getBody() ~= nil, "Error!");
---   
---   document2 = Document:create();
---   
---   document2:setHead(Head:create());
---   assert(document2:getHead() ~= nil, "Error!");
---   
---   document2:setBody(Body:create());
---   assert(document2:getBody() ~= nil, "Error!");
---   
---   n1 = #document1:getDescendants();
---   document1:setHead(Head:create());
---   document1:setBody(Body:create());
---   n2 = #document1:getDescendants();
---   assert(n1 > n2, "Error!");
---end
---
---local function test5()
---   local document = Document:create();
---   local head = Head:create();
---   local body = Body:create();
---   
---   document:setHead(head);
---   document:setBody(body);
---
---   document:removeHead(head);
---   assert(document:getHead() == nil, "Error!");
---   
---   document:removeBody(body);
---   assert(document:getBody() == nil, "Error!");
---end
---
---local function test6()
---   local document = nil;
---   
---   local nclExp, nclRet, atts = nil;
---   
---   atts = {
---      ["id"] = "document",
---      ["title"] = "title",
---      ["xmlns"] = "xmlns",
---      ["xmlns:xsi"] = "xsi",
---      ["xsi:schemaLocation"] = "schema"
---   };       
---      
---   document = Document:create(atts);
---   
---   nclExp = "<ncl";   
---   for attribute, typeAtt in pairs(document:getAttributesMap()) do
---      nclExp = nclExp.." "..attribute.."=\""..document[attribute].."\"";
---   end 
---   
---   nclExp = nclExp.."/>\n";
---
---   nclRet = document:table2Ncl(0);
---
---   assert(nclExp == nclRet, "Error!");
---end
+
+local function test4()
+   local document1, document2, n1, n2 = nil;
+      
+   document1 = Document:create(nil, nil, 1);
+   assert(document1:getHead() ~= nil, "Error!");
+   assert(document1:getBody() ~= nil, "Error!");
+   
+   document2 = Document:create();
+   
+   document2:setHead(Head:create());
+   assert(document2:getHead() ~= nil, "Error!");
+   
+   document2:setBody(Body:create());
+   assert(document2:getBody() ~= nil, "Error!");
+   
+   n1 = #document1:getDescendants();
+   document1:setHead(Head:create());
+   document1:setBody(Body:create());
+   n2 = #document1:getDescendants();
+   assert(n1 > n2, "Error!");
+end
+
+local function test5()
+   local document = Document:create();
+   local head = Head:create();
+   local body = Body:create();
+   
+   document:setHead(head);
+   document:setBody(body);
+
+   document:removeHead(head);
+   assert(document:getHead() == nil, "Error!");
+   
+   document:removeBody(body);
+   assert(document:getBody() == nil, "Error!");
+end
+
+local function test6()
+   local document = nil;
+   
+   local nclExp, nclRet, atts = nil;
+   
+   atts = {
+      ["id"] = "document",
+      ["title"] = "title",
+      ["xmlns"] = "xmlns",
+      ["xmlns:xsi"] = "xsi",
+      ["xsi:schemaLocation"] = "schema"
+   };       
+      
+   document = Document:create(atts);
+   
+   nclExp = "<ncl";   
+   for attribute, typeAtt in pairs(document:getAttributesMap()) do
+      nclExp = nclExp.." "..attribute.."=\""..document[attribute].."\"";
+   end 
+   
+   nclExp = nclExp.."/>\n";
+
+   nclRet = document:table2Ncl(0);
+
+   assert(nclExp == nclRet, "Error!");
+end
 
 test1();
 test2();
 test3();
---test4();
---test5();
---test6();
+test4();
+test5();
+test6();

@@ -1,65 +1,71 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "core/NCLElem";
 
-local AttributeAssessment = NCLElem:extends()
+local AttributeAssessment = NCLElem:extends();
 
-AttributeAssessment.name = "attributeAssessment"
+AttributeAssessment.name = "attributeAssessment";
+
+AttributeAssessment.attributesMap = {
+    ["role"] = "string",
+    ["eventType"] = "string",
+    ["key"] = "string",
+    ["attributeType"] = "string",
+    ["offset"] = "string"
+};
 
 function AttributeAssessment:create(attributes)
-   local attributeAssessment = AttributeAssessment:new()
+   local attributeAssessment = AttributeAssessment:new();
    
-   attributeAssessment.attributes = { 
-    ["role"] = "",
-    ["eventType"] = "",
-    ["key"] = "",
-    ["attributeType"] = "",
-    ["offset"] = ""
-   }
+   attributeAssessment.role = nil;
+   attributeAssessment.eventType = nil;
+   attributeAssessment.key = nil;
+   attributeAssessment.attributeType = nil;
+   attributeAssessment.offset = nil;
    
    if(attributes ~= nil)then
-      attributeAssessment:setAttributes(attributes)
+      attributeAssessment:setAttributes(attributes);
    end
    
-   return attributeAssessment
+   return attributeAssessment;
 end
 
 function AttributeAssessment:setRole(role)
-    self:addAttribute("role", role)
+    self:addAttribute("role", role);
 end
 
 function AttributeAssessment:getRole()
-   return self:getAttribute("role")
+   return self:getAttribute("role");
 end
 
 function AttributeAssessment:setEventType(eventType)
-    self:addAttribute("eventType", eventType)
+    self:addAttribute("eventType", eventType);
 end
 
 function AttributeAssessment:getEventType()
-   return self:getAttribute("eventType")
+   return self:getAttribute("eventType");
 end
 
 function AttributeAssessment:setKey(key)
-    self:addAttribute("key", key)
+    self:addAttribute("key", key);
 end
 
 function AttributeAssessment:getKey()
-   return self:getAttribute("key")
+   return self:getAttribute("key");
 end
 
 function AttributeAssessment:setAttributeType(attributeType)
-    self:addAttribute("attributeType", attributeType)
+    self:addAttribute("attributeType", attributeType);
 end
 
 function AttributeAssessment:getAttributeType()
-   return self:getAttribute("attributeType")
+   return self:getAttribute("attributeType");
 end
 
 function AttributeAssessment:setOffset(offset)
-    self:addAttribute("offset", offset)
+    self:addAttribute("offset", offset);
 end
 
 function AttributeAssessment:getOffset()
-   return self:getAttribute("offset")
+   return self:getAttribute("offset");
 end
 
-return AttributeAssessment
+return AttributeAssessment;

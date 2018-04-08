@@ -1,110 +1,112 @@
-local NCLElem = require "core/NCLElem"
-local AttributeAssessment = require "core/connectors/AttributeAssessment"
-local ValueAssessment = require "core/connectors/ValueAssessment"
+local NCLElem = require "core/NCLElem";
+local AttributeAssessment = require "core/connectors/AttributeAssessment";
+local ValueAssessment = require "core/connectors/ValueAssessment";
 
-local AssessmentStatement = NCLElem:extends()
+local AssessmentStatement = NCLElem:extends();
 
-AssessmentStatement.name = "assessmentStatement"
+AssessmentStatement.name = "assessmentStatement";
 
 AssessmentStatement.childrenMap = {
  ["attributeAssessment"] = {AttributeAssessment, "many"}, 
  ["valueAssessment"] = {ValueAssessment, "one"}
-}
+};
+
+AssessmentStatement.attributesMap = {
+  ["comparator"] = "string"
+};
 
 function AssessmentStatement:create(attributes, full)
-   local assessmentStatement = AssessmentStatement:new()
+   local assessmentStatement = AssessmentStatement:new();
    
-   assessmentStatement.attributes = {
-      ["comparator"] = ""
-   }     
+   assessmentStatement.comparator = nil;
    
    if(attributes ~= nil)then
-      assessmentStatement:setAttributes(attributes)
+      assessmentStatement:setAttributes(attributes);
    end 
    
-   assessmentStatement.children = {}
-   assessmentStatement.attributeAssessments = {}
+   assessmentStatement.children = {};
+   assessmentStatement.attributeAssessments = {};
    
    if(full ~= nil)then   
-      assessmentStatement:addAttributeAssessment(AttributeAssessment:create())
-      assessmentStatement:setValueAssessment(ValueAssessment:create())
+      assessmentStatement:addAttributeAssessment(AttributeAssessment:create());
+      assessmentStatement:setValueAssessment(ValueAssessment:create());
    end
    
-   return assessmentStatement
+   return assessmentStatement;
 end
 
 function AssessmentStatement:setComparator(comparator)
-   self:addAttribute("comparator", comparator)
+   self:addAttribute("comparator", comparator);
 end
 
 function AssessmentStatement:getComparator()
-   return self:getAttribute("comparator")
+   return self:getAttribute("comparator");
 end
 
 function AssessmentStatement:addAttributeAssessment(attributeAssessment)            
-   table.insert(self.attributeAssessments, attributeAssessment) 
-   local p = self:getPosAvailable("attributeAssessment")
+   table.insert(self.attributeAssessments, attributeAssessment); 
+   local p = self:getPosAvailable("attributeAssessment");
    
    if(p ~= nil)then
-      self:addChild(attributeAssessment, p)
+      self:addChild(attributeAssessment, p);
    else
-      self:addChild(attributeAssessment, 1)
+      self:addChild(attributeAssessment, 1);
    end   
 end
 
-function AssessmentStatement:getAttributeAssessmentPos(i)
-   return self.attributeAssessments[i]
+function AssessmentStatement:getAttributeAssessmentPos(p)
+   return self.attributeAssessments[p];
 end
 
 function AssessmentStatement:setAttributeAssessments(...)
     if(#arg>0)then
       for _, attributeAssessment in ipairs(arg) do
-         self:addAttributeAssessment(attributeAssessment)
+         self:addAttributeAssessment(attributeAssessment);
       end
     end
 end
 
 function AssessmentStatement:removeAttributeAssessment(attributeAssessment)
-   self:removeChild(attributeAssessment)
+   self:removeChild(attributeAssessment);
    
    for i, aa in ipairs(self.attributeAssessments) do
        if(attributeAssessment == aa)then
-           table.remove(self.attributeAssessments, i)  
+           table.remove(self.attributeAssessments, i);
        end
    end 
 end
 
-function AssessmentStatement:removeAttributeAssessmentPos(i)
-   self:removeChildPos(i)
-   table.remove(self.attributeAssessments, i)
+function AssessmentStatement:removeAttributeAssessmentPos(p)
+   self:removeChildPos(p);
+   table.remove(self.attributeAssessments, p);
 end
 
 function AssessmentStatement:setValueAssessment(valueAssessment)   
-   local p = nil 
+   local p;
    
    if(self.valueAssessment == nil)then
-      p = self:getPosAvailable("attributeAssessment")          
+      p = self:getPosAvailable("attributeAssessment");          
       if(p ~= nil)then
-         self:addChild(valueAssessment, p)
+         self:addChild(valueAssessment, p);
        else
-         self:addChild(valueAssessment, 1)
+         self:addChild(valueAssessment, 1);
       end    
    else
-       p = self:getPosAvailable("valueAssessment") - 1
-       self:removeChildPos(p)
-       self:addChild(valueAssessment, p)
+       p = self:getPosAvailable("valueAssessment") - 1;
+       self:removeChildPos(p);
+       self:addChild(valueAssessment, p);
    end
    
-   self.valueAssessment = valueAssessment
+   self.valueAssessment = valueAssessment;
 end
 
 function AssessmentStatement:getValueAssessment()
-   return self.valueAssessment
+   return self.valueAssessment;
 end
 
 function AssessmentStatement:removeValueAssessment()
-   self:removeChild(self.valueAssessment)
-   self.valueAssessment = nil
+   self:removeChild(self.valueAssessment);
+   self.valueAssessment = nil;
 end
 
-return AssessmentStatement
+return AssessmentStatement;
