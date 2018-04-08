@@ -35,8 +35,10 @@ function Document:create(attributes, xmlHead, full)
    end
    
    document.children = {};
-   
-   document:setXmlHead(xmlHead);
+  
+   if(xmlHead ~= nil)then
+      document:setXmlHead(xmlHead);
+   end
    
    if(full ~= nil)then
       document:setHead(Head:create(full));   
@@ -87,9 +89,10 @@ function Document:getSchemaLocation()
 end
 
 function Document:setXmlHead(xmlHead)
-   if(not Validator:isInvalidString(xmlHead))then
-      self.xmlHead = xmlHead;
-   end   
+   if(Validator:isInvalidString(xmlHead))then
+      error("Error! Invalid xml head to ncl element! It must be a valid string!", 2);
+   end
+      self.xmlHead = xmlHead;  
 end
 
 function Document:getXmlHead()
@@ -237,4 +240,4 @@ function Document:loadNcl(name)
    end
 end
 
-return Document
+return Document;

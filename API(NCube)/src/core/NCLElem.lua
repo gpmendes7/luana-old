@@ -12,154 +12,151 @@ local NCLElem = Class:createClass{
   ncl = nil
 }
 
-function NCLElem:create(name, attributes)
-   local attributes = attributes    
-   local nclElem = NCLElem:new() 
-       
-   if(Validator:isInvalidString(name))then
-      return nil
-   end
-   
-   nclElem.name = name    
-   nclElem:setChildren()
-   
-   if(attributes ~= nil)then
-      nclElem:setAttributes(attributes)
-   end
- 
-   return nclElem
-end
-
 function NCLElem:extends()
-    return Class:createClass(NCLElem)
+    return Class:createClass(NCLElem);
 end
 
 function NCLElem:getNameElem()
-    return self.name
+    return self.name;
 end
 
 function NCLElem:setParent(parent)
-    self.parent = parent
+    self.parent = parent;
 end
 
 function NCLElem:getParent()
-    return self.parent
+    return self.parent;
 end
 
 function NCLElem:addChild(child, p)
     if(child == nil)then
-       return
+       error("Error! Attempt to set a nil child to "..self.name.."!", 2);
     end
     
-    local valid = false
+    local valid = false;
     
     for chd, _ in pairs(self.childrenMap) do
        if(chd == child.name)then
-          valid = true
+          valid = true;
        end
     end
     
     if(not(valid))then
-       return
+       error("Error! Attempt to set a invalid child! "..child.name.." cannot be child of "..self.name.."!", 2);
     end
-    
+        
     if(p ~= nil)then
-       table.insert(self.children, p, child)
+       table.insert(self.children, p, child);
     else
-       table.insert(self.children, child)
+       table.insert(self.children, child);
     end
     
-    child:setParent(self)
+    child:setParent(self);
 end
 
 function NCLElem:getChild(p)
-    return self.children[p]
-end
-
-function NCLElem:removeChild(child)
-    local p = self:getPosChild(child)   
-    self:removeChildPos(p)
-end
-
-function NCLElem:removeChildPos(p)
-    self:getChild(p):setParent(nil) 
-    table.remove(self.children, p) 
+    if(p > #self.children)then
+       error("Error! "..self.name.." element doesn't have a child in position "..p.."!", 2);
+    end
+    
+    return self.children[p];
 end
 
 function NCLElem:getPosChild(child)
     for p, chd in ipairs(self.children) do
        if(chd == child)then
-          return p
+          return p;
        end 
     end  
+    
+    return nil;
 end
 
 function NCLElem:getLastPosChild(child)
-   local p = nil
+   local p;
    
    for i, chd in ipairs(self.children) do
       if(child == chd.name)then
-         p = i
+         p = i;
       end
    end
       
-   return p
+   return p;
 end
 
 function NCLElem:getPosAvailable(...)      
    for _, elem in ipairs(arg) do
-      local p = self:getLastPosChild(elem) 
+      local p = self:getLastPosChild(elem); 
       if(p ~= nil)then
-         return p + 1
+         return p + 1;
       end
    end
+end
+
+function NCLElem:removeChildPos(p)
+    if(p > #self.children)then
+       error("Error! Attempt to remove failed! "..self.name.." element doesn't have a child in position "..p.."!", 2);
+    end
+    
+    self:getChild(p):setParent(nil); 
+    table.remove(self.children, p); 
+end
+
+function NCLElem:removeChild(child)
+    local p = self:getPosChild(child);   
+    
+    if(p == nil)then
+       error("Error! Attempt to remove failed! Invalid child!", 2);
+    end
+    
+    self:removeChildPos(p);
 end
 
 function NCLElem:setChildren(...)
     if(#arg>0)then
       for _, child in ipairs(arg) do
-          self:addChild(child)
+          self:addChild(child);
       end
     end
 end
 
 function NCLElem:getChildren()
-    return self.children
+    return self.children;
 end
 
 function NCLElem:removeAllChildren()
     for _, child in ipairs(self.children) do
-       child:setParent(nil) 
+       child:setParent(nil); 
     end
     
-    self.children = {}
+    self.children = {};
 end
 
 function NCLElem:getChildrenMap()
-    return self.childrenMap
+    return self.childrenMap;
 end
 
 function NCLElem:getAssMap()
-    return self.assMap
+    return self.assMap;
 end
 
 function NCLElem:getDescendants()
-  local descendants = {}
+  local descendants = {};
 
-  local children = self.children
+  local children = self.children;
   
   if(children ~= nil)then
-     local nchildren = #children
+     local nchildren = #children;
       
-     local descs = nil
+     local descs = nil;
       
      for i=1,nchildren do
-         local child = self.children[i]         
-         table.insert(descendants, child)  
+         local child = self.children[i];         
+         table.insert(descendants, child);  
                                       
-         descs = child:getDescendants()
+         descs = child:getDescendants();
          for _, desc in ipairs(descs) do
-             table.insert(descendants, desc)
+             table.insert(descendants, desc);
          end       
      end
    end
@@ -168,105 +165,58 @@ function NCLElem:getDescendants()
 end
 
 function NCLElem:getDescendantByAttribute(attribute, value) 
-   local descs = self:getDescendants()
-   local targetDescs = {}
+   local descs = self:getDescendants();
+   local targetDescs = {};
    
    for _, desc in ipairs(descs) do
-      if(desc.attributes ~= nil and desc:getAttribute(attribute) == value)then
-        table.insert(targetDescs, desc)
+      if(desc:getAttribute(attribute) == value)then
+        table.insert(targetDescs, desc);
       end
    end
    
    if(#targetDescs == 1)then
-      return targetDescs[1]
+      return targetDescs[1];
    elseif(#targetDescs > 2)then 
-          return targetDescs
+          return targetDescs;
    end
    
    return nil
 end
 
-function NCLElem:isValidAttribute(attribute, value)    
+function NCLElem:addAttribute(attribute, value)
     if(Validator:isInvalidString(attribute))then
-       return false
-    end
-    
-    if(Validator:isEmptyOrNil(value))then
-       return false
-    end
-      
-    return true;
-end
-
-function NCLElem:addAttribute(attribute, value)    
-    if(Validator:isEmptyOrNil(value))then
-       return false;
-    end
-    
-    if(Validator:isInvalidString(attribute))then
-       return false;
-    end
-        
-    if(self.attributes ~= nil)then
-       for att, _ in pairs(self.attributes)do
-         if(self:isValidAttribute(attribute, value)
-            and att == attribute)then
-            self.attributes[attribute] = value
-            return true;
-         end
-       end
+       error("Error! Invalid attribute name to "..self.name.." element! Attribute name must be a valid string!", 2);
+    elseif(Validator:isEmptyOrNil(value))then
+       error("Error! Invalid value to "..attribute.." attribute of "..self.name.." element! Value must be informed!", 2);
+    elseif(self.attributesMap[attribute] == nil)then
+       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element!", 2);
+    elseif(self.attributesMap[attribute] ~= type(value))then
+       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element! "..
+             "The type of attribute "..attribute.." of "..self.name.." element must be a "..self.attributesMap[attribute].." "..
+             "and not a "..type(value).."!", 2);
     else
-       if(self:isValidAttribute(attribute, value)
-          and self.attributesMap[attribute] ~= nil
-          and self.attributesMap[attribute] == type(value))then
-          self[attribute] = value;
-          return true;
-       end
+       self[attribute] = value;
     end
-    
-    return false;
 end
 
 function NCLElem:removeAttribute(attribute)
     if(Validator:isInvalidString(attribute))then
-       return false;
-    end
-       
-    if(self.attributes ~= nil)then
-       for att, _ in pairs(self.attributes)do
-         if(att == attribute)then
-            self.attributes[attribute] = ""
-            return true;
-         end
-       end
+       error("Error! Invalid attribute name to "..self.name.." element! Attribute name must be a valid string!", 2);
+    elseif(self.attributesMap[attribute] == nil)then
+       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element!", 2);
     else
-       if(self.attributesMap[attribute] ~= nil)then
-          self[attribute] = "";
-          return true;
-       end
+       self[attribute] = nil;
     end
-    
-    return false;
 end
 
 function NCLElem:getAttribute(attribute)
     if(Validator:isInvalidString(attribute))then
-       return nil;
-    end
-           
-    if(self.attributes ~= nil)then
-       for att, _ in pairs(self.attributes)do
-         if(att == attribute)then
-            return self.attributes[attribute];
-         end
-       end
+       error("Error! Invalid attribute name to "..self.name.." element! Attribute name must be a valid string!", 2);
+    elseif(self.attributesMap[attribute] == nil)then
+       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element!", 2);
     else
-       if(self.attributesMap[attribute] ~= nil)then
-          return self[attribute];
-       end
-    end 
-    
-    return nil;
+       return self[attribute];
+    end
 end
 
 function NCLElem:getAttributesMap()
@@ -282,19 +232,6 @@ end
 function NCLElem:getAttributes()  
     return self.attributes
 end
-
-function NCLElem:getNumberOfFixedAttributes()
-    local c = 0
-    
-    for attribute, value in pairs(self.attributes) do
-       if(not(Validator:isInvalidString(value)))then
-          c = c + 1
-       end
-    end
-    
-    return c
-end
-
 
 function NCLElem:readAttributes()
    local s, e, t, u, r, v, w, z = nil
