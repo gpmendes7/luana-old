@@ -9,7 +9,7 @@ ElementB.childrenMap = {
  ["elementD"] = {ElementD, "many"}
 }
 
-ElementB.attributesMap = {
+ElementB.attributesTypeMap = {
   ["id"] = "string",
   ["desc"] = "string"
 }

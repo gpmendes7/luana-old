@@ -1,24 +1,33 @@
-local AssessmentStatement = require "core/connectors/AssessmentStatement"
-local AttributeAssessment = require "core/connectors/AttributeAssessment"
-local ValueAssessment = require "core/connectors/ValueAssessment"
+local AssessmentStatement = require "core/connectors/AssessmentStatement";
+local AttributeAssessment = require "core/connectors/AttributeAssessment";
+local ValueAssessment = require "core/connectors/ValueAssessment";
 
 local function test1()
-   local assessmentStatement = nil
+   local assessmentStatement = nil;
    
-   assessmentStatement = AssessmentStatement:create()
-   assert(assessmentStatement ~= nil, "Error!")
-   assert(assessmentStatement:getComparator() == "", "Error!")   
+   assessmentStatement = AssessmentStatement:create();
+   assert(assessmentStatement ~= nil, "Error!");
+   assert(assessmentStatement:getComparator() == nil, "Error!");   
 end
 
 local function test2()
-   local assessmentStatement = nil
+   local assessmentStatement;
+   
+   local status, err;
    
    local atts = {
       ["comparator"] = "eq"
-   }     
+   };
    
-   assessmentStatement = AssessmentStatement:create(atts)
-   assert(assessmentStatement:getComparator() == "eq", "Error!")
+   assessmentStatement = AssessmentStatement:create(atts);
+   assert(assessmentStatement:getComparator() == "eq", "Error!");
+   
+   local atts = {
+      ["comparator"] = 0.2
+   };
+   
+   status, err = pcall(AssessmentStatement["create"], assessmentStatement, atts, 55.2);
+   assert(not(status), "Error!");
 end
 
 local function test3()
@@ -131,8 +140,8 @@ end
 
 test1()
 test2()
-test3()
-test4()
-test5()
-test6()
-test7()
+--test3()
+--test4()
+--test5()
+--test6()
+--test7()

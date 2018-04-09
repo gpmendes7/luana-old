@@ -8,13 +8,13 @@ local Document = NCLElem:extends();
 Document.name = "ncl";
 
 Document.childrenMap = {
- ["head"] = {Head, "one"}, 
- ["body"] = {Body, "one"}
+ head = {Head, "one"}, 
+ body = {Body, "one"}
 };
 
-Document.attributesMap = {
-  ["id"] = "string",
-  ["title"] = "string",
+Document.attributesTypeMap = {
+  id = "string",
+  title = "string",
   ["xmlns"] = "string",
   ["xmlns:xsi"] = "string",
   ["xsi:schemaLocation"] = "string"

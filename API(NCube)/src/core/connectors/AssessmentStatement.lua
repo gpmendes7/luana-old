@@ -11,8 +11,12 @@ AssessmentStatement.childrenMap = {
  ["valueAssessment"] = {ValueAssessment, "one"}
 };
 
-AssessmentStatement.attributesMap = {
+AssessmentStatement.attributesTypeMap = {
   ["comparator"] = "string"
+};
+
+AssessmentStatement.attributesValueMap = {
+  ["comparator"] = {"eq", "ne", "gt", "lt", "gte", "lte"}
 };
 
 function AssessmentStatement:create(attributes, full)
@@ -44,7 +48,6 @@ function AssessmentStatement:getComparator()
 end
 
 function AssessmentStatement:addAttributeAssessment(attributeAssessment)            
-   table.insert(self.attributeAssessments, attributeAssessment); 
    local p = self:getPosAvailable("attributeAssessment");
    
    if(p ~= nil)then
@@ -52,9 +55,15 @@ function AssessmentStatement:addAttributeAssessment(attributeAssessment)
    else
       self:addChild(attributeAssessment, 1);
    end   
+   
+   table.insert(self.attributeAssessments, attributeAssessment); 
 end
 
 function AssessmentStatement:getAttributeAssessmentPos(p)
+   if(p > #self.attributeAssessments)then
+      error("Error! assessmentStatement element doesn't have an attributeAssessment child in position "..p.."!", 2);
+   end
+    
    return self.attributeAssessments[p];
 end
 

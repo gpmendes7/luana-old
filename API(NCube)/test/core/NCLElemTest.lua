@@ -12,19 +12,25 @@ local function test1()
     
     elemA = ElementA:create();      
     assert(elemA ~= nil, "Error!");
-        
+
     status, err = pcall(elemA["getAttribute"], elemA, "");
     assert(not(status), "Error!");
-    assert(err == "Error! Invalid attribute name to "..elemA.name.." element! Attribute name must be a valid string!", "Error!");
-        
+    assert(err == "Error! Empty or nil attribute is not a valid attribute to elementA element!", "Error!");
+
     status, err = pcall(elemA["getAttribute"], elemA, nil);
     assert(not(status), "Error!");
-    assert(err == "Error! Invalid attribute name to "..elemA.name.." element! Attribute name must be a valid string!", "Error!");
+    assert(err == "Error! Empty or nil attribute is not a valid attribute to elementA element!", "Error!");
 
     status, err = pcall(elemA["getAttribute"], elemA, "xxxx");
     assert(not(status), "Error!");
-    assert(err == "Error! Attribute xxxx is not valid to "..elemA.name.." element!", "Error!");
-  
+    assert(err == "Error! xxxx attribute is not a valid attribute to elementA element!", "Error!");
+    
+    status, err = pcall(elemA["create"], elemA, {id = nil, desc = nil});
+    assert(not(status), "Error!");
+    
+    status, err = pcall(elemA["create"], elemA, {id = "", desc = ""});
+    assert(not(status), "Error!");
+   
     elemA = ElementA:create({id = "id1", desc = "desc1"});      
     assert(elemA:getAttribute("id") == "id1", "Error!");
     assert(elemA:getAttribute("desc") == "desc1", "Error!");
@@ -37,24 +43,24 @@ local function test1()
     
     status, err = pcall(elemA["addAttribute"], elemA, 4, "id1");
     assert(not(status), "Error!");
-    assert(err == "Error! Invalid attribute name to "..elemA.name.." element! Attribute name must be a valid string!", "Error!");              
+    assert(err == "Error! 4 attribute is not a valid attribute to elementA element!", "Error!");              
     
     status, err = pcall(elemA["addAttribute"], elemA, "id", nil);
     assert(not(status), "Error!");
-    assert(err == "Error! Invalid value to id attribute of "..elemA.name.." element! Value must be informed!", "Error!");
+    assert(err == "Error! Invalid value to id attribute of elementA element! Value must be informed!", "Error!");
     
     status, err = pcall(elemA["addAttribute"], elemA, "id", "");
     assert(not(status), "Error!");
-    assert(err == "Error! Invalid value to id attribute of "..elemA.name.." element! Value must be informed!", "Error!");
+    assert(err == "Error! Invalid value to id attribute of elementA element! Value must be informed!", "Error!");
     
     status, err = pcall(elemA["addAttribute"], elemA, "xxxx", "id1");
     assert(not(status), "Error!");
-    assert(err == "Error! Attribute xxxx is not valid to "..elemA.name.." element!", "Error!");
-                   
+    assert(err == "Error! xxxx attribute is not a valid attribute to elementA element!", "Error!");
+      
     status, err = pcall(elemA["addAttribute"], elemA, "id", 4);
     assert(not(status), "Error!");
-    assert(err == "Error! Attribute id is not valid to "..elemA.name.." element! "..
-                  "The type of attribute id of "..elemA.name.." element must be a string "..
+    assert(err == "Error! id attribute is not valid to elementA element! "..
+                  "The type of id attribute of elementA element must be a string "..
                   "and not a number!", "Error!");
                         
     elemA = ElementA:create(); 
@@ -64,7 +70,7 @@ local function test1()
     
     status, err = pcall(elemA["getAttribute"], elemA, "xxxx");
     assert(not(status), "Error!");
-    assert(err == "Error! Attribute xxxx is not valid to "..elemA.name.." element!", "Error!");
+    assert(err == "Error! xxxx attribute is not a valid attribute to elementA element!", "Error!");
        
     elemA = ElementA:create({id = "id1", desc = "desc1"}); 
     elemA:removeAttribute("id");  
@@ -72,7 +78,15 @@ local function test1()
     
     status, err = pcall(elemA["removeAttribute"], elemA, "xxxx");
     assert(not(status), "Error!");
-    assert(err == "Error! Attribute xxxx is not valid to "..elemA.name.." element!", "Error!");
+    assert(err == "Error! xxxx attribute is not a valid attribute to elementA element!", "Error!");
+    
+    status, err = pcall(elemA["removeAttribute"], elemA, nil);
+    assert(not(status), "Error!");
+    assert(err == "Error! Empty or nil attribute is not a valid attribute to elementA element!", "Error!");
+    
+    status, err = pcall(elemA["removeAttribute"], elemA, "");
+    assert(not(status), "Error!");
+    assert(err == "Error! Empty or nil attribute is not a valid attribute to elementA element!", "Error!");
 end
 
 local function test2()
@@ -97,7 +111,7 @@ local function test2()
    
    status, err = pcall(elemA["getChild"], elemA, 3);
    assert(not(status), "Error!");
-   assert(err == "Error! "..elemA.name.." element doesn't have a child in position 3!", "Error!");
+   assert(err == "Error! elementA element doesn't have a child in position 3!", "Error!");
       
    elemA = ElementA:create({id = "id1", desc = "desc1"});   
    elemB = ElementB:create({id = "id2", desc = "desc2"});
@@ -126,18 +140,22 @@ local function test2()
    elemA:removeChild(elemC);
    assert(#elemA:getChildren() == 0, "Error!");
    
-   status, err = pcall(elemA["removeChild"], elemC, nil);
+   status, err = pcall(elemA["removeChild"], elemA, nil);
    assert(not(status), "Error!");
-   assert(err == "Error! Attempt to remove failed! Invalid child!", "Error!");
+   assert(err == "Error! Attempt to remove failed! You are trying to remove a nil child in "..elemA.name.."!", "Error!");
+   
+   status, err = pcall(elemA["removeChild"], elemA, elemC);
+   assert(not(status), "Error!");
+   assert(err == "Error! Attempt to remove failed! elementA element doesn't have this child!", "Error!");
    
    elemA = ElementA:create(nil, 1); 
    elemA:removeChildPos(1);  
    
    assert(#elemA:getChildren() == 2, "Error!");
-   
+
    status, err = pcall(elemA["removeChildPos"], elemA, 10);
    assert(not(status), "Error!");
-   assert(err == "Error! Attempt to remove failed! "..elemA.name.." element doesn't have a child in position 10!", "Error!");
+   assert(err == "Error! Attempt to remove failed! elementA element doesn't have a child in position 10!", "Error!");
       
    elemA = ElementA:create(nil, 1); 
    elemA:removeAllChildren();  
@@ -149,11 +167,11 @@ local function test2()
       
    status, err = pcall(elemA["addChild"], elemA, nil);
    assert(not(status), "Error!");
-   assert(err == "Error! Attempt to set a nil child to "..elemA.name.."!", "Error!");
+   assert(err == "Error! Attempt to set a nil child to elementA!", "Error!");
    
    status, err = pcall(elemB["addChild"], elemB, elemA);
    assert(not(status), "Error!");
-   assert(err == "Error! Attempt to set a invalid child! "..elemA.name.." cannot be child of "..elemB.name.."!", "Error!");
+   assert(err == "Error! Attempt to set a invalid child! elementA cannot be child of "..elemB.name.."!", "Error!");
 end
 
 local function test3()

@@ -1,38 +1,41 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "core/NCLElem";
 
-local ConnectorParam = NCLElem:extends()
+local ConnectorParam = NCLElem:extends();
 
-ConnectorParam.name = "connectorParam"
+ConnectorParam.name = "connectorParam";
+
+ConnectorParam.childrenMap = {
+  ["name"] = "string",
+  ["type"] = "string"
+};
 
 function ConnectorParam:create(attributes)   
-   local connectorParam = ConnectorParam:new() 
+   local connectorParam = ConnectorParam:new(); 
    
-   connectorParam.attributes = {
-     ["name"] = "",
-     ["type"] = ""
-   }
+   connectorParam.name = nil;
+   connectorParam.type = nil;
    
    if(attributes ~= nil)then
-      connectorParam:setAttributes(attributes)
+      connectorParam:setAttributes(attributes);
    end
            
-   return connectorParam
+   return connectorParam;
 end
 
 function ConnectorParam:setName(name)
-   self:addAttribute("name", name)
+   self:addAttribute("name", name);
 end
 
 function ConnectorParam:getName()
-   return self:getAttribute("name")
+   return self:getAttribute("name");
 end
 
 function ConnectorParam:setType(type)
-   self:addAttribute("type", type)
+   self:addAttribute("type", type);
 end
 
 function ConnectorParam:getType()
-   return self:getAttribute("type")
+   return self:getAttribute("type");
 end
 
-return ConnectorParam
+return ConnectorParam;

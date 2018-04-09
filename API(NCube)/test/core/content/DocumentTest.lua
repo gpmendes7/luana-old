@@ -21,9 +21,9 @@ local function test2()
    local status, err;
    
    atts = {
-      ["id"] = "document",
-      ["title"] = "title",
-      ["xmlns"] = "xmlns",
+      id = "document",
+      title = "title",
+      xmlns = "xmlns",
       ["xmlns:xsi"] = "xsi",
       ["xsi:schemaLocation"] = "schema"
    };     
@@ -37,11 +37,33 @@ local function test2()
    assert(document:getXmlHead() == "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>", "Error!");
    
    atts = {
-      ["id"] = 1.2,
-      ["title"] = {},
-      ["xmlns"] = function() return a end,
-      ["xmlns:xsi"] = 45.5,
-      ["xsi:schemaLocation"] = {"a", "b", "c"}
+      id = nil,
+      title = nil,
+      xmlns = nil,
+      ["xmlns:xsi"] = nil,
+      ["xsi:schemaLocation"] = nil
+   };    
+    
+   status, err = pcall(Document["create"], Document, atts, nil);
+   assert(not(status), "Error!");
+   
+   atts = {
+      id = "",
+      title = "",
+      xmlns = "",
+      ["xmlns:xsi"] = "",
+      ["xsi:schemaLocation"] = ""
+   };    
+    
+   status, err = pcall(Document["create"], Document, atts, "");
+   assert(not(status), "Error!");
+   
+   atts = {
+     id = 1.2,
+     title = {},
+     xmlns = function() return a end,
+     ["xmlns:xsi"] = 45.5,
+     ["xsi:schemaLocation"] = {"a", "b", "c"}
    };     
   
    status, err = pcall(Document["create"], Document, atts, 55.2);
@@ -70,6 +92,42 @@ local function test3()
    assert(document:getXmlHead() == "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>", "Error!");
    
    document = Document:create();
+   
+   status, err = pcall(document["setId"], document, nil);
+   assert(not(status), "Error!");
+
+   status, err = pcall(document["setTitle"], document, nil);
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setXmlns"], document, nil);
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setXsi"], document, nil);
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setSchemaLocation"], document, nil);
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setXmlHead"], document, nil);
+   assert(not(status), "Error!");
+   
+   status, err = pcall(document["setId"], document, "");
+   assert(not(status), "Error!");
+
+   status, err = pcall(document["setTitle"], document, "");
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setXmlns"], document, "");
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setXsi"], document, "");
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setSchemaLocation"], document, "");
+   assert(not(status), "Error!");
+                 
+   status, err = pcall(document["setXmlHead"], document, "");
+   assert(not(status), "Error!");
      
    status, err = pcall(document["setId"], document, 1.2);
    assert(not(status), "Error!");
@@ -133,9 +191,9 @@ local function test6()
    local nclExp, nclRet, atts = nil;
    
    atts = {
-      ["id"] = "document",
-      ["title"] = "title",
-      ["xmlns"] = "xmlns",
+      id = "document",
+      title = "title",
+      xmlns = "xmlns",
       ["xmlns:xsi"] = "xsi",
       ["xsi:schemaLocation"] = "schema"
    };       
@@ -157,6 +215,6 @@ end
 test1();
 test2();
 test3();
-test4();
-test5();
-test6();
+--test4();
+--test5();
+--test6();

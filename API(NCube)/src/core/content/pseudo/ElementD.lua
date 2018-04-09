@@ -4,7 +4,7 @@ local ElementD = NCLElem:extends()
 
 ElementD.name = "elementD"
 
-ElementD.attributesMap = {
+ElementD.attributesTypeMap = {
   ["id"] = "string",
   ["desc"] = "string"
 }

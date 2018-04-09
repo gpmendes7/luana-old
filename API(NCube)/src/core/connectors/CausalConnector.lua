@@ -50,17 +50,23 @@ function CausalConnector:getId()
    return self:getAttribute("id");
 end
 
-function CausalConnector:addConnectorParam(connectorParam)
-    table.insert(self.connectorParams, connectorParam);    
+function CausalConnector:addConnectorParam(connectorParam)    
     local p = self:getPosAvailable("connectorParam");
+    
     if(p ~= nil)then
        self:addChild(connectorParam, p);
     else
        self:addChild(connectorParam, 1);
     end
+    
+    table.insert(self.connectorParams, connectorParam);
 end
 
 function CausalConnector:getConnectorParamPos(p)
+    if(p > #self.connectorParams)then
+      error("Error! causalConnector element doesn't have a connectorParam child in position "..p.."!", 2);
+    end
+        
     return self.connectorParams[p];
 end
 

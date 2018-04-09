@@ -8,7 +8,8 @@ local NCLElem = Class:createClass{
   childrenMap = nil,
   assMap = nil,
   attributes = nil, 
-  attributesMap = nil,
+  attributesTypeMap = nil,
+  attributesValueMap = nil,
   ncl = nil
 }
 
@@ -103,10 +104,14 @@ function NCLElem:removeChildPos(p)
 end
 
 function NCLElem:removeChild(child)
+    if(child == nil)then
+       error("Error! Attempt to remove failed! You are trying to remove a nil child in "..self.name.."!", 2);
+    end
+
     local p = self:getPosChild(child);   
     
     if(p == nil)then
-       error("Error! Attempt to remove failed! Invalid child!", 2);
+       error("Error! Attempt to remove failed! "..self.name.." element doesn't have this child!", 2);
     end
     
     self:removeChildPos(p);
@@ -184,46 +189,77 @@ function NCLElem:getDescendantByAttribute(attribute, value)
 end
 
 function NCLElem:addAttribute(attribute, value)
-    if(Validator:isInvalidString(attribute))then
-       error("Error! Invalid attribute name to "..self.name.." element! Attribute name must be a valid string!", 2);
+    if(self.attributesTypeMap[attribute] == nil or Validator:isInvalidString(attribute))then
+       error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2); 
     elseif(Validator:isEmptyOrNil(value))then
-       error("Error! Invalid value to "..attribute.." attribute of "..self.name.." element! Value must be informed!", 2);
-    elseif(self.attributesMap[attribute] == nil)then
-       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element!", 2);
-    elseif(self.attributesMap[attribute] ~= type(value))then
-       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element! "..
-             "The type of attribute "..attribute.." of "..self.name.." element must be a "..self.attributesMap[attribute].." "..
-             "and not a "..type(value).."!", 2);
+           error("Error! Invalid value to "..attribute.." attribute of "..self.name.." element! Value must be informed!", 2);    
+    elseif(self.attributesTypeMap[attribute] ~= type(value))then
+           error("Error! "..attribute.." attribute is not valid to "..self.name.." element! "..
+                 "The type of "..attribute.." attribute of "..self.name.." element must be a "..self.attributesTypeMap[attribute].." "..
+                 "and not a "..type(value).."!", 2);
+    elseif(self.attributesValuesMap ~= nil and self.attributesValuesMap[attribute] ~= nil)then
+           local isInvalid = true;
+           
+           for i, v in ipairs(self.attributesValuesMap[attribute]) do
+              if(v == value)then
+                 isInvalid = false;
+                 break;
+              end
+           end
+           
+           if(isInvalid)then
+              error("Error! The value "..value.." is not valid to  "..attribute.." attribute in "..self.name.." element!", 2);
+           end
     else
        self[attribute] = value;
     end
 end
 
 function NCLElem:removeAttribute(attribute)
-    if(Validator:isInvalidString(attribute))then
-       error("Error! Invalid attribute name to "..self.name.." element! Attribute name must be a valid string!", 2);
-    elseif(self.attributesMap[attribute] == nil)then
-       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element!", 2);
+    if(Validator:isEmptyOrNil(attribute))then
+       error("Error! Empty or nil attribute is not a valid attribute to "..self.name.." element!", 2); 
+    elseif(Validator:isInvalidString(attribute))then
+           error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2); 
+    elseif(self.attributesTypeMap[attribute] == nil)then
+           error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2);
     else
        self[attribute] = nil;
     end
 end
 
 function NCLElem:getAttribute(attribute)
-    if(Validator:isInvalidString(attribute))then
-       error("Error! Invalid attribute name to "..self.name.." element! Attribute name must be a valid string!", 2);
-    elseif(self.attributesMap[attribute] == nil)then
-       error("Error! Attribute "..attribute.." is not valid to "..self.name.." element!", 2);
+    if(Validator:isEmptyOrNil(attribute))then
+       error("Error! Empty or nil attribute is not a valid attribute to "..self.name.." element!", 2); 
+    elseif(Validator:isInvalidString(attribute))then
+           error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2); 
+    elseif(self.attributesTypeMap[attribute] == nil)then
+           error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2);
     else
        return self[attribute];
     end
 end
 
-function NCLElem:getAttributesMap()
-    return self.attributesMap;
+function NCLElem:getAttributesTypeMap()
+    return self.attributesTypeMap;
 end
 
-function NCLElem:setAttributes(attributes)    
+function NCLElem:getAttributesValueMap()
+    return self.attributesValueMap;
+end
+
+function NCLElem:isNilAttributes(attributes)
+    for _, _ in pairs(attributes) do
+        return false
+    end
+    
+    return true
+end
+
+function NCLElem:setAttributes(attributes)  
+    if(self:isNilAttributes(attributes))then
+        error("Error! Attributes must be informed to be defined!", 2);
+    end 
+
     for attribute, value in pairs(attributes) do
        self:addAttribute(attribute, value);
     end
@@ -430,9 +466,9 @@ function NCLElem:table2Ncl(deep)
           
   ncl = ncl.."<"..self.name;
     
-  for attribute, typeAtt in pairs(self.attributesMap) do
+  for attribute, typeAtt in pairs(self.attributesTypeMap) do
            if(self[attribute] ~= nil 
-              and self.attributesMap[attribute] == type(typeAtt))then
+              and self.attributesTypeMap[attribute] == type(typeAtt))then
                 ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\"";
            end
    end
