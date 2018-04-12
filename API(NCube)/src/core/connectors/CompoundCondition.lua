@@ -1,208 +1,208 @@
-local NCLElem = require "core/NCLElem";
-local SimpleCondition = require "core/connectors/SimpleCondition";
-local AssessmentStatement = require "core/connectors/AssessmentStatement";
-local CompoundStatement = require "core/connectors/CompoundStatement";
+local NCLElem = require "core/NCLElem"
+local SimpleCondition = require "core/connectors/SimpleCondition"
+local AssessmentStatement = require "core/connectors/AssessmentStatement"
+local CompoundStatement = require "core/connectors/CompoundStatement"
 
-local CompoundCondition = NCLElem:extends();
+local CompoundCondition = NCLElem:extends()
 
-CompoundCondition.name = "compoundCondition";
+CompoundCondition.name = "compoundCondition"
 
 CompoundCondition.childrenMap = {
  ["simpleCondition"] = {SimpleCondition, "many"},
  ["compoundCondition"] = {CompoundCondition, "many"},
  ["assessmentStatement"] = {AssessmentStatement, "many"},
  ["compoundStatement"] = {CompoundStatement, "many"}
-};
+}
 
 CompoundCondition.attributesMap = {
    ["operator"] = "string",
    ["delay"] = "string"
-};
+}
 
 function CompoundCondition:create(attributes, full)  
-   local compoundCondition = CompoundCondition:new(); 
+   local compoundCondition = CompoundCondition:new() 
    
-   compoundCondition.operator = nil;
-   compoundCondition.delay = nil;
+   compoundCondition.operator = nil
+   compoundCondition.delay = nil
    
    if(attributes ~= nil)then
-      compoundCondition:setAttributes(attributes);
+      compoundCondition:setAttributes(attributes)
    end
    
-   compoundCondition.children = {};
-   compoundCondition.simpleConditions = {};
-   compoundCondition.compoundConditions = {};
-   compoundCondition.assessmentStatements = {};
-   compoundCondition.compoundStatements = {};
+   compoundCondition.children = {}
+   compoundCondition.simpleConditions = {}
+   compoundCondition.compoundConditions = {}
+   compoundCondition.assessmentStatements = {}
+   compoundCondition.compoundStatements = {}
     
    if(full ~= nil)then  
-      compoundCondition:addSimpleCondition(SimpleCondition:create());    
-      compoundCondition:addCompoundCondition(CompoundCondition:create());
-      compoundCondition:addAssessmentStatement(AssessmentStatement:create());
-      compoundCondition:addCompoundStatement(CompoundStatement:create());
+      compoundCondition:addSimpleCondition(SimpleCondition:create())    
+      compoundCondition:addCompoundCondition(CompoundCondition:create())
+      compoundCondition:addAssessmentStatement(AssessmentStatement:create())
+      compoundCondition:addCompoundStatement(CompoundStatement:create())
    end
    
-   return compoundCondition;
+   return compoundCondition
 end
 
 function CompoundCondition:setOperator(operator)
-   self:addAttribute("operator", operator);
+   self:addAttribute("operator", operator)
 end
 
 function CompoundCondition:getOperator()
-   return self:getAttribute("operator");
+   return self:getAttribute("operator")
 end
 
 function CompoundCondition:setDelay(delay)
-   self:addAttribute("delay", delay);
+   self:addAttribute("delay", delay)
 end
 
 function CompoundCondition:getDelay()
-   return self:getAttribute("delay");
+   return self:getAttribute("delay")
 end
 
 function CompoundCondition:addSimpleCondition(simpleCondition)
-    self:addChild(simpleCondition);
-    table.insert(self.simpleConditions, simpleCondition);    
+    self:addChild(simpleCondition)
+    table.insert(self.simpleConditions, simpleCondition)    
 end
 
 function CompoundCondition:getSimpleConditionPos(p)
     if(p > #self.simpleConditions)then
-       error("Error! compoundCondition element doesn't have a simpleCondition child in position "..p.."!", 2);
+       error("Error! compoundCondition element doesn't have a simpleCondition child in position "..p.."!", 2)
     end
     
-    return self.simpleConditions[p];
+    return self.simpleConditions[p]
 end
 
 function CompoundCondition:setSimpleConditions(...)
     if(#arg>0)then
       for i, simpleCondition in ipairs(arg) do
-          self:addSimpleCondition(simpleCondition);
+          self:addSimpleCondition(simpleCondition)
       end
     end
 end
 
 function CompoundCondition:removeSimpleCondition(simpleCondition)
-   self:removeChild(simpleCondition);
+   self:removeChild(simpleCondition)
    
    for i, sc in ipairs(self.simpleConditions) do
        if(simpleCondition == sc)then
-           table.remove(self.simpleConditions, i); 
+           table.remove(self.simpleConditions, i) 
        end
    end 
 end
 
 function CompoundCondition:removeSimpleConditionPos(p)
-   self:removeChildPos(p);
-   table.remove(self.simpleConditions, p);
+   self:removeChildPos(p)
+   table.remove(self.simpleConditions, p)
 end
 
 function CompoundCondition:addCompoundCondition(compoundCondition)
-    self:addChild(compoundCondition);
-    table.insert(self.compoundConditions, compoundCondition);    
+    self:addChild(compoundCondition)
+    table.insert(self.compoundConditions, compoundCondition)    
 end
 
 function CompoundCondition:getCompoundConditionPos(p)
     if(p > #self.compoundConditions)then
-       error("Error! compoundCondition element doesn't have a compoundCondition child in position "..p.."!", 2);
+       error("Error! compoundCondition element doesn't have a compoundCondition child in position "..p.."!", 2)
     end
         
-    return self.compoundConditions[p];
+    return self.compoundConditions[p]
 end
 
 function CompoundCondition:setCompoundConditions(...)
     if(#arg>0)then
       for i, compoundCondition in ipairs(arg) do
-          self:addCompoundCondition(compoundCondition);
+          self:addCompoundCondition(compoundCondition)
       end
     end
 end
 
 function CompoundCondition:removeCompoundCondition(compoundCondition)
-   self:removeChild(compoundCondition);
+   self:removeChild(compoundCondition)
    
    for i, cc in ipairs(self.compoundConditions) do
        if(compoundCondition == cc)then
-           table.remove(self.compoundConditions, i);  
+           table.remove(self.compoundConditions, i)  
        end
    end 
 end
 
 function CompoundCondition:removeCompoundConditionPos(p)
-   self:removeChildPos(p);
-   table.remove(self.compoundConditions, p);
+   self:removeChildPos(p)
+   table.remove(self.compoundConditions, p)
 end
 
 function CompoundCondition:addAssessmentStatement(assessmentStatement)
-    self:addChild(assessmentStatement);
-    table.insert(self.assessmentStatements, assessmentStatement);    
+    self:addChild(assessmentStatement)
+    table.insert(self.assessmentStatements, assessmentStatement)    
 end
 
 function CompoundCondition:getAssessmentStatementPos(p)
     if(p > #self.assessmentStatements)then
-       error("Error! compoundCondition element doesn't have a assessmentStatement child in position "..p.."!", 2);
+       error("Error! compoundCondition element doesn't have a assessmentStatement child in position "..p.."!", 2)
     end
     
-    return self.assessmentStatements[p];
+    return self.assessmentStatements[p]
 end
 
 function CompoundCondition:setAssessmentStatements(...)
     if(#arg>0)then
       for _, assessmentStatement in ipairs(arg) do
-          self:addAssessmentStatement(assessmentStatement);
+          self:addAssessmentStatement(assessmentStatement)
       end
     end
 end
 
 function CompoundCondition:removeAssessmentStatement(assessmentStatement)
-   self:removeChild(assessmentStatement);
+   self:removeChild(assessmentStatement)
    
    for i, as in ipairs(self.assessmentStatements) do
        if(assessmentStatement == as)then
-           table.remove(self.assessmentStatements, i);  
+           table.remove(self.assessmentStatements, i)  
        end
    end 
 end
 
 function CompoundCondition:removeAssessmentStatementPos(p)
-   self:removeChildPos(p);
-   table.remove(self.assessmentStatements, p);
+   self:removeChildPos(p)
+   table.remove(self.assessmentStatements, p)
 end
 
 function CompoundCondition:addCompoundStatement(compoundStatement)
-    self:addChild(compoundStatement);
-    table.insert(self.compoundStatements, compoundStatement);    
+    self:addChild(compoundStatement)
+    table.insert(self.compoundStatements, compoundStatement)    
 end
 
 function CompoundCondition:getCompoundStatementPos(p)
     if(p > #self.compoundStatements)then
-       error("Error! compoundCondition element doesn't have a compoundStatement child in position "..p.."!", 2);
+       error("Error! compoundCondition element doesn't have a compoundStatement child in position "..p.."!", 2)
     end
     
-    return self.compoundStatements[p];
+    return self.compoundStatements[p]
 end
 
 function CompoundCondition:setCompoundStatements(...)
     if(#arg>0)then
       for _, compoundStatement in ipairs(arg) do
-          self:addCompoundStatement(compoundStatement);
+          self:addCompoundStatement(compoundStatement)
       end
     end
 end
 
 function CompoundCondition:removeCompoundStatement(compoundStatement)
-   self:removeChild(compoundStatement);
+   self:removeChild(compoundStatement)
    
    for i, cs in ipairs(self.compoundStatements) do
        if(compoundStatement == cs)then
-           table.remove(self.compoundStatements, i);  
+           table.remove(self.compoundStatements, i)  
        end
    end 
 end
 
 function CompoundCondition:removeCompoundStatementPos(p)
-   self:removeChildPos(p);
-   table.remove(self.compoundStatements, p);
+   self:removeChildPos(p)
+   table.remove(self.compoundStatements, p)
 end
 
-return CompoundCondition;
+return CompoundCondition

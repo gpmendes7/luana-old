@@ -12,30 +12,30 @@ ElementD.attributesTypeMap = {
 function ElementD:create(attributes)  
    local elementD = ElementD:new()   
    
-   elementD.id = nil;
-   elementD.desc = nil;
+   elementD.id = nil
+   elementD.desc = nil
    
    if(attributes ~= nil)then
-      elementD:setAttributes(attributes);
+      elementD:setAttributes(attributes)
    end
          
-   return elementD;
+   return elementD
 end
 
 function ElementD:setId(id)
-   self:addAttribute("id", id);
+   self:addAttribute("id", id)
 end
 
 function ElementD:getId()
-   return self:getAttribute("id");
+   return self:getAttribute("id")
 end
 
 function ElementD:setDesc(desc)
-   self:addAttribute("desc", desc);
+   self:addAttribute("desc", desc)
 end
 
 function ElementD:getDesc()
-   return self:getAttribute("desc");
+   return self:getAttribute("desc")
 end
 
-return ElementD;
+return ElementD
