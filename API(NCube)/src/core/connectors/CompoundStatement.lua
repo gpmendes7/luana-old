@@ -6,123 +6,128 @@ local CompoundStatement = NCLElem:extends()
 CompoundStatement.name = "compoundStatement"
 
 CompoundStatement.childrenMap = {
- ["assessmentStatement"] = {AssessmentStatement, "many"},
- ["compoundStatement"] = {CompoundStatement, "many"}
+  assessmentStatement = {AssessmentStatement, "many"},
+  compoundStatement = {CompoundStatement, "many"}
 }
 
-CompoundStatement.attributesMap = {
-     ["operator"] = "string",
-     ["isNegated"] = "string"
+CompoundStatement.attributesTypeMap = {
+  operator = "string",
+  isNegated = "string"
 }
 
-function CompoundStatement:create(attributes, full)   
-   local compoundStatement = CompoundStatement:new()  
-   
-   compoundStatement.operator= nil
-   compoundStatement.isNegated = nil 
+CompoundStatement.attributesStringValueMap = {
+  operator = {"and", "or"},
+  isNegated = {"true", "false"}
+}
 
-   if(attributes ~= nil)then
-      compoundStatement:setAttributes(attributes)
-   end
-   
-   compoundStatement.children = {}
-   compoundStatement.assessmentStatements = {}
-   compoundStatement.compoundStatements = {}
-   
-   if(full ~= nil)then      
-      compoundStatement:addAssessmentStatement(AssessmentStatement:create())
-      compoundStatement:addCompoundStatement(CompoundStatement:create())
-   end
-   
-   return compoundStatement
+function CompoundStatement:create(attributes, full)
+  local compoundStatement = CompoundStatement:new()
+
+  compoundStatement.operator= nil
+  compoundStatement.isNegated = nil
+
+  if(attributes ~= nil)then
+    compoundStatement:setAttributes(attributes)
+  end
+
+  compoundStatement.children = {}
+  compoundStatement.assessmentStatements = {}
+  compoundStatement.compoundStatements = {}
+
+  if(full ~= nil)then
+    compoundStatement:addAssessmentStatement(AssessmentStatement:create())
+    compoundStatement:addCompoundStatement(CompoundStatement:create())
+  end
+
+  return compoundStatement
 end
 
 function CompoundStatement:setOperator(operator)
-   self:addAttribute("operator", operator)
+  self:addAttribute("operator", operator)
 end
 
 function CompoundStatement:getOperator()
-   return self:getAttribute("operator")
+  return self:getAttribute("operator")
 end
 
 function CompoundStatement:setIsNegated(isNegated)
-   self:addAttribute("isNegated", isNegated)
+  self:addAttribute("isNegated", isNegated)
 end
 
 function CompoundStatement:getIsNegated()
-   return self:getAttribute("isNegated")
+  return self:getAttribute("isNegated")
 end
 
 function CompoundStatement:addAssessmentStatement(assessmentStatement)
-    self:addChild(assessmentStatement)
-    table.insert(self.assessmentStatements, assessmentStatement)
+  self:addChild(assessmentStatement)
+  table.insert(self.assessmentStatements, assessmentStatement)
 end
 
 function CompoundStatement:getAssessmentStatementPos(p)
-    if(p > #self.assessmentStatements)then
-       error("Error! compoundStatement element doesn't have a assessmentStatement child in position "..p.."!", 2)
-    end
-    
-    return self.assessmentStatements[p]
+  if(p > #self.assessmentStatements)then
+    error("Error! compoundStatement element doesn't have a assessmentStatement child in position "..p.."!", 2)
+  end
+
+  return self.assessmentStatements[p]
 end
 
 function CompoundStatement:setAssessmentStatements(...)
-    if(#arg>0)then
-      for _, assessmentStatement in ipairs(arg) do
-          self:addAssessmentStatement(assessmentStatement)
-      end
+  if(#arg>0)then
+    for _, assessmentStatement in ipairs(arg) do
+      self:addAssessmentStatement(assessmentStatement)
     end
+  end
 end
 
 function CompoundStatement:removeAssessmentStatement(assessmentStatement)
-   self:removeChild(assessmentStatement)
-   
-   for i, as in ipairs(self.assessmentStatements) do
-       if(assessmentStatement == as)then
-           table.remove(self.assessmentStatements, i)  
-       end
-   end 
+  self:removeChild(assessmentStatement)
+
+  for i, as in ipairs(self.assessmentStatements) do
+    if(assessmentStatement == as)then
+      table.remove(self.assessmentStatements, i)
+    end
+  end
 end
 
 function CompoundStatement:removeAssessmentStatementPos(p)
-   self:removeChildPos(p)
-   table.remove(self.assessmentStatements, p)
+  self:removeChildPos(p)
+  table.remove(self.assessmentStatements, p)
 end
 
 function CompoundStatement:addCompoundStatement(compoundStatement)
-    self:addChild(compoundStatement)
-    table.insert(self.compoundStatements, compoundStatement)    
+  self:addChild(compoundStatement)
+  table.insert(self.compoundStatements, compoundStatement)
 end
 
 function CompoundStatement:getCompoundStatementPos(p)
-    if(p > #self.compoundStatements)then
-       error("Error! compoundStatement element doesn't have a compoundStatement child in position "..p.."!", 2)
-    end
-    
-    return self.compoundStatements[p]
+  if(p > #self.compoundStatements)then
+    error("Error! compoundStatement element doesn't have a compoundStatement child in position "..p.."!", 2)
+  end
+
+  return self.compoundStatements[p]
 end
 
 function CompoundStatement:setCompoundStatements(...)
-    if(#arg>0)then
-      for _, compoundStatement in ipairs(arg) do
-          self:addCompoundStatement(compoundStatement)
-      end
+  if(#arg>0)then
+    for _, compoundStatement in ipairs(arg) do
+      self:addCompoundStatement(compoundStatement)
     end
+  end
 end
 
 function CompoundStatement:removeCompoundStatement(compoundStatement)
-   self:removeChild(compoundStatement)
-   
-   for i, cs in ipairs(self.compoundStatements) do
-       if(compoundStatement == cs)then
-           table.remove(self.compoundStatements, i) 
-       end
-   end 
+  self:removeChild(compoundStatement)
+
+  for i, cs in ipairs(self.compoundStatements) do
+    if(compoundStatement == cs)then
+      table.remove(self.compoundStatements, i)
+    end
+  end
 end
 
 function CompoundStatement:removeCompoundStatementPos(p)
-   self:removeChildPos(p)
-   table.remove(self.compoundStatements, p)
+  self:removeChildPos(p)
+  table.remove(self.compoundStatements, p)
 end
 
 return CompoundStatement

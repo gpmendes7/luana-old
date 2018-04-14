@@ -12,7 +12,7 @@ AttributeAssessment.attributesTypeMap = {
   offset = "string"
 }
 
-AttributeAssessment.attributesValueMap = {
+AttributeAssessment.attributesStringValueMap = {
   eventType = {"presentation", "selection", "attribution"},
   key = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
@@ -23,7 +23,7 @@ AttributeAssessment.attributesValueMap = {
     "CHANNEL_UP", "VOLUME_DOWN", "VOLUME_UP", "ENTER",
     "RED", "GREEN", "YELLOW", "BLUE", "BACK", "EXIT",
     "POWER", "REWIND", "STOP", "EJECT", "PLAY", "RECORD", "PAUSE"},
-  attributeType = "string",
+  attributeType = {"nodeProperty", "occurrences", "repetition", "state"}
 }
 
 function AttributeAssessment:create(attributes)

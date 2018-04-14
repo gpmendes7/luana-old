@@ -7,12 +7,12 @@ local ConnectorBase = NCLElem:extends()
 ConnectorBase.name = "connectorBase"
 
 ConnectorBase.childrenMap = {
-  ["importBase"] = {ImportBase, "many"},
-  ["causalConnector"] = {CausalConnector, "many"}
+  importBase = {ImportBase, "many"},
+  causalConnector = {CausalConnector, "many"}
 }
 
-ConnectorBase.attributesMap = {
-  ["id"] = "string"
+ConnectorBase.attributesTypeMap = {
+  id = "string"
 }
 
 function ConnectorBase:create(attributes, full)

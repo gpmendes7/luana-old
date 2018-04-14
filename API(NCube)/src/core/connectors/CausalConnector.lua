@@ -17,7 +17,7 @@ CausalConnector.childrenMap = {
   compoundAction = {CompoundAction, "one"}
 }
 
-CausalConnector.attributesMap = {
+CausalConnector.attributesTypeMap = {
   id = "string"
 }
 
