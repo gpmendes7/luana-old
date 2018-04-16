@@ -53,8 +53,8 @@ function CompoundAction:getOperator()
   return self:getAttribute("operator")
 end
 
-function CompoundAction:setDelay(delay)
-  self:addAttribute("delay", delay)
+function CompoundAction:setDelay(delay, symbol)
+  self:addAttribute("delay", delay, symbol)
 end
 
 function CompoundAction:getDelay()
@@ -85,9 +85,9 @@ end
 function CompoundAction:removeSimpleAction(simpleAction)
   self:removeChild(simpleAction)
 
-  for i, sa in ipairs(self.simpleActions) do
+  for p, sa in ipairs(self.simpleActions) do
     if(simpleAction == sa)then
-      table.remove(self.simpleActions, i)
+      table.remove(self.simpleActions, p)
     end
   end
 end
@@ -121,9 +121,9 @@ end
 function CompoundAction:removeCompoundAction(compoundAction)
   self:removeChild(compoundAction)
 
-  for i, ca in ipairs(self.compoundActions) do
+  for p, ca in ipairs(self.compoundActions) do
     if(compoundAction == ca)then
-      table.remove(self.compoundActions, i)
+      table.remove(self.compoundActions, p)
     end
   end
 end

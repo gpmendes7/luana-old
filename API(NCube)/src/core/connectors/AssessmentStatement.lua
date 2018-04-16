@@ -78,9 +78,9 @@ end
 function AssessmentStatement:removeAttributeAssessment(attributeAssessment)
   self:removeChild(attributeAssessment)
 
-  for i, aa in ipairs(self.attributeAssessments) do
+  for p, aa in ipairs(self.attributeAssessments) do
     if(attributeAssessment == aa)then
-      table.remove(self.attributeAssessments, i)
+      table.remove(self.attributeAssessments, p)
     end
   end
 end

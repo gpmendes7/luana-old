@@ -29,6 +29,7 @@ SimpleAction.attributesStringValueMap = {
 
 SimpleAction.attributesSymbolMap = {
   delay = "s",
+  repeatDelay = "s",
   duration = "s"
 }
 
@@ -63,8 +64,8 @@ function SimpleAction:getRole()
   return self:getAttribute("role")
 end
 
-function SimpleAction:setDelay(delay)
-  self:addAttribute("delay", delay)
+function SimpleAction:setDelay(delay, symbol)
+  self:addAttribute("delay", delay, symbol)
 end
 
 function SimpleAction:getDelay()
@@ -127,16 +128,16 @@ function SimpleAction:getRepeat()
   return self:getAttribute("repeat")
 end
 
-function SimpleAction:setRepeatDelay(repeatDelay)
-  self:addAttribute("repeatDelay", repeatDelay)
+function SimpleAction:setRepeatDelay(repeatDelay, symbol)
+  self:addAttribute("repeatDelay", repeatDelay, symbol)
 end
 
 function SimpleAction:getRepeatDelay()
   return self:getAttribute("repeatDelay")
 end
 
-function SimpleAction:setDuration(duration)
-  self:addAttribute("duration", duration)
+function SimpleAction:setDuration(duration, symbol)
+  self:addAttribute("duration", duration, symbol)
 end
 
 function SimpleAction:getDuration()

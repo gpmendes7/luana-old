@@ -4,24 +4,42 @@ local Area = NCLElem:extends()
 
 Area.name = "area"
 
+Area.attributesTypeMap = {
+  id = "string", 
+  coords = "string", 
+  begin = {"string", "number"}, 
+  ["end"] = {"string", "number"}, 
+  beginText = "string",
+  endText = "string", 
+  beginPosition = "number",
+  endPosition = "number", 
+  first = "number", 
+  last = "number", 
+  label = "string", 
+  clip ="string"
+}
+
+Area.attributesSymbolMap = {
+  first = {"s", "f", "npt"},
+  last = {"s", "f", "npt"}
+}
+
 function Area:create(attributes)  
    local area = Area:new()   
    
-   area.attributes = {
-      ["id"] = "", 
-      ["coords"] = "", 
-      ["begin"] = "", 
-      ["end"] = "", 
-      ["beginText"] = "",
-      ["endText"] = "", 
-      ["beginPosition"] = "",
-      ["endPosition"] = "", 
-      ["first"] = "", 
-      ["last"] = "", 
-      ["label"] = "", 
-      ["clip"] = ""
-   }
-   
+   area.id = nil 
+   area.coords = nil 
+   area.begin = nil 
+   area["end"] = nil 
+   area.beginText = nil
+   area.endText = nil 
+   area.beginPosition = nil
+   area.endPosition = nil 
+   area.first = nil 
+   area.last = nil 
+   area.label = nil 
+   area.clip = nil
+
    if(attributes ~= nil)then
       area:setAttributes(attributes)
    end
@@ -93,16 +111,16 @@ function Area:getEndPosition()
    return self:getAttribute("endPosition")
 end
 
-function Area:setFirst(first)
-   self:addAttribute("first", first)
+function Area:setFirst(first, symbol)
+   self:addAttribute("first", first, symbol)
 end
 
 function Area:getFirst()
    return self:getAttribute("first")
 end
 
-function Area:setLast(last)
-   self:addAttribute("last", last)
+function Area:setLast(last, symbol)
+   self:addAttribute("last", last, symbol)
 end
 
 function Area:getLast()

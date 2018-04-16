@@ -12,12 +12,11 @@ CompoundStatement.childrenMap = {
 
 CompoundStatement.attributesTypeMap = {
   operator = "string",
-  isNegated = "string"
+  isNegated = "boolean"
 }
 
 CompoundStatement.attributesStringValueMap = {
-  operator = {"and", "or"},
-  isNegated = {"true", "false"}
+  operator = {"and", "or"}
 }
 
 function CompoundStatement:create(attributes, full)
@@ -82,9 +81,9 @@ end
 function CompoundStatement:removeAssessmentStatement(assessmentStatement)
   self:removeChild(assessmentStatement)
 
-  for i, as in ipairs(self.assessmentStatements) do
+  for p, as in ipairs(self.assessmentStatements) do
     if(assessmentStatement == as)then
-      table.remove(self.assessmentStatements, i)
+      table.remove(self.assessmentStatements, p)
     end
   end
 end
@@ -118,9 +117,9 @@ end
 function CompoundStatement:removeCompoundStatement(compoundStatement)
   self:removeChild(compoundStatement)
 
-  for i, cs in ipairs(self.compoundStatements) do
+  for p, cs in ipairs(self.compoundStatements) do
     if(compoundStatement == cs)then
-      table.remove(self.compoundStatements, i)
+      table.remove(self.compoundStatements, p)
     end
   end
 end

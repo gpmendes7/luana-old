@@ -61,8 +61,8 @@ function CompoundCondition:getOperator()
   return self:getAttribute("operator")
 end
 
-function CompoundCondition:setDelay(delay)
-  self:addAttribute("delay", delay)
+function CompoundCondition:setDelay(delay, symbol)
+  self:addAttribute("delay", delay, symbol)
 end
 
 function CompoundCondition:getDelay()
@@ -84,7 +84,7 @@ end
 
 function CompoundCondition:setSimpleConditions(...)
   if(#arg>0)then
-    for i, simpleCondition in ipairs(arg) do
+    for _, simpleCondition in ipairs(arg) do
       self:addSimpleCondition(simpleCondition)
     end
   end
@@ -93,9 +93,9 @@ end
 function CompoundCondition:removeSimpleCondition(simpleCondition)
   self:removeChild(simpleCondition)
 
-  for i, sc in ipairs(self.simpleConditions) do
+  for p, sc in ipairs(self.simpleConditions) do
     if(simpleCondition == sc)then
-      table.remove(self.simpleConditions, i)
+      table.remove(self.simpleConditions, p)
     end
   end
 end
@@ -129,9 +129,9 @@ end
 function CompoundCondition:removeCompoundCondition(compoundCondition)
   self:removeChild(compoundCondition)
 
-  for i, cc in ipairs(self.compoundConditions) do
+  for p, cc in ipairs(self.compoundConditions) do
     if(compoundCondition == cc)then
-      table.remove(self.compoundConditions, i)
+      table.remove(self.compoundConditions, p)
     end
   end
 end
@@ -165,9 +165,9 @@ end
 function CompoundCondition:removeAssessmentStatement(assessmentStatement)
   self:removeChild(assessmentStatement)
 
-  for i, as in ipairs(self.assessmentStatements) do
+  for p, as in ipairs(self.assessmentStatements) do
     if(assessmentStatement == as)then
-      table.remove(self.assessmentStatements, i)
+      table.remove(self.assessmentStatements, p)
     end
   end
 end
@@ -201,9 +201,9 @@ end
 function CompoundCondition:removeCompoundStatement(compoundStatement)
   self:removeChild(compoundStatement)
 
-  for i, cs in ipairs(self.compoundStatements) do
+  for p, cs in ipairs(self.compoundStatements) do
     if(compoundStatement == cs)then
-      table.remove(self.compoundStatements, i)
+      table.remove(self.compoundStatements, p)
     end
   end
 end

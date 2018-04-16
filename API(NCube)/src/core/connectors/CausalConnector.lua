@@ -81,9 +81,9 @@ end
 function CausalConnector:removeConnectorParam(connectorParam)
   self:removeChild(connectorParam)
 
-  for i, cp in ipairs(self.connectorParams) do
+  for p, cp in ipairs(self.connectorParams) do
     if(connectorParam == cp)then
-      table.remove(self.connectorParams, i)
+      table.remove(self.connectorParams, p)
     end
   end
 end

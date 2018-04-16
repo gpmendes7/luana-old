@@ -10,10 +10,12 @@ local NCLElem = Class:createClass{
   attributes = nil,
   attributesTypeMap = nil,
   attributesStringValueMap = nil,
+  symbols = nil,
+  attributesSymbolMap = nil,
   ncl = nil
 }
 
-NCLElem.indetityAttributes = { "id", "name" }
+NCLElem.indetityAttributes = { "id", "name", "alias" }
 
 function NCLElem:extends()
   return Class:createClass(NCLElem)
@@ -120,7 +122,7 @@ function NCLElem:removeChild(child)
 end
 
 function NCLElem:setChildren(...)
-  if(#arg>0)then
+  if(#arg > 0)then
     for _, child in ipairs(arg) do
       self:addChild(child)
     end
