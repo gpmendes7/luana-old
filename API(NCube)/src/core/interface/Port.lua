@@ -19,7 +19,7 @@ function Port:create(attributes)
 
   port.componentAss = nil
   port.interfaceAss = nil
-
+  
   if(attributes ~= nil)then
     port:setAttributes(attributes)
   end
@@ -37,12 +37,14 @@ end
 
 function Port:setComponent(component)
   if(type(component) == "table")then
-    if(component["getId"] ~= nil)then
+    if(component.getId ~= nil)then
       self:addAttribute("component", component:getId())
-    elseif(component["getName"] ~= nil)then
+    elseif(component.getName ~= nil)then
       self:addAttribute("component", component:getName())
     end
+    
     self.componentAss = component
+    table.insert(component.ass, self)
   else
     self:addAttribute("component", component)
   end
@@ -54,12 +56,14 @@ end
 
 function Port:setInterface(interface)
   if(type(interface) == "table")then
-    if(interface["getId"] ~= nil)then
+    if(interface.getId ~= nil)then
       self:addAttribute("interface", interface:getId())
-    elseif(interface["getName"] ~= nil)then
+    elseif(interface.getName ~= nil)then
       self:addAttribute("interface", interface:getName())
     end
+    
     self.interfaceAss = interface
+    table.insert(interface.ass, self)
   else
     self:addAttribute("interface", interface)
   end

@@ -16,6 +16,8 @@ function Property:create(attributes)
   property.name = nil
   property.value = nil
   property.externable = nil
+  
+  property.ass = {}
 
   if(attributes ~= nil)then
     property:setAttributes(attributes)

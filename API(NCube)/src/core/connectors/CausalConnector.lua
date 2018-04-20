@@ -25,6 +25,8 @@ function CausalConnector:create(attributes, full)
   local causalConnector = CausalConnector:new()
 
   causalConnector.id = nil
+  
+  causalConnector.ass = {}
 
   if(attributes ~= nil)then
     causalConnector:setAttributes(attributes)

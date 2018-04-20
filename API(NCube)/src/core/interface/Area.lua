@@ -39,6 +39,8 @@ function Area:create(attributes)
    area.last = nil 
    area.label = nil 
    area.clip = nil
+   
+   area.ass = {}
 
    if(attributes ~= nil)then
       area:setAttributes(attributes)

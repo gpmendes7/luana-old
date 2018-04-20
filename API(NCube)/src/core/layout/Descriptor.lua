@@ -73,6 +73,8 @@ function Descriptor:create(attributes, full)
   descriptor.regionAss = nil
   descriptor.transInAss = nil
   descriptor.transOutAss = nil
+  
+  descriptor.ass = {}
 
   if(attributes ~= nil)then
     descriptor:setAttributes(attributes)
@@ -113,19 +115,17 @@ function Descriptor:getExplicitDur()
 end
 
 function Descriptor:setRegion(region)
-  self:addAttribute("region", region)
+  if(type(region) == "table" and region.name == "region")then
+    self:addAttribute("region", region:getId())
+    self.regionAss = region
+    table.insert(region.ass, self)
+  else
+    self:addAttribute("region", region)
+  end
 end
 
 function Descriptor:getRegion()
   return self:getAttribute("region")
-end
-
-function Descriptor:setRegionAss(regionAss)
-  self.regionAss = regionAss
-end
-
-function Descriptor:getRegionAss()
-  return self.regionAss
 end
 
 function Descriptor:setFreeze(freeze)
@@ -228,10 +228,10 @@ function Descriptor:setTransIn(...)
   if(#arg > 0)then
     local id = ""
 
-    for p, t in ipairs(arg) do
-      if(type(t) == "table" and t.name == "transition")then
-        id = id + t:getId()
-        table.insert(self.transInAss, p)
+    for p, transIn in ipairs(arg) do
+      if(type(transIn) == "table" and transIn.name == "transition")then
+        id = id + transIn:getId()
+        table.insert(self.transInAss, transIn)
 
         if(p < #arg)then
           id = id + ","
@@ -259,10 +259,10 @@ function Descriptor:setTransOut(...)
   if(#arg > 0)then
     local id = ""
 
-    for p, t in ipairs(arg) do
-      if(type(t) == "table" and t.name == "transition")then
-        id = id + t:getId()
-        table.insert(self.transOutAss, p)
+    for p, transOut in ipairs(arg) do
+      if(type(transOut) == "table" and transOut.name == "transition")then
+        id = id + transOut:getId()
+        table.insert(self.transOutAss, transOut)
 
         if(p < #arg)then
           id = id + ","

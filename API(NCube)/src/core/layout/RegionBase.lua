@@ -63,6 +63,7 @@ function RegionBase:setRegion(region)
   if(type(region) == "table" and region.name == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
+    table.insert(region.ass, self)
   else
     self:addAttribute("region", region)
   end
