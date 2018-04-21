@@ -6,7 +6,7 @@ local ImportedDocumentBase = NCLElem:extends()
 ImportedDocumentBase.name = "importedDocumentBase"
 
 ImportedDocumentBase.childrenMap = {
-  ["importNCL"] = {ImportNCL, "many"}
+  importNCL = {ImportNCL, "many"}
 }
 
 ImportedDocumentBase.attributesTypeMap = {
@@ -45,8 +45,12 @@ function ImportedDocumentBase:addImportNCL(importNCL)
   table.insert(self.importNCLs, importNCL)
 end
 
-function ImportedDocumentBase:getImportNCLPos(i)
-  return self.importNCLs[i]
+function ImportedDocumentBase:getImportNCLPos(p)
+  if(p > #self.importNCLs)then
+    error("Error! importedDocumentBase element doesn't have a importNCL child in position "..p.."!", 2)
+  end
+
+  return self.importNCLs[p]
 end
 
 function ImportedDocumentBase:setImportNCLs(...)
@@ -60,16 +64,16 @@ end
 function ImportedDocumentBase:removeImportNCL(importNCL)
   self:removeChild(importNCL)
 
-  for i, ip in ipairs(self.importNCLs) do
+  for p, ip in ipairs(self.importNCLs) do
     if(importNCL == ip)then
-      table.remove(self.importNCLs, i)
+      table.remove(self.importNCLs, p)
     end
   end
 end
 
-function ImportedDocumentBase:removeImportNCLPos(i)
-  self:removeChildPos(i)
-  table.remove(self.importNCLs, i)
+function ImportedDocumentBase:removeImportNCLPos(p)
+  self:removeChildPos(p)
+  table.remove(self.importNCLs, p)
 end
 
 return ImportedDocumentBase

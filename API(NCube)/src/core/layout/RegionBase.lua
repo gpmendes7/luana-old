@@ -26,6 +26,8 @@ function RegionBase:create(attributes, full)
   regionBase.region = nil
 
   regionBase.regionAss = nil
+  
+  regionBase.ass = {}
 
   if(attributes ~= nil)then
     regionBase:setAttributes(attributes)

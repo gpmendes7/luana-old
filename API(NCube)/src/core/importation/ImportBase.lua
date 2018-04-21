@@ -19,6 +19,9 @@ function ImportBase:create(attributes)
   importBase.region = nil
   importBase.baseId = nil
 
+  importBase.regionAss = nil
+  importBase.baseIdAss = nil
+
   if(attributes ~= nil)then
     importBase:setAttributes(attributes)
   end
@@ -43,7 +46,13 @@ function ImportBase:getDocumentURI()
 end
 
 function ImportBase:setRegion(region)
-  self:addAttribute("region", region)
+  if(type(region) == "table" and region.name == "region")then
+    self:addAttribute("region", region:getId())
+    self.regionAss = region
+    table.insert(region.ass, self)
+  else
+    self:addAttribute("region", region)
+  end
 end
 
 function ImportBase:getRegion()
@@ -51,7 +60,13 @@ function ImportBase:getRegion()
 end
 
 function ImportBase:setBaseId(baseId)
-  self:addAttribute("baseId", baseId)
+  if(type(baseId) == "table" and baseId.name == "regionBase")then
+    self:addAttribute("baseId", baseId:getId())
+    self.baseIdAss = baseId
+    table.insert(baseId.ass, self)
+  else
+    self:addAttribute("baseId", baseId)
+  end
 end
 
 function ImportBase:getBaseId()

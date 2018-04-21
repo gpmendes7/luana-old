@@ -232,6 +232,7 @@ function Descriptor:setTransIn(...)
       if(type(transIn) == "table" and transIn.name == "transition")then
         id = id + transIn:getId()
         table.insert(self.transInAss, transIn)
+        table.insert(transIn.ass, self)
 
         if(p < #arg)then
           id = id + ","
@@ -263,7 +264,8 @@ function Descriptor:setTransOut(...)
       if(type(transOut) == "table" and transOut.name == "transition")then
         id = id + transOut:getId()
         table.insert(self.transOutAss, transOut)
-
+        table.insert(transOut.ass, self)
+          
         if(p < #arg)then
           id = id + ","
         end

@@ -51,6 +51,8 @@ function Transition:create(attributes)
   transition.vertRepeat = nil
   transition.borderWidth = nil
   transition.borderColor = nil
+  
+  transition.ass = {}
 
   if(attributes ~= nil)then
     transition:setAttributes(attributes)

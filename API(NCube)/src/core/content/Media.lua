@@ -7,168 +7,212 @@ local Media = NCLElem:extends()
 Media.name = "media"
 
 Media.childrenMap = {
- ["area"] = {Area, "many"},
- ["property"] = {Property, "many"}
+  area = {Area, "many"},
+  property = {Property, "many"}
+}
+
+Media.attributesTypeMap = {
+  id = "string",
+  src = "string",
+  type = "string",
+  refer = "string",
+  instance = "string",
+  descriptor = "string"
+}
+
+Media.attributesStringValueMap = {
+  instance = {"new", "instSame", "gradSame"}
 }
 
 function Media:create(attributes, full)
-   local media = Media:new()   
-   
-   media.attributes = {
-      ["id"] = "",  
-      ["src"] = "",
-      ["type"] = "",
-      ["refer"] = "",
-      ["instance"] = "",
-      ["descriptor"] = ""
-   }
-      
-   if(attributes ~= nil)then
-      media:setAttributes(attributes)
-   end
-   
-   media.children = {}
-   media.areas = {}
-   media.propertys = {}
-   
-   if(full ~= nil)then
-      media:addArea(Area:create())
-      media:addProperty(Property:create())
-   end
-      
-   return media
+  local media = Media:new()
+
+  media.id = nil
+  media.src = nil
+  media.type = nil
+  media.refer = nil
+  media.instance = nil
+  media.descriptor = nil
+
+  media.referAss = nil
+  media.descriptorAss = nil
+
+  media.ass = {}
+
+  if(attributes ~= nil)then
+    media:setAttributes(attributes)
+  end
+
+  media.children = {}
+  media.areas = {}
+  media.propertys = {}
+
+  if(full ~= nil)then
+    media:addArea(Area:create())
+    media:addProperty(Property:create())
+  end
+
+  return media
 end
 
 function Media:setId(id)
-   self:addAttribute("id", id)
+  self:addAttribute("id", id)
 end
 
 function Media:getId()
-   return self:getAttribute("id")
+  return self:getAttribute("id")
 end
 
 function Media:setSrc(src)
-   self:addAttribute("src", src)
+  self:addAttribute("src", src)
 end
 
 function Media:getSrc()
-   return self:getAttribute("src")
+  return self:getAttribute("src")
 end
 
 function Media:setType(type)
-   self:addAttribute("type", type)
+  self:addAttribute("type", type)
 end
 
 function Media:getType()
-   return self:getAttribute("type")
+  return self:getAttribute("type")
 end
 
 function Media:setRefer(refer)
-   self:addAttribute("refer", refer)
+  if(type(refer) == "table" and refer.name == "media")then
+    self:addAttribute("refer", refer:getId())
+    self.referAss = refer
+    table.insert(refer.ass, self)
+  else
+    self:addAttribute("refer", refer)
+  end
 end
 
 function Media:getRefer()
-   return self:getAttribute("refer")
+  return self:getAttribute("refer")
 end
 
 function Media:setInstance(instance)
-   self:addAttribute("instance", instance)
+  self:addAttribute("instance", instance)
 end
 
 function Media:getInstance()
-   return self:getAttribute("instance")
+  return self:getAttribute("instance")
 end
 
 function Media:setDescriptor(descriptor)
-   self:addAttribute("descriptor", descriptor)
+  if(type(descriptor) == "table" and descriptor.name == "descriptor")then
+    self:addAttribute("descriptor", descriptor:getId())
+    self.descriptorAss = descriptor
+    table.insert(descriptor.ass, self)
+  else
+    self:addAttribute("descriptor", descriptor)
+  end
 end
 
 function Media:getDescriptor()
-   return self:getAttribute("descriptor")
+  return self:getAttribute("descriptor")
 end
 
 function Media:addArea(area)
-   self:addChild(area)
-   table.insert(self.areas, area) 
+  self:addChild(area)
+  table.insert(self.areas, area)
 end
 
-function Media:getAreaPos(i)
-    return self.areas[i]
+function Media:getAreaPos(p)
+  if(p > #self.areas)then
+    error("Error! media element doesn't have a area child in position "..p.."!", 2)
+  end
+
+  return self.areas[p]
 end
 
 function Media:getAreaById(id)
-   for _, area in ipairs(self.areas) do
-       if(area:getId() == id)then
-          return area
-       end
-   end
-   
-   return nil
+  if(id == nil)then
+    error("Error! id attribute of area element must be informed!", 2)
+  end
+
+  for _, area in ipairs(self.areas) do
+    if(area:getId() == id)then
+      return area
+    end
+  end
+
+  return nil
 end
 
 function Media:setAreas(...)
-    if(#arg>0)then
-      for _, area in ipairs(arg) do
-          self:addArea(area)
-      end
+  if(#arg>0)then
+    for _, area in ipairs(arg) do
+      self:addArea(area)
     end
+  end
 end
 
 function Media:removeArea(area)
-   self:removeChild(area)
-   
-   for i, ar in ipairs(self.areas) do
-       if(area == ar)then
-           table.remove(self.areas, i)  
-       end
-   end    
+  self:removeChild(area)
+
+  for p, ar in ipairs(self.areas) do
+    if(area == ar)then
+      table.remove(self.areas, p)
+    end
+  end
 end
 
-function Media:removeAreaPos(i)
-   self:removeChildPos(i)
-   table.remove(self.areas, i)
+function Media:removeAreaPos(p)
+  self:removeChildPos(p)
+  table.remove(self.areas, p)
 end
 
 function Media:addProperty(property)
-   self:addChild(property)
-   table.insert(self.propertys, property) 
+  self:addChild(property)
+  table.insert(self.propertys, property)
 end
 
-function Media:getPropertyPos(i)
-    return self.propertys[i]
+function Media:getPropertyPos(p)
+  if(p > #self.propertys)then
+    error("Error! media element doesn't have a property child in position "..p.."!", 2)
+  end
+
+  return self.propertys[p]
 end
 
 function Media:getPropertyByName(name)
-   for _, property in ipairs(self.propertys) do
-       if(property:getName() == name)then
-          return property
-       end
-   end
-   
-   return nil
+  if(name == nil)then
+    error("Error! name attribute of property element must be informed!", 2)
+  end
+
+  for _, property in ipairs(self.propertys) do
+    if(property:getName() == name)then
+      return property
+    end
+  end
+
+  return nil
 end
 
 function Media:setPropertys(...)
-    if(#arg>0)then
-      for _, property in ipairs(arg) do
-          self:addProperty(property)
-      end
+  if(#arg>0)then
+    for _, property in ipairs(arg) do
+      self:addProperty(property)
     end
+  end
 end
 
 function Media:removeProperty(property)
-   self:removeChild(property)
-   
-   for i, pr in ipairs(self.propertys) do
-       if(property == pr)then
-           table.remove(self.propertys, i)  
-       end
-   end    
+  self:removeChild(property)
+
+  for p, pr in ipairs(self.propertys) do
+    if(property == pr)then
+      table.remove(self.propertys, p)
+    end
+  end
 end
 
-function Media:removePropertyPos(i)
-   self:removeChildPos(i)
-   table.remove(self.propertys, i)
+function Media:removePropertyPos(p)
+  self:removeChildPos(p)
+  table.remove(self.propertys, p)
 end
 
 return Media
