@@ -18,7 +18,6 @@ RegionBase.attributesTypeMap = {
 }
 
 function RegionBase:create(attributes, full)
-  local attributes = attributes or {}
   local regionBase = RegionBase:new()
 
   regionBase.id = nil

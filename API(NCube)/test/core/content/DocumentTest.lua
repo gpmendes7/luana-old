@@ -135,7 +135,7 @@ local function test3()
   status, err = pcall(document["setTitle"], document, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(document["setXmlns"], document, function() return a end)
+  status, err = pcall(document["setXmlns"], document, function(a, b) return a+b end)
   assert(not(status), "Error!")
 
   status, err = pcall(document["setXsi"], document, 45.5)

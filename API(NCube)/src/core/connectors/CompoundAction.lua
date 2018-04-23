@@ -36,6 +36,8 @@ function CompoundAction:create(attributes, full)
   compoundAction.children = {}
   compoundAction.simpleActions = {}
   compoundAction.compoundActions = {}
+  
+  compoundAction.symbols = {}
 
   if(full ~= nil)then
     compoundAction:addSimpleAction(SimpleAction:create())

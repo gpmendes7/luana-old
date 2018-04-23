@@ -59,9 +59,15 @@ local function test1()
       
     status, err = pcall(elemA["addAttribute"], elemA, "id", 4)
     assert(not(status), "Error!")
-    assert(err == "Error! id attribute is not valid to elementA element! "..
-                  "The type of id attribute of elementA element must be a string "..
-                  "and not a number!", "Error!")
+    assert(err == "Error! id attribute is not valid to elementA element!", "Error!")
+    
+    status, err = pcall(elemA["addAttribute"], elemA, "id", {})
+    assert(not(status), "Error!")
+    assert(err == "Error! id attribute is not valid to elementA element!", "Error!")
+    
+    status, err = pcall(elemA["addAttribute"], elemA, "id", function(a, b) return a+b end)
+    assert(not(status), "Error!")
+    assert(err == "Error! id attribute is not valid to elementA element!", "Error!")
                         
     elemA = ElementA:create() 
     elemA:setAttributes({id = "id1", desc = "desc1"})    

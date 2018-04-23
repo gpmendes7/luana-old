@@ -24,6 +24,11 @@ Media.attributesStringValueMap = {
   instance = {"new", "instSame", "gradSame"}
 }
 
+Media.assMap = {
+  {"refer", "referAss"},
+  {"descriptor", "descriptorAss"}
+}
+
 function Media:create(attributes, full)
   local media = Media:new()
 

@@ -48,6 +48,8 @@ function SimpleAction:create(attributes)
   simpleAction.repeatDelay = nil
   simpleAction.duration = nil
   simpleAction.by = nil
+  
+  simpleAction.symbols = {}
 
   if(attributes ~= nil)then
     simpleAction:setAttributes(attributes)

@@ -42,6 +42,8 @@ function Region:create(attributes, full)
   region.width = nil
   region.zIndex = nil
   
+  region.symbols = {}
+  
   region.ass = {}
 
   if(attributes ~= nil)then

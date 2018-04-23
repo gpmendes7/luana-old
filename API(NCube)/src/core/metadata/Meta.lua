@@ -4,7 +4,7 @@ local Meta = NCLElem:extends()
 
 Meta.name = "meta"
 
-Meta.attributesSymbolMap = {
+Meta.attributesTypeMap = {
   name = "string",
   content = "string"
 }

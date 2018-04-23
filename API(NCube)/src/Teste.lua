@@ -1,11 +1,21 @@
-local Port = require "core/interface/Port"
-local Property = require "core/interface/Property"
-local Media = require "core/content/Media"
-local Link = require "core/linking/Link"
-local Meta = require "core/metadata/Meta"
-local MetaData = require "core/metadata/MetaData"
+--local s = "15npt"
+--local s = "3s"
+local s = "3f"
+--local s = "true"
 
-local m = Media:create()
-if(m.getId ~= nil)then
- print(2)
+validSymbols = {"%%", "s", "f", "npt"}
+
+for _, symbol in ipairs(validSymbols) do
+   if(string.match(s, "(%d+)"..symbol))then
+      value = string.match(s, "(%d+)")
+      print(tonumber(value))
+      print(symbol)
+   end
 end
+
+if(s == "false")then
+   print(false)
+elseif(s == "true")then
+   print(true)
+end
+

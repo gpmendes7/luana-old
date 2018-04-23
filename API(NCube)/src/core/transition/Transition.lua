@@ -52,6 +52,8 @@ function Transition:create(attributes)
   transition.borderWidth = nil
   transition.borderColor = nil
   
+  transition.symbols = {}
+  
   transition.ass = {}
 
   if(attributes ~= nil)then

@@ -17,6 +17,8 @@ local NCLElem = Class:createClass{
 
 NCLElem.indetityAttributes = { "id", "name", "alias", "var" }
 
+NCLElem.validSymbols = {"%%", "s", "f", "npt"}
+
 function NCLElem:extends()
   return Class:createClass(NCLElem)
 end
@@ -178,7 +180,7 @@ function NCLElem:getDescendantByAttribute(attribute, value)
   local targetDescs = {}
 
   for _, desc in ipairs(descs) do
-    if(desc:getAttribute(attribute) == value)then
+    if(desc.attributesTypeMap ~= nil and desc:getAttribute(attribute) == value)then
       table.insert(targetDescs, desc)
     end
   end
@@ -192,28 +194,43 @@ function NCLElem:getDescendantByAttribute(attribute, value)
   return nil
 end
 
-function NCLElem:addAttribute(attribute, value)
-  if(self.attributesTypeMap[attribute] == nil or Validator:isInvalidString(attribute))then
-    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
-  elseif(Validator:isEmptyOrNil(value))then
-    error("Error! Invalid value to "..attribute.." attribute of "..self.name.." element! Value must be informed!", 2)
-  elseif(self.attributesTypeMap[attribute] ~= type(value))then
-    error("Error! "..attribute.." attribute is not valid to "..self.name.." element! "..
-      "The type of "..attribute.." attribute of "..self.name.." element must be a "..self.attributesTypeMap[attribute].." "..
-      "and not a "..type(value).."!", 2)
-  elseif(self.attributesValuesMap ~= nil and self.attributesValuesMap[attribute] ~= nil)then
-    local isInvalid = true
+function NCLElem:isValidAttributeType(attribute, value)
+  local isValid = false
 
-    for i, v in ipairs(self.attributesValuesMap[attribute]) do
-      if(v == value)then
-        isInvalid = false
+  if(self.attributesTypeMap ~= nil
+    and type(self.attributesTypeMap[attribute]) == "table")then
+    for _, typeAtt in ipairs(self.attributesTypeMap[attribute]) do
+      if(typeAtt == type(value))then
+        isValid = true
         break
       end
     end
+  elseif(self.attributesTypeMap ~= nil
+    and self.attributesTypeMap[attribute] == type(value))then
+    isValid = true
+  elseif(type(value) == "string"
+    and self.attributesStringValueMap ~= nil
+    and self.attributesStringValueMap[attribute] ~= nil)then
 
-    if(isInvalid)then
-      error("Error! The value "..value.." is not valid to  "..attribute.." attribute in "..self.name.." element!", 2)
+    for _, val in ipairs(self.attributesStringValueMap[attribute]) do
+      if(val == value)then
+        isValid = true
+        break
+      end
     end
+  end
+
+  return isValid
+end
+
+function NCLElem:addAttribute(attribute, value)
+  if((self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)
+    or Validator:isInvalidString(attribute))then
+    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
+  elseif(Validator:isEmptyOrNil(value))then
+    error("Error! Invalid value to "..attribute.." attribute of "..self.name.." element! Value must be informed!", 2)
+  elseif(not self:isValidAttributeType(attribute, value))then
+    error("Error! "..attribute.." attribute is not valid to "..self.name.." element!", 2)
   else
     self[attribute] = value
   end
@@ -224,7 +241,7 @@ function NCLElem:removeAttribute(attribute)
     error("Error! Empty or nil attribute is not a valid attribute to "..self.name.." element!", 2)
   elseif(Validator:isInvalidString(attribute))then
     error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
-  elseif(self.attributesTypeMap[attribute] == nil)then
+  elseif(self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)then
     error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
   else
     self[attribute] = nil
@@ -236,7 +253,7 @@ function NCLElem:getAttribute(attribute)
     error("Error! Empty or nil attribute is not a valid attribute to "..self.name.." element!", 2)
   elseif(Validator:isInvalidString(attribute))then
     error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
-  elseif(self.attributesTypeMap[attribute] == nil)then
+  elseif(self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)then
     error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
   else
     return self[attribute]
@@ -292,7 +309,54 @@ function NCLElem:readAttributes()
 
       local value = string.sub(attributes, v+1,z-1)
 
+      local sb
+
+      for _, symbol in ipairs(self.validSymbols) do
+        if(string.match(value, "(%d+)"..symbol))then
+          value = tonumber(string.match(value, "(%d+)"))
+          sb = symbol
+
+          if(symbol == "%%")then
+            sb = "%"
+          else
+            sb = symbol
+          end
+          break
+        end
+      end
+
+      local isInvalidSymbol = true
+
+      if(self.attributesSymbolMap ~= nil and sb ~= nil)then
+        if(self.attributesSymbolMap[attribute] == "table")then
+          for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
+            if(sb == symbol)then
+              isInvalidSymbol = false
+              break
+            end
+          end
+        else
+          if(self.attributesSymbolMap[attribute] == sb) then
+            isInvalidSymbol = false
+          end
+        end
+
+        if(isInvalidSymbol)then
+          error("Error! "..attribute.." attribute is not valid to "..self.name.." element!", 2)
+        end
+      end
+
+      if(s == "false")then
+        value = false
+      elseif(s == "true")then
+        value = true
+      end
+
       self:addAttribute(attribute, value)
+
+      if(sb ~= nil)then
+        self.symbols[attribute] = sb
+      end
 
       attributes = string.sub(attributes, z+1, string.len(attributes))
       u, r = string.find(attributes, "%S+=")
@@ -470,10 +534,16 @@ function NCLElem:table2Ncl(deep)
 
   ncl = ncl.."<"..self.name
 
-  for attribute, typeAtt in pairs(self.attributesTypeMap) do
-    if(self[attribute] ~= nil
-      and self.attributesTypeMap[attribute] == type(typeAtt))then
-      ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
+  if(self.attributesTypeMap)then
+    for attribute, typeAtt in pairs(self.attributesTypeMap) do
+      if(self[attribute] ~= nil)then
+        if(typeAtt == "number" and self.symbols ~= nil
+          and self.symbols[attribute] ~= nil)then
+          ncl = ncl.." "..attribute.."=".."\""..self[attribute]..self.symbols[attribute].."\""
+        else
+          ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
+        end
+      end
     end
   end
 

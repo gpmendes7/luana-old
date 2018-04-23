@@ -74,6 +74,8 @@ function Descriptor:create(attributes, full)
   descriptor.transInAss = nil
   descriptor.transOutAss = nil
   
+  descriptor.symbols = {}
+  
   descriptor.ass = {}
 
   if(attributes ~= nil)then
@@ -118,7 +120,7 @@ function Descriptor:setRegion(region)
   if(type(region) == "table" and region.name == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
-    table.insert(region.ass, self)
+    table.insert(self.regionAss.ass, self)
   else
     self:addAttribute("region", region)
   end

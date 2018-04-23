@@ -16,6 +16,12 @@ Bind.attributesTypeMap = {
   descriptor = "string"
 }
 
+Bind.assMap = {
+  {"component", "componentAss"},
+  {"interface", "interfaceAss"},
+  {"descriptor", "descriptorAss"}
+}
+
 function Bind:create(attributes, full)
   local bind = Bind:new()
 

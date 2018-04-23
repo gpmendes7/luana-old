@@ -42,6 +42,8 @@ function CompoundCondition:create(attributes, full)
   compoundCondition.compoundConditions = {}
   compoundCondition.assessmentStatements = {}
   compoundCondition.compoundStatements = {}
+  
+  compoundCondition.symbols = {}
 
   if(full ~= nil)then
     compoundCondition:addSimpleCondition(SimpleCondition:create())

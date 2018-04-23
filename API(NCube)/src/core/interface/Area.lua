@@ -40,6 +40,8 @@ function Area:create(attributes)
    area.label = nil 
    area.clip = nil
    
+   area.symbols = {}
+   
    area.ass = {}
 
    if(attributes ~= nil)then

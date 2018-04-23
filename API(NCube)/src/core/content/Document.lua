@@ -217,11 +217,19 @@ function Document:connectAssociatedElements()
     for _, descendant in ipairs(descendants) do
       if(descendant.assMap ~= nil)then
         for _, ass in ipairs(descendant:getAssMap()) do
-          local id = descendant:getAttribute(ass[1])
+          local attribute = descendant:getAttribute(ass[1])
+          print(id)
+          if(attribute ~= nil)then
+            local objAss = ass[2]
 
-          local field = ass[2]
+            descendant[objAss] = self:getDescendantByAttribute("id", attribute)
+            if(descendant[objAss] == nil)then
+              descendant[objAss] = self:getDescendantByAttribute("name", attribute)
+            end
 
-          descendant[field] = self:getDescendantByAttribute("id", id)
+            print(descendant[objAss])
+            table.insert(descendant[objAss].ass, descendant)
+          end
         end
       end
     end

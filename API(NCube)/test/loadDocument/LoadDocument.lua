@@ -14,7 +14,7 @@ local doc = Document:create()
 
 -- doc:loadNcl("docs/luaRocks/main.ncl")
 
--- doc:loadNcl("docs/nclcd/exemplo01.ncl")
+doc:loadNcl("docs/nclcd/exemplo01.ncl")
 -- doc:loadNcl("docs/nclcd/composerConnectorBase.conn")
 -- doc:loadNcl("docs/nclcd/exemplo02.ncl")
 -- doc:loadNcl("docs/nclcd/exemplo02.conn")
@@ -79,3 +79,19 @@ local doc = Document:create()
 -- doc:loadNcl("docs/tvdigitalsocial/twitterPrevidencia.ncl")
 
 doc:writeNcl()
+
+local rgVideo1 = doc:getDescendantByAttribute("id", "rgVideo1")
+rgVideo1:writeNcl()
+
+print(#rgVideo1.ass)
+for i, obj in ipairs(rgVideo1.ass) do
+   obj:writeNcl()
+end
+
+local dVideo1 = doc:getDescendantByAttribute("id", "dVideo1")
+dVideo1:writeNcl()
+
+print(#dVideo1.ass)
+for i, obj in ipairs(dVideo1.ass) do
+   obj:writeNcl()
+end
