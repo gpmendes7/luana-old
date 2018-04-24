@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local ImportNCL = NCLElem:extends()
 
-ImportNCL.name = "importNCL"
+ImportNCL.nameElem = "importNCL"
 
 ImportNCL.attributesTypeMap = {
   alias = "string",

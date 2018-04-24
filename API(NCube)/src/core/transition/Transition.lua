@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local Transition = NCLElem:extends()
 
-Transition.name = "transition"
+Transition.nameElem = "transition"
 
 Transition.attributesTypeMap = {
   id = "string",

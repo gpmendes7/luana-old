@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local LinkParam = NCLElem:extends()
 
-LinkParam.name = "linkParam"
+LinkParam.nameElem = "linkParam"
 
 LinkParam.attributesTypeMap = {
   name = "string",

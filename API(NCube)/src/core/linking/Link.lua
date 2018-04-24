@@ -4,7 +4,7 @@ local Bind = require "core/linking/Bind"
 
 local Link = NCLElem:extends()
 
-Link.name = "link"
+Link.nameElem = "link"
 
 Link.childrenMap = {
   linkParam = {LinkParam, "many"},

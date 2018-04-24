@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local SimpleAction = NCLElem:extends()
 
-SimpleAction.name = "simpleAction"
+SimpleAction.nameElem = "simpleAction"
 
 SimpleAction.attributesTypeMap = {
   role = "string",

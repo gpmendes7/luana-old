@@ -11,7 +11,7 @@ local MetaData = require "core/metadata/MetaData"
 
 local Body = NCLElem:extends()
 
-Body.name = "body"
+Body.nameElem = "body"
 
 Body.childrenMap = {
   port = {Port, "many"},

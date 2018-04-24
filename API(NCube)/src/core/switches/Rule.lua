@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local Rule = NCLElem:extends()
 
-Rule.name = "rule"
+Rule.nameElem = "rule"
 
 Rule.attributesTypeMap = {
   id = "string",
@@ -22,6 +22,8 @@ function Rule:create(attributes)
   rule.var = nil
   rule.comparator = nil
   rule.value = nil
+  
+  rule.ass = {}
 
   if(attributes ~= nil)then
     rule:setAttributes(attributes)

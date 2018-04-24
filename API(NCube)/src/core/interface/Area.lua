@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local Area = NCLElem:extends()
 
-Area.name = "area"
+Area.nameElem = "area"
 
 Area.attributesTypeMap = {
   id = "string", 
@@ -20,6 +20,8 @@ Area.attributesTypeMap = {
 }
 
 Area.attributesSymbolMap = {
+  begin = "s",
+  ["end"] = "s",
   first = {"s", "f", "npt"},
   last = {"s", "f", "npt"}
 }

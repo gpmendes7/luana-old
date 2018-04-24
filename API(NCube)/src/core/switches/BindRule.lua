@@ -2,11 +2,16 @@ local NCLElem = require "core/NCLElem"
 
 local BindRule = NCLElem:extends()
 
-BindRule.name = "bindRule"
+BindRule.nameElem = "bindRule"
 
 BindRule.attributesTypeMap = {
   constituent = "string",
   rule = "string"
+}
+
+BindRule.assMap = {
+  {"constituent", "constituentAss"},
+  {"rule", "ruleAss"}
 }
 
 function BindRule:create(attributes)

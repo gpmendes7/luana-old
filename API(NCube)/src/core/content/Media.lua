@@ -4,7 +4,7 @@ local Property = require "core/interface/Property"
 
 local Media = NCLElem:extends()
 
-Media.name = "media"
+Media.nameElem = "media"
 
 Media.childrenMap = {
   area = {Area, "many"},

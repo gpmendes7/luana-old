@@ -5,7 +5,7 @@ local CompoundStatement = require "core/connectors/CompoundStatement"
 
 local CompoundCondition = NCLElem:extends()
 
-CompoundCondition.name = "compoundCondition"
+CompoundCondition.nameElem = "compoundCondition"
 
 CompoundCondition.childrenMap = {
   simpleCondition = {SimpleCondition, "many"},

@@ -5,7 +5,7 @@ local CompositeRule = require "core/switches/CompositeRule"
 
 local RuleBase = NCLElem:extends()
 
-RuleBase.name = "ruleBase"
+RuleBase.nameElem = "ruleBase"
 
 RuleBase.childrenMap = {
   importBase = {ImportBase, "many"},

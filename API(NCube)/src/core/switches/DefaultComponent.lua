@@ -2,10 +2,14 @@ local NCLElem = require "core/NCLElem"
 
 local DefaultComponent = NCLElem:extends()
 
-DefaultComponent.name = "defaultComponent"
+DefaultComponent.nameElem = "defaultComponent"
 
 DefaultComponent.attributesTypeMap = {
   component = "string"
+}
+
+DefaultComponent.assMap = {
+  {"component", "componentAss"}
 }
 
 function DefaultComponent:create(attributes)

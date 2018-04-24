@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local SimpleCondition = NCLElem:extends()
 
-SimpleCondition.name = "simpleCondition"
+SimpleCondition.nameElem = "simpleCondition"
 
 SimpleCondition.attributesTypeMap = {
   role = "string",

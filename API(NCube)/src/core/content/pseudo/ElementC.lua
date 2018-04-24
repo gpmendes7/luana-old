@@ -3,7 +3,7 @@ local ElementE = require "core/content/pseudo/ElementE"
 
 local ElementC = NCLElem:extends()
 
-ElementC.name = "elementC"
+ElementC.nameElem = "elementC"
 
 ElementC.childrenMap = {
  ["elementE"] = {ElementE, "many"}

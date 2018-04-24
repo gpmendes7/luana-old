@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local DescriptorParam = NCLElem:extends()
 
-DescriptorParam.name = "descriptorParam"
+DescriptorParam.nameElem = "descriptorParam"
 
 DescriptorParam.attributesTypeMap = {
   name = "string",
@@ -14,6 +14,8 @@ function DescriptorParam:create(attributes)
 
   descriptorParam.name = nil
   descriptorParam.value = nil
+  
+  descriptorParam.ass = {}
 
   if(attributes ~= nil)then
     descriptorParam:setAttributes(attributes)

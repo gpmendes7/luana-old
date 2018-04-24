@@ -3,7 +3,7 @@ local BindParam = require "core/linking/BindParam"
 
 local Bind = NCLElem:extends()
 
-Bind.name = "bind"
+Bind.nameElem = "bind"
 
 Bind.childrenMap = {
   bindParam = {BindParam, "many"}

@@ -2,10 +2,14 @@ local NCLElem = require "core/NCLElem"
 
 local DefaultDescriptor = NCLElem:extends()
 
-DefaultDescriptor.name = "defaultDescriptor"
+DefaultDescriptor.nameElem = "defaultDescriptor"
 
 DefaultDescriptor.attributesTypeMap = {
   descriptor = "string"
+}
+
+DefaultDescriptor.assMap = {
+  {"descriptor", "descriptorAss"}
 }
 
 function DefaultDescriptor:create(attributes)

@@ -5,7 +5,7 @@ local Body = require "core/content/Body"
 
 local Document = NCLElem:extends()
 
-Document.name = "ncl"
+Document.nameElem = "ncl"
 
 Document.childrenMap = {
   head = {Head, "one"},
@@ -218,17 +218,28 @@ function Document:connectAssociatedElements()
       if(descendant.assMap ~= nil)then
         for _, ass in ipairs(descendant:getAssMap()) do
           local attribute = descendant:getAttribute(ass[1])
-          print(id)
-          if(attribute ~= nil)then
+
+          if(attribute ~= nil and string.match(attribute, "#") == nil)then
             local objAss = ass[2]
 
             descendant[objAss] = self:getDescendantByAttribute("id", attribute)
+
             if(descendant[objAss] == nil)then
-              descendant[objAss] = self:getDescendantByAttribute("name", attribute)
+              local component = self:getDescendantByAttribute("id", descendant.component)
+
+              local interface = component:getInterface(descendant.interface)
+
+--              if(interface == nil and component.refer)then
+--                local refer = self:getDescendantByAttribute("id", component.refer)
+--                interface = refer:getInterface(descendant.interface)
+--              end
+
+              descendant[objAss] = interface
             end
 
-            print(descendant[objAss])
-            table.insert(descendant[objAss].ass, descendant)
+            if(descendant[objAss] ~=nil)then
+              table.insert(descendant[objAss].ass, descendant)
+            end
           end
         end
       end

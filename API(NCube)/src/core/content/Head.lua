@@ -10,7 +10,7 @@ local MetaData = require "core/metadata/MetaData"
 
 local Head = NCLElem:extends()
 
-Head.name = "head"
+Head.nameElem = "head"
 
 Head.childrenMap = {
   importedDocumentBase = {ImportedDocumentBase, "one"},

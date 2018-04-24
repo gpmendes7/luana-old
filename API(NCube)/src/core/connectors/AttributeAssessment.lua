@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local AttributeAssessment = NCLElem:extends()
 
-AttributeAssessment.name = "attributeAssessment"
+AttributeAssessment.nameElem = "attributeAssessment"
 
 AttributeAssessment.attributesTypeMap = {
   role = "string",

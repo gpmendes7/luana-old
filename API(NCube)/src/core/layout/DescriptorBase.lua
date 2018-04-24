@@ -5,7 +5,7 @@ local Descriptor = require "core/layout/Descriptor"
 
 local DescriptorBase = NCLElem:extends()
 
-DescriptorBase.name = "descriptorBase"
+DescriptorBase.nameElem = "descriptorBase"
 
 DescriptorBase.childrenMap = {
   descriptorSwitch = {DescriptorSwitch, "many"},

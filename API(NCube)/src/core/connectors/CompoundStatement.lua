@@ -3,7 +3,7 @@ local AssessmentStatement = require "core/connectors/AssessmentStatement"
 
 local CompoundStatement = NCLElem:extends()
 
-CompoundStatement.name = "compoundStatement"
+CompoundStatement.nameElem = "compoundStatement"
 
 CompoundStatement.childrenMap = {
   assessmentStatement = {AssessmentStatement, "many"},

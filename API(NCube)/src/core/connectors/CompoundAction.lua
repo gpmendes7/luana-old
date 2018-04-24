@@ -3,7 +3,7 @@ local SimpleAction = require "core/connectors/SimpleAction"
 
 local CompoundAction = NCLElem:extends()
 
-CompoundAction.name = "compoundAction"
+CompoundAction.nameElem = "compoundAction"
 
 CompoundAction.childrenMap = {
   simpleAction = {SimpleAction, "many"},

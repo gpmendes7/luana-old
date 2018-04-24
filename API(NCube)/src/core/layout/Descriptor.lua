@@ -3,7 +3,7 @@ local DescriptorParam = require "core/layout/DescriptorParam"
 
 local Descriptor = NCLElem:extends()
 
-Descriptor.name = "descriptor"
+Descriptor.nameElem = "descriptor"
 
 Descriptor.childrenMap = {
   descriptorParam = {DescriptorParam, "many"}
@@ -19,7 +19,7 @@ Descriptor.attributesTypeMap = {
   moveRight = "number",
   moveUp = "number",
   moveDown = "number",
-  focusIndex = "number",
+  focusIndex = {"string", "number"},
   focusBorderColor = "string",
   focusBorderWidth = "number",
   focusBorderTransparency = "number",
@@ -45,7 +45,9 @@ Descriptor.attributesSymbolMap = {
 }
 
 Descriptor.assMap = {
-  {"region", "regionAss"}
+  {"region", "regionAss"},
+  {"transIn", "transInAss"},
+  {"transOut", "transOutAss"}
 }
 
 function Descriptor:create(attributes, full)
@@ -73,9 +75,9 @@ function Descriptor:create(attributes, full)
   descriptor.regionAss = nil
   descriptor.transInAss = nil
   descriptor.transOutAss = nil
-  
+
   descriptor.symbols = {}
-  
+
   descriptor.ass = {}
 
   if(attributes ~= nil)then
@@ -267,7 +269,7 @@ function Descriptor:setTransOut(...)
         id = id + transOut:getId()
         table.insert(self.transOutAss, transOut)
         table.insert(transOut.ass, self)
-          
+
         if(p < #arg)then
           id = id + ","
         end
@@ -299,7 +301,7 @@ function Descriptor:getDescriptorParamPos(p)
   if(p > #self.descriptorParams)then
     error("Error! descriptor element doesn't have a descriptorParam child in position "..p.."!", 2)
   end
-    
+
   return self.descriptorParams[p]
 end
 

@@ -3,7 +3,7 @@ local Rule = require "core/switches/Rule"
 
 local CompositeRule = NCLElem:extends()
 
-CompositeRule.name = "compositeRule"
+CompositeRule.nameElem = "compositeRule"
 
 CompositeRule.childrenMap = {
   rule = {Rule, "many"},

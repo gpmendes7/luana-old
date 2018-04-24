@@ -2,7 +2,7 @@ local Class = require "oo/Class"
 local Validator = require "valid/Validator"
 
 local NCLElem = Class:createClass{
-  name = nil,
+  nameElem = nil,
   parent = nil,
   children = nil,
   childrenMap = nil,
@@ -15,7 +15,7 @@ local NCLElem = Class:createClass{
   ncl = nil
 }
 
-NCLElem.indetityAttributes = { "id", "name", "alias", "var" }
+NCLElem.indetityAttributes = {"id", "name", "alias", "var"}
 
 NCLElem.validSymbols = {"%%", "s", "f", "npt"}
 
@@ -24,7 +24,7 @@ function NCLElem:extends()
 end
 
 function NCLElem:getNameElem()
-  return self.name
+  return self.nameElem
 end
 
 function NCLElem:setParent(parent)
@@ -37,19 +37,19 @@ end
 
 function NCLElem:addChild(child, p)
   if(child == nil)then
-    error("Error! Attempt to set a nil child to "..self.name.."!", 2)
+    error("Error! Attempt to set a nil child to "..self.nameElem.."!", 2)
   end
 
   local valid = false
 
   for chd, _ in pairs(self.childrenMap) do
-    if(chd == child.name)then
+    if(chd == child.nameElem)then
       valid = true
     end
   end
 
   if(not(valid))then
-    error("Error! Attempt to set a invalid child! "..child.name.." cannot be child of "..self.name.."!", 2)
+    error("Error! Attempt to set a invalid child! "..child.nameElem.." cannot be child of "..self.nameElem.."!", 2)
   end
 
   if(p ~= nil)then
@@ -63,7 +63,7 @@ end
 
 function NCLElem:getChild(p)
   if(p > #self.children)then
-    error("Error! "..self.name.." element doesn't have a child in position "..p.."!", 2)
+    error("Error! "..self.nameElem.." element doesn't have a child in position "..p.."!", 2)
   end
 
   return self.children[p]
@@ -83,7 +83,7 @@ function NCLElem:getLastPosChild(child)
   local p
 
   for i, chd in ipairs(self.children) do
-    if(child == chd.name)then
+    if(child == chd.nameElem)then
       p = i
     end
   end
@@ -102,7 +102,7 @@ end
 
 function NCLElem:removeChildPos(p)
   if(p > #self.children)then
-    error("Error! Attempt to remove failed! "..self.name.." element doesn't have a child in position "..p.."!", 2)
+    error("Error! Attempt to remove failed! "..self.nameElem.." element doesn't have a child in position "..p.."!", 2)
   end
 
   self:getChild(p):setParent(nil)
@@ -111,13 +111,13 @@ end
 
 function NCLElem:removeChild(child)
   if(child == nil)then
-    error("Error! Attempt to remove failed! You are trying to remove a nil child in "..self.name.."!", 2)
+    error("Error! Attempt to remove failed! You are trying to remove a nil child in "..self.nameElem.."!", 2)
   end
 
   local p = self:getPosChild(child)
 
   if(p == nil)then
-    error("Error! Attempt to remove failed! "..self.name.." element doesn't have this child!", 2)
+    error("Error! Attempt to remove failed! "..self.nameElem.." element doesn't have this child!", 2)
   end
 
   self:removeChildPos(p)
@@ -180,7 +180,8 @@ function NCLElem:getDescendantByAttribute(attribute, value)
   local targetDescs = {}
 
   for _, desc in ipairs(descs) do
-    if(desc.attributesTypeMap ~= nil and desc:getAttribute(attribute) == value)then
+    if(desc.attributesTypeMap ~= nil and desc.attributesTypeMap[attribute] ~= nil
+      and desc:getAttribute(attribute) == value)then
       table.insert(targetDescs, desc)
     end
   end
@@ -189,6 +190,18 @@ function NCLElem:getDescendantByAttribute(attribute, value)
     return targetDescs[1]
   elseif(#targetDescs > 2)then
     return targetDescs
+  end
+
+  return nil
+end
+
+function NCLElem:getInterface(interface)
+  local descs = self:getDescendants()
+
+  for _, desc in ipairs(descs) do
+    if(desc.name ~= nil and desc.name == interface)then
+      return desc
+    end
   end
 
   return nil
@@ -226,11 +239,11 @@ end
 function NCLElem:addAttribute(attribute, value)
   if((self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)
     or Validator:isInvalidString(attribute))then
-    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   elseif(Validator:isEmptyOrNil(value))then
-    error("Error! Invalid value to "..attribute.." attribute of "..self.name.." element! Value must be informed!", 2)
+    error("Error! Invalid value to "..attribute.." attribute of "..self.nameElem.." element! Value must be informed!", 2)
   elseif(not self:isValidAttributeType(attribute, value))then
-    error("Error! "..attribute.." attribute is not valid to "..self.name.." element!", 2)
+    error("Error! "..attribute.." attribute is not valid to "..self.nameElem.." element!", 2)
   else
     self[attribute] = value
   end
@@ -238,11 +251,11 @@ end
 
 function NCLElem:removeAttribute(attribute)
   if(Validator:isEmptyOrNil(attribute))then
-    error("Error! Empty or nil attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! Empty or nil attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   elseif(Validator:isInvalidString(attribute))then
-    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   elseif(self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)then
-    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   else
     self[attribute] = nil
   end
@@ -250,11 +263,11 @@ end
 
 function NCLElem:getAttribute(attribute)
   if(Validator:isEmptyOrNil(attribute))then
-    error("Error! Empty or nil attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! Empty or nil attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   elseif(Validator:isInvalidString(attribute))then
-    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   elseif(self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)then
-    error("Error! "..attribute.." attribute is not a valid attribute to "..self.name.." element!", 2)
+    error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   else
     return self[attribute]
   end
@@ -290,11 +303,52 @@ function NCLElem:getAttributes()
   return self.attributes
 end
 
+function NCLElem:checkAttributeSymbol(attribute, value)
+  local sb
+
+  for _, symbol in ipairs(self.validSymbols) do
+    if(string.match(value, "(%d+)"..symbol))then
+      sb = symbol
+
+      if(symbol == "%%")then
+        sb = "%"
+      else
+        sb = symbol
+      end
+
+      break
+    end
+  end
+
+  local isInvalidSymbol = true
+
+  if(sb ~= nil)then
+    if(self.attributesSymbolMap[attribute] == "table")then
+      for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
+        if(sb == symbol)then
+          isInvalidSymbol = false
+          break
+        end
+      end
+    else
+      if(self.attributesSymbolMap[attribute] == sb) then
+        isInvalidSymbol = false
+      end
+    end
+
+    if(isInvalidSymbol)then
+      error("Error! "..attribute.." attribute is not valid to "..self.nameElem.." element!", 2)
+    end
+  end
+
+  return sb
+end
+
 function NCLElem:readAttributes()
   local s, e, t, u, r, v, w, z
 
-  _, s = string.find(self.ncl, "<"..self.name.." ")
-  _, t = string.find(self.ncl, "<"..self.name..">")
+  _, s = string.find(self.ncl, "<"..self.nameElem.." ")
+  _, t = string.find(self.ncl, "<"..self.nameElem..">")
   e = string.find(self.ncl, ">")
 
   if(s ~= nil and t == nil and e ~= nil)then
@@ -309,54 +363,23 @@ function NCLElem:readAttributes()
 
       local value = string.sub(attributes, v+1,z-1)
 
-      local sb
+      if(self.symbols ~= nil and self.attributesSymbolMap ~= nil)then
+        self.symbols[attribute] = self:checkAttributeSymbol(attribute, value)
+      end
 
-      for _, symbol in ipairs(self.validSymbols) do
-        if(string.match(value, "(%d+)"..symbol))then
+      if(self.attributesTypeMap ~= nil)then
+        if(self.attributesTypeMap[attribute] == "number"
+          and string.match(value, "(%a+)") == nil
+          and string.match(value, "(%d+)") ~= nil )then
           value = tonumber(string.match(value, "(%d+)"))
-          sb = symbol
-
-          if(symbol == "%%")then
-            sb = "%"
-          else
-            sb = symbol
-          end
-          break
+        elseif(self.attributesTypeMap[attribute] == "boolean" and value == "false")then
+          value = false
+        elseif(self.attributesTypeMap[attribute] == "boolean" and value == "true")then
+          value = true
         end
-      end
-
-      local isInvalidSymbol = true
-
-      if(self.attributesSymbolMap ~= nil and sb ~= nil)then
-        if(self.attributesSymbolMap[attribute] == "table")then
-          for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
-            if(sb == symbol)then
-              isInvalidSymbol = false
-              break
-            end
-          end
-        else
-          if(self.attributesSymbolMap[attribute] == sb) then
-            isInvalidSymbol = false
-          end
-        end
-
-        if(isInvalidSymbol)then
-          error("Error! "..attribute.." attribute is not valid to "..self.name.." element!", 2)
-        end
-      end
-
-      if(s == "false")then
-        value = false
-      elseif(s == "true")then
-        value = true
       end
 
       self:addAttribute(attribute, value)
-
-      if(sb ~= nil)then
-        self.symbols[attribute] = sb
-      end
 
       attributes = string.sub(attributes, z+1, string.len(attributes))
       u, r = string.find(attributes, "%S+=")
@@ -374,7 +397,7 @@ function NCLElem:readChildrenNcl()
   local childrenNcl
 
   if(u == nil)then
-    local _, n = string.gsub(self.ncl, "</"..self.name..">", "*")
+    local _, n = string.gsub(self.ncl, "</"..self.nameElem..">", "*")
     local e, v, w
 
     if(n > 1)then
@@ -382,11 +405,11 @@ function NCLElem:readChildrenNcl()
       w, v = 0
 
       repeat
-        e, v = string.find(self.ncl, "</"..self.name..">", v)
+        e, v = string.find(self.ncl, "</"..self.nameElem..">", v)
         w = w + 1
       until w == n
     else
-      e, v = string.find(self.ncl, "</"..self.name..">")
+      e, v = string.find(self.ncl, "</"..self.nameElem..">")
     end
 
     childrenNcl = string.sub(self.ncl, s+1, e-1)
@@ -475,7 +498,6 @@ function NCLElem:ncl2Table()
             if(map ~= nil)then
               local childClass = map[1]
               local childObject = childClass:create()
-
               childObject:setNcl(childNcl)
               childObject:ncl2Table()
               self:addChild(childObject)
@@ -507,7 +529,7 @@ end
 function NCLElem:table2Ncl(deep)
   local ncl = ""
 
-  if(deep == 0 and self.name == "ncl")then
+  if(deep == 0 and self.nameElem == "ncl")then
     if(self:getXmlHead() ~= nil and self:getXmlHead() ~= "")then
       ncl = ncl..self:getXmlHead().."\n"
       ncl = ncl.."<!--Generated by NCube-->\n"
@@ -518,7 +540,7 @@ function NCLElem:table2Ncl(deep)
     end
   end
 
-  if(self.name == "metadata")then
+  if(self.nameElem == "metadata")then
     ncl = ncl.."<metadata>\n"
 
     if(self:getRdfTree() ~= nil and self:getRdfTree() ~= "")then
@@ -532,16 +554,30 @@ function NCLElem:table2Ncl(deep)
     return ncl.."</metadata>\n"
   end
 
-  ncl = ncl.."<"..self.name
+  ncl = ncl.."<"..self.nameElem
 
-  if(self.attributesTypeMap)then
+  if(self.attributesTypeMap ~= nil)then
     for attribute, typeAtt in pairs(self.attributesTypeMap) do
       if(self[attribute] ~= nil)then
-        if(typeAtt == "number" and self.symbols ~= nil
-          and self.symbols[attribute] ~= nil)then
-          ncl = ncl.." "..attribute.."=".."\""..self[attribute]..self.symbols[attribute].."\""
-        else
-          ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
+        if(type(typeAtt) ~= "table")then
+          if(typeAtt == "number" and self.symbols ~= nil
+            and self.symbols[attribute] ~= nil)then
+            ncl = ncl.." "..attribute.."=".."\""..self[attribute]..self.symbols[attribute].."\""
+          else
+            ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
+          end
+        elseif(type(typeAtt) == "table")then
+          for _, tp in ipairs(typeAtt) do
+            if(tp == "number" and self.symbols ~= nil
+              and self.symbols[attribute] ~= nil
+              and type(self[attribute] == "number"))then
+              ncl = ncl.." "..attribute.."=".."\""..self[attribute]..self.symbols[attribute].."\""
+              break
+            elseif(type(self[attribute]) == tp)then
+              ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
+              break
+            end
+          end
         end
       end
     end
@@ -571,7 +607,7 @@ function NCLElem:table2Ncl(deep)
     return ncl.."/>\n"
   end
 
-  return ncl.."</"..self.name..">\n"
+  return ncl.."</"..self.nameElem..">\n"
 end
 
 function NCLElem:setNcl(ncl)

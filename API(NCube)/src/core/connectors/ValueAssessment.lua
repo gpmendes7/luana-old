@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local ValueAssessment = NCLElem:extends()
 
-ValueAssessment.name = "valueAssessment"
+ValueAssessment.nameElem = "valueAssessment"
 
 ValueAssessment.attributesTypeMap = {
   value = "string"

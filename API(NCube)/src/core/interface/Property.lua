@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local Property = NCLElem:extends()
 
-Property.name = "property"
+Property.nameElem = "property"
 
 Property.attributesTypeMap = {
   name = "string",

@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local ConnectorParam = NCLElem:extends()
 
-ConnectorParam.name = "connectorParam"
+ConnectorParam.nameElem = "connectorParam"
 
 ConnectorParam.attributesTypeMap = {
   name = "string",

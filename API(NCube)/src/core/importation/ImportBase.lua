@@ -2,13 +2,18 @@ local NCLElem = require "core/NCLElem"
 
 local ImportBase = NCLElem:extends()
 
-ImportBase.name = "importBase"
+ImportBase.nameElem = "importBase"
 
 ImportBase.attributesTypeMap = {
   alias = "string",
   documentURI = "string",
   region = "string",
   baseId = "string"
+}
+
+ImportBase.assMap = {
+  {"region", "regionAss"},
+  {"baseId", "baseIdAss"}
 }
 
 function ImportBase:create(attributes)
@@ -46,7 +51,7 @@ function ImportBase:getDocumentURI()
 end
 
 function ImportBase:setRegion(region)
-  if(type(region) == "table" and region.name == "region")then
+  if(type(region) == "table" and region.nameElem == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
     table.insert(region.ass, self)
@@ -60,7 +65,7 @@ function ImportBase:getRegion()
 end
 
 function ImportBase:setBaseId(baseId)
-  if(type(baseId) == "table" and baseId.name == "regionBase")then
+  if(type(baseId) == "table" and baseId.nameElem == "regionBase")then
     self:addAttribute("baseId", baseId:getId())
     self.baseIdAss = baseId
     table.insert(baseId.ass, self)

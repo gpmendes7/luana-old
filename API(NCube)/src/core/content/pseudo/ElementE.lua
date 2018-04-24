@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local ElementE = NCLElem:extends()
 
-ElementE.name = "elementE"
+ElementE.nameElem = "elementE"
 
 ElementE.attributesTypeMap = {
   ["id"] = "string",

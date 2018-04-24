@@ -4,7 +4,7 @@ local Region = require "core/layout/Region"
 
 local RegionBase = NCLElem:extends()
 
-RegionBase.name = "regionBase"
+RegionBase.nameElem = "regionBase"
 
 RegionBase.childrenMap = {
   importBase = {ImportBase, "many"},
@@ -17,6 +17,10 @@ RegionBase.attributesTypeMap = {
   region = "string"
 }
 
+RegionBase.assMap = {
+  {"region", "regionAss"}
+}
+
 function RegionBase:create(attributes, full)
   local regionBase = RegionBase:new()
 
@@ -25,7 +29,7 @@ function RegionBase:create(attributes, full)
   regionBase.region = nil
 
   regionBase.regionAss = nil
-  
+
   regionBase.ass = {}
 
   if(attributes ~= nil)then

@@ -3,7 +3,7 @@ local ImportNCL = require "core/importation/ImportNCL"
 
 local ImportedDocumentBase = NCLElem:extends()
 
-ImportedDocumentBase.name = "importedDocumentBase"
+ImportedDocumentBase.nameElem = "importedDocumentBase"
 
 ImportedDocumentBase.childrenMap = {
   importNCL = {ImportNCL, "many"}

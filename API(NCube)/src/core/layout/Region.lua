@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local Region = NCLElem:extends()
 
-Region.name = "region"
+Region.nameElem = "region"
 
 Region.childrenMap = {
   region = {Region, "many"}

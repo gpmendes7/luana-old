@@ -7,7 +7,7 @@ local CompoundAction = require "core/connectors/CompoundAction"
 
 local CausalConnector = NCLElem:extends()
 
-CausalConnector.name = "causalConnector"
+CausalConnector.nameElem = "causalConnector"
 
 CausalConnector.childrenMap = {
   connectorParam = {ConnectorParam, "many"},

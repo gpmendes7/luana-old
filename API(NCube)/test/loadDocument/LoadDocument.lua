@@ -14,7 +14,7 @@ local doc = Document:create()
 
 -- doc:loadNcl("docs/luaRocks/main.ncl")
 
-doc:loadNcl("docs/nclcd/exemplo01.ncl")
+-- doc:loadNcl("docs/nclcd/exemplo01.ncl")
 -- doc:loadNcl("docs/nclcd/composerConnectorBase.conn")
 -- doc:loadNcl("docs/nclcd/exemplo02.ncl")
 -- doc:loadNcl("docs/nclcd/exemplo02.conn")
@@ -80,18 +80,23 @@ doc:loadNcl("docs/nclcd/exemplo01.ncl")
 
 doc:writeNcl()
 
-local rgVideo1 = doc:getDescendantByAttribute("id", "rgVideo1")
-rgVideo1:writeNcl()
+--local binds = doc:getDescendantByAttribute("interface", "service.interactivity")
+--
+--local bind = binds[1]
+--
+--print(bind:writeNcl())
+--print(bind.interfaceAss:writeNcl())
+--
+--local bounds = doc:getDescendantByAttribute("name", "bounds")
+--for _, obj in ipairs(bounds.ass) do
+--   obj:writeNcl()
+--end
 
-print(#rgVideo1.ass)
-for i, obj in ipairs(rgVideo1.ass) do
-   obj:writeNcl()
-end
-
-local dVideo1 = doc:getDescendantByAttribute("id", "dVideo1")
-dVideo1:writeNcl()
-
-print(#dVideo1.ass)
-for i, obj in ipairs(dVideo1.ass) do
-   obj:writeNcl()
-end
+--local component = doc:getDescendantByAttribute("id", "video1")
+--local visible = component:getDescendantByAttribute("name", "visible")
+--
+--print(visible:writeNcl())
+--print(#visible.ass)
+--for _, obj in ipairs(visible.ass) do
+--   obj:writeNcl()
+--end

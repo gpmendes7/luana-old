@@ -5,7 +5,7 @@ local Descriptor = require "core/layout/Descriptor"
 
 local DescriptorSwitch = NCLElem:extends()
 
-DescriptorSwitch.name = "descriptorSwitch"
+DescriptorSwitch.nameElem = "descriptorSwitch"
 
 DescriptorSwitch.childrenMap = {
   defaultDescriptor = {DefaultDescriptor, "one"},

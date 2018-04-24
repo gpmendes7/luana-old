@@ -3,7 +3,7 @@ local Mapping = require "core/switches/Mapping"
 
 local SwitchPort = NCLElem:extends()
 
-SwitchPort.name = "switchPort"
+SwitchPort.nameElem = "switchPort"
 
 SwitchPort.childrenMap = {
   mapping = {Mapping, "many"}

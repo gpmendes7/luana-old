@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local Meta = NCLElem:extends()
 
-Meta.name = "meta"
+Meta.nameElem = "meta"
 
 Meta.attributesTypeMap = {
   name = "string",

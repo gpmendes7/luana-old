@@ -4,7 +4,7 @@ local CausalConnector = require "core/connectors/CausalConnector"
 
 local ConnectorBase = NCLElem:extends()
 
-ConnectorBase.name = "connectorBase"
+ConnectorBase.nameElem = "connectorBase"
 
 ConnectorBase.childrenMap = {
   importBase = {ImportBase, "many"},

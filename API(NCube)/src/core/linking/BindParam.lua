@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local BindParam = NCLElem:extends()
 
-BindParam.name = "bindParam"
+BindParam.nameElem = "bindParam"
 
 BindParam.attributesTypeMap = {
   name = "string",

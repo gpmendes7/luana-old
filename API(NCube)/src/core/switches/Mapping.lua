@@ -2,11 +2,16 @@ local NCLElem = require "core/NCLElem"
 
 local Mapping = NCLElem:extends()
 
-Mapping.name = "mapping"
+Mapping.nameElem = "mapping"
 
 Mapping.attributesTypeMap = {
   component = "string",
   interface = "string"
+}
+
+Mapping.assMap = {
+  {"component", "componentAss"},
+  {"interface", "interfaceAss"}
 }
 
 function Mapping:create(attributes)

@@ -4,7 +4,7 @@ local Transition = require "core/transition/Transition"
 
 local TransitionBase = NCLElem:extends()
 
-TransitionBase.name = "transitionBase"
+TransitionBase.nameElem = "transitionBase"
 
 TransitionBase.childrenMap = {
   importBase = {ImportBase, "many"},

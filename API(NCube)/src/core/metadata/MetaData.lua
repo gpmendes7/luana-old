@@ -2,7 +2,7 @@ local NCLElem = require "core/NCLElem"
 
 local MetaData = NCLElem:extends()
 
-MetaData.name = "metadata"
+MetaData.nameElem = "metadata"
 
 function MetaData:create()
    local metaData = MetaData:new()  

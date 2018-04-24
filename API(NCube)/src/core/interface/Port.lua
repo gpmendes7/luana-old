@@ -2,12 +2,17 @@ local NCLElem = require "core/NCLElem"
 
 local Port = NCLElem:extends()
 
-Port.name = "port"
+Port.nameElem = "port"
 
 Port.attributesTypeMap = {
   id = "string",
   component = "string",
   interface = "string"
+}
+
+Port.assMap = {
+  {"component", "componentAss"},
+  {"interface", "interfaceAss"}
 }
 
 function Port:create(attributes)
@@ -19,7 +24,9 @@ function Port:create(attributes)
 
   port.componentAss = nil
   port.interfaceAss = nil
-  
+
+  port.ass = {}
+
   if(attributes ~= nil)then
     port:setAttributes(attributes)
   end
@@ -42,7 +49,7 @@ function Port:setComponent(component)
     elseif(component.getName ~= nil)then
       self:addAttribute("component", component:getName())
     end
-    
+
     self.componentAss = component
     table.insert(component.ass, self)
   else
@@ -61,7 +68,7 @@ function Port:setInterface(interface)
     elseif(interface.getName ~= nil)then
       self:addAttribute("interface", interface:getName())
     end
-    
+
     self.interfaceAss = interface
     table.insert(interface.ass, self)
   else

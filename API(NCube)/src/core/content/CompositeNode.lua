@@ -12,7 +12,7 @@ local Switch = NCLElem:extends()
 
 -- Class Context ---
 
-Context.name = "context"
+Context.nameElem = "context"
 
 Context.childrenMap = {
   port = {Port, "many"},
@@ -28,6 +28,10 @@ Context.childrenMap = {
 Context.attributesTypeMap = {
   id = "string",
   refer = "string"
+}
+
+Context.assMap = {
+  {"refer", "referAss"}
 }
 
 function Context:create(attributes, full)
@@ -516,7 +520,7 @@ local DefaultComponent = require "core/switches/DefaultComponent"
 local SwitchPort = require "core/switches/SwitchPort"
 local BindRule = require "core/switches/BindRule"
 
-Switch.name = "switch"
+Switch.nameElem = "switch"
 
 Switch.childrenMap = {
   defaultComponent = {DefaultComponent, "one"},
@@ -532,6 +536,10 @@ Switch.attributesTypeMap = {
   refer = "string"
 }
 
+Switch.assMap = {
+  {"refer", "referAss"}
+}
+
 function Switch:create(attributes, full)
   local switch = Switch:new()
 
@@ -539,6 +547,8 @@ function Switch:create(attributes, full)
   switch.refer = nil
 
   switch.referAss = nil
+  
+  switch.ass = {}
 
   if(attributes ~= nil)then
     switch:setAttributes(attributes)

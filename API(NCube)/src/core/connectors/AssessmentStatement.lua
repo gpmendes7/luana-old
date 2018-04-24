@@ -4,7 +4,7 @@ local ValueAssessment = require "core/connectors/ValueAssessment"
 
 local AssessmentStatement = NCLElem:extends()
 
-AssessmentStatement.name = "assessmentStatement"
+AssessmentStatement.nameElem = "assessmentStatement"
 
 AssessmentStatement.childrenMap = {
   attributeAssessment = {AttributeAssessment, "many"},
