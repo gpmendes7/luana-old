@@ -10,7 +10,7 @@ SimpleCondition.attributesTypeMap = {
   eventType = "string",
   key = "string",
   transition = "string",
-  min = "number",
+  min = {"string", "number"},
   max = {"string", "number"},
   qualifier = "string"
 }

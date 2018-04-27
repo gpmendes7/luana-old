@@ -155,27 +155,46 @@ function Document:saveNcl(name)
 end
 
 function Document:removeComments(ncl)
-  local newNcl = ncl
+  local _, nopen = string.gsub(ncl, "<!%-%-", "")
+  local _, nclosed = string.gsub(ncl, "%-%->", "")
 
-  newNcl = string.gsub(newNcl, "->", "end_comm")
+  if(nopen ~= nclosed)then
+    error("Error! NCL document is badly formatted! Syntax error!")
+  end
 
-  local t = string.find(newNcl,"<!--")
-  local _, u = string.find(newNcl,"-end_comm")
+  local t = string.find(ncl,"<!%-%-")
+  local _, u = string.find(ncl,"%-%->")
 
   if(t == nil and u == nil)then
-    return newNcl
+    return ncl
   end
+
+  local v = string.find(ncl,"<!%-%-", t+1)
+  local x = string.find(ncl,"%-%->", u+1)
+
+  if((u < t) or (v ~= nil and v < u) or (x ~= nil and x < v))then
+    error("Error! NCL document is badly formatted! Syntax error!")
+  end
+
+  local newNcl = ncl
 
   while(1)do
     local aux1 = string.sub(newNcl, 1, t-1)
     local aux2 = string.sub(newNcl, u+1, string.len(newNcl))
     newNcl = aux1..aux2
 
-    t = string.find(newNcl,"<!--")
-    _, u = string.find(newNcl,"-end_comm")
+    t = string.find(newNcl,"<!%-%-")
+    _, u = string.find(newNcl,"%-%->")
 
     if(t == nil and u == nil)then
       break
+    end
+
+    v = string.find(newNcl,"<!%-%-", t+1)
+    x = string.find(newNcl,"%-%->", u+1)
+
+    if((u < t) or (v ~= nil and v < u) or (x ~= nil and x < v))then
+      error("Error! NCL document is badly formatted! Syntax error!1")
     end
   end
 
@@ -194,9 +213,11 @@ function Document:readNclFile(name)
     ncl = ""
 
     for line in io.lines() do
-      if(isXmlHead)then
+      if(isXmlHead and string.find(line, "<?xml") ~= nil)then
         self:setXmlHead(line)
         isXmlHead = false
+      elseif(isXmlHead and string.find(line, "<?xml") == nil)then
+        error("Error! File "..name.." is a invalid NCL document! The file must have an XML header!")
       else
         ncl = ncl..line.."\n"
       end
@@ -204,7 +225,13 @@ function Document:readNclFile(name)
 
     file:close()
 
+    if(ncl == "")then
+      error("Error! File "..name.." is a invalid NCL document! Empty file!")
+    end
+
     ncl = self:removeComments(ncl)
+  else
+    error("Error! File "..name.." does not exist!")
   end
 
   return ncl
@@ -227,14 +254,10 @@ function Document:connectAssociatedElements()
             if(descendant[objAss] == nil)then
               local component = self:getDescendantByAttribute("id", descendant.component)
 
-              local interface = component:getInterface(descendant.interface)
-
---              if(interface == nil and component.refer)then
---                local refer = self:getDescendantByAttribute("id", component.refer)
---                interface = refer:getInterface(descendant.interface)
---              end
-
-              descendant[objAss] = interface
+              if(component ~= nil)then
+                local interface = component:getInterface(descendant.interface)
+                descendant[objAss] = interface
+              end
             end
 
             if(descendant[objAss] ~=nil)then
@@ -251,7 +274,7 @@ function Document:loadNcl(name)
   local ncl = self:readNclFile(name)
 
   if(ncl == nil)then
-    print("Error! File "..name.." does not exist!")
+    error("Error! File "..name.." couldn't be read! Invalid NCL document!")
   else
     self:setNcl(ncl)
     self:ncl2Table()

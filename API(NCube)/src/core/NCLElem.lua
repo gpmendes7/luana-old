@@ -240,8 +240,6 @@ function NCLElem:addAttribute(attribute, value)
   if((self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)
     or Validator:isInvalidString(attribute))then
     error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
-  elseif(Validator:isEmptyOrNil(value))then
-    error("Error! Invalid value to "..attribute.." attribute of "..self.nameElem.." element! Value must be informed!", 2)
   elseif(not self:isValidAttributeType(attribute, value))then
     error("Error! "..attribute.." attribute is not valid to "..self.nameElem.." element!", 2)
   else
@@ -303,6 +301,25 @@ function NCLElem:getAttributes()
   return self.attributes
 end
 
+function NCLElem:addSymbol(attribute, symbol)
+  local isValid = false
+
+  if(type(self.attributesSymbolMap[attribute]) == "table")then
+    for _, sb in pairs(self.attributesSymbolMap[attribute])do
+      if(symbol == sb)then
+        self.symbols[attribute] = symbol
+        break
+      end
+    end
+  else
+    isValid = symbol == self.attributesSymbolMap[attribute]
+  end
+
+  if(not isValid)then
+    error("Error! "..attribute.." attribute cannot have "..symbol.." character in "..self.nameElem.."!")
+  end
+end
+
 function NCLElem:checkAttributeSymbol(attribute, value)
   local sb
 
@@ -330,6 +347,7 @@ function NCLElem:checkAttributeSymbol(attribute, value)
           break
         end
       end
+
     else
       if(self.attributesSymbolMap[attribute] == sb) then
         isInvalidSymbol = false
@@ -337,11 +355,27 @@ function NCLElem:checkAttributeSymbol(attribute, value)
     end
 
     if(isInvalidSymbol)then
-      error("Error! "..attribute.." attribute is not valid to "..self.nameElem.." element!", 2)
+      error("Error! "..attribute.." attribute cannot have "..sb.." character in "..self.nameElem.." element!", 2)
     end
+
+  elseif(string.match(value, "(%d+)[^%d]"))then
+    error("Error! Unknown character passed to "..attribute.." attribute in "..self.nameElem.." element!", 2)
   end
 
   return sb
+end
+
+function NCLElem:canBeNumber(attribute, value)
+  if(type(self.attributesTypeMap[attribute]) == "table")then
+    print(3)
+    for _, typeAtt in ipairs(self.attributesTypeMap[attribute]) do
+      if(typeAtt == "number")then
+        return true
+      end
+    end
+  else
+    return self.attributesTypeMap[attribute] == "number"
+  end
 end
 
 function NCLElem:readAttributes()
@@ -367,18 +401,22 @@ function NCLElem:readAttributes()
         self.symbols[attribute] = self:checkAttributeSymbol(attribute, value)
       end
 
+      print("resp "..tostring(self:canBeNumber(attribute, value)))
       if(self.attributesTypeMap ~= nil)then
-        if(self.attributesTypeMap[attribute] == "number"
+        if(self:canBeNumber(attribute, value)
           and string.match(value, "(%a+)") == nil
           and string.match(value, "(%d+)") ~= nil )then
+          print(3)
           value = tonumber(string.match(value, "(%d+)"))
+
         elseif(self.attributesTypeMap[attribute] == "boolean" and value == "false")then
           value = false
+
         elseif(self.attributesTypeMap[attribute] == "boolean" and value == "true")then
           value = true
         end
       end
-
+      print(value)
       self:addAttribute(attribute, value)
 
       attributes = string.sub(attributes, z+1, string.len(attributes))

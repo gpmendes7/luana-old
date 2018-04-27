@@ -10,7 +10,6 @@ LinkParam.attributesTypeMap = {
 }
 
 function LinkParam:create(attributes)  
-   local attributes = attributes or {}  
    local linkParam = LinkParam:new() 
    
    linkParam.name = nil

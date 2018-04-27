@@ -10,12 +10,12 @@ SimpleAction.attributesTypeMap = {
   eventType = "string",
   actionType = "string",
   value = "string",
-  min = "number",
+  min = {"string", "number"},
   max = {"string", "number"},
   qualifier = "string",
-  ["repeat"] = "number",
+  ["repeat"] = {"string", "number"},
   repeatDelay = {"string", "number"},
-  duration = "number",
+  duration = {"string", "number"},
   by = {"string", "number"}
 }
 

@@ -78,6 +78,7 @@ local doc = Document:create()
 -- doc:loadNcl("docs/tvdigitalsocial/twitterDataprev.ncl")
 -- doc:loadNcl("docs/tvdigitalsocial/twitterPrevidencia.ncl")
 
+doc:loadNcl("t.ncl")
 doc:writeNcl()
 
 --local binds = doc:getDescendantByAttribute("interface", "service.interactivity")

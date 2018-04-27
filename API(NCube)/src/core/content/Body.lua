@@ -32,6 +32,8 @@ function Body:create(attributes, full)
   local body = Body:new()
 
   body.id = nil
+  
+  body.ass = {}
 
   if(attributes ~= nil)then
     body:setAttributes(attributes)

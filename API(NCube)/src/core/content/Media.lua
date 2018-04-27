@@ -17,7 +17,8 @@ Media.attributesTypeMap = {
   type = "string",
   refer = "string",
   instance = "string",
-  descriptor = "string"
+  newInstance = "string",
+  descriptor = "string",
 }
 
 Media.attributesStringValueMap = {
@@ -37,6 +38,7 @@ function Media:create(attributes, full)
   media.type = nil
   media.refer = nil
   media.instance = nil
+  media.newInstance = nil
   media.descriptor = nil
 
   media.referAss = nil
@@ -105,6 +107,15 @@ end
 function Media:getInstance()
   return self:getAttribute("instance")
 end
+
+function Media:setNewInstance(newInstance)
+  self:addAttribute("newInstance", newInstance)
+end
+
+function Media:getNewInstance()
+  return self:getAttribute("newInstance")
+end
+
 
 function Media:setDescriptor(descriptor)
   if(type(descriptor) == "table" and descriptor.name == "descriptor")then
