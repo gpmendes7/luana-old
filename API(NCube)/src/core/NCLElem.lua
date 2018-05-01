@@ -482,7 +482,6 @@ function NCLElem:readChildNcl(childrenNcl, childName)
       else
         local v = string.find(aux1, "/>", z)
         local w = string.find(aux1, ">", z)
-        local w = string.find(aux1, ">", z)
 
         if(v == nil and w == nil)then
           error("Error! Document with invalid syntax!", 2)
