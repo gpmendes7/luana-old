@@ -78,15 +78,13 @@ local doc = Document:create()
 -- doc:loadNcl("docs/tvdigitalsocial/twitterDataprev.ncl")
 -- doc:loadNcl("docs/tvdigitalsocial/twitterPrevidencia.ncl")
 
--- doc:loadNcl("t.ncl")
+--doc:loadNcl("t.ncl")
 doc:writeNcl()
 
---local binds = doc:getDescendantByAttribute("interface", "service.interactivity")
+--local dVideo1 = doc:getDescendantByAttribute("id", "dVideo1")
 --
---local bind = binds[1]
---
---print(bind:writeNcl())
---print(bind.interfaceAss:writeNcl())
+--print(dVideo1:writeNcl())
+--print(dVideo1.regionAss:writeNcl())
 --
 --local bounds = doc:getDescendantByAttribute("name", "bounds")
 --for _, obj in ipairs(bounds.ass) do

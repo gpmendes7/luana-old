@@ -379,8 +379,13 @@ function NCLElem:readAttributes()
 
     while (u ~= nil and r ~= nil) do
       local attribute = string.sub(attributes, u, r-1)
-      v, w = string.find(attributes, "\"", u+1)
-      z = string.find(attributes, "\"", w+1)
+      v = string.find(attributes, "\"", u+1)
+      w = string.find(attributes, "%S+=", v+1)
+      z = string.find(attributes, "\"", v+1)
+
+      if(v == nil or z == nil or (w ~= nil and w < z))then
+        error("Error! Document with invalid syntax!", 2)
+      end
 
       local value = string.sub(attributes, v+1,z-1)
 
@@ -440,37 +445,68 @@ end
 function NCLElem:readChildNcl(childrenNcl, childName)
   local s = string.find(childrenNcl, "<")
   local e = string.find(childrenNcl, ">")
-  local t, u
+
+  if(s == nil and e == nil)then
+    error("Error! Document with invalid syntax!", 2)
+  end
+
+  local t = string.find(childrenNcl, "<", s+1)
+
+  if(t ~= nil and e > t)then
+    error("Error! Document with invalid syntax!", 2)
+  end
 
   local aux1 = string.sub(childrenNcl, s, e)
 
-  if(string.find(aux1,"/>") ~= nil)then
+  local v = string.find(aux1,"/>")
+
+  if(v ~= nil)then
     return aux1, e
   else
-    t, u = string.find(childrenNcl, "</"..childName..">")
+    local _, u = string.find(childrenNcl, "</"..childName..">")
+
+    if(u == nil)then
+      error("Error! Document with invalid syntax!", 2)
+    end
 
     while(1)do
       aux1 = string.sub(childrenNcl, s, u)
 
-      local aux2, n1 = string.gsub(aux1, "<"..childName..">", "opening_tag")
+      local _, n1 = string.gsub(aux1, "<"..childName..">", "opening_tag")
 
-      local aux3 = aux1
       local n2 = 0
-      local r, z = string.find(aux3, "<"..childName.." ")
+      local r, z = string.find(aux1, "<"..childName.." ")
+
+      if(n1 == 0 and r == nil and z == nil)then
+        error("Error! Document with invalid syntax!", 2)
+      else
+        local v = string.find(aux1, "/>", z)
+        local w = string.find(aux1, ">", z)
+        local w = string.find(aux1, ">", z)
+
+        if(v == nil and w == nil)then
+          error("Error! Document with invalid syntax!", 2)
+        end
+      end
 
       while(r ~= nil and z ~= nil)do
-        local y = string.find(aux3, ">", z)
-        local aux4 = string.sub(aux3,r,y)
+        local y = string.find(aux1, ">", z)
 
-        if(string.find(aux4, "/>") == nil)then
+        if(y == nil)then
+          error("Error! Document with invalid syntax!", 2)
+        end
+
+        local aux2 = string.sub(aux1, r, y)
+
+        if(string.find(aux2, "/>") == nil)then
           n2 = n2 + 1
         end
 
-        r, z = string.find(aux3, "<"..childName.." ", y)
+        r, z = string.find(aux1, "<"..childName.." ", y)
       end
 
       local nopening = n1 + n2
-      local aux2, nclosing = string.gsub(aux1, "</"..childName..">", "closing_tag")
+      local _, nclosing = string.gsub(aux1, "</"..childName..">", "closing_tag")
 
       if(nopening == nclosing)then
         local p = 1
@@ -483,17 +519,26 @@ function NCLElem:readChildNcl(childrenNcl, childName)
         return string.sub(childrenNcl, s, p), p
       end
 
-      t, u = string.find(childrenNcl, "</"..childName..">", u)
+      _, u = string.find(childrenNcl, "</"..childName..">", u)
+
+      if(u == nil)then
+        error("Error! Document with invalid syntax!", 2)
+      end
     end
   end
 end
 
 function NCLElem:ncl2Table()
-  local s, e
+  local s, e, t, u
 
   if(self:getNameElem() == "metadata")then
-    local _, s = string.find(self:getNcl(), "<metadata>")
-    local e = string.find(self:getNcl(), "</metadata>")
+    _, s = string.find(self:getNcl(), "<metadata>")
+    e = string.find(self:getNcl(), "</metadata>")
+
+    if(s == nil or e == nil)then
+      error("Error! Document with invalid syntax!", 2)
+    end
+
     self:setRdfTree(string.sub(self:getNcl(), s+1, e-1))
     return
   end
@@ -503,10 +548,13 @@ function NCLElem:ncl2Table()
   local childrenNcl = self:readChildrenNcl()
   if(childrenNcl ~= nil)then
     repeat
-      s, e = string.find(childrenNcl, "<%a+")
+      t = string.find(childrenNcl, ">")
+      u = string.sub(childrenNcl, 1, t)
+      s, e = string.find(u, "<%a+")
 
-      if(s ~= nil and e ~= nil)then
-
+      if(s == nil and e == nil)then
+        error("Error! Document with invalid syntax!", 2)
+      else
         local childName = string.sub(childrenNcl, s+1, e)
         local childNcl, h = self:readChildNcl(childrenNcl, childName)
 
@@ -517,6 +565,7 @@ function NCLElem:ncl2Table()
             if(map ~= nil)then
               local childClass = map[1]
               local childObject = childClass:create()
+
               childObject:setNcl(childNcl)
               childObject:ncl2Table()
               self:addChild(childObject)
@@ -532,6 +581,8 @@ function NCLElem:ncl2Table()
               elseif(cardinality == "one")then
                 self[childName] = childObject
               end
+            else
+              error("Error! Document with invalid syntax!", 2)
             end
           end
         end
@@ -550,8 +601,7 @@ function NCLElem:table2Ncl(deep)
 
   if(deep == 0 and self.nameElem == "ncl")then
     if(self:getXmlHead() ~= nil and self:getXmlHead() ~= "")then
-      ncl = ncl..self:getXmlHead().."\n"
-      ncl = ncl.."<!--Generated by NCube-->\n"
+      ncl = ncl..self:getXmlHead().."\n".."<!--Generated by NCube-->\n"
     end
   else
     for i=1,deep do

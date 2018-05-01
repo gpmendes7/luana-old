@@ -87,7 +87,7 @@ function Media:getType()
 end
 
 function Media:setRefer(refer)
-  if(type(refer) == "table" and refer.name == "media")then
+  if(type(refer) == "table" and refer.nameElem == "media")then
     self:addAttribute("refer", refer:getId())
     self.referAss = refer
     table.insert(refer.ass, self)
@@ -118,7 +118,7 @@ end
 
 
 function Media:setDescriptor(descriptor)
-  if(type(descriptor) == "table" and descriptor.name == "descriptor")then
+  if(type(descriptor) == "table" and descriptor.nameElem == "descriptor")then
     self:addAttribute("descriptor", descriptor:getId())
     self.descriptorAss = descriptor
     table.insert(descriptor.ass, self)

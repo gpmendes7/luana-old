@@ -119,7 +119,7 @@ function Descriptor:getExplicitDur()
 end
 
 function Descriptor:setRegion(region)
-  if(type(region) == "table" and region.name == "region")then
+  if(type(region) == "table" and region.nameElem == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
     table.insert(self.regionAss.ass, self)
@@ -233,7 +233,7 @@ function Descriptor:setTransIn(...)
     local id = ""
 
     for p, transIn in ipairs(arg) do
-      if(type(transIn) == "table" and transIn.name == "transition")then
+      if(type(transIn) == "table" and transIn.nameElem == "transition")then
         id = id + transIn:getId()
         table.insert(self.transInAss, transIn)
         table.insert(transIn.ass, self)
@@ -265,7 +265,7 @@ function Descriptor:setTransOut(...)
     local id = ""
 
     for p, transOut in ipairs(arg) do
-      if(type(transOut) == "table" and transOut.name == "transition")then
+      if(type(transOut) == "table" and transOut.nameElem == "transition")then
         id = id + transOut:getId()
         table.insert(self.transOutAss, transOut)
         table.insert(transOut.ass, self)

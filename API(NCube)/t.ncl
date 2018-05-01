@@ -38,9 +38,9 @@
  !++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 <regionBase>
-   <region id="rgTV" width="100%" height="100%"> 
+   <region id="rgTV" width="100%" height="100%">
       <region id="rgVideo1" left="25%" top="25%" 
-              width="50%" height="50%" />
+              width="50%" height="50%"/>
    </region>
 </regionBase>
 

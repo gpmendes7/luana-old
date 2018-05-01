@@ -27,7 +27,7 @@ function DefaultDescriptor:create(attributes)
 end
 
 function DefaultDescriptor:setDescriptor(descriptor)
-  if(type(descriptor) == "table" and descriptor.name == "descriptor")then
+  if(type(descriptor) == "table" and descriptor.nameElem == "descriptor")then
     self:addAttribute("descriptor", descriptor:getId())
     self.descriptorAss = descriptor
     table.insert(descriptor.ass, self)

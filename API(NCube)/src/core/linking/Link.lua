@@ -51,7 +51,7 @@ function Link:getId()
 end
 
 function Link:setXConnector(xconnector)
-  if(type(xconnector) == "table" and xconnector.name == "causalConnector")then
+  if(type(xconnector) == "table" and xconnector.nameElem == "causalConnector")then
     self:addAttribute("xconnector", xconnector:getId())
     self.causalConnectorAss = xconnector
     table.insert(xconnector.ass, self)

@@ -65,7 +65,7 @@ function RegionBase:getDevice()
 end
 
 function RegionBase:setRegion(region)
-  if(type(region) == "table" and region.name == "region")then
+  if(type(region) == "table" and region.nameElem == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
     table.insert(region.ass, self)

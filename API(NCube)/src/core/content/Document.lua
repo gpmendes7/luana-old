@@ -251,13 +251,22 @@ function Document:connectAssociatedElements()
 
             descendant[objAss] = self:getDescendantByAttribute("id", attribute)
 
-            if(descendant[objAss] == nil)then
+            if(descendant[objAss] == nil and descendant.component ~= nil)then
               local component = self:getDescendantByAttribute("id", descendant.component)
 
               if(component ~= nil)then
                 local interface = component:getInterface(descendant.interface)
+
+                if(interface == nil)then
+                  error("Error! Unknown "..descendant.interface.." interface associated to "..descendant.nameElem.." element!" , 2)
+                end
+
                 descendant[objAss] = interface
+              else
+                error("Error! Unknown "..descendant.component.." component associated to "..descendant.nameElem.." element!" , 2)
               end
+            elseif(descendant[objAss] == nil and descendant.component == nil)then
+              error("Error! Unknown element with id "..attribute.." associated to "..descendant.nameElem.." element!" , 2)
             end
 
             if(descendant[objAss] ~=nil)then
@@ -275,6 +284,8 @@ function Document:loadNcl(name)
 
   if(ncl == nil)then
     error("Error! File "..name.." couldn't be read! Invalid NCL document!")
+  elseif(string.find(ncl, "<ncl id=") == nil or string.find(ncl, "</ncl>") == nil)then
+    error("Error! Document with invalid syntax!", 2)
   else
     self:setNcl(ncl)
     self:ncl2Table()
