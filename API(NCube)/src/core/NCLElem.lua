@@ -15,8 +15,6 @@ local NCLElem = Class:createClass{
   ncl = nil
 }
 
-NCLElem.indetityAttributes = {"id", "name", "alias", "var"}
-
 function NCLElem:extends()
   return Class:createClass(NCLElem)
 end
