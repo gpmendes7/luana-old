@@ -1,4 +1,4 @@
--- Adaptado de: http://https://www.lua.org/pil/16.3.html
+-- Adapted from: http://https://www.lua.org/pil/16.3.html
 
 local Class = {}
 
@@ -35,7 +35,7 @@ function Class:createClass (...)
   return c
 end
 
--- Retirado de https://gist.github.com/paulcuth/1270733
+-- Taken from https://gist.github.com/paulcuth/1270733
 function Class:instanceOf(subject, super)
 
   super = tostring(super)

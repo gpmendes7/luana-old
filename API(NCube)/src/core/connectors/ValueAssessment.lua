@@ -5,7 +5,7 @@ local ValueAssessment = NCLElem:extends()
 ValueAssessment.nameElem = "valueAssessment"
 
 ValueAssessment.attributesTypeMap = {
-  value = "string"
+  value = {"string", "number"}
 }
 
 function ValueAssessment:create(attributes)

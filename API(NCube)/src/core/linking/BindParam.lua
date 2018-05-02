@@ -6,7 +6,7 @@ BindParam.nameElem = "bindParam"
 
 BindParam.attributesTypeMap = {
   name = "string",
-  value = "string"
+  value = {"string", "number"}
 }
 
 function BindParam:create(attributes)

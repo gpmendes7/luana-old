@@ -1,28 +1,19 @@
 require("core/NCube")
 
-local doc = Document:create(
-  {id = "document1",
-    xmlns = "http://www.ncl.org.br/NCL3.0/EDTVProfile"},
-  "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>")
+local doc = Document:create({id = "document1", 
+                             xmlns = "http://www.ncl.org.br/NCL3.0/EDTVProfile"},
+                            "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>")
 
 local head = Head:create()
 
 local regionBase = RegionBase:create()
 
-local rgTV = Region:create(
-  {id="rgTV",
-    width=100,
-    height=100})
-
+local rgTV = Region:create({id="rgTV", width=100, height=100})
 rgTV.symbols["width"]="%"
 rgTV.symbols["height"]="%"
 
 
-local rgVideo1 = Region:create({id="rgVideo1", left=25,
-    top=25,
-    width=50,
-    height=50})
-
+local rgVideo1 = Region:create({id="rgVideo1", left=25, top=25, width=50, height=50})
 rgVideo1.symbols["left"]="%"
 rgVideo1.symbols["top"]="%"
 rgVideo1.symbols["width"]="%"
@@ -35,12 +26,10 @@ head:addRegionBase(regionBase)
 local descriptorBase = DescriptorBase:create()
 
 local dVideo1 = Descriptor:create({id="dVideo1"})
-
-print(rgVideo1.nameElem)
 dVideo1:setRegion(rgVideo1)
-
 descriptorBase:addDescriptor(dVideo1)
 head:setDescriptorBase(descriptorBase)
+
 doc:setHead(head)
 
 local body = Body:create()

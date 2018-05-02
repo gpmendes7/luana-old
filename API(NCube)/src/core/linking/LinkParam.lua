@@ -6,7 +6,7 @@ LinkParam.nameElem = "linkParam"
 
 LinkParam.attributesTypeMap = {
   name = "string",
-  value = "string"
+  value = {"string", "number"}
 }
 
 function LinkParam:create(attributes)  

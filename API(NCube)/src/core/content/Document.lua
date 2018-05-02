@@ -255,13 +255,19 @@ function Document:connectAssociatedElements()
               local component = self:getDescendantByAttribute("id", descendant.component)
 
               if(component ~= nil)then
-                local interface = component:getInterface(descendant.interface)
+                local interface
+    
+                if(component.referAss ~= nil)then
+                  interface = component.referAss:getInterface(descendant.interface)
+                else
+                  interface = component:getInterface(descendant.interface)
+                end
 
                 if(interface == nil)then
                   error("Error! Unknown "..descendant.interface.." interface associated to "..descendant.nameElem.." element!" , 2)
+                else
+                  descendant[objAss] = interface
                 end
-
-                descendant[objAss] = interface
               else
                 error("Error! Unknown "..descendant.component.." component associated to "..descendant.nameElem.." element!" , 2)
               end

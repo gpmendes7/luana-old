@@ -479,13 +479,6 @@ function NCLElem:readChildNcl(childrenNcl, childName)
 
       if(n1 == 0 and r == nil and z == nil)then
         error("Error! Document with invalid syntax!", 2)
-      else
-        local v = string.find(aux1, "/>", z)
-        local w = string.find(aux1, ">", z)
-
-        if(v == nil and w == nil)then
-          error("Error! Document with invalid syntax!", 2)
-        end
       end
 
       while(r ~= nil and z ~= nil)do
@@ -675,7 +668,11 @@ function NCLElem:table2Ncl(deep)
     return ncl.."/>\n"
   end
 
-  return ncl.."</"..self.nameElem..">\n"
+  if(self.nameElem == "ncl")then
+    return ncl.."</"..self.nameElem..">"
+  else
+    return ncl.."</"..self.nameElem..">\n"
+  end
 end
 
 function NCLElem:setNcl(ncl)
@@ -686,8 +683,13 @@ function NCLElem:getNcl()
   return self.ncl
 end
 
+function NCLElem:buildNcl()
+  self.ncl = self:table2Ncl(0)
+end
+
 function NCLElem:writeNcl()
-  print(self:table2Ncl(0))
+  self:buildNcl()
+  print(self.ncl)
 end
 
 return NCLElem

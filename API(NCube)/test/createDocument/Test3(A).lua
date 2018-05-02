@@ -1,16 +1,16 @@
 require("core/NCube")
 
-local doc = Document:create({["id"]="exemplo03ConnBase",
-                             ["xmlns"]="http://www.ncl.org.br/NCL3.0/EDTVProfile"}, 
+local doc = Document:create({id="exemplo03ConnBase",
+                             xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile"}, 
                              "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>")
 
 local head = Head:create()
 
 local connectorBase = ConnectorBase:create()
 
-local onEndStart = CausalConnector:create({["id"] = "onEndStart"})
-local onEnd = SimpleCondition:create({["role"] = "onEnd"})
-local start = SimpleAction:create({["role"] = "start"})
+local onEndStart = CausalConnector:create({id = "onEndStart"})
+local onEnd = SimpleCondition:create({role = "onEnd"})
+local start = SimpleAction:create({role = "start"})
 onEndStart:setSimpleCondition(onEnd)
 onEndStart:setSimpleAction(start)
 connectorBase:addCausalConnector(onEndStart)

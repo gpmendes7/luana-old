@@ -6,7 +6,7 @@ DescriptorParam.nameElem = "descriptorParam"
 
 DescriptorParam.attributesTypeMap = {
   name = "string",
-  value = "string"
+  value = {"string", "number"}
 }
 
 function DescriptorParam:create(attributes)

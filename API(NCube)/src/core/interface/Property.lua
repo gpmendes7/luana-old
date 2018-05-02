@@ -6,7 +6,7 @@ Property.nameElem = "property"
 
 Property.attributesTypeMap = {
   name = "string",
-  value = "string",
+  value = {"string", "number"},
   externable = "boolean"
 }
 

@@ -8,7 +8,7 @@ Rule.attributesTypeMap = {
   id = "string",
   var = "string",
   comparator = "string",
-  value = "string"
+  value = {"string", "number"}
 }
 
 Rule.attributesStringValueMap = {

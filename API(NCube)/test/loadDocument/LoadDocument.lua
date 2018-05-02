@@ -78,7 +78,7 @@ local doc = Document:create()
 -- doc:loadNcl("docs/tvdigitalsocial/twitterDataprev.ncl")
 -- doc:loadNcl("docs/tvdigitalsocial/twitterPrevidencia.ncl")
 
---doc:loadNcl("t.ncl")
+doc:loadNcl("t.ncl")
 doc:writeNcl()
 
 --local dVideo1 = doc:getDescendantByAttribute("id", "dVideo1")
