@@ -38,21 +38,29 @@ local function test1()
     assert(elemA:getAttribute("id") == "id1", "Error!")
     assert(elemA:getAttribute("desc") == "desc1", "Error!")
     
+    status, err = pcall(elemA["addAttribute"], elemA, nil, 4)
+    assert(not(status), "Error!")
+    assert(err == "Error! Nil, empty or invalid attribute informed in elementA element! It must be a valid string!", "Error!")
+    
+    status, err = pcall(elemA["addAttribute"], elemA, "", 4)
+    assert(not(status), "Error!")
+    assert(err == "Error! Nil, empty or invalid attribute informed in elementA element! It must be a valid string!", "Error!")
+          
     status, err = pcall(elemA["addAttribute"], elemA, 4, "id1")
     assert(not(status), "Error!")
-    assert(err == "Error! 4 attribute is not a valid attribute to elementA element!", "Error!")              
+    assert(err == "Error! Nil, empty or invalid attribute informed in elementA element! It must be a valid string!", "Error!")              
      
     status, err = pcall(elemA["addAttribute"], elemA, "xxxx", "id1")
     assert(not(status), "Error!")
     assert(err == "Error! xxxx attribute is not a valid attribute to elementA element!", "Error!")
-    
-    status, err = pcall(elemA["addAttribute"], elemA, nil, 4)
-    assert(not(status), "Error!")
-    assert(err == "Error! Nil attribute informed in elementA element!", "Error!")
-      
+   
     status, err = pcall(elemA["addAttribute"], elemA, "id", 4)
     assert(not(status), "Error!")
     assert(err == "Error! Type of id attribute is not valid to elementA element!", "Error!")
+    
+    status, err = pcall(elemA["addAttribute"], elemA, "id", nil)
+    assert(not(status), "Error!")
+    assert(err == "Error! Nil value passed to id attribute in elementA element!", "Error!")
     
     status, err = pcall(elemA["addAttribute"], elemA, "id", {})
     assert(not(status), "Error!")

@@ -233,10 +233,9 @@ function NCLElem:isValidAttributeType(attribute, value)
 end
 
 function NCLElem:addAttribute(attribute, value)
-  if(attribute == nil)then
-    error("Error! Nil attribute informed in "..self.nameElem.." element!", 2)
-  elseif((self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)
-    or Validator:isInvalidString(attribute))then
+  if(Validator:isInvalidString(attribute))then
+    error("Error! Nil, empty or invalid attribute informed in "..self.nameElem.." element! It must be a valid string!", 2)
+  elseif(self.attributesTypeMap ~= nil and self.attributesTypeMap[attribute] == nil)then
     error("Error! "..attribute.." attribute is not a valid attribute to "..self.nameElem.." element!", 2)
   elseif(value == nil)then
     error("Error! Nil value passed to "..attribute.." attribute in "..self.nameElem.." element!", 2)
