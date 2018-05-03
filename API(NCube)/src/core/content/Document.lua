@@ -256,7 +256,7 @@ function Document:connectAssociatedElements()
 
               if(component ~= nil)then
                 local interface
-    
+
                 if(component.referAss ~= nil)then
                   interface = component.referAss:getInterface(descendant.interface)
                 else
@@ -290,12 +290,20 @@ function Document:loadNcl(name)
 
   if(ncl == nil)then
     error("Error! File "..name.." couldn't be read! Invalid NCL document!")
-  elseif(string.find(ncl, "<ncl id=") == nil or string.find(ncl, "</ncl>") == nil)then
-    error("Error! Document with invalid syntax!", 2)
   else
-    self:setNcl(ncl)
-    self:ncl2Table()
-    self:connectAssociatedElements()
+    local s = string.find(ncl, "<ncl ")
+    local t = string.find(ncl, ">", s)
+    local u = string.sub(ncl, 1, t)
+    local v = string.find(u, "id=")
+    local x = string.find(ncl, "</ncl>")
+
+    if(s == nil or v == nil or x == nil)then
+      error("Error! Document with invalid syntax!", 2)
+    else
+      self:setNcl(ncl)
+      self:ncl2Table()
+      self:connectAssociatedElements()
+    end
   end
 end
 
