@@ -204,32 +204,35 @@ function NCLElem:getInterface(interface)
 end
 
 function NCLElem:isValidAttributeType(attribute, value)
-  local isValid = false
-
-  if(self.attributesTypeMap ~= nil
-    and type(self.attributesTypeMap[attribute]) == "table")then
-    for _, typeAtt in ipairs(self.attributesTypeMap[attribute]) do
-      if(typeAtt == type(value))then
-        isValid = true
-        break
+  if(self.attributesTypeMap ~= nil)then
+    if(type(self.attributesTypeMap[attribute]) == "table")then
+      for _, typeAtt in ipairs(self.attributesTypeMap[attribute]) do
+        if(typeAtt == type(value))then
+          return true
+        end
       end
-    end
-  elseif(self.attributesTypeMap ~= nil
-    and self.attributesTypeMap[attribute] == type(value))then
-    isValid = true
-  elseif(type(value) == "string"
-    and self.attributesStringValueMap ~= nil
-    and self.attributesStringValueMap[attribute] ~= nil)then
-
-    for _, val in ipairs(self.attributesStringValueMap[attribute]) do
-      if(val == value)then
-        isValid = true
-        break
-      end
+    elseif(self.attributesTypeMap[attribute] == type(value))then
+      return true
     end
   end
 
-  return isValid
+  return false
+end
+
+function NCLElem:isValidRangeStringType(attribute, value)
+  if(type(value) == "string"
+    and self.attributesStringValueMap ~= nil
+    and self.attributesStringValueMap[attribute] ~= nil)then
+    for _, val in ipairs(self.attributesStringValueMap[attribute]) do
+      if(val == value)then
+        return true
+      end
+    end
+  else
+    return true
+  end
+
+  return false
 end
 
 function NCLElem:addAttribute(attribute, value)
@@ -241,6 +244,8 @@ function NCLElem:addAttribute(attribute, value)
     error("Error! Nil value passed to "..attribute.." attribute in "..self.nameElem.." element!", 2)
   elseif(not self:isValidAttributeType(attribute, value))then
     error("Error! Type of "..attribute.." attribute is not valid to "..self.nameElem.." element!", 2)
+  elseif(not self:isValidRangeStringType(attribute, value))then
+    error("Error! Value "..value.." passed to "..attribute.." attribute is not a possible value in "..self.nameElem.." element!", 2)
   else
     self[attribute] = value
   end

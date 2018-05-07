@@ -6,36 +6,48 @@ local SimpleAction = require "core/connectors/SimpleAction"
 local CompoundAction = require "core/connectors/CompoundAction"
 
 local function test1()
-   local causalConnector = nil
+   local causalConnector = CausalConnector:create()
    
-   causalConnector = CausalConnector:create()
    assert(causalConnector ~= nil, "Error!")
-   assert(causalConnector:getId() == "", "Error!")    
+   assert(causalConnector:getId() == nil, "Error!")    
 end
 
 local function test2()
-   local causalConnector = nil
-   
    local atts = {
-      ["id"] = "cc"
+      id = "cc"
    }     
    
-   causalConnector = CausalConnector:create(atts)
+   local causalConnector = CausalConnector:create(atts)
+   
    assert(causalConnector:getId() == "cc", "Error!") 
 end
 
 local function test3()
-   local causalConnector = nil
-      
-   causalConnector = CausalConnector:create()
-   
+   local causalConnector = CausalConnector:create()
    causalConnector:setId("cc") 
    
    assert(causalConnector:getId() == "cc", "Error!") 
 end
 
 local function test4()
-   local causalConnector = nil
+  local causalConnector = CausalConnector:create()
+  local status, err
+
+  status, err = pcall(causalConnector["setKey"], CausalConnector, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["setKey"], CausalConnector, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["setKey"], CausalConnector, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["setKey"], CausalConnector, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test5()
+   local causalConnector
       
    causalConnector = CausalConnector:create(nil, 1)
    assert(causalConnector:getConnectorParamPos(1) ~= nil, "Error!")
@@ -54,13 +66,13 @@ local function test4()
    assert(causalConnector:getSimpleAction() ~= nil, "Error!")
 end
 
-local function test5()
-   local causalConnector = CausalConnector:create{["id"] = "cc"}
-   local connectorParam = ConnectorParam:create{["name"] = "var"}
-   local simpleCondition = SimpleCondition:create{["role"] = "onSelection"}
-   local compoundCondition = CompoundCondition:create{["operator"] = "and"}
-   local simpleAction = SimpleAction:create{["role"] = "set"}
-   local compoundAction = CompoundAction:create{["operator"] = "or"}
+local function test6()
+   local causalConnector = CausalConnector:create{id = "cc"}
+   local connectorParam = ConnectorParam:create{name = "var"}
+   local simpleCondition = SimpleCondition:create{role = "onSelection"}
+   local compoundCondition = CompoundCondition:create{operator = "seq"}
+   local simpleAction = SimpleAction:create{role = "set"}
+   local compoundAction = CompoundAction:create{operator = "par"}
    
    causalConnector:addConnectorParam(connectorParam)
    assert(causalConnector:getDescendantByAttribute("name", "var") ~= nil, "Error!") 
@@ -79,10 +91,10 @@ local function test5()
    assert(causalConnector:getDescendantByAttribute("role", "onSelection") == nil, "Error!") 
    
    causalConnector:setCompoundCondition(compoundCondition)
-   assert(causalConnector:getDescendantByAttribute("operator", "and") ~= nil, "Error!") 
+   assert(causalConnector:getDescendantByAttribute("operator", "seq") ~= nil, "Error!") 
     
    causalConnector:removeCompoundCondition(compoundCondition)
-   assert(causalConnector:getDescendantByAttribute("operator", "and") == nil, "Error!") 
+   assert(causalConnector:getDescendantByAttribute("operator", "seq") == nil, "Error!") 
    
    causalConnector:setSimpleAction(simpleAction)
    assert(causalConnector:getDescendantByAttribute("role", "set") ~= nil, "Error!") 
@@ -91,52 +103,48 @@ local function test5()
    assert(causalConnector:getDescendantByAttribute("role", "set") == nil, "Error!") 
    
    causalConnector:setCompoundAction(compoundAction)
-   assert(causalConnector:getDescendantByAttribute("operator", "or") ~= nil, "Error!") 
+   assert(causalConnector:getDescendantByAttribute("operator", "par") ~= nil, "Error!") 
     
    causalConnector:removeCompoundAction(compoundAction)
-   assert(causalConnector:getDescendantByAttribute("operator", "or") == nil, "Error!") 
+   assert(causalConnector:getDescendantByAttribute("operator", "par") == nil, "Error!") 
 end
 
-local function test6()
-   local causalConnector = nil
-   
-   local nclExp, nclRet, atts = nil
-   
-   atts = {
-      ["id"] = "cc"
+local function test7()
+   local atts = {
+      id = "cc"
    }  
       
-   causalConnector = CausalConnector:create(atts)
+   local causalConnector = CausalConnector:create(atts)
    
-   nclExp = "<causalConnector"   
+   local nclExp = "<causalConnector"   
    for attribute, value in pairs(causalConnector:getAttributes()) do
       nclExp = nclExp.." "..attribute.."=\""..value.."\""
    end 
   
    nclExp = nclExp.."/>\n"
 
-   nclRet = causalConnector:table2Ncl(0)
+   local nclRet = causalConnector:table2Ncl(0)
 
    assert(nclExp == nclRet, "Error!")
 end
 
 local function test7()   
-   local causalConnector = nil
+   local causalConnector
+   local connectorParam
+   local simpleCondition, compoundCondition
+   local simpleAction, compoundAction
+   local nclExp, nclRet
    
-   local connectorParam, simpleCondition, compoundCondition, simpleAction, compoundAction = nil
-   
-   local nclExp, nclRet = nil
-   
-   causalConnector = CausalConnector:create{["id"] = "cc"}
+   causalConnector = CausalConnector:create{id = "cc"}
    nclExp = "<causalConnector id=\"cc\">\n"
    
-   connectorParam = ConnectorParam:create{["name"] = "var"}
+   connectorParam = ConnectorParam:create{name = "var"}
    nclExp = nclExp.." <connectorParam name=\"var\"/>\n"
             
-   simpleAction = SimpleAction:create{["role"] = "set"}
+   simpleAction = SimpleAction:create{role = "set"}
    nclExp = nclExp.." <simpleAction role=\"set\"/>\n"  
    
-   simpleCondition = SimpleCondition:create{["role"] = "onSelection"}
+   simpleCondition = SimpleCondition:create{role = "onSelection"}
    nclExp = nclExp.." <simpleCondition role=\"onSelection\"/>\n" 
         
    nclExp = nclExp.."</causalConnector>\n"  
@@ -151,17 +159,17 @@ local function test7()
    
    nclExp = nil
    
-   causalConnector = CausalConnector:create{["id"] = "cc"}
+   causalConnector = CausalConnector:create{id = "cc"}
    nclExp = "<causalConnector id=\"cc\">\n"
    
-   connectorParam = ConnectorParam:create{["name"] = "var"}
+   connectorParam = ConnectorParam:create{name = "var"}
    nclExp = nclExp.." <connectorParam name=\"var\"/>\n"  
       
-   compoundAction = CompoundAction:create{["operator"] = "or"}
-   nclExp = nclExp.." <compoundAction operator=\"or\"/>\n"  
+   compoundAction = CompoundAction:create{operator = "par"}
+   nclExp = nclExp.." <compoundAction operator=\"par\"/>\n"  
    
-   compoundCondition = CompoundCondition:create{["operator"] = "and"}
-   nclExp = nclExp.." <compoundCondition operator=\"and\"/>\n" 
+   compoundCondition = CompoundCondition:create{operator = "seq"}
+   nclExp = nclExp.." <compoundCondition operator=\"seq\"/>\n" 
    
    nclExp = nclExp.."</causalConnector>\n"  
    
