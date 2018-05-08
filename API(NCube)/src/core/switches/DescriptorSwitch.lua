@@ -13,6 +13,10 @@ DescriptorSwitch.childrenMap = {
   descriptor = {Descriptor, "many"}
 }
 
+DescriptorSwitch.attributesTypeMap = {
+  id = "string"
+}
+
 function DescriptorSwitch:create(attributes, full)
   local descriptorSwitch = DescriptorSwitch:new()
 

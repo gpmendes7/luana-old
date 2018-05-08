@@ -13,22 +13,23 @@ end
 
 local function test2()
   local atts = {
-    ["operator"] = "seq",
-    ["delay"] = 10
+    operator = "and",
+    delay = 10
   }
 
   local compoundCondition = CompoundCondition:create(atts)
-  assert(compoundCondition:getOperator() == "seq", "Error!")
+  
+  assert(compoundCondition:getOperator() == "and", "Error!")
   assert(compoundCondition:getDelay() == 10, "Error!")
 end
 
 local function test3()
   local compoundCondition = CompoundCondition:create()
 
-  compoundCondition:setOperator("seq")
+  compoundCondition:setOperator("and")
   compoundCondition:setDelay(10)
 
-  assert(compoundCondition:getOperator() == "seq", "Error!")
+  assert(compoundCondition:getOperator() == "and", "Error!")
   assert(compoundCondition:getDelay() == 10, "Error!")
 end
 
@@ -48,6 +49,7 @@ end
 
 local function test5()
   local compoundCondition = CompoundCondition:create(nil, 1)
+  
   assert(compoundCondition:getAssessmentStatementPos(1) ~= nil, "Error!")
   assert(compoundCondition:getSimpleConditionPos(1) ~= nil, "Error!")
   assert(compoundCondition:getCompoundStatementPos(1) ~= nil, "Error!")
@@ -78,16 +80,16 @@ local function test5()
   assert(compoundCondition:getDescendantByAttribute("operator", "and") ~= nil, "Error!")
 
   compoundCondition = CompoundCondition:create()
-  compoundCondition:addCompoundCondition(CompoundCondition:create{operator = "seq"})
-  assert(compoundCondition:getDescendantByAttribute("operator", "seq") ~= nil, "Error!")
+  compoundCondition:addCompoundCondition(CompoundCondition:create{operator = "or"})
+  assert(compoundCondition:getDescendantByAttribute("operator", "or") ~= nil, "Error!")
 end
 
 local function test6()
-  local compoundCondition1 = CompoundCondition:create{operator = "seq"}
+  local compoundCondition1 = CompoundCondition:create{operator = "and"}
   local simpleCondition = SimpleCondition:create{role = "onSelection"}
   local assessmentStatement = AssessmentStatement:create{comparator = "eq"}
   local compoundStatement = CompoundStatement:create{operator = "and"}
-  local compoundCondition2 = CompoundCondition:create{operator = "par"}
+  local compoundCondition2 = CompoundCondition:create{operator = "or"}
 
   compoundCondition1:addSimpleCondition(simpleCondition)
   assert(compoundCondition1:getDescendantByAttribute("role", "onSelection") ~= nil, "Error!")
@@ -120,23 +122,24 @@ local function test6()
   assert(compoundCondition1:getDescendantByAttribute("operator", "and") == nil, "Error!")
 
   compoundCondition1:addCompoundCondition(compoundCondition2)
-  assert(compoundCondition1:getDescendantByAttribute("operator", "par") ~= nil, "Error!")
+  assert(compoundCondition1:getDescendantByAttribute("operator", "or") ~= nil, "Error!")
 
   compoundCondition1:removeCompoundCondition(compoundCondition2)
-  assert(compoundCondition1:getDescendantByAttribute("operator", "par") == nil, "Error!")
+  assert(compoundCondition1:getDescendantByAttribute("operator", "or") == nil, "Error!")
 
   compoundCondition1:addCompoundCondition(compoundCondition2)
   compoundCondition1:removeCompoundConditionPos(1)
-  assert(compoundCondition1:getDescendantByAttribute("operator", "par") == nil, "Error!")
+  assert(compoundCondition1:getDescendantByAttribute("operator", "or") == nil, "Error!")
 end
 
 local function test7()
   local atts = {
-    ["operator"] = "seq",
-    ["delay"] = "10s"
+    operator = "and",
+    delay = 10
   }
 
   local compoundCondition = CompoundCondition:create(atts)
+  
   compoundCondition.symbols["delay"] = "s"
 
   local nclExp = "<compoundCondition"
@@ -144,7 +147,7 @@ local function test7()
     if(compoundCondition.symbols ~= nil and compoundCondition.symbols[attribute] ~= nil)then
       nclExp = nclExp.." "..attribute.."=\""..compoundCondition[attribute]..compoundCondition.symbols[attribute].."\""
     else
-      nclExp = nclExp.." "..attribute.."=\""..compoundCondition[attribute].."\""
+      nclExp = nclExp.." "..attribute.."=\""..tostring(compoundCondition[attribute]).."\""
     end
   end
 
@@ -156,14 +159,14 @@ local function test7()
 end
 
 local function test7()
-  local compoundCondition1 = CompoundCondition:create{operator = "seq"}
-  local nclExp = "<compoundCondition operator=\"seq\">\n"
+  local compoundCondition1 = CompoundCondition:create{operator = "and"}
+  local nclExp = "<compoundCondition operator=\"and\">\n"
 
   local simpleCondition = SimpleCondition:create{role = "onSelection"}
   nclExp = nclExp.." <simpleCondition role=\"onSelection\"/>\n"
 
-  local compoundCondition2 = CompoundCondition:create{operator = "par"}
-  nclExp = nclExp.." <compoundCondition operator=\"par\"/>\n"
+  local compoundCondition2 = CompoundCondition:create{operator = "or"}
+  nclExp = nclExp.." <compoundCondition operator=\"or\"/>\n"
 
   local assessmentStatement = AssessmentStatement:create{comparator = "eq"}
   nclExp = nclExp.." <assessmentStatement comparator=\"eq\"/>\n"

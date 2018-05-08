@@ -20,7 +20,7 @@ CompoundCondition.attributesTypeMap = {
 }
 
 CompoundCondition.attributesStringValueMap = {
-  operator = {"seq", "par"}
+  operator = {"and", "or"}
 }
 
 CompoundCondition.attributesSymbolMap = {

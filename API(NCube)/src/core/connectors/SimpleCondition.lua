@@ -31,6 +31,10 @@ SimpleCondition.attributesStringValueMap = {
   qualifier = {"and", "or"}
 }
 
+SimpleCondition.attributesSymbolMap = {
+  delay = "s"
+}
+
 function SimpleCondition:create(attributes)
   local simpleCondition = SimpleCondition:new()
 
@@ -42,6 +46,8 @@ function SimpleCondition:create(attributes)
   simpleCondition.min = nil
   simpleCondition.max = nil
   simpleCondition.qualifier = nil
+  
+  simpleCondition.symbols = {}
 
   if(attributes ~= nil)then
     simpleCondition:setAttributes(attributes)

@@ -11,8 +11,12 @@
 --  error("Tá errado. Melhor consertar!")
 --end
 
-local s = "20npt"
-print(string.match(s, "(%d+)(%a+)"))
+local s = "0.3s"
+local sb = string.match(s, "(%a+)")
+print(sb)
+
+s = "$"
+print(string.match(s, "%$"))
 
 local d = "20:"
 print(string.match(d, "(%d+):") == nil)

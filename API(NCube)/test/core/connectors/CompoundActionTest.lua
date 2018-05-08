@@ -11,8 +11,8 @@ end
 
 local function test2()
   local atts = {
-    ["operator"] = "seq",
-    ["delay"] = 10
+    operator = "seq",
+    delay = 10
   }
 
   local compoundAction = CompoundAction:create(atts)
@@ -94,11 +94,12 @@ end
 
 local function test7()
   local atts = {
-    ["operator"] = "seq",
-    ["delay"] = 10
+    operator = "seq",
+    delay = 10
   }
 
   local compoundAction = CompoundAction:create(atts)
+  
   compoundAction.symbols["delay"] = "s"
 
   local nclExp = "<compoundAction"
@@ -106,7 +107,7 @@ local function test7()
     if(compoundAction.symbols ~= nil and compoundAction.symbols[attribute] ~= nil)then
       nclExp = nclExp.." "..attribute.."=\""..compoundAction[attribute]..compoundAction.symbols[attribute].."\""
     else
-      nclExp = nclExp.." "..attribute.."=\""..compoundAction[attribute].."\""
+      nclExp = nclExp.." "..attribute.."=\""..tostring(compoundAction[attribute]).."\""
     end
   end
 

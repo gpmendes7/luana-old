@@ -7,7 +7,6 @@ local NCLElem = Class:createClass{
   children = nil,
   childrenMap = nil,
   assMap = nil,
-  attributes = nil,
   attributesTypeMap = nil,
   attributesStringValueMap = nil,
   symbols = nil,
@@ -220,18 +219,20 @@ function NCLElem:isValidAttributeType(attribute, value)
 end
 
 function NCLElem:isValidRangeStringType(attribute, value)
-  if(type(value) == "string"
-    and self.attributesStringValueMap ~= nil
+  if(self.attributesStringValueMap ~= nil
     and self.attributesStringValueMap[attribute] ~= nil)then
-    for _, val in ipairs(self.attributesStringValueMap[attribute]) do
-      if(val == value)then
-        return true
+    if(type(self.attributesStringValueMap[attribute]) == "table")then
+      for _, val in ipairs(self.attributesStringValueMap[attribute]) do
+        if(val == value)then
+          return true
+        end
       end
+    else
+      return self.attributesStringValueMap[attribute] == value
     end
   else
     return true
   end
-
   return false
 end
 
@@ -244,7 +245,8 @@ function NCLElem:addAttribute(attribute, value)
     error("Error! Nil value passed to "..attribute.." attribute in "..self.nameElem.." element!", 2)
   elseif(not self:isValidAttributeType(attribute, value))then
     error("Error! Type of "..attribute.." attribute is not valid to "..self.nameElem.." element!", 2)
-  elseif(not self:isValidRangeStringType(attribute, value))then
+  elseif(type(value) == "string" and string.find(value,  "%$") == nil and
+    not self:isValidRangeStringType(attribute, value))then
     error("Error! Value "..value.." passed to "..attribute.." attribute is not a possible value in "..self.nameElem.." element!", 2)
   else
     self[attribute] = value
@@ -301,10 +303,6 @@ function NCLElem:setAttributes(attributes)
   end
 end
 
-function NCLElem:getAttributes()
-  return self.attributes
-end
-
 function NCLElem:addSymbol(attribute, symbol)
   local isValid = false
 
@@ -324,40 +322,48 @@ function NCLElem:addSymbol(attribute, symbol)
   end
 end
 
-function NCLElem:getAttributeSymbol(attribute, value)
+function NCLElem:putAttributeSymbol(attribute, value)
   local sb
 
-  _, sb = string.match(value, "(%d+)(%a+)")
-  if(sb == nil and string.match(value, "(%d+)(%%+)") ~= nil)then
-    sb = "%"
-  end
+  if(self.attributesSymbolMap ~= nil and self.symbols ~= nil)then
+    if(string.match(value, "(%d+)%.(%d+)") == nil and string.match(value, "(%d+)") == nil)then
+      return
+    end
 
-  local isInvalidSymbol = true
+    sb = string.match(value, "(%a+)")
+    if(sb == nil and string.match(value, "(%%+)") ~= nil)then
+      sb = "%"
+    end
 
-  if(sb ~= nil)then
-    if(self.attributesSymbolMap[attribute] == "table")then
-      for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
-        if(sb == symbol)then
+    local isInvalidSymbol = true
+
+    if(sb ~= nil)then
+      if(self.attributesSymbolMap[attribute] == "table")then
+        for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
+          if(sb == symbol)then
+            isInvalidSymbol = false
+            break
+          end
+        end
+
+      else
+        if(self.attributesSymbolMap[attribute] == sb) then
           isInvalidSymbol = false
-          break
         end
       end
 
-    else
-      if(self.attributesSymbolMap[attribute] == sb) then
-        isInvalidSymbol = false
+      if(isInvalidSymbol)then
+        error("Error! "..attribute.." attribute cannot have "..sb.." character in "..self.nameElem.." element!", 2)
       end
     end
 
-    if(isInvalidSymbol)then
-      error("Error! "..attribute.." attribute cannot have "..sb.." character in "..self.nameElem.." element!", 2)
-    end
+    self.symbols[attribute] = sb
+  else
+    return
   end
-
-  return sb
 end
 
-function NCLElem:canBeNumber(attribute, value)
+function NCLElem:canBeNumber(attribute)
   if(type(self.attributesTypeMap[attribute]) == "table")then
     for _, typeAtt in ipairs(self.attributesTypeMap[attribute]) do
       if(typeAtt == "number")then
@@ -395,14 +401,15 @@ function NCLElem:readAttributes()
 
       local value = string.sub(attributes, v+1,z-1)
 
-      if(self.attributesSymbolMap ~= nil and self.attributesSymbolMap[attribute] ~= nil
-        and self.symbols ~= nil and string.match(value, ":") == nil)then
-        self.symbols[attribute] = self:getAttributeSymbol(attribute, value)
-      end
+      if(self:canBeNumber(attribute) and string.match(value, ":") == nil)then
+        self:putAttributeSymbol(attribute, value)
 
-      if(self:canBeNumber(attribute, value) and string.match(value, "(%d+)") ~= nil
-        and string.match(value, ":") == nil)then
-        value = tonumber(string.match(value, "(%d+)"))
+        if(string.match(value, "(%d+)%.(%d+)") ~= nil)then
+          local pInt, pFrac = string.match(value, "(%d+)%.(%d+)")
+          value = tonumber(pInt) + tonumber(pFrac)/(math.pow(10, string.len(pFrac)))
+        elseif(string.match(value, "(%d+)") ~= nil)then
+          value = tonumber(string.match(value, "(%d+)"))
+        end
       elseif(self.attributesTypeMap[attribute] == "boolean" and value == "false")then
         value = false
       elseif(self.attributesTypeMap[attribute] == "boolean" and value == "true")then
@@ -624,27 +631,12 @@ function NCLElem:table2Ncl(deep)
   ncl = ncl.."<"..self.nameElem
 
   if(self.attributesTypeMap ~= nil)then
-    for attribute, typeAtt in pairs(self.attributesTypeMap) do
+    for attribute, _ in pairs(self.attributesTypeMap) do
       if(self[attribute] ~= nil)then
-        if(type(typeAtt) ~= "table")then
-          if(typeAtt == "number" and self.symbols ~= nil
-            and self.symbols[attribute] ~= nil)then
-            ncl = ncl.." "..attribute.."=".."\""..self[attribute]..self.symbols[attribute].."\""
-          else
-            ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
-          end
-        elseif(type(typeAtt) == "table")then
-          for _, tp in ipairs(typeAtt) do
-            if(tp == "number" and self.symbols ~= nil
-              and self.symbols[attribute] ~= nil
-              and type(self[attribute] == "number"))then
-              ncl = ncl.." "..attribute.."=".."\""..self[attribute]..self.symbols[attribute].."\""
-              break
-            elseif(type(self[attribute]) == tp)then
-              ncl = ncl.." "..attribute.."=".."\""..self[attribute].."\""
-              break
-            end
-          end
+        if(self.symbols ~= nil and self.symbols[attribute] ~= nil)then
+          ncl = ncl.." "..attribute.."=\""..self[attribute]..self.symbols[attribute].."\""
+        else
+          ncl = ncl.." "..attribute.."=\""..tostring(self[attribute]).."\""
         end
       end
     end

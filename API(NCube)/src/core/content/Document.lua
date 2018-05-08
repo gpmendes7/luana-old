@@ -245,7 +245,7 @@ function Document:connectAssociatedElements()
       if(descendant.assMap ~= nil)then
         for _, ass in ipairs(descendant:getAssMap()) do
           local attribute = descendant:getAttribute(ass[1])
-
+     
           if(attribute ~= nil and string.match(attribute, "#") == nil)then
             local objAss = ass[2]
 
@@ -255,12 +255,10 @@ function Document:connectAssociatedElements()
               local component = self:getDescendantByAttribute("id", descendant.component)
 
               if(component ~= nil)then
-                local interface
-
-                if(component.referAss ~= nil)then
+                local interface = component:getInterface(descendant.interface)
+                 
+                if(interface == nil and component.referAss ~= nil)then
                   interface = component.referAss:getInterface(descendant.interface)
-                else
-                  interface = component:getInterface(descendant.interface)
                 end
 
                 if(interface == nil)then

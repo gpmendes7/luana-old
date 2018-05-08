@@ -4,7 +4,7 @@ local ValueAssessment = require "core/connectors/ValueAssessment"
 
 local function test1()
   local assessmentStatement = AssessmentStatement:create()
-  
+
   assert(assessmentStatement ~= nil, "Error!")
   assert(assessmentStatement:getComparator() == nil, "Error!")
 end
@@ -15,14 +15,15 @@ local function test2()
   }
 
   local assessmentStatement = AssessmentStatement:create(atts)
-  
+
   assert(assessmentStatement:getComparator() == "eq", "Error!")
 end
 
 local function test3()
   local assessmentStatement = AssessmentStatement:create()
-  assessmentStatement:setComparator("eq")
   
+  assessmentStatement:setComparator("eq")
+
   assert(assessmentStatement:getComparator() == "eq", "Error!")
 end
 
@@ -30,19 +31,19 @@ local function test4()
   local assessmentStatement = AssessmentStatement:create()
   local status, err
 
-  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, "invalid")
+  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, nil)
+  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, 999999)
+  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, {})
+  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, function(a, b) return a+b end)
+  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -104,7 +105,11 @@ local function test7()
 
   local nclExp = "<assessmentStatement"
   for attribute, _ in pairs(assessmentStatement:getAttributesTypeMap()) do
-    nclExp = nclExp.." "..attribute.."=\""..assessmentStatement[attribute].."\""
+    if(assessmentStatement.symbols ~= nil and assessmentStatement.symbols[attribute] ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..assessmentStatement[attribute]..assessmentStatement.symbols[attribute].."\""
+    else
+      nclExp = nclExp.." "..attribute.."=\""..tostring(assessmentStatement[attribute]).."\""
+    end
   end
 
   nclExp = nclExp.."/>\n"
