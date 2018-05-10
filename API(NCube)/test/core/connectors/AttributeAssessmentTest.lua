@@ -50,19 +50,19 @@ local function test4()
   local attributeAssessment = AttributeAssessment:create()
   local status, err
 
-  status, err = pcall(attributeAssessment["setKey"], AttributeAssessment, "invalid")
+  status, err = pcall(attributeAssessment["setKey"], attributeAssessment, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(attributeAssessment["setKey"], AttributeAssessment, nil)
+  status, err = pcall(attributeAssessment["setKey"], attributeAssessment, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(attributeAssessment["setKey"], AttributeAssessment, 999999)
+  status, err = pcall(attributeAssessment["setKey"], attributeAssessment, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(attributeAssessment["setKey"], AttributeAssessment, {})
+  status, err = pcall(attributeAssessment["setKey"], attributeAssessment, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(attributeAssessment["setKey"], AttributeAssessment, function(a, b) return a+b end)
+  status, err = pcall(attributeAssessment["setKey"], attributeAssessment, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

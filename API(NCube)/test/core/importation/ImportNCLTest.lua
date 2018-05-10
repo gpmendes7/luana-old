@@ -57,8 +57,8 @@ local function test5()
 
   local nclExp = "<importNCL"
   for attribute, _ in pairs(importNCL:getAttributesTypeMap()) do
-    if(importNCL.symbols ~= nil and importNCL.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..importNCL[attribute]..importNCL.symbols[attribute].."\""
+    if(importNCL:getSymbols() ~= nil and importNCL:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..importNCL[attribute]..importNCL:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(importNCL[attribute]).."\""
     end

@@ -118,14 +118,14 @@ local function test5()
 
   local simpleAction = SimpleAction:create(atts)
   
-  simpleAction.symbols["delay"] = "s"
-  simpleAction.symbols["repeat"] = "s"
-  simpleAction.symbols["duration"] = "s"
-
+  simpleAction:addSymbol("delay", "s")
+  simpleAction:addSymbol("repeat", "s")
+  simpleAction:addSymbol("duration", "s")
+  
   local nclExp = "<simpleAction"
   for attribute, _ in pairs(simpleAction:getAttributesTypeMap()) do
-    if(simpleAction.symbols ~= nil and simpleAction.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..simpleAction[attribute]..simpleAction.symbols[attribute].."\""
+    if(simpleAction:getSymbols() ~= nil and simpleAction:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..simpleAction[attribute]..simpleAction:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(simpleAction[attribute]).."\""
     end

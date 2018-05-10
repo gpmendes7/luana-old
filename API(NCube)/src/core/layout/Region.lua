@@ -145,6 +145,13 @@ function Region:getZIndex()
 end
 
 function Region:addRegion(region)
+  if((type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() ~= "region")
+    or type(region) ~= "table")then
+    error("Error! Invalid region element!")
+  end
+  
   self:addChild(region)
   table.insert(self.regions, region)
 end
@@ -180,6 +187,13 @@ function Region:setRegions(...)
 end
 
 function Region:removeRegion(region)
+  if((type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() ~= "region")
+    or type(region) ~= "table")then
+    error("Error! Invalid region element!")
+  end
+  
   self:removeChild(region)
 
   for p, rg in ipairs(self.regions) do

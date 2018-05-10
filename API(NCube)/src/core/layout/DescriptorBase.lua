@@ -49,6 +49,13 @@ function DescriptorBase:getId()
 end
 
 function DescriptorBase:addDescriptorSwitch(descriptorSwitch)
+  if((type(descriptorSwitch) == "table"
+    and descriptorSwitch["getNameElem"] ~= nil
+    and descriptorSwitch:getNameElem() ~= "descriptorSwitch")
+    or type(descriptorSwitch) ~= "table")then
+    error("Error! Invalid descriptorSwitch element!")
+  end
+
   self:addChild(descriptorSwitch)
   table.insert(self.descriptorSwitchs, descriptorSwitch)
 end
@@ -84,6 +91,13 @@ function DescriptorBase:setDescriptorSwitchs(...)
 end
 
 function DescriptorBase:removeDescriptorSwitch(descriptorSwitch)
+  if((type(descriptorSwitch) == "table"
+    and descriptorSwitch["getNameElem"] ~= nil
+    and descriptorSwitch:getNameElem() ~= "descriptorSwitch")
+    or type(descriptorSwitch) ~= "table")then
+    error("Error! Invalid descriptorSwitch element!")
+  end
+
   self:removeChild(descriptorSwitch)
 
   for p, dc in ipairs(self.descriptorSwitchs) do
@@ -99,6 +113,13 @@ function DescriptorBase:removeDescriptorSwitchPos(p)
 end
 
 function DescriptorBase:addImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+
   self:addChild(importBase)
   table.insert(self.importBases, importBase)
 end
@@ -134,6 +155,13 @@ function DescriptorBase:setImportBases(...)
 end
 
 function DescriptorBase:removeImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+  
   self:removeChild(importBase)
 
   for p, ib in ipairs(self.importBases) do
@@ -149,6 +177,13 @@ function DescriptorBase:removeImportBasePos(p)
 end
 
 function DescriptorBase:addDescriptor(descriptor)
+  if((type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor:getNameElem() ~= "descriptor")
+    or type(descriptor) ~= "table")then
+    error("Error! Invalid descriptor element!")
+  end
+  
   self:addChild(descriptor)
   table.insert(self.descriptors, descriptor)
 end
@@ -183,7 +218,14 @@ function DescriptorBase:setDescriptors(...)
   end
 end
 
-function DescriptorBase:removeDescriptor(descriptor)
+function DescriptorBase:removeDescriptor(descriptor) 
+  if((type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor:getNameElem() ~= "descriptor")
+    or type(descriptor) ~= "table")then
+    error("Error! Invalid descriptor element!")
+  end
+  
   self:removeChild(descriptor)
 
   for p, dc in ipairs(self.descriptors) do

@@ -115,15 +115,15 @@ local function test5()
 
   local area = Area:create(atts)
 
-  area.symbols["begin"] = "s"
-  area.symbols["end"] = "s"
-  area.symbols["first"] = "f"
-  area.symbols["last"] = "f"
+  area:addSymbol("begin", "s")
+  area:addSymbol("end", "s")
+  area:addSymbol("first", "f")
+  area:addSymbol("last", "f")
 
   local nclExp = "<area"
-  for attribute, typeAtt in pairs(area:getAttributesTypeMap()) do
-    if(area.symbols ~= nil and area.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..area[attribute]..area.symbols[attribute].."\""
+  for attribute, _ in pairs(area:getAttributesTypeMap()) do
+    if(area:getSymbols() ~= nil and area:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..area[attribute]..area:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(area[attribute]).."\""
     end

@@ -25,7 +25,7 @@ function CausalConnector:create(attributes, full)
   local causalConnector = CausalConnector:new()
 
   causalConnector.id = nil
-  
+
   causalConnector.ass = {}
 
   if(attributes ~= nil)then
@@ -53,6 +53,13 @@ function CausalConnector:getId()
 end
 
 function CausalConnector:addConnectorParam(connectorParam)
+  if((type(connectorParam) == "table"
+    and connectorParam["getNameElem"] ~= nil
+    and connectorParam:getNameElem() ~= "connectorParam")
+    or type(connectorParam) ~= "table")then
+    error("Error! Invalid connectorParam element!")
+  end
+
   local p = self:getPosAvailable("connectorParam")
 
   if(p ~= nil)then
@@ -81,6 +88,13 @@ function CausalConnector:setConnectorParams(...)
 end
 
 function CausalConnector:removeConnectorParam(connectorParam)
+  if((type(connectorParam) == "table"
+    and connectorParam["getNameElem"] ~= nil
+    and connectorParam:getNameElem() ~= "connectorParam")
+    or type(connectorParam) ~= "table")then
+    error("Error! Invalid connectorParam element!")
+  end
+
   self:removeChild(connectorParam)
 
   for p, cp in ipairs(self.connectorParams) do
@@ -96,6 +110,13 @@ function CausalConnector:removeConnectorParamPos(p)
 end
 
 function CausalConnector:setSimpleCondition(simpleCondition)
+  if((type(simpleCondition) == "table"
+    and simpleCondition["getNameElem"] ~= nil
+    and simpleCondition:getNameElem() ~= "simpleCondition")
+    or type(simpleCondition) ~= "table")then
+    error("Error! Invalid simpleCondition element!")
+  end
+
   local p
 
   if(self.simpleCondition == nil and self.compoundCondition == nil)then
@@ -125,6 +146,13 @@ function CausalConnector:removeSimpleCondition()
 end
 
 function CausalConnector:setCompoundCondition(compoundCondition)
+  if((type(compoundCondition) == "table"
+    and compoundCondition["getNameElem"] ~= nil
+    and compoundCondition:getNameElem() ~= "compoundCondition")
+    or type(compoundCondition) ~= "table")then
+    error("Error! Invalid compoundCondition element!")
+  end
+
   local p
 
   if(self.simpleCondition == nil and self.compoundCondition == nil)then
@@ -154,6 +182,13 @@ function CausalConnector:removeCompoundCondition()
 end
 
 function CausalConnector:setSimpleAction(simpleAction)
+  if((type(simpleAction) == "table"
+    and simpleAction["getNameElem"] ~= nil
+    and simpleAction:getNameElem() ~= "simpleAction")
+    or type(simpleAction) ~= "table")then
+    error("Error! Invalid simpleAction element!")
+  end
+
   local p
 
   if(self.simpleAction == nil and self.compoundAction == nil)then
@@ -183,6 +218,13 @@ function CausalConnector:removeSimpleAction()
 end
 
 function CausalConnector:setCompoundAction(compoundAction)
+  if((type(compoundAction) == "table"
+    and compoundAction["getNameElem"] ~= nil
+    and compoundAction:getNameElem() ~= "compoundAction")
+    or type(compoundAction) ~= "table")then
+    error("Error! Invalid compoundAction element!")
+  end
+
   local p
 
   if(self.simpleAction == nil and self.compoundAction == nil)then

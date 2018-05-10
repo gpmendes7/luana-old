@@ -65,12 +65,16 @@ function RegionBase:getDevice()
 end
 
 function RegionBase:setRegion(region)
-  if(type(region) == "table" and region.nameElem == "region")then
+  if(type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
     table.insert(region.ass, self)
-  else
+  elseif(type(region) == "string" )then
     self:addAttribute("region", region)
+  else
+    error("Error! Invalid region element!")
   end
 end
 
@@ -78,7 +82,18 @@ function RegionBase:getRegion()
   return self:getAttribute("region")
 end
 
+function RegionBase:getRegionAss()
+  return self.regionAss
+end
+
 function RegionBase:addImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+  
   self:addChild(importBase)
   table.insert(self.importBases, importBase)
 end
@@ -114,6 +129,13 @@ function RegionBase:setImportBases(...)
 end
 
 function RegionBase:removeImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+  
   self:removeChild(importBase)
 
   for p, ib in ipairs(self.importBases) do
@@ -129,6 +151,13 @@ function RegionBase:removeImportBasePos(p)
 end
 
 function RegionBase:addRegion(region)
+  if((type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() ~= "region")
+    or type(region) ~= "table")then
+    error("Error! Invalid region element!")
+  end
+  
   self:addChild(region)
   table.insert(self.regions, region)
 end
@@ -164,6 +193,13 @@ function RegionBase:setRegions(...)
 end
 
 function RegionBase:removeRegion(region)
+  if((type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() ~= "region")
+    or type(region) ~= "table")then
+    error("Error! Invalid region element!")
+  end
+  
   self:removeChild(region)
 
   for p, rg in ipairs(self.regions) do

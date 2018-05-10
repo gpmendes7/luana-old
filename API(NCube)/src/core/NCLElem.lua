@@ -285,6 +285,18 @@ function NCLElem:getAttributesStringValueMap()
   return self.attributesStringValueMap
 end
 
+function NCLElem:getSymbols()
+  return self.symbols
+end
+
+function NCLElem:getSymbol(attribute)
+  return self.symbols[attribute]
+end
+
+function NCLElem:getAttributesSymbolMap()
+  return self.attributesSymbolMap
+end
+
 function NCLElem:isNilAttributes(attributes)
   for _, _ in pairs(attributes) do
     return false
@@ -304,21 +316,25 @@ function NCLElem:setAttributes(attributes)
 end
 
 function NCLElem:addSymbol(attribute, symbol)
-  local isValid = false
+  local isInvalidSymbol = false
 
   if(type(self.attributesSymbolMap[attribute]) == "table")then
-    for _, sb in pairs(self.attributesSymbolMap[attribute])do
+    for _, sb in ipairs(self.attributesSymbolMap[attribute]) do
       if(symbol == sb)then
-        self.symbols[attribute] = symbol
+        isInvalidSymbol = false
         break
       end
     end
   else
-    isValid = symbol == self.attributesSymbolMap[attribute]
+    if(self.attributesSymbolMap[attribute] == symbol) then
+      isInvalidSymbol = false
+    end
   end
 
-  if(not isValid)then
-    error("Error! "..attribute.." attribute cannot have "..symbol.." character in "..self.nameElem.."!")
+  if(isInvalidSymbol)then
+    error("Error! "..attribute.." attribute cannot have "..symbol.." character in "..self.nameElem.." element!", 2)
+  else
+    self.symbols[attribute] = symbol
   end
 end
 
@@ -338,7 +354,7 @@ function NCLElem:putAttributeSymbol(attribute, value)
     local isInvalidSymbol = true
 
     if(sb ~= nil)then
-      if(self.attributesSymbolMap[attribute] == "table")then
+      if(type(self.attributesSymbolMap[attribute]) == "table")then
         for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
           if(sb == symbol)then
             isInvalidSymbol = false

@@ -48,6 +48,13 @@ function AssessmentStatement:getComparator()
 end
 
 function AssessmentStatement:addAttributeAssessment(attributeAssessment)
+  if((type(attributeAssessment) == "table"
+    and attributeAssessment["getNameElem"] ~= nil
+    and attributeAssessment:getNameElem() ~= "attributeAssessment")
+    or type(attributeAssessment) ~= "table")then
+    error("Error! Invalid attributeAssessment element!")
+  end
+
   local p = self:getPosAvailable("attributeAssessment")
 
   if(p ~= nil)then
@@ -76,6 +83,13 @@ function AssessmentStatement:setAttributeAssessments(...)
 end
 
 function AssessmentStatement:removeAttributeAssessment(attributeAssessment)
+  if((type(attributeAssessment) == "table"
+    and attributeAssessment["getNameElem"] ~= nil
+    and attributeAssessment:getNameElem() ~= "attributeAssessment")
+    or type(attributeAssessment) ~= "table")then
+    error("Error! Invalid attributeAssessment element!")
+  end
+  
   self:removeChild(attributeAssessment)
 
   for p, aa in ipairs(self.attributeAssessments) do
@@ -91,6 +105,13 @@ function AssessmentStatement:removeAttributeAssessmentPos(p)
 end
 
 function AssessmentStatement:setValueAssessment(valueAssessment)
+  if((type(valueAssessment) == "table"
+    and valueAssessment["getNameElem"] ~= nil
+    and valueAssessment:getNameElem() ~= "valueAssessment")
+    or type(valueAssessment) ~= "table")then
+    error("Error! Invalid valueAssessment element!")
+  end
+  
   local p
 
   if(self.valueAssessment == nil)then

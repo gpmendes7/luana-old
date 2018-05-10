@@ -75,6 +75,30 @@ local function test6()
 end
 
 local function test7()
+  local connectorBase = ConnectorBase:create()
+  local status, err
+    
+  status, err = pcall(connectorBase["removeImportBase"], connectorBase, CausalConnector:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(connectorBase["removeImportBase"], connectorBase, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(connectorBase["removeImportBase"], connectorBase, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(connectorBase["removeImportBase"], connectorBase, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(connectorBase["removeImportBase"], connectorBase, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(connectorBase["removeImportBase"], connectorBase, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+
+local function test8()
   local atts = {
     id = "cb"
   }
@@ -83,8 +107,8 @@ local function test7()
 
   local nclExp = "<connectorBase"
   for attribute, _ in pairs(connectorBase:getAttributesTypeMap()) do
-    if(connectorBase.symbols ~= nil and connectorBase.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..connectorBase[attribute]..connectorBase.symbols[attribute].."\""
+    if(connectorBase:getSymbols() ~= nil and connectorBase:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..connectorBase[attribute]..connectorBase:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(connectorBase[attribute]).."\""
     end
@@ -97,7 +121,7 @@ local function test7()
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test8()
+local function test9()
   local connectorBase = ConnectorBase:create{id = "cb"}
   local nclExp = "<connectorBase id=\"cb\">\n"
 
@@ -125,3 +149,4 @@ test5()
 test6()
 test7()
 test8()
+test9()

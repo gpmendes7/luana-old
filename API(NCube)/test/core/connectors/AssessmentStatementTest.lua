@@ -31,19 +31,19 @@ local function test4()
   local assessmentStatement = AssessmentStatement:create()
   local status, err
 
-  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, "invalid")
+  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, nil)
+  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, 999999)
+  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, {})
+  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(assessmentStatement["setComparator"], AssessmentStatement, function(a, b) return a+b end)
+  status, err = pcall(assessmentStatement["setComparator"], assessmentStatement, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -97,6 +97,29 @@ local function test6()
 end
 
 local function test7()
+  local assessmentStatement = AssessmentStatement:create()
+  local status, err
+    
+  status, err = pcall(assessmentStatement["addAttributeAssessment"], assessmentStatement, ValueAssessment:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(assessmentStatement["addAttributeAssessment"], assessmentStatement, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(assessmentStatement["addAttributeAssessment"], assessmentStatement, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(assessmentStatement["addAttributeAssessment"], assessmentStatement, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(assessmentStatement["addAttributeAssessment"], assessmentStatement, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(assessmentStatement["addAttributeAssessment"], assessmentStatement, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
   local atts = {
     comparator = "eq"
   }
@@ -105,8 +128,8 @@ local function test7()
 
   local nclExp = "<assessmentStatement"
   for attribute, _ in pairs(assessmentStatement:getAttributesTypeMap()) do
-    if(assessmentStatement.symbols ~= nil and assessmentStatement.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..assessmentStatement[attribute]..assessmentStatement.symbols[attribute].."\""
+    if(assessmentStatement:getSymbols() ~= nil and assessmentStatement:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..assessmentStatement[attribute]..assessmentStatement:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(assessmentStatement[attribute]).."\""
     end
@@ -119,7 +142,7 @@ local function test7()
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test8()
+local function test9()
   local nclExp = ""
 
   local assessmentStatement = AssessmentStatement:create{comparator = "eq"}
@@ -149,3 +172,4 @@ test5()
 test6()
 test7()
 test8()
+test9()

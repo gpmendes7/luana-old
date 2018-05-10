@@ -26,6 +26,8 @@ function Link:create(attributes, full)
   link.id = nil
   link.xconnector = nil
 
+  link.causalConnectorAss = nil
+
   if(attributes ~= nil)then
     link:setAttributes(attributes)
   end
@@ -51,12 +53,16 @@ function Link:getId()
 end
 
 function Link:setXConnector(xconnector)
-  if(type(xconnector) == "table" and xconnector.nameElem == "causalConnector")then
+  if(type(xconnector) == "table"
+    and xconnector["getNameElem"] ~= nil
+    and xconnector:getNameElem() == "causalConnector")then
     self:addAttribute("xconnector", xconnector:getId())
     self.causalConnectorAss = xconnector
     table.insert(xconnector.ass, self)
-  else
+  elseif(type(xconnector) == "string" )then
     self:addAttribute("xconnector", xconnector)
+  else
+    error("Error! Invalid causalConnector element!")
   end
 end
 
@@ -65,6 +71,13 @@ function Link:getXConnector()
 end
 
 function Link:addLinkParam(linkParam)
+  if((type(linkParam) == "table"
+    and linkParam["getNameElem"] ~= nil
+    and linkParam:getNameElem() ~= "linkParam")
+    or type(linkParam) ~= "table")then
+    error("Error! Invalid linkParam element!")
+  end
+
   self:addChild(linkParam)
   table.insert(self.linkParams, linkParam)
 end
@@ -86,6 +99,13 @@ function Link:setLinkParams(...)
 end
 
 function Link:removeLinkParam(linkParam)
+  if((type(linkParam) == "table"
+    and linkParam["getNameElem"] ~= nil
+    and linkParam:getNameElem() ~= "linkParam")
+    or type(linkParam) ~= "table")then
+    error("Error! Invalid linkParam element!")
+  end
+
   self:removeChild(linkParam)
 
   for p, lp in ipairs(self.linkParams) do
@@ -101,6 +121,13 @@ function Link:removeLinkParamPos(p)
 end
 
 function Link:addBind(bind)
+  if((type(bind) == "table"
+    and bind["getNameElem"] ~= nil
+    and bind:getNameElem() ~= "bind")
+    or type(bind) ~= "table")then
+    error("Error! Invalid bind element!")
+  end
+
   self:addChild(bind)
   table.insert(self.binds, bind)
 end
@@ -122,6 +149,13 @@ function Link:setBinds(...)
 end
 
 function Link:removeBind(bind)
+  if((type(bind) == "table"
+    and bind["getNameElem"] ~= nil
+    and bind:getNameElem() ~= "bind")
+    or type(bind) ~= "table")then
+    error("Error! Invalid bind element!")
+  end
+
   self:removeChild(bind)
 
   for p, bd in ipairs(self.binds) do

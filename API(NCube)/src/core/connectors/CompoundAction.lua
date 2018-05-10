@@ -64,6 +64,13 @@ function CompoundAction:getDelay()
 end
 
 function CompoundAction:addSimpleAction(simpleAction)
+  if((type(simpleAction) == "table"
+    and simpleAction["getNameElem"] ~= nil
+    and simpleAction:getNameElem() ~= "simpleAction")
+    or type(simpleAction) ~= "table")then
+    error("Error! Invalid simpleAction element!")
+  end
+  
   self:addChild(simpleAction)
   table.insert(self.simpleActions, simpleAction)
 end
@@ -85,6 +92,13 @@ function CompoundAction:setSimpleActions(...)
 end
 
 function CompoundAction:removeSimpleAction(simpleAction)
+  if((type(simpleAction) == "table"
+    and simpleAction["getNameElem"] ~= nil
+    and simpleAction:getNameElem() ~= "simpleAction")
+    or type(simpleAction) ~= "table")then
+    error("Error! Invalid simpleAction element!")
+  end
+  
   self:removeChild(simpleAction)
 
   for p, sa in ipairs(self.simpleActions) do
@@ -100,6 +114,13 @@ function CompoundAction:removeSimpleActionPos(p)
 end
 
 function CompoundAction:addCompoundAction(compoundAction)
+  if((type(compoundAction) == "table"
+    and compoundAction["getNameElem"] ~= nil
+    and compoundAction:getNameElem() ~= "compoundAction")
+    or type(compoundAction) ~= "table")then
+    error("Error! Invalid compoundAction element!")
+  end
+  
   self:addChild(compoundAction)
   table.insert(self.compoundActions, compoundAction)
 end
@@ -121,6 +142,13 @@ function CompoundAction:setCompoundActions(...)
 end
 
 function CompoundAction:removeCompoundAction(compoundAction)
+  if((type(compoundAction) == "table"
+    and compoundAction["getNameElem"] ~= nil
+    and compoundAction:getNameElem() ~= "compoundAction")
+    or type(compoundAction) ~= "table")then
+    error("Error! Invalid compoundAction element!")
+  end
+  
   self:removeChild(compoundAction)
 
   for p, ca in ipairs(self.compoundActions) do

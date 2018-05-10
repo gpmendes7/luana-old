@@ -48,8 +48,8 @@ local function test5()
    
    local nclExp = "<valueAssessment"   
    for attribute, _ in pairs(valueAssessment:getAttributesTypeMap()) do
-    if(valueAssessment.symbols ~= nil and valueAssessment.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..valueAssessment[attribute]..valueAssessment.symbols[attribute].."\""
+    if(valueAssessment:getSymbols() ~= nil and valueAssessment:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..valueAssessment[attribute]..valueAssessment:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(valueAssessment[attribute]).."\""
     end

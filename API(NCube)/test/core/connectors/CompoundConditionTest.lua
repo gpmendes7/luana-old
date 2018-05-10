@@ -37,13 +37,13 @@ local function test4()
   local compoundCondition = CompoundCondition:create()
   local status, err
 
-  status, err = pcall(compoundCondition["setDelay"], CompoundCondition, nil)
+  status, err = pcall(compoundCondition["setDelay"], compoundCondition, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(compoundCondition["setDelay"], CompoundCondition, {})
+  status, err = pcall(compoundCondition["setDelay"], compoundCondition, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(compoundCondition["setDelay"], CompoundCondition, function(a, b) return a+b end)
+  status, err = pcall(compoundCondition["setDelay"], compoundCondition, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -133,6 +133,29 @@ local function test6()
 end
 
 local function test7()
+  local compoundCondition = CompoundCondition:create()
+  local status, err
+    
+  status, err = pcall(compoundCondition["addSimpleAction"], compoundCondition, CompoundCondition:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(compoundCondition["addSimpleAction"], compoundCondition, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundCondition["addSimpleAction"], compoundCondition, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundCondition["addSimpleAction"], compoundCondition, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundCondition["addSimpleAction"], compoundCondition, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundCondition["addSimpleAction"], compoundCondition, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
   local atts = {
     operator = "and",
     delay = 10
@@ -140,12 +163,12 @@ local function test7()
 
   local compoundCondition = CompoundCondition:create(atts)
   
-  compoundCondition.symbols["delay"] = "s"
+  compoundCondition:addSymbol("delay", "s")
 
   local nclExp = "<compoundCondition"
   for attribute, typeAtt in pairs(compoundCondition:getAttributesTypeMap()) do
-    if(compoundCondition.symbols ~= nil and compoundCondition.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..compoundCondition[attribute]..compoundCondition.symbols[attribute].."\""
+    if(compoundCondition:getSymbols() ~= nil and compoundCondition:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..compoundCondition[attribute]..compoundCondition:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(compoundCondition[attribute]).."\""
     end
@@ -158,7 +181,7 @@ local function test7()
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test7()
+local function test9()
   local compoundCondition1 = CompoundCondition:create{operator = "and"}
   local nclExp = "<compoundCondition operator=\"and\">\n"
 
@@ -193,3 +216,5 @@ test4()
 test5()
 test6()
 test7()
+test8()
+test9()

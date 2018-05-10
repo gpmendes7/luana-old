@@ -66,8 +66,10 @@ function Bind:setComponent(component)
 
     self.componentAss = component
     table.insert(component.ass, self)
-  else
+  elseif(type(component) == "string" )then
     self:addAttribute("component", component)
+  else
+    error("Error! Invalid component element!")
   end
 end
 
@@ -85,8 +87,10 @@ function Bind:setInterface(interface)
 
     self.interfaceAss = interface
     table.insert(interface.ass, self)
-  else
+  elseif(type(interface) == "string" )then
     self:addAttribute("interface", interface)
+  else
+    error("Error! Invalid interface element!")
   end
 end
 
@@ -95,12 +99,16 @@ function Bind:getInterface()
 end
 
 function Bind:setDescriptor(descriptor)
-  if(type(descriptor) == "table" and descriptor.nameElem == "descriptor")then
+  if(type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor.nameElem == "descriptor")then
     self:addAttribute("descriptor", descriptor:getId())
     self.descriptorAss = descriptor
     table.insert(descriptor.ass, self)
-  else
+  elseif(type(descriptor) == "string" )then
     self:addAttribute("descriptor", descriptor)
+  else
+    error("Error! Invalid descriptor element!")
   end
 end
 
@@ -109,6 +117,13 @@ function Bind:getDescriptor()
 end
 
 function Bind:addBindParam(bindParam)
+  if((type(bindParam) == "table"
+    and bindParam["getNameElem"] ~= nil
+    and bindParam:getNameElem() ~= "bindParam")
+    or type(bindParam) ~= "table")then
+    error("Error! Invalid bindParam element!")
+  end
+
   local p = self:getPosAvailable("bindParam")
 
   if(p ~= nil)then
@@ -137,6 +152,13 @@ function Bind:setBindParams(...)
 end
 
 function Bind:removeBindParam(bindParam)
+  if((type(bindParam) == "table"
+    and bindParam["getNameElem"] ~= nil
+    and bindParam:getNameElem() ~= "bindParam")
+    or type(bindParam) ~= "table")then
+    error("Error! Invalid bindParam element!")
+  end
+  
   self:removeChild(bindParam)
 
   for p, bp in ipairs(self.bindParams) do

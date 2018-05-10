@@ -35,19 +35,19 @@ local function test4()
   local compoundStatement = CompoundStatement:create()
   local status, err
   
-  status, err = pcall(compoundStatement["setIsNegated"], CompoundStatement, "invalid")
+  status, err = pcall(compoundStatement["setIsNegated"], compoundStatement, "invalid")
   assert(not(status), "Error!")
   
-  status, err = pcall(compoundStatement["setIsNegated"], CompoundStatement, nil)
+  status, err = pcall(compoundStatement["setIsNegated"], compoundStatement, nil)
   assert(not(status), "Error!")
    
-  status, err = pcall(compoundStatement["setIsNegated"], CompoundStatement, 999999)
+  status, err = pcall(compoundStatement["setIsNegated"], compoundStatement, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(compoundStatement["setIsNegated"], CompoundStatement, {})
+  status, err = pcall(compoundStatement["setIsNegated"], compoundStatement, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(compoundStatement["setIsNegated"], CompoundStatement, function(a, b) return a+b end)
+  status, err = pcall(compoundStatement["setIsNegated"], compoundStatement, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -99,6 +99,29 @@ local function test6()
 end
 
 local function test7()
+  local compoundStatement = CompoundStatement:create()
+  local status, err
+    
+  status, err = pcall(compoundStatement["addCompoundStatement"], compoundStatement, AssessmentStatement:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(compoundStatement["addCompoundStatement"], compoundStatement, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundStatement["addCompoundStatement"], compoundStatement, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundStatement["addCompoundStatement"], compoundStatement, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundStatement["addCompoundStatement"], compoundStatement, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundStatement["addCompoundStatement"], compoundStatement, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
   local atts = {
     operator = "and",
     isNegated = true
@@ -108,8 +131,8 @@ local function test7()
 
   local nclExp = "<compoundStatement"
   for attribute, _ in pairs(compoundStatement:getAttributesTypeMap()) do
-    if(compoundStatement.symbols ~= nil and compoundStatement.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..compoundStatement[attribute]..compoundStatement.symbols[attribute].."\""
+    if(compoundStatement:getSymbols() ~= nil and compoundStatement:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..compoundStatement[attribute]..compoundStatement:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(compoundStatement[attribute]).."\""
     end
@@ -122,7 +145,7 @@ local function test7()
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test8()
+local function test9()
   local compoundStatement = CompoundStatement:create{operator = "and"}
   local nclExp = "<compoundStatement operator=\"and\">\n"
 
@@ -146,3 +169,4 @@ test5()
 test6()
 test7()
 test8()
+test9()

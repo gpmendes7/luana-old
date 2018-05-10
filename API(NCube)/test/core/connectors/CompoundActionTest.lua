@@ -35,13 +35,13 @@ local function test4()
   local compoundAction = CompoundAction:create()
   local status, err
 
-  status, err = pcall(compoundAction["setDelay"], CompoundAction, nil)
+  status, err = pcall(compoundAction["setDelay"], compoundAction, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(compoundAction["setDelay"], CompoundAction, {})
+  status, err = pcall(compoundAction["setDelay"], compoundAction, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(compoundAction["setDelay"], CompoundAction, function(a, b) return a+b end)
+  status, err = pcall(compoundAction["setDelay"], compoundAction, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -93,6 +93,29 @@ local function test6()
 end
 
 local function test7()
+  local compoundAction = CompoundAction:create()
+  local status, err
+    
+  status, err = pcall(compoundAction["addSimpleAction"], compoundAction, CompoundAction:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(compoundAction["addSimpleAction"], compoundAction, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundAction["addSimpleAction"], compoundAction, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundAction["addSimpleAction"], compoundAction, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundAction["addSimpleAction"], compoundAction, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(compoundAction["addSimpleAction"], compoundAction, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
   local atts = {
     operator = "seq",
     delay = 10
@@ -100,12 +123,12 @@ local function test7()
 
   local compoundAction = CompoundAction:create(atts)
   
-  compoundAction.symbols["delay"] = "s"
+  compoundAction:addSymbol("delay", "s")
 
   local nclExp = "<compoundAction"
   for attribute, typeAtt in pairs(compoundAction:getAttributesTypeMap()) do
-    if(compoundAction.symbols ~= nil and compoundAction.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..compoundAction[attribute]..compoundAction.symbols[attribute].."\""
+    if(compoundAction:getSymbols() ~= nil and compoundAction:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..compoundAction[attribute]..compoundAction:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(compoundAction[attribute]).."\""
     end
@@ -113,20 +136,20 @@ local function test7()
 
   local nclExp = nclExp.."/>\n"
 
-  nclRet = compoundAction:table2Ncl(0)
+  local nclRet = compoundAction:table2Ncl(0)
 
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test8()
-  local compoundAction1 = CompoundAction:create{["operator"] = "and"}
-  local nclExp = "<compoundAction operator=\"and\">\n"
+local function test9()
+  local compoundAction1 = CompoundAction:create{["operator"] = "seq"}
+  local nclExp = "<compoundAction operator=\"seq\">\n"
 
   local simpleAction = SimpleAction:create{["role"] = "set"}
   nclExp = nclExp.." <simpleAction role=\"set\"/>\n"
 
-  local compoundAction2 = CompoundAction:create{["operator"] = "or"}
-  nclExp = nclExp.." <compoundAction operator=\"or\"/>\n"
+  local compoundAction2 = CompoundAction:create{["operator"] = "par"}
+  nclExp = nclExp.." <compoundAction operator=\"par\"/>\n"
 
   nclExp = nclExp.."</compoundAction>\n"
 
@@ -145,3 +168,5 @@ test4()
 test5()
 test6()
 test7()
+test8()
+test9()

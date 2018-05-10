@@ -76,6 +76,29 @@ local function test6()
 end
 
 local function test7()
+  local importedDocumentBase = ImportedDocumentBase:create()
+  local status, err
+    
+  status, err = pcall(importedDocumentBase["addImportNCL"], importedDocumentBase, ImportedDocumentBase:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(importedDocumentBase["addImportNCL"], importedDocumentBase, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(importedDocumentBase["addImportNCL"], importedDocumentBase, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(importedDocumentBase["addImportNCL"], importedDocumentBase, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(importedDocumentBase["addImportNCL"], importedDocumentBase, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(importedDocumentBase["addImportNCL"], importedDocumentBase, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
   local atts = {
     id = "importedDocumentBase1"
   }
@@ -84,8 +107,8 @@ local function test7()
 
   local nclExp = "<importedDocumentBase"
   for attribute, _ in pairs(importedDocumentBase:getAttributesTypeMap()) do
-    if(importedDocumentBase.symbols ~= nil and importedDocumentBase.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..importedDocumentBase[attribute]..importedDocumentBase.symbols[attribute].."\""
+    if(importedDocumentBase:getSymbols() ~= nil and importedDocumentBase:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..importedDocumentBase[attribute]..importedDocumentBase:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(importedDocumentBase[attribute]).."\""
     end
@@ -98,7 +121,7 @@ local function test7()
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test8()
+local function test9()
   local importedDocumentBase = ImportedDocumentBase:create{["id"] = "importedDocumentBase"}
   local nclExp = "<importedDocumentBase id=\"importedDocumentBase\">\n"
 
@@ -128,3 +151,4 @@ test5()
 test6()
 test7()
 test8()
+test9()

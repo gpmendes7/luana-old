@@ -58,6 +58,13 @@ function CompoundStatement:getIsNegated()
 end
 
 function CompoundStatement:addAssessmentStatement(assessmentStatement)
+  if((type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] ~= nil
+    and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or type(assessmentStatement) ~= "table")then
+    error("Error! Invalid assessmentStatement element!")
+  end
+  
   self:addChild(assessmentStatement)
   table.insert(self.assessmentStatements, assessmentStatement)
 end
@@ -79,6 +86,13 @@ function CompoundStatement:setAssessmentStatements(...)
 end
 
 function CompoundStatement:removeAssessmentStatement(assessmentStatement)
+  if((type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] ~= nil
+    and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or type(assessmentStatement) ~= "table")then
+    error("Error! Invalid assessmentStatement element!")
+  end
+  
   self:removeChild(assessmentStatement)
 
   for p, as in ipairs(self.assessmentStatements) do
@@ -94,6 +108,13 @@ function CompoundStatement:removeAssessmentStatementPos(p)
 end
 
 function CompoundStatement:addCompoundStatement(compoundStatement)
+  if((type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] ~= nil
+    and compoundStatement:getNameElem() ~= "compoundStatement")
+    or type(compoundStatement) ~= "table")then
+    error("Error! Invalid compoundStatement element!")
+  end
+  
   self:addChild(compoundStatement)
   table.insert(self.compoundStatements, compoundStatement)
 end
@@ -115,6 +136,13 @@ function CompoundStatement:setCompoundStatements(...)
 end
 
 function CompoundStatement:removeCompoundStatement(compoundStatement)
+  if((type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] ~= nil
+    and compoundStatement:getNameElem() ~= "compoundStatement")
+    or type(compoundStatement) ~= "table")then
+    error("Error! Invalid compoundStatement element!")
+  end
+  
   self:removeChild(compoundStatement)
 
   for p, cs in ipairs(self.compoundStatements) do

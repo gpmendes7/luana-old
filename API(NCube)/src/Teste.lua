@@ -11,6 +11,18 @@
 --  error("Tá errado. Melhor consertar!")
 --end
 
+local function soma(...)
+   print(type(arg[1]))
+  local soma = 0
+  for _, n  in ipairs(arg) do
+      print(type(n))
+      soma = soma + n 
+  end
+  return soma
+end
+
+print(soma("2"))
+
 local s = "0.3s"
 local sb = string.match(s, "(%a+)")
 print(sb)

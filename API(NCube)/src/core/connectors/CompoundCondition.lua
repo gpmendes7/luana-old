@@ -72,6 +72,13 @@ function CompoundCondition:getDelay()
 end
 
 function CompoundCondition:addSimpleCondition(simpleCondition)
+  if((type(simpleCondition) == "table"
+    and simpleCondition["getNameElem"] ~= nil
+    and simpleCondition:getNameElem() ~= "simpleCondition")
+    or type(simpleCondition) ~= "table")then
+    error("Error! Invalid simpleCondition element!")
+  end
+  
   self:addChild(simpleCondition)
   table.insert(self.simpleConditions, simpleCondition)
 end
@@ -93,6 +100,13 @@ function CompoundCondition:setSimpleConditions(...)
 end
 
 function CompoundCondition:removeSimpleCondition(simpleCondition)
+  if((type(simpleCondition) == "table"
+    and simpleCondition["getNameElem"] ~= nil
+    and simpleCondition:getNameElem() ~= "simpleCondition")
+    or type(simpleCondition) ~= "table")then
+    error("Error! Invalid simpleCondition element!")
+  end
+  
   self:removeChild(simpleCondition)
 
   for p, sc in ipairs(self.simpleConditions) do
@@ -108,6 +122,13 @@ function CompoundCondition:removeSimpleConditionPos(p)
 end
 
 function CompoundCondition:addCompoundCondition(compoundCondition)
+  if((type(compoundCondition) == "table"
+    and compoundCondition["getNameElem"] ~= nil
+    and compoundCondition:getNameElem() ~= "compoundCondition")
+    or type(compoundCondition) ~= "table")then
+    error("Error! Invalid compoundCondition element!")
+  end
+  
   self:addChild(compoundCondition)
   table.insert(self.compoundConditions, compoundCondition)
 end
@@ -129,6 +150,13 @@ function CompoundCondition:setCompoundConditions(...)
 end
 
 function CompoundCondition:removeCompoundCondition(compoundCondition)
+  if((type(compoundCondition) == "table"
+    and compoundCondition["getNameElem"] ~= nil
+    and compoundCondition:getNameElem() ~= "compoundCondition")
+    or type(compoundCondition) ~= "table")then
+    error("Error! Invalid compoundCondition element!")
+  end
+  
   self:removeChild(compoundCondition)
 
   for p, cc in ipairs(self.compoundConditions) do
@@ -144,6 +172,13 @@ function CompoundCondition:removeCompoundConditionPos(p)
 end
 
 function CompoundCondition:addAssessmentStatement(assessmentStatement)
+  if((type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] ~= nil
+    and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or type(assessmentStatement) ~= "table")then
+    error("Error! Invalid assessmentStatement element!")
+  end
+  
   self:addChild(assessmentStatement)
   table.insert(self.assessmentStatements, assessmentStatement)
 end
@@ -165,6 +200,13 @@ function CompoundCondition:setAssessmentStatements(...)
 end
 
 function CompoundCondition:removeAssessmentStatement(assessmentStatement)
+  if((type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] ~= nil
+    and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or type(assessmentStatement) ~= "table")then
+    error("Error! Invalid assessmentStatement element!")
+  end
+  
   self:removeChild(assessmentStatement)
 
   for p, as in ipairs(self.assessmentStatements) do
@@ -180,6 +222,13 @@ function CompoundCondition:removeAssessmentStatementPos(p)
 end
 
 function CompoundCondition:addCompoundStatement(compoundStatement)
+  if((type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] ~= nil
+    and compoundStatement:getNameElem() ~= "compoundStatement")
+    or type(compoundStatement) ~= "table")then
+    error("Error! Invalid compoundStatement element!")
+  end
+  
   self:addChild(compoundStatement)
   table.insert(self.compoundStatements, compoundStatement)
 end
@@ -201,6 +250,13 @@ function CompoundCondition:setCompoundStatements(...)
 end
 
 function CompoundCondition:removeCompoundStatement(compoundStatement)
+  if((type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] ~= nil
+    and compoundStatement:getNameElem() ~= "compoundStatement")
+    or type(compoundStatement) ~= "table")then
+    error("Error! Invalid compoundStatement element!")
+  end
+  
   self:removeChild(compoundStatement)
 
   for p, cs in ipairs(self.compoundStatements) do

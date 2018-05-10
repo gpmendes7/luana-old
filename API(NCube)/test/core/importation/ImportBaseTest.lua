@@ -7,7 +7,9 @@ local function test1()
   assert(importBase:getAlias() == nil, "Error!")
   assert(importBase:getDocumentURI() == nil, "Error!")
   assert(importBase:getRegion() == nil, "Error!")
+  assert(importBase:getRegionAss() == nil, "Error!")
   assert(importBase:getBaseId() == nil, "Error!")
+  assert(importBase:getBaseIdAss() == nil, "Error!")
 end
 
 local function test2()
@@ -71,8 +73,8 @@ local function test5()
 
   local nclExp = "<importBase"
   for attribute, _ in pairs(importBase:getAttributesTypeMap()) do
-    if(importBase.symbols ~= nil and importBase.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..importBase[attribute]..importBase.symbols[attribute].."\""
+    if(importBase:getSymbols() ~= nil and importBase:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..importBase[attribute]..importBase:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(importBase[attribute]).."\""
     end

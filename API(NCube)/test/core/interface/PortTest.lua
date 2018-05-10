@@ -6,7 +6,9 @@ local function test1()
   assert(port ~= nil, "Error!")
   assert(port:getId() == nil, "Error!")
   assert(port:getComponent() == nil, "Error!")
+  assert(port:getComponentAss() == nil, "Error!")
   assert(port:getInterface() == nil, "Error!")
+  assert(port:getInterfaceAss() == nil, "Error!")
 end
 
 local function test2()
@@ -59,9 +61,9 @@ local function test5()
   local port = Port:create(atts)
 
   local nclExp = "<port"
-  for attribute, typeAtt in pairs(port:getAttributesTypeMap()) do
-    if(port.symbols ~= nil and port.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..port[attribute]..port.symbols[attribute].."\""
+  for attribute, _ in pairs(port:getAttributesTypeMap()) do
+    if(port:getSymbols() ~= nil and port:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..port[attribute]..port:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(port[attribute]).."\""
     end

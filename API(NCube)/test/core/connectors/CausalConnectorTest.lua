@@ -34,16 +34,16 @@ local function test4()
   local causalConnector = CausalConnector:create()
   local status, err
 
-  status, err = pcall(causalConnector["setKey"], CausalConnector, nil)
+  status, err = pcall(causalConnector["setKey"], causalConnector, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(causalConnector["setKey"], CausalConnector, 999999)
+  status, err = pcall(causalConnector["setKey"], causalConnector, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(causalConnector["setKey"], CausalConnector, {})
+  status, err = pcall(causalConnector["setKey"], causalConnector, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(causalConnector["setKey"], CausalConnector, function(a, b) return a+b end)
+  status, err = pcall(causalConnector["setKey"], causalConnector, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -111,6 +111,29 @@ local function test6()
 end
 
 local function test7()
+  local causalConnector = CausalConnector:create{id = "cc"}
+  local status, err
+    
+  status, err = pcall(causalConnector["addConnectorParam"], causalConnector, CompoundAction:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(causalConnector["addConnectorParam"], causalConnector, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["addConnectorParam"], causalConnector, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["addConnectorParam"], causalConnector, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["addConnectorParam"], causalConnector, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(causalConnector["addConnectorParam"], causalConnector, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
   local atts = {
     id = "cc"
   }
@@ -119,8 +142,8 @@ local function test7()
 
   local nclExp = "<causalConnector"
   for attribute, _ in pairs(causalConnector:getAttributesTypeMap()) do
-    if(causalConnector.symbols ~= nil and causalConnector.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..causalConnector[attribute]..causalConnector.symbols[attribute].."\""
+    if(causalConnector:getSymbols() ~= nil and causalConnector:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..causalConnector[attribute]..causalConnector:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(causalConnector[attribute]).."\""
     end
@@ -133,7 +156,7 @@ local function test7()
   assert(nclExp == nclRet, "Error!")
 end
 
-local function test7()
+local function test9()
   local causalConnector
   local connectorParam
   local simpleCondition, compoundCondition
@@ -194,3 +217,5 @@ test4()
 test5()
 test6()
 test7()
+test8()
+test9()

@@ -41,6 +41,13 @@ function ImportedDocumentBase:getId()
 end
 
 function ImportedDocumentBase:addImportNCL(importNCL)
+  if((type(importNCL) == "table"
+    and importNCL["getNameElem"] ~= nil
+    and importNCL:getNameElem() ~= "importNCL")
+    or type(importNCL) ~= "table")then
+    error("Error! Invalid importNCL element!")
+  end
+  
   self:addChild(importNCL)
   table.insert(self.importNCLs, importNCL)
 end
@@ -62,6 +69,13 @@ function ImportedDocumentBase:setImportNCLs(...)
 end
 
 function ImportedDocumentBase:removeImportNCL(importNCL)
+  if((type(importNCL) == "table"
+    and importNCL["getNameElem"] ~= nil
+    and importNCL:getNameElem() ~= "importNCL")
+    or type(importNCL) ~= "table")then
+    error("Error! Invalid importNCL element!")
+  end
+  
   self:removeChild(importNCL)
 
   for p, ip in ipairs(self.importNCLs) do

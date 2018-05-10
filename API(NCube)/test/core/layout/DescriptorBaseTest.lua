@@ -104,6 +104,29 @@ local function test6()
 end
 
 local function test7()
+  local descriptorBase = DescriptorBase:create()
+  local status, err
+    
+  status, err = pcall(descriptorBase["addDescriptor"], descriptorBase, ImportBase:create())
+  assert(not(status), "Error!")
+  
+  status, err = pcall(descriptorBase["addDescriptor"], descriptorBase, "invalid")
+  assert(not(status), "Error!")
+
+  status, err = pcall(descriptorBase["addDescriptor"], descriptorBase, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(descriptorBase["addDescriptor"], descriptorBase, 999999)
+  assert(not(status), "Error!")
+
+  status, err = pcall(descriptorBase["addDescriptor"], descriptorBase, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(descriptorBase["addDescriptor"], descriptorBase, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test7()
   local atts = {
     id = "db1"
   }
@@ -111,9 +134,9 @@ local function test7()
   local descriptorBase = DescriptorBase:create(atts)
 
   local nclExp = "<descriptorBase"
-  for attribute, typeAtt in pairs(descriptorBase:getAttributesTypeMap()) do
-    if(descriptorBase.symbols ~= nil and descriptorBase.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..descriptorBase[attribute]..descriptorBase.symbols[attribute].."\""
+  for attribute, _ in pairs(descriptorBase:getAttributesTypeMap()) do
+    if(descriptorBase:getSymbols() ~= nil and descriptorBase:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..descriptorBase[attribute]..descriptorBase:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(descriptorBase[attribute]).."\""
     end

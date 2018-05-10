@@ -94,12 +94,12 @@ local function test5()
 
   local simpleCondition = SimpleCondition:create(atts)
   
-  simpleCondition.symbols["delay"] = "s"
+  simpleCondition:addSymbol("delay", "s")
 
   local nclExp = "<simpleCondition"
   for attribute, _ in pairs(simpleCondition:getAttributesTypeMap()) do
-    if(simpleCondition.symbols ~= nil and simpleCondition.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..simpleCondition[attribute]..simpleCondition.symbols[attribute].."\""
+    if(simpleCondition:getSymbols() ~= nil and simpleCondition:getSymbol(attribute) ~= nil)then
+      nclExp = nclExp.." "..attribute.."=\""..simpleCondition[attribute]..simpleCondition:getSymbol(attribute).."\""
     else
       nclExp = nclExp.." "..attribute.."=\""..tostring(simpleCondition[attribute]).."\""
     end

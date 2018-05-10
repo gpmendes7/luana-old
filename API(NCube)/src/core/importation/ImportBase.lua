@@ -51,12 +51,16 @@ function ImportBase:getDocumentURI()
 end
 
 function ImportBase:setRegion(region)
-  if(type(region) == "table" and region.nameElem == "region")then
+  if(type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
     table.insert(region.ass, self)
-  else
+  elseif(type(region) == "string" )then
     self:addAttribute("region", region)
+  else
+    error("Error! Invalid region element!")
   end
 end
 
@@ -64,18 +68,30 @@ function ImportBase:getRegion()
   return self:getAttribute("region")
 end
 
+function ImportBase:getRegionAss()
+  return self.regionAss
+end
+
 function ImportBase:setBaseId(baseId)
-  if(type(baseId) == "table" and baseId.nameElem == "regionBase")then
+  if(type(baseId) == "table"
+    and region["getNameElem"] ~= nil
+    and baseId:getNameElem() == "regionBase")then
     self:addAttribute("baseId", baseId:getId())
     self.baseIdAss = baseId
     table.insert(baseId.ass, self)
-  else
+  elseif(type(baseId) == "string" )then
     self:addAttribute("baseId", baseId)
+  else
+    error("Error! Invalid region element!")
   end
 end
 
 function ImportBase:getBaseId()
   return self:getAttribute("baseId")
+end
+
+function ImportBase:getBaseIdAss()
+  return self.baseIdAss
 end
 
 return ImportBase

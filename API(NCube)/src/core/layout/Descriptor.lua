@@ -73,8 +73,8 @@ function Descriptor:create(attributes, full)
   descriptor.transOut = nil
 
   descriptor.regionAss = nil
-  descriptor.transInAss = nil
-  descriptor.transOutAss = nil
+  descriptor.transInAss = {}
+  descriptor.transOutAss = {}
 
   descriptor.symbols = {}
 
@@ -119,17 +119,25 @@ function Descriptor:getExplicitDur()
 end
 
 function Descriptor:setRegion(region)
-  if(type(region) == "table" and region.nameElem == "region")then
+  if(type(region) == "table"
+    and region["getNameElem"] ~= nil
+    and region:getNameElem() == "region")then
     self:addAttribute("region", region:getId())
     self.regionAss = region
     table.insert(self.regionAss.ass, self)
-  else
+  elseif(type(region) == "string")then
     self:addAttribute("region", region)
+  else
+    error("Error! Invalid region element!")
   end
 end
 
 function Descriptor:getRegion()
   return self:getAttribute("region")
+end
+
+function Descriptor:getRegionAss()
+  return self.regionAss
 end
 
 function Descriptor:setFreeze(freeze)
@@ -229,11 +237,13 @@ function Descriptor:getSelBorderColor()
 end
 
 function Descriptor:setTransIn(...)
-  if(#arg > 0)then
+  if(#arg > 1)then
     local id = ""
 
     for p, transIn in ipairs(arg) do
-      if(type(transIn) == "table" and transIn.nameElem == "transition")then
+      if(type(transIn) == "table"
+        and transIn["getNameElem"] ~= nil
+        and transIn:getNameElem() == "transition")then
         id = id + transIn:getId()
         table.insert(self.transInAss, transIn)
         table.insert(transIn.ass, self)
@@ -242,16 +252,20 @@ function Descriptor:setTransIn(...)
           id = id + ","
         end
       else
-        error("Invalid transin element!")
+        return
       end
     end
 
     self:addAttribute("transIn", id)
   else
-    if(type(arg) == "table")then
-      self:addAttribute("transIn", arg:getId())
+    if(type(arg[1]) == "table"
+      and arg[1]["getNameElem"] ~= nil
+      and arg[1]:getNameElem() == "transition")then
+      self:addAttribute("transIn", arg[1]:getId())
+    elseif(type(arg[1]) == "string")then
+      self:addAttribute("transIn", arg[1])
     else
-      self:addAttribute("transIn", arg)
+      error("Invalid transin element!")
     end
   end
 end
@@ -260,12 +274,18 @@ function Descriptor:getTransIn()
   return self:getAttribute("transIn")
 end
 
+function Descriptor:getTransInAss()
+  return self.transInAss
+end
+
 function Descriptor:setTransOut(...)
-  if(#arg > 0)then
+  if(#arg > 1)then
     local id = ""
 
     for p, transOut in ipairs(arg) do
-      if(type(transOut) == "table" and transOut.nameElem == "transition")then
+      if(type(transOut) == "table"
+        and transOut["getNameElem"] ~= nil
+        and transOut:getNameElem() == "transition")then
         id = id + transOut:getId()
         table.insert(self.transOutAss, transOut)
         table.insert(transOut.ass, self)
@@ -274,16 +294,20 @@ function Descriptor:setTransOut(...)
           id = id + ","
         end
       else
-        error("Invalid transout element!")
+        return
       end
     end
 
     self:addAttribute("transOut", id)
   else
-    if(type(arg) == "table")then
-      self:addAttribute("transIn", arg:getId())
+    if(type(arg[1]) == "table"
+      and arg[1]["getNameElem"] ~= nil
+      and arg[1]:getNameElem() == "transition")then
+      self:addAttribute("transOut", arg[1]:getId())
+    elseif(type(arg[1]) == "string")then
+      self:addAttribute("transOut", arg[1])
     else
-      self:addAttribute("transIn", arg)
+      error("Invalid transOut element!")
     end
   end
 end
@@ -292,7 +316,18 @@ function Descriptor:getTransOut()
   return self:getAttribute("transOut")
 end
 
+function Descriptor:getTransOutAss()
+  return self.transOutAss
+end
+
 function Descriptor:addDescriptorParam(descriptorParam)
+  if((type(descriptorParam) == "table"
+    and descriptorParam["getNameElem"] ~= nil
+    and descriptorParam:getNameElem() ~= "descriptorParam")
+    or type(descriptorParam) ~= "table")then
+    error("Error! Invalid descriptorParam element!")
+  end
+
   self:addChild(descriptorParam)
   table.insert(self.descriptorParams, descriptorParam)
 end
@@ -314,6 +349,13 @@ function Descriptor:setDescriptorParams(...)
 end
 
 function Descriptor:removeDescriptorParam(descriptorParam)
+  if((type(descriptorParam) == "table"
+    and descriptorParam["getNameElem"] ~= nil
+    and descriptorParam:getNameElem() ~= "descriptorParam")
+    or type(descriptorParam) ~= "table")then
+    error("Error! Invalid descriptorParam element!")
+  end
+
   self:removeChild(descriptorParam)
 
   for p, dp in ipairs(self.descriptorParams) do
