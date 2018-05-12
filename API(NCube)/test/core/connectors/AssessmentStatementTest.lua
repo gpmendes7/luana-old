@@ -126,16 +126,7 @@ local function test8()
 
   local assessmentStatement = AssessmentStatement:create(atts)
 
-  local nclExp = "<assessmentStatement"
-  for attribute, _ in pairs(assessmentStatement:getAttributesTypeMap()) do
-    if(assessmentStatement:getSymbols() ~= nil and assessmentStatement:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..assessmentStatement[attribute]..assessmentStatement:getSymbol(attribute).."\""
-    else
-      nclExp = nclExp.." "..attribute.."=\""..tostring(assessmentStatement[attribute]).."\""
-    end
-  end
-
-  nclExp = nclExp.."/>\n"
+  local nclExp = "<assessmentStatement comparator=\"eq\"/>\n"
 
   local nclRet = assessmentStatement:table2Ncl(0)
 

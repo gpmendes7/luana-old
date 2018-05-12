@@ -62,11 +62,7 @@ local function test5()
 
   local nclExp = "<port"
   for attribute, _ in pairs(port:getAttributesTypeMap()) do
-    if(port:getSymbols() ~= nil and port:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..port[attribute]..port:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(port[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

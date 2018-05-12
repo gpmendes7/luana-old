@@ -54,11 +54,7 @@ local function test5()
 
   local nclExp = "<descriptorParam"
   for attribute, _ in pairs(descriptorParam:getAttributesTypeMap()) do
-    if(descriptorParam:getSymbols() ~= nil and descriptorParam:getSymbols(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..descriptorParam[attribute]..descriptorParam:getSymbols(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(descriptorParam[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

@@ -133,16 +133,7 @@ local function test7()
 
   local descriptorBase = DescriptorBase:create(atts)
 
-  local nclExp = "<descriptorBase"
-  for attribute, _ in pairs(descriptorBase:getAttributesTypeMap()) do
-    if(descriptorBase:getSymbols() ~= nil and descriptorBase:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..descriptorBase[attribute]..descriptorBase:getSymbol(attribute).."\""
-    else
-      nclExp = nclExp.." "..attribute.."=\""..tostring(descriptorBase[attribute]).."\""
-    end
-  end
-
-  nclExp = nclExp.."/>\n"
+  local nclExp = "<descriptorBase id=\"db1\"/>\n"
 
   local nclRet = descriptorBase:table2Ncl(0)
 
@@ -172,7 +163,6 @@ local function test8()
 
   assert(nclExp == nclRet, "Error!")
 end
-
 
 test1()
 test2()

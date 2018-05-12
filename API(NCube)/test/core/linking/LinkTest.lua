@@ -125,11 +125,7 @@ local function test8()
 
   local nclExp = "<link"
   for attribute, _ in pairs(link:getAttributesTypeMap()) do
-    if(link:getSymbols() ~= nil and link:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..link[attribute]..link:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(link[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

@@ -14,6 +14,8 @@ function BindParam:create(attributes)
 
   bindParam.name = nil
   bindParam.value = nil
+  
+  bindParam.symbols = {}
 
   if(attributes ~= nil)then
     bindParam:setAttributes(attributes)

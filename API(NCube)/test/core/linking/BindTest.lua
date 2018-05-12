@@ -118,11 +118,7 @@ local function test8()
 
   local nclExp = "<bind"
   for attribute, _ in pairs(bind:getAttributesTypeMap()) do
-    if(bind:getSymbols() ~= nil and bind:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..bind[attribute]..bind:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(bind[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

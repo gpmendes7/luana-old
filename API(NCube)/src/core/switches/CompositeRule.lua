@@ -58,13 +58,22 @@ function CompositeRule:getOperator()
 end
 
 function CompositeRule:addRule(rule)
-  table.insert(self.rules, rule)
+  if((type(rule) == "table"
+    and rule["getNameElem"] ~= nil
+    and rule:getNameElem() ~= "rule")
+    or type(rule) ~= "table")then
+    error("Error! Invalid rule element!")
+  end
+
   local p = self:getPosAvailable("rule", "compositeRule")
+
   if(p ~= nil)then
     self:addChild(rule, p)
   else
     self:addChild(rule, 1)
   end
+
+  table.insert(self.rules, rule)
 end
 
 function CompositeRule:getRulePos(p)
@@ -84,6 +93,13 @@ function CompositeRule:setRules(...)
 end
 
 function CompositeRule:removeRule(rule)
+  if((type(rule) == "table"
+    and rule["getNameElem"] ~= nil
+    and rule:getNameElem() ~= "rule")
+    or type(rule) ~= "table")then
+    error("Error! Invalid rule element!")
+  end
+
   self:removeChild(rule)
 
   for p, sa in ipairs(self.rules) do
@@ -99,13 +115,22 @@ function CompositeRule:removeRulePos(p)
 end
 
 function CompositeRule:addCompositeRule(compositeRule)
-  table.insert(self.compositeRules, compositeRule)
+  if((type(compositeRule) == "table"
+    and compositeRule["getNameElem"] ~= nil
+    and compositeRule:getNameElem() ~= "compositeRule")
+    or type(compositeRule) ~= "table")then
+    error("Error! Invalid compositeRule element!")
+  end
+
   local p = self:getPosAvailable("compositeRule", "rule")
+
   if(p ~= nil)then
     self:addChild(compositeRule, p)
   else
     self:addChild(compositeRule, 1)
   end
+
+  table.insert(self.compositeRules, compositeRule)
 end
 
 function CompositeRule:getCompositeRulePos(p)
@@ -125,6 +150,13 @@ function CompositeRule:setCompositeRules(...)
 end
 
 function CompositeRule:removeCompositeRule(compositeRule)
+  if((type(compositeRule) == "table"
+    and compositeRule["getNameElem"] ~= nil
+    and compositeRule:getNameElem() ~= "compositeRule")
+    or type(compositeRule) ~= "table")then
+    error("Error! Invalid compositeRule element!")
+  end
+
   self:removeChild(compositeRule)
 
   for p, ca in ipairs(self.compositeRules) do

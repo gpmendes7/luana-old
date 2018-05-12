@@ -1,55 +1,58 @@
 local DefaultDescriptor = require "core/switches/DefaultDescriptor"
 
 local function test1()
-   local defaultDescriptor = nil
+   local defaultDescriptor = DefaultDescriptor:create()
    
-   defaultDescriptor = DefaultDescriptor:create()
    assert(defaultDescriptor ~= nil, "Error!")
-   assert(defaultDescriptor:getDescriptor() == "", "Error!")   
+   assert(defaultDescriptor:getDescriptor() == nil, "Error!")   
 end
 
-local function test2()
-   local defaultDescriptor = nil
-   
+local function test2()   
    local atts = {
-       ["descriptor"] = "d1"
+       descriptor = "d1"
    }     
    
-   defaultDescriptor = DefaultDescriptor:create(atts)
+   local defaultDescriptor = DefaultDescriptor:create(atts)
+   
    assert(defaultDescriptor ~= nil, "Error!")
    assert(defaultDescriptor:getDescriptor() == "d1", "Error!") 
 end
 
-local function test3()
-   local defaultDescriptor = nil
-      
-   defaultDescriptor = DefaultDescriptor:create()
+local function test3()      
+   local defaultDescriptor = DefaultDescriptor:create()
    
    defaultDescriptor:setDescriptor("d1")
 
    assert(defaultDescriptor:getDescriptor() == "d1", "Error!")
 end
 
-
 local function test4()
-   local defaultDescriptor = nil
-   
-   local nclExp, nclRet, atts = nil
-   
-   atts = {
-      ["descriptor"] = "d1"
+  local defaultDescriptor = DefaultDescriptor:create()
+  local status, err
+  
+  status, err = pcall(defaultDescriptor["setDescriptor"], DefaultDescriptor:create(), nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(defaultDescriptor["setDescriptor"], defaultDescriptor, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(defaultDescriptor["setDescriptor"], defaultDescriptor, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(defaultDescriptor["setDescriptor"], defaultDescriptor, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test5()
+   local atts = {
+      descriptor = "d1"
    }    
       
-   defaultDescriptor = DefaultDescriptor:create(atts)
+   local defaultDescriptor = DefaultDescriptor:create(atts)
    
-   nclExp = "<defaultDescriptor"   
-   for attribute, value in pairs(defaultDescriptor:getAttributes()) do
-      nclExp = nclExp.." "..attribute.."=\""..value.."\""
-   end 
-  
-   nclExp = nclExp.."/>\n"
+   local nclExp = "<defaultDescriptor descriptor=\"d1\"/>\n"
 
-   nclRet = defaultDescriptor:table2Ncl(0)
+   local nclRet = defaultDescriptor:table2Ncl(0)
 
    assert(nclExp == nclRet, "Error!")
 end
@@ -58,3 +61,4 @@ test1()
 test2()
 test3()
 test4()
+test5()

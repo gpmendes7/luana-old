@@ -150,11 +150,7 @@ local function test10()
 
   local nclExp = "<regionBase"
   for attribute, _ in pairs(regionBase:getAttributesTypeMap()) do
-    if(regionBase:getSymbols() ~= nil and regionBase:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..regionBase[attribute]..regionBase:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(regionBase[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

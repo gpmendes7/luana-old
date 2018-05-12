@@ -15,6 +15,8 @@ function LinkParam:create(attributes)
    linkParam.name = nil
    linkParam.value = nil
    
+   linkParam.symbols = {}
+   
    if(attributes ~= nil)then
       linkParam:setAttributes(attributes)
    end

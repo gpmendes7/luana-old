@@ -211,6 +211,9 @@ local function test8()
   }
 
   local descriptor = Descriptor:create(atts)
+  
+  descriptor:addSymbol("explicitDur", "s")
+  descriptor:addSymbol("focusBorderTransparency", "%")
 
   local nclExp = "<descriptor"
   for attribute, _ in pairs(descriptor:getAttributesTypeMap()) do

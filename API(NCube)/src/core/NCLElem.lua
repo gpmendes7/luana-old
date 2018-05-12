@@ -316,6 +316,11 @@ function NCLElem:setAttributes(attributes)
 end
 
 function NCLElem:addSymbol(attribute, symbol)
+  if(self.attributesSymbolMap == nil)then
+    self.symbols[attribute] = symbol
+    return
+  end
+
   local isInvalidSymbol = false
 
   if(type(self.attributesSymbolMap[attribute]) == "table")then
@@ -417,7 +422,10 @@ function NCLElem:readAttributes()
 
       local value = string.sub(attributes, v+1,z-1)
 
-      if(self:canBeNumber(attribute) and string.match(value, ":") == nil)then
+      if(self:canBeNumber(attribute)
+        and string.match(value, ":") == nil
+        and string.match(value, ",") == nil
+        and string.match(value, "%s") == nil)then
         self:putAttributeSymbol(attribute, value)
 
         if(string.match(value, "(%d+)%.(%d+)") ~= nil)then

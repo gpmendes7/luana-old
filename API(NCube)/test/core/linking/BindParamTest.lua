@@ -54,11 +54,7 @@ local function test5()
 
   local nclExp = "<bindParam"
   for attribute, _ in pairs(bindParam:getAttributesTypeMap()) do
-    if(bindParam:getSymbols() ~= nil and bindParam:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..bindParam[attribute]..bindParam:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(bindParam[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

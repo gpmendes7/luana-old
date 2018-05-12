@@ -61,11 +61,7 @@ local function test5()
 
   local nclExp = "<property"
   for attribute, _ in pairs(property:getAttributesTypeMap()) do
-    if(property:getSymbols() ~= nil and property:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..property[attribute]..property:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(property[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

@@ -73,11 +73,7 @@ local function test5()
 
   local nclExp = "<importBase"
   for attribute, _ in pairs(importBase:getAttributesTypeMap()) do
-    if(importBase:getSymbols() ~= nil and importBase:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..importBase[attribute]..importBase:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(importBase[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

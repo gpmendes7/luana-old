@@ -11,23 +11,23 @@ end
 local function test2()
   local atts = {
     name = "delay",
-    value = "0.5s"
+    value = 0.5
   }
 
   local linkParam = LinkParam:create(atts)
 
   assert(linkParam:getName() == "delay", "Error!")
-  assert(linkParam:getValue() == "0.5s", "Error!")
+  assert(linkParam:getValue() == 0.5, "Error!")
 end
 
 local function test3()
   local linkParam = LinkParam:create()
 
   linkParam:setName("delay")
-  linkParam:setValue("0.5s")
+  linkParam:setValue(0.5)
 
   assert(linkParam:getName() == "delay", "Error!")
-  assert(linkParam:getValue() == "0.5s", "Error!")
+  assert(linkParam:getValue() == 0.5, "Error!")
 end
 
 local function test4()
@@ -50,10 +50,12 @@ end
 local function test5()
   local atts = {
     name = "delay",
-    value = "0.5s"
+    value = 0.5
   }
 
   local linkParam = LinkParam:create(atts)
+  
+  linkParam:addSymbol("value", "s")
 
   local nclExp = "<linkParam"
   for attribute, _ in pairs(linkParam:getAttributesTypeMap()) do

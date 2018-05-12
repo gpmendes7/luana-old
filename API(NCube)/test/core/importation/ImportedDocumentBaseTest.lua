@@ -105,16 +105,7 @@ local function test8()
 
   local importedDocumentBase = ImportedDocumentBase:create(atts)
 
-  local nclExp = "<importedDocumentBase"
-  for attribute, _ in pairs(importedDocumentBase:getAttributesTypeMap()) do
-    if(importedDocumentBase:getSymbols() ~= nil and importedDocumentBase:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..importedDocumentBase[attribute]..importedDocumentBase:getSymbol(attribute).."\""
-    else
-      nclExp = nclExp.." "..attribute.."=\""..tostring(importedDocumentBase[attribute]).."\""
-    end
-  end
-
-  nclExp = nclExp.."/>\n"
+  local nclExp = "<importedDocumentBase id=\"importedDocumentBase1\"/>\n"
 
   local nclRet = importedDocumentBase:table2Ncl(0)
 

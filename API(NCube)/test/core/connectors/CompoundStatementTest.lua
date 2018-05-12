@@ -131,11 +131,7 @@ local function test8()
 
   local nclExp = "<compoundStatement"
   for attribute, _ in pairs(compoundStatement:getAttributesTypeMap()) do
-    if(compoundStatement:getSymbols() ~= nil and compoundStatement:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..compoundStatement[attribute]..compoundStatement:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(compoundStatement[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

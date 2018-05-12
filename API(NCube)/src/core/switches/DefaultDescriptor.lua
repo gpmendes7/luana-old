@@ -16,7 +16,7 @@ function DefaultDescriptor:create(attributes)
   local defaultDescriptor = DefaultDescriptor:new()
 
   defaultDescriptor.descriptor = nil
-  
+
   defaultDescriptor.descriptorAss = nil
 
   if(attributes ~= nil)then
@@ -27,12 +27,16 @@ function DefaultDescriptor:create(attributes)
 end
 
 function DefaultDescriptor:setDescriptor(descriptor)
-  if(type(descriptor) == "table" and descriptor.nameElem == "descriptor")then
+  if(type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor:getNameElem() == "descriptor")then
     self:addAttribute("descriptor", descriptor:getId())
     self.descriptorAss = descriptor
     table.insert(descriptor.ass, self)
-  else
+  elseif(type(descriptor) == "string" )then
     self:addAttribute("descriptor", descriptor)
+  else
+    error("Error! Invalid descriptor element!")
   end
 end
 

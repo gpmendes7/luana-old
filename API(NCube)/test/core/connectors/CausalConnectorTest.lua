@@ -140,16 +140,7 @@ local function test8()
 
   local causalConnector = CausalConnector:create(atts)
 
-  local nclExp = "<causalConnector"
-  for attribute, _ in pairs(causalConnector:getAttributesTypeMap()) do
-    if(causalConnector:getSymbols() ~= nil and causalConnector:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..causalConnector[attribute]..causalConnector:getSymbol(attribute).."\""
-    else
-      nclExp = nclExp.." "..attribute.."=\""..tostring(causalConnector[attribute]).."\""
-    end
-  end
-
-  nclExp = nclExp.."/>\n"
+  local nclExp = "<causalConnector id=\"cc\"/>\n"
 
   local nclRet = causalConnector:table2Ncl(0)
 

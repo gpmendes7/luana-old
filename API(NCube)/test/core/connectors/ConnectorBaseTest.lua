@@ -105,16 +105,7 @@ local function test8()
 
   local connectorBase = ConnectorBase:create(atts)
 
-  local nclExp = "<connectorBase"
-  for attribute, _ in pairs(connectorBase:getAttributesTypeMap()) do
-    if(connectorBase:getSymbols() ~= nil and connectorBase:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..connectorBase[attribute]..connectorBase:getSymbol(attribute).."\""
-    else
-      nclExp = nclExp.." "..attribute.."=\""..tostring(connectorBase[attribute]).."\""
-    end
-  end
-
-  nclExp = nclExp.."/>\n"
+  local nclExp = "<connectorBase id=\"cb\"/>\n"
 
   local nclRet = connectorBase:table2Ncl(0)
 

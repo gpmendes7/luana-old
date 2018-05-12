@@ -57,11 +57,7 @@ local function test5()
    
    local nclExp = "<connectorParam"   
    for attribute, _ in pairs(connectorParam:getAttributesTypeMap()) do
-    if(connectorParam:getSymbols() ~= nil and connectorParam:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..connectorParam[attribute]..connectorParam:getSymbol(attribute).."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(connectorParam[attribute]).."\""
-    end
    end 
   
    nclExp = nclExp.."/>\n"

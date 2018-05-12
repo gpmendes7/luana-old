@@ -1,61 +1,67 @@
 local Meta = require "core/metadata/Meta"
 
 local function test1()
-   local meta = nil
-   
-   meta = Meta:create()
-   assert(meta ~= nil, "Error!")
-   assert(meta:getName() == "", "Error!")  
-   assert(meta:getContent() == "", "Error!")  
+  local meta = Meta:create()
+
+  assert(meta ~= nil, "Error!")
+  assert(meta:getName() == nil, "Error!")
+  assert(meta:getContent() == nil, "Error!")
 end
 
 local function test2()
-   local meta = nil
-   
-   local atts = {
-    ["name"] = "",
-    ["content"] = ""
-   }     
-   
-   meta = Meta:create(atts)
-   assert(meta:getName() == "", "Error!")  
-   assert(meta:getContent() == "", "Error!")
+  local atts = {
+    name = "meta",
+    content = "content"
+  }
+
+  local meta = Meta:create(atts)
+
+  assert(meta:getName() == "meta", "Error!")
+  assert(meta:getContent() == "content", "Error!")
 end
 
 local function test3()
-   local meta = nil
-      
-   meta = Meta:create()
-   
-   meta:setName("meta1")
-   meta:setContent("content1")  
+  local meta = Meta:create()
 
-   assert(meta:getName() == "meta1", "Error!")  
-   assert(meta:getContent() == "content1", "Error!")
+  meta:setName("meta")
+  meta:setContent("content")
+
+  assert(meta:getName() == "meta", "Error!")
+  assert(meta:getContent() == "content", "Error!")
 end
 
 local function test4()
-   local meta = nil
-   
-   local nclExp, nclRet, atts = nil
-   
-   atts = {
-    ["name"] = "meta1",
-    ["content"] = "content1"
-   }    
-      
-   meta = Meta:create(atts)
-   
-   nclExp = "<meta"   
-   for attribute, value in pairs(meta:getAttributes()) do
-      nclExp = nclExp.." "..attribute.."=\""..value.."\""
-   end 
-  
-   nclExp = nclExp.."/>\n"
+  local meta = Meta:create()
+  local status, err
 
-   nclRet = meta:table2Ncl(0)
+  status, err = pcall(meta["setName"], meta, nil)
+  assert(not(status), "Error!")
 
-   assert(nclExp == nclRet, "Error!")
+  status, err = pcall(meta["setName"], meta, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(meta["setName"], meta, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test5()
+  local atts = {
+    name = "meta",
+    content = "content"
+  }
+
+  local meta = Meta:create(atts)
+
+  local nclExp = "<meta"
+  for attribute, _ in pairs(meta:getAttributesTypeMap()) do
+      nclExp = nclExp.." "..attribute.."=\""..tostring(meta[attribute]).."\""
+  end
+
+  nclExp = nclExp.."/>\n"
+
+  local nclRet = meta:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
 end
 
 
@@ -63,3 +69,4 @@ test1()
 test2()
 test3()
 test4()
+test5()

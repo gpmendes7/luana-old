@@ -1,19 +1,14 @@
 local MetaData = require "core/metadata/MetaData"
 
 local function test1()
-   local metadata = nil
+   local metadata = MetaData:create()
    
-   metadata = MetaData:create()
    assert(metadata ~= nil, "Error!")
    assert(metadata:getRdfTree() == nil, "Error!")   
 end
 
-local function test2()
-   local meta = nil
-   
-   local nclExp, nclRet = nil
-      
-   meta = MetaData:create()
+local function test2()      
+   local meta = MetaData:create()
    
    local tree =   " <rdf:RDF>\n"..
                   "  xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"..
@@ -27,11 +22,11 @@ local function test2()
                   "  </rdf:Description>\n"..
                   " </rdf:RDF>\n"
    
-   nclExp = "<metadata>\n"..tree.."</metadata>\n"
+   local nclExp = "<metadata>\n"..tree.."</metadata>\n"
    
    meta:setRdfTree(tree)
    
-   nclRet = meta:table2Ncl(0)
+   local nclRet = meta:table2Ncl(0)
    
    assert(nclExp == nclRet, "Error!")  
 end

@@ -46,16 +46,7 @@ local function test5()
       
    local valueAssessment = ValueAssessment:create(atts)
    
-   local nclExp = "<valueAssessment"   
-   for attribute, _ in pairs(valueAssessment:getAttributesTypeMap()) do
-    if(valueAssessment:getSymbols() ~= nil and valueAssessment:getSymbol(attribute) ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..valueAssessment[attribute]..valueAssessment:getSymbol(attribute).."\""
-    else
-      nclExp = nclExp.." "..attribute.."=\""..tostring(valueAssessment[attribute]).."\""
-    end
-   end
-  
-   nclExp = nclExp.."/>\n"
+   local nclExp = "<valueAssessment value=\"value\"/>\n"
 
    local nclRet = valueAssessment:table2Ncl(0)
 

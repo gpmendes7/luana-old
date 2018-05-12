@@ -1,60 +1,61 @@
 local DefaultComponent = require "core/switches/DefaultComponent"
 
 local function test1()
-   local defaultComponent = nil
-   
-   defaultComponent = DefaultComponent:create()
-   assert(defaultComponent ~= nil, "Error!")
-   assert(defaultComponent:getComponent() == "", "Error!")   
+  local defaultComponent = DefaultComponent:create()
+
+  assert(defaultComponent ~= nil, "Error!")
+  assert(defaultComponent:getComponent() == nil, "Error!")
 end
 
 local function test2()
-   local defaultComponent = nil
-   
-   local atts = {
-       ["component"] = "comp"
-   }     
-   
-   defaultComponent = DefaultComponent:create(atts)
-   assert(defaultComponent ~= nil, "Error!")
-   assert(defaultComponent:getComponent() == "comp", "Error!") 
+  local atts = {
+    component = "component"
+  }
+
+  local defaultComponent = DefaultComponent:create(atts)
+
+  assert(defaultComponent ~= nil, "Error!")
+  assert(defaultComponent:getComponent() == "component", "Error!")
 end
 
 local function test3()
-   local defaultComponent = nil
-      
-   defaultComponent = DefaultComponent:create()
-   
-   defaultComponent:setComponent("comp")
+  local defaultComponent = DefaultComponent:create()
 
-   assert(defaultComponent:getComponent() == "comp", "Error!")
+  defaultComponent:setComponent("component")
+
+  assert(defaultComponent:getComponent() == "component", "Error!")
 end
 
-
 local function test4()
-   local defaultComponent = nil
-   
-   local nclExp, nclRet, atts = nil
-   
-   atts = {
-      ["component"] = "comp"
-   }    
-      
-   defaultComponent = DefaultComponent:create(atts)
-   
-   nclExp = "<defaultComponent"   
-   for attribute, value in pairs(defaultComponent:getAttributes()) do
-      nclExp = nclExp.." "..attribute.."=\""..value.."\""
-   end 
-  
-   nclExp = nclExp.."/>\n"
+  local defaultComponent = DefaultComponent:create()
+  local status, err
 
-   nclRet = defaultComponent:table2Ncl(0)
+  status, err = pcall(defaultComponent["setComponent"], defaultComponent, nil)
+  assert(not(status), "Error!")
 
-   assert(nclExp == nclRet, "Error!")
+  status, err = pcall(defaultComponent["setComponent"], defaultComponent, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(defaultComponent["setComponent"], defaultComponent, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test5()
+  local atts = {
+    component = "component"
+  }
+
+  local defaultComponent = DefaultComponent:create(atts)
+
+  local nclExp = "<defaultComponent component=\"component\"/>\n"
+
+  local nclRet = defaultComponent:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
 end
 
 test1()
 test2()
 test3()
 test4()
+test5()
