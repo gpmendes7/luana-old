@@ -51,6 +51,13 @@ function DescriptorSwitch:getId()
 end
 
 function DescriptorSwitch:setDefaultDescriptor(defaultDescriptor)
+  if((type(defaultDescriptor) == "table"
+    and defaultDescriptor["getNameElem"] ~= nil
+    and defaultDescriptor:getNameElem() ~= "defaultDescriptor")
+    or type(defaultDescriptor) ~= "table")then
+    error("Error! Invalid defaultDescriptor element!")
+  end
+
   self:addChild(defaultDescriptor, 1)
   self.defaultDescriptor = defaultDescriptor
 end
@@ -65,6 +72,13 @@ function DescriptorSwitch:removeDefaultDescriptor()
 end
 
 function DescriptorSwitch:addBindRule(bindRule)
+  if((type(bindRule) == "table"
+    and bindRule["getNameElem"] ~= nil
+    and bindRule:getNameElem() ~= "bindRule")
+    or type(bindRule) ~= "table")then
+    error("Error! Invalid bindRule element!")
+  end
+
   self:addChild(bindRule)
   table.insert(self.bindRules, bindRule)
 end
@@ -100,6 +114,13 @@ function DescriptorSwitch:setBindRules(...)
 end
 
 function DescriptorSwitch:removeBindRule(bindRule)
+  if((type(bindRule) == "table"
+    and bindRule["getNameElem"] ~= nil
+    and bindRule:getNameElem() ~= "bindRule")
+    or type(bindRule) ~= "table")then
+    error("Error! Invalid bindRule element!")
+  end
+
   self:removeChild(bindRule)
 
   for p, cc in ipairs(self.bindRules) do
@@ -115,6 +136,13 @@ function DescriptorSwitch:removeBindRulePos(p)
 end
 
 function DescriptorSwitch:addDescriptor(descriptor)
+  if((type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor:getNameElem() ~= "descriptor")
+    or type(descriptor) ~= "table")then
+    error("Error! Invalid descriptor element!")
+  end
+
   self:addChild(descriptor)
   table.insert(self.descriptors, descriptor)
 end
@@ -150,6 +178,13 @@ function DescriptorSwitch:setDescriptors(...)
 end
 
 function DescriptorSwitch:removeDescriptor(descriptor)
+  if((type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor:getNameElem() ~= "descriptor")
+    or type(descriptor) ~= "table")then
+    error("Error! Invalid descriptor element!")
+  end
+
   self:removeChild(descriptor)
 
   for p, dc in ipairs(self.descriptors) do
