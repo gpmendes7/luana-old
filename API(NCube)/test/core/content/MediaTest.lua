@@ -3,16 +3,15 @@ local Area = require "core/interface/Area"
 local Property = require "core/interface/Property"
 
 local function test1()
-   local media = nil
+   local media = Media:create()
    
-   media = Media:create()
    assert(media ~= nil, "Error!")
-   assert(media:getId() == "", "Error!")
-   assert(media:getSrc() == "", "Error!") 
-   assert(media:getType() == "", "Error!")  
-   assert(media:getRefer() == "", "Error!") 
-   assert(media:getInstance() == "", "Error!")    
-   assert(media:getDescriptor() == "", "Error!") 
+   assert(media:getId() == nil, "Error!")
+   assert(media:getSrc() == nil, "Error!") 
+   assert(media:getType() == nil, "Error!")  
+   assert(media:getRefer() == nil, "Error!") 
+   assert(media:getInstance() == nil, "Error!")    
+   assert(media:getDescriptor() == nil, "Error!") 
 end
 
 local function test2()

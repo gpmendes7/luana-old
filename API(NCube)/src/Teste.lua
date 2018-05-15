@@ -32,3 +32,18 @@ print(string.match(s, "%$"))
 
 local d = "20:"
 print(string.match(d, "(%d+):") == nil)
+
+function isNilOrEmptyTable(attributes)
+  if(attributes == nil)then
+    return true
+  end
+  
+  for _, _ in pairs(attributes) do
+    return false
+  end
+
+  return true
+end
+
+local t = {}
+print(getmetatable(t))

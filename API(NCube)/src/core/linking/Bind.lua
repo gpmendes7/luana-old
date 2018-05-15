@@ -58,10 +58,12 @@ end
 
 function Bind:setComponent(component)
   if(type(component) == "table")then
-    if(component.getId ~= nil)then
+    if(component["getId"] ~= nil)then
       self:addAttribute("component", component:getId())
-    elseif(component.getName ~= nil)then
+    elseif(component["getName"] ~= nil)then
       self:addAttribute("component", component:getName())
+    else
+      error("Error! Invalid component element!")
     end
 
     self.componentAss = component
@@ -79,10 +81,12 @@ end
 
 function Bind:setInterface(interface)
   if(type(interface) == "table")then
-    if(interface.getId ~= nil)then
+    if(interface["getId"] ~= nil)then
       self:addAttribute("interface", interface:getId())
-    elseif(interface.getName ~= nil)then
+    elseif(interface["getName"] ~= nil)then
       self:addAttribute("interface", interface:getName())
+    else
+      error("Error! Invalid interface element!")
     end
 
     self.interfaceAss = interface
@@ -158,7 +162,7 @@ function Bind:removeBindParam(bindParam)
     or type(bindParam) ~= "table")then
     error("Error! Invalid bindParam element!")
   end
-  
+
   self:removeChild(bindParam)
 
   for p, bp in ipairs(self.bindParams) do

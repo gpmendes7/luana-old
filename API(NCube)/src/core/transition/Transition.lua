@@ -9,13 +9,13 @@ Transition.attributesTypeMap = {
   type = "string",
   subtype = "string",
   dur = {"string", "number"},
-  startProgress = "number",
-  endProgress = "number",
+  startProgress = {"string", "number"},
+  endProgress = {"string", "number"},
   direction = "string",
   fadeColor = "string",
-  horzRepeat = "number",
-  vertRepeat = "number",
-  borderWidth = "number",
+  horzRepeat = {"string", "number"},
+  vertRepeat = {"string", "number"},
+  borderWidth = {"string", "number"},
   borderColor = "string"
 }
 

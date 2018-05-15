@@ -197,11 +197,7 @@ local function test7()
 
   local nclExp = "<body"
   for attribute, _ in pairs(body:getAttributesTypeMap()) do
-    if(body.symbols ~= nil and body.symbols[attribute] ~= nil)then
-      nclExp = nclExp.." "..attribute.."=\""..body[attribute]..body.symbols[attribute].."\""
-    else
       nclExp = nclExp.." "..attribute.."=\""..tostring(body[attribute]).."\""
-    end
   end
 
   nclExp = nclExp.."/>\n"

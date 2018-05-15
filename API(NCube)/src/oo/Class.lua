@@ -35,18 +35,4 @@ function Class:createClass (...)
   return c
 end
 
--- Taken from https://gist.github.com/paulcuth/1270733
-function Class:instanceOf(subject, super)
-
-  super = tostring(super)
-  local mt = getmetatable(subject)
-
-  while true do
-    if mt == nil then return false end
-    if tostring(mt) == super then return true end
-
-    mt = getmetatable(mt)
-  end 
-end
-
 return Class

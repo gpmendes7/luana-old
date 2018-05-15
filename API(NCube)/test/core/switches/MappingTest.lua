@@ -1,64 +1,74 @@
 local Mapping = require "core/switches/Mapping"
 
 local function test1()
-   local mapping = nil
-   
-   mapping = Mapping:create()
-   assert(mapping ~= nil, "Error!")
-   assert(mapping:getComponent() == "", "Error!")  
-   assert(mapping:getInterface() == "", "Error!")  
+  local mapping = Mapping:create()
+
+  assert(mapping ~= nil, "Error!")
+  assert(mapping:getComponent() == nil, "Error!")
+  assert(mapping:getInterface() == nil, "Error!")
 end
 
 local function test2()
-   local mapping = nil
-   
-   local atts = {
-    ["component"] = "enForm",
-    ["interface"] = "interface"
-   }     
-   
-   mapping = Mapping:create(atts)
-   assert(mapping:getComponent() == "enForm", "Error!")  
-   assert(mapping:getInterface() == "interface", "Error!")  
+  local atts = {
+    component = "enForm",
+    interface = "interface"
+  }
+
+  local mapping = Mapping:create(atts)
+
+  assert(mapping:getComponent() == "enForm", "Error!")
+  assert(mapping:getInterface() == "interface", "Error!")
 end
 
 local function test3()
-   local mapping = nil
-      
-   mapping = Mapping:create()
-   
-   mapping:setComponent("enForm")  
-   mapping:setInterface("interface")  
+  local mapping = Mapping:create()
 
-   assert(mapping:getComponent() == "enForm", "Error!")  
-   assert(mapping:getInterface() == "interface", "Error!") 
+  mapping:setComponent("enForm")
+  mapping:setInterface("interface")
+
+  assert(mapping:getComponent() == "enForm", "Error!")
+  assert(mapping:getInterface() == "interface", "Error!")
 end
 
 local function test4()
-   local mapping = nil
-   
-   local nclExp, nclRet, atts = nil
-   
-   atts = {
-    ["component"] = "enForm",
-    ["interface"] = "interface"
-   }    
-      
-   mapping = Mapping:create(atts)
-   
-   nclExp = "<mapping"   
-   for attribute, value in pairs(mapping:getAttributes()) do
-      nclExp = nclExp.." "..attribute.."=\""..value.."\""
-   end 
-  
-   nclExp = nclExp.."/>\n"
+  local mapping = Mapping:create()
+  local status, err
 
-   nclRet = mapping:table2Ncl(0)
+  status, err = pcall(mapping["setComponent"], Mapping, Mapping:create())
+  assert(not(status), "Error!")
 
-   assert(nclExp == nclRet, "Error!")
+  status, err = pcall(mapping["setComponent"], Mapping, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(mapping["setComponent"], Mapping, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(mapping["setComponent"], Mapping, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test5()
+  local atts = {
+    component = "enForm",
+    interface = "interface"
+  }
+
+  local mapping = Mapping:create(atts)
+
+  local nclExp = "<mapping"
+  for attribute, _ in pairs(mapping:getAttributesTypeMap()) do
+      nclExp = nclExp.." "..attribute.."=\""..tostring(mapping[attribute]).."\""
+  end
+
+  nclExp = nclExp.."/>\n"
+
+  local nclRet = mapping:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
 end
 
 test1()
 test2()
 test3()
 test4()
+test5()

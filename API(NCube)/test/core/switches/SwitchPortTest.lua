@@ -2,106 +2,121 @@ local SwitchPort = require "core/switches/SwitchPort"
 local Mapping = require "core/switches/Mapping"
 
 local function test1()
-   local switchPort = nil
-   
-   switchPort = SwitchPort:create()
-   assert(switchPort ~= nil, "Error!")
-   assert(switchPort:getId() == "", "Error!") 
+  local switchPort = SwitchPort:create()
+
+  assert(switchPort ~= nil, "Error!")
+  assert(switchPort:getId() == nil, "Error!")
 end
 
 local function test2()
-   local switchPort = nil
-   
-   local atts = {
-      ["id"] = "sp1"
-   }     
-   
-   switchPort = SwitchPort:create(atts)
-   assert(switchPort:getId() == "sp1", "Error!")   
+  local atts = {
+    id = "sp1"
+  }
+
+  local switchPort = SwitchPort:create(atts)
+
+  assert(switchPort:getId() == "sp1", "Error!")
 end
 
 local function test3()
-   local switchPort = nil
-      
-   switchPort = SwitchPort:create()
-   
-   switchPort:setId("sp1") 
-   
-   assert(switchPort:getId() == "sp1", "Error!") 
+  local switchPort = SwitchPort:create()
+
+  switchPort:setId("sp1")
+
+  assert(switchPort:getId() == "sp1", "Error!")
 end
 
 local function test4()
-   local switchPort = nil
-      
-   switchPort = SwitchPort:create(nil, 1)
-   assert(switchPort:getMappingPos(1) ~= nil, "Error!")
+  local switchPort = SwitchPort:create()
+  local status, err
 
-   switchPort:addMapping(Mapping:create())
-   assert(switchPort:getMappingPos(2) ~= nil, "Error!")
-   
-   switchPort = SwitchPort:create()
-   switchPort:addMapping(Mapping:create{["component"] = "enForm"})
-   assert(switchPort:getDescendantByAttribute("component", "enForm") ~= nil, "Error!")
+  status, err = pcall(switchPort["setId"], SwitchPort, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(switchPort["setId"], SwitchPort, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(switchPort["setId"], SwitchPort, function(a, b) return a+b end)
+  assert(not(status), "Error!")
 end
 
 local function test5()
-   local switchPort = SwitchPort:create{["id"] = "sp1"}
-   local mapping = Mapping:create{["component"] = "enForm"}
- 
-   switchPort:addMapping(mapping)
-   assert(switchPort:getDescendantByAttribute("component", "enForm") ~= nil, "Error!") 
-    
-   switchPort:removeMapping(mapping)
-   assert(switchPort:getDescendantByAttribute("component", "enForm") == nil, "Error!") 
-   
-   switchPort:addMapping(mapping)
-   switchPort:removeMappingPos(1)
-   assert(switchPort:getDescendantByAttribute("component", "enForm") == nil, "Error!") 
+  local switchPort
+
+  switchPort = SwitchPort:create(nil, 1)
+  assert(switchPort:getMappingPos(1) ~= nil, "Error!")
+
+  switchPort:addMapping(Mapping:create())
+  assert(switchPort:getMappingPos(2) ~= nil, "Error!")
+
+  switchPort = SwitchPort:create()
+  switchPort:addMapping(Mapping:create{["component"] = "enForm"})
+  assert(switchPort:getDescendantByAttribute("component", "enForm") ~= nil, "Error!")
 end
 
 local function test6()
-   local switchPort = nil
-   
-   local nclExp, nclRet, atts = nil
-   
-   atts = {
-        ["id"] = "sp1"
-   }  
-      
-   switchPort = SwitchPort:create(atts)
-   
-   nclExp = "<switchPort"   
-   for attribute, value in pairs(switchPort:getAttributes()) do
-      nclExp = nclExp.." "..attribute.."=\""..value.."\""
-   end 
-  
-   nclExp = nclExp.."/>\n"
+  local switchPort = SwitchPort:create{id = "sp1"}
+  local mapping = Mapping:create{component = "enForm"}
 
-   nclRet = switchPort:table2Ncl(0)
+  switchPort:addMapping(mapping)
+  assert(switchPort:getDescendantByAttribute("component", "enForm") ~= nil, "Error!")
 
-   assert(nclExp == nclRet, "Error!")
+  switchPort:removeMapping(mapping)
+  assert(switchPort:getDescendantByAttribute("component", "enForm") == nil, "Error!")
+
+  switchPort:addMapping(mapping)
+  switchPort:removeMappingPos(1)
+  assert(switchPort:getDescendantByAttribute("component", "enForm") == nil, "Error!")
 end
 
-local function test7()      
-   local switchPort = nil 
-    
-   local mapping = nil
-  
-   local nclExp, nclRet = nil
-   
-   switchPort = SwitchPort:create{["id"] = "sp1"}
-   nclExp = "<switchPort id=\"sp1\">\n"
-   
-   mapping = Mapping:create{["component"] = "enForm"}
-   nclExp = nclExp.." <mapping component=\"enForm\"/>\n"
-           
-   nclExp = nclExp.."</switchPort>\n"  
+local function test7()
+  local switchPort = SwitchPort:create()
+  local status, err
 
-   switchPort:addMapping(mapping)  
+  status, err = pcall(switchPort["addMapping"], SwitchPort, SwitchPort)
+  assert(not(status), "Error!")
 
-   nclRet = switchPort:table2Ncl(0)
+  status, err = pcall(switchPort["addMapping"], SwitchPort, "invalid")
+  assert(not(status), "Error!")
 
-   assert(nclExp == nclRet, "Error!")
+  status, err = pcall(switchPort["addMapping"], SwitchPort, nil)
+  assert(not(status), "Error!")
+
+  status, err = pcall(switchPort["addMapping"], SwitchPort, {})
+  assert(not(status), "Error!")
+
+  status, err = pcall(switchPort["addMapping"], SwitchPort, function(a, b) return a+b end)
+  assert(not(status), "Error!")
+end
+
+local function test8()
+  local atts = {
+    id = "sp1"
+  }
+
+  local switchPort = SwitchPort:create(atts)
+
+  local nclExp = "<switchPort id=\"sp1\"/>\n"
+
+  local nclRet = switchPort:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
+end
+
+local function test9()
+  local switchPort = SwitchPort:create{id = "sp1"}
+  local nclExp = "<switchPort id=\"sp1\">\n"
+
+  local mapping = Mapping:create{component = "enForm"}
+  nclExp = nclExp.." <mapping component=\"enForm\"/>\n"
+
+  nclExp = nclExp.."</switchPort>\n"
+
+  switchPort:addMapping(mapping)
+
+  local nclRet = switchPort:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
 end
 
 test1()
@@ -111,3 +126,5 @@ test4()
 test5()
 test6()
 test7()
+test8()
+test9()

@@ -45,6 +45,13 @@ function TransitionBase:getId()
 end
 
 function TransitionBase:addImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+
   self:addChild(importBase)
   table.insert(self.importBases, importBase)
 end
@@ -72,6 +79,13 @@ function TransitionBase:setImportBases(...)
 end
 
 function TransitionBase:removeImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+
   self:removeChild(importBase)
 
   for p, ib in ipairs(self.importBases) do

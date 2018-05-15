@@ -49,6 +49,13 @@ function RuleBase:getId()
 end
 
 function RuleBase:addImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+
   self:addChild(importBase)
   table.insert(self.importBases, importBase)
 end
@@ -84,6 +91,13 @@ function RuleBase:setImportBases(...)
 end
 
 function RuleBase:removeImportBase(importBase)
+  if((type(importBase) == "table"
+    and importBase["getNameElem"] ~= nil
+    and importBase:getNameElem() ~= "importBase")
+    or type(importBase) ~= "table")then
+    error("Error! Invalid importBase element!")
+  end
+
   self:removeChild(importBase)
 
   for p, ib in ipairs(self.importBases) do
@@ -99,6 +113,13 @@ function RuleBase:removeImportBasePos(p)
 end
 
 function RuleBase:addRule(rule)
+  if((type(rule) == "table"
+    and rule["getNameElem"] ~= nil
+    and rule:getNameElem() ~= "rule")
+    or type(rule) ~= "table")then
+    error("Error! Invalid rule element!")
+  end
+
   self:addChild(rule)
   table.insert(self.rules, rule)
 end
@@ -134,6 +155,13 @@ function RuleBase:setRules(...)
 end
 
 function RuleBase:removeRule(rule)
+  if((type(rule) == "table"
+    and rule["getNameElem"] ~= nil
+    and rule:getNameElem() ~= "rule")
+    or type(rule) ~= "table")then
+    error("Error! Invalid rule element!")
+  end
+
   self:removeChild(rule)
 
   for p, rl in ipairs(self.rules) do
@@ -149,6 +177,13 @@ function RuleBase:removeRulePos(p)
 end
 
 function RuleBase:addCompositeRule(compositeRule)
+  if((type(compositeRule) == "table"
+    and compositeRule["getNameElem"] ~= nil
+    and compositeRule:getNameElem() ~= "compositeRule")
+    or type(compositeRule) ~= "table")then
+    error("Error! Invalid compositeRule element!")
+  end
+
   self:addChild(compositeRule)
   table.insert(self.compositeRules, compositeRule)
 end
@@ -170,6 +205,13 @@ function RuleBase:setCompositeRules(...)
 end
 
 function RuleBase:removeCompositeRule(compositeRule)
+  if((type(compositeRule) == "table"
+    and compositeRule["getNameElem"] ~= nil
+    and compositeRule:getNameElem() ~= "compositeRule")
+    or type(compositeRule) ~= "table")then
+    error("Error! Invalid compositeRule element!")
+  end
+
   self:removeChild(compositeRule)
 
   for p, cr in ipairs(self.compositeRules) do

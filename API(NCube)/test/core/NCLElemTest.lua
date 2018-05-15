@@ -153,7 +153,6 @@ local function test2()
    
    status, err = pcall(elemA["removeChild"], elemA, nil)
    assert(not(status), "Error!")
-   assert(err == "Error! Attempt to remove failed! You are trying to remove a nil child in elementA!", "Error!")
    
    status, err = pcall(elemA["removeChild"], elemA, elemC)
    assert(not(status), "Error!")

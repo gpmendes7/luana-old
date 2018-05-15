@@ -140,16 +140,16 @@ local function test8()
 end
 
 local function test9()
-  local descriptorSwitch = DescriptorSwitch:create{["id"] = "ds1"}
+  local descriptorSwitch = DescriptorSwitch:create{id = "ds1"}
   local nclExp = "<descriptorSwitch id=\"ds1\">\n"
 
-  local defaultDescriptor = DefaultDescriptor:create{["descriptor"] = "df"}
+  local defaultDescriptor = DefaultDescriptor:create{descriptor = "df"}
   nclExp = nclExp.." <defaultDescriptor descriptor=\"df\"/>\n"
 
-  local bindRule = BindRule:create{["rule"] = "rPt"}
+  local bindRule = BindRule:create{rule = "rPt"}
   nclExp = nclExp.." <bindRule rule=\"rPt\"/>\n"
 
-  local descriptor = Descriptor:create{["id"] = "d1"}
+  local descriptor = Descriptor:create{id = "d1"}
   nclExp = nclExp.." <descriptor id=\"d1\"/>\n"
 
   nclExp = nclExp.."</descriptorSwitch>\n"

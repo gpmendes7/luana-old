@@ -32,14 +32,20 @@ end
 
 function Mapping:setComponent(component)
   if(type(component) == "table")then
-    if(component.getId ~= nil)then
+    if(component["getId"] ~= nil)then
       self:addAttribute("component", component:getId())
+    elseif(component["getName"] ~= nil)then
+      self:addAttribute("component", component:getName())
+    else
+      error("Error! Invalid component element!")
     end
 
     self.componentAss = component
     table.insert(component.ass, self)
-  else
+  elseif(type(component) == "string" )then
     self:addAttribute("component", component)
+  else
+    error("Error! Invalid component element!")
   end
 end
 
@@ -49,16 +55,20 @@ end
 
 function Mapping:setInterface(interface)
   if(type(interface) == "table")then
-    if(interface.getId ~= nil)then
+    if(interface["getId"] ~= nil)then
       self:addAttribute("interface", interface:getId())
-    elseif(interface.getName ~= nil)then
+    elseif(interface["getName"] ~= nil)then
       self:addAttribute("interface", interface:getName())
+    else
+      error("Error! Invalid interface element!")
     end
 
     self.interfaceAss = interface
     table.insert(interface.ass, self)
-  else
+  elseif(type(interface) == "string" )then
     self:addAttribute("interface", interface)
+  else
+    error("Error! Invalid interface element!")
   end
 end
 

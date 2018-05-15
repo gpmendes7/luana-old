@@ -43,6 +43,13 @@ function SwitchPort:getId()
 end
 
 function SwitchPort:addMapping(mapping)
+  if((type(mapping) == "table"
+    and mapping["getNameElem"] ~= nil
+    and mapping:getNameElem() ~= "mapping")
+    or type(mapping) ~= "table")then
+    error("Error! Invalid mapping element!")
+  end
+
   self:addChild(mapping)
   table.insert(self.mappings, mapping)
 end
@@ -78,6 +85,13 @@ function SwitchPort:setMappings(...)
 end
 
 function SwitchPort:removeMapping(mapping)
+  if((type(mapping) == "table"
+    and mapping["getNameElem"] ~= nil
+    and mapping:getNameElem() ~= "mapping")
+    or type(mapping) ~= "table")then
+    error("Error! Invalid mapping element!")
+  end
+
   self:removeChild(mapping)
 
   for p, dc in ipairs(self.mappings) do

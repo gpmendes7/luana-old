@@ -33,9 +33,15 @@ end
 function NCLElem:addChild(child, p)
   if(child == nil)then
     error("Error! Attempt to set a nil child to "..self.nameElem.."!", 2)
+  elseif(child.nameElem == nil)then
+    error("Error! Invalid child! It is not a NCLElement!", 2)
   end
 
   local valid = false
+
+  if(self.childrenMap == nil)then
+    error("Error! Nil childrenMap list!", 2)
+  end
 
   for chd, _ in pairs(self.childrenMap) do
     if(chd == child.nameElem)then
@@ -57,6 +63,10 @@ function NCLElem:addChild(child, p)
 end
 
 function NCLElem:getChild(p)
+  if(self.children == nil)then
+    error("Error! Nil children list!", 2)
+  end
+
   if(p > #self.children)then
     error("Error! "..self.nameElem.." element doesn't have a child in position "..p.."!", 2)
   end
@@ -65,6 +75,16 @@ function NCLElem:getChild(p)
 end
 
 function NCLElem:getPosChild(child)
+  if(child == nil)then
+    error("Error! Nil child!", 2)
+  elseif(child.nameElem == nil)then
+    error("Error! Invalid child! It is not a NCLElement!", 2)
+  end
+
+  if(self.children == nil)then
+    error("Error! Nil children list!", 2)
+  end
+
   for p, chd in ipairs(self.children) do
     if(chd == child)then
       return p
@@ -75,8 +95,16 @@ function NCLElem:getPosChild(child)
 end
 
 function NCLElem:getLastPosChild(child)
-  local p
+  if(child == nil)then
+    error("Error! Nil child!", 2)
+  end
 
+  if(self.children == nil)then
+    error("Error! Nil children list!", 2)
+  end
+  
+  local p
+  
   for i, chd in ipairs(self.children) do
     if(child == chd.nameElem)then
       p = i
@@ -96,6 +124,10 @@ function NCLElem:getPosAvailable(...)
 end
 
 function NCLElem:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! Nil children list!", 2)
+  end
+
   if(p > #self.children)then
     error("Error! Attempt to remove failed! "..self.nameElem.." element doesn't have a child in position "..p.."!", 2)
   end
@@ -105,10 +137,6 @@ function NCLElem:removeChildPos(p)
 end
 
 function NCLElem:removeChild(child)
-  if(child == nil)then
-    error("Error! Attempt to remove failed! You are trying to remove a nil child in "..self.nameElem.."!", 2)
-  end
-
   local p = self:getPosChild(child)
 
   if(p == nil)then
@@ -131,6 +159,10 @@ function NCLElem:getChildren()
 end
 
 function NCLElem:removeAllChildren()
+  if(self.children == nil)then
+    error("Error! Nil children list!", 2)
+  end
+
   for _, child in ipairs(self.children) do
     child:setParent(nil)
   end
@@ -297,16 +329,20 @@ function NCLElem:getAttributesSymbolMap()
   return self.attributesSymbolMap
 end
 
-function NCLElem:isNilAttributes(attributes)
-  for _, _ in pairs(attributes) do
-    return false
+function NCLElem:isEmptyTable(attributes)
+  if(type(attributes) == "table")then
+    for _, _ in pairs(attributes) do
+      return false
+    end
   end
 
   return true
 end
 
 function NCLElem:setAttributes(attributes)
-  if(self:isNilAttributes(attributes))then
+  if(attributes == nil
+    or type(attributes) ~= "table"
+    or self:isEmptyTable(attributes))then
     error("Error! Attributes must be informed to be defined!", 2)
   end
 

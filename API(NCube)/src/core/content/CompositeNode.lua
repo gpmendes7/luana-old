@@ -82,11 +82,18 @@ end
 
 function Context:setRefer(refer)
   if(type(refer) == "table")then
-    self:addAttribute("refer", refer:getId())
+    if(refer["getId"] ~= nil)then
+      self:addAttribute("refer", refer:getId())
+    else
+      error("Error! Invalid refer element!")
+    end
+
     self.referAss = refer
     table.insert(refer.ass, self)
-  else
+  elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
+  else
+    error("Error! Invalid refer element!")
   end
 end
 
@@ -95,6 +102,13 @@ function Context:getRefer()
 end
 
 function Context:addPort(port)
+  if((type(port) == "table"
+    and port["getNameElem"] ~= nil
+    and port:getNameElem() ~= "port")
+    or type(port) ~= "table")then
+    error("Error! Invalid port element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -137,6 +151,13 @@ function Context:setPorts(...)
 end
 
 function Context:removePort(port)
+  if((type(port) == "table"
+    and port["getNameElem"] ~= nil
+    and port:getNameElem() ~= "port")
+    or type(port) ~= "table")then
+    error("Error! Invalid port element!")
+  end
+
   self:removeChild(port)
 
   for p, pt in ipairs(self.ports) do
@@ -152,6 +173,13 @@ function Context:removePortPos(p)
 end
 
 function Context:addProperty(property)
+  if((type(property) == "table"
+    and property["getNameElem"] ~= nil
+    and property:getNameElem() ~= "property")
+    or type(property) ~= "table")then
+    error("Error! Invalid property element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -194,6 +222,13 @@ function Context:setPropertys(...)
 end
 
 function Context:removeProperty(property)
+  if((type(property) == "table"
+    and property["getNameElem"] ~= nil
+    and property:getNameElem() ~= "property")
+    or type(property) ~= "table")then
+    error("Error! Invalid property element!")
+  end
+
   self:removeChild(property)
 
   for p, pr in ipairs(self.propertys) do
@@ -209,6 +244,13 @@ function Context:removePropertyPos(p)
 end
 
 function Context:addMedia(media)
+  if((type(media) == "table"
+    and media["getNameElem"] ~= nil
+    and media:getNameElem() ~= "media")
+    or type(media) ~= "table")then
+    error("Error! Invalid media element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -250,6 +292,13 @@ function Context:setMedias(...)
   end
 end
 function Context:removeMedia(media)
+  if((type(media) == "table"
+    and media["getNameElem"] ~= nil
+    and media:getNameElem() ~= "media")
+    or type(media) ~= "table")then
+    error("Error! Invalid media element!")
+  end
+
   self:removeChild(media)
 
   for p, md in ipairs(self.medias) do
@@ -265,6 +314,13 @@ function Context:removeMediaPos(p)
 end
 
 function Context:addContext(context)
+  if((type(context) == "table"
+    and context["getNameElem"] ~= nil
+    and context:getNameElem() ~= "context")
+    or type(context) ~= "table")then
+    error("Error! Invalid context element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -307,6 +363,13 @@ function Context:setContexts(...)
 end
 
 function Context:removeContext(context)
+  if((type(context) == "table"
+    and context["getNameElem"] ~= nil
+    and context:getNameElem() ~= "context")
+    or type(context) ~= "table")then
+    error("Error! Invalid context element!")
+  end
+
   self:removeChild(context)
 
   for p, ct in ipairs(self.contexts) do
@@ -322,6 +385,13 @@ function Context:removeContextPos(p)
 end
 
 function Context:addLink(link)
+  if((type(link) == "table"
+    and link["getNameElem"] ~= nil
+    and link:getNameElem() ~= "link")
+    or type(link) ~= "table")then
+    error("Error! Invalid link element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -363,6 +433,13 @@ function Context:setLinks(...)
   end
 end
 function Context:removeLink(link)
+  if((type(link) == "table"
+    and link["getNameElem"] ~= nil
+    and link:getNameElem() ~= "link")
+    or type(link) ~= "table")then
+    error("Error! Invalid link element!")
+  end
+
   self:removeChild(link)
 
   for p, lk in ipairs(self.links) do
@@ -378,6 +455,13 @@ function Context:removeLinkPos(p)
 end
 
 function Context:addSwitch(switch)
+  if((type(switch) == "table"
+    and switch["getNameElem"] ~= nil
+    and switch:getNameElem() ~= "switch")
+    or type(switch) ~= "table")then
+    error("Error! Invalid switch element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -420,6 +504,13 @@ function Context:setSwitchs(...)
 end
 
 function Context:removeSwitch(switch)
+  if((type(switch) == "table"
+    and switch["getNameElem"] ~= nil
+    and switch:getNameElem() ~= "switch")
+    or type(switch) ~= "table")then
+    error("Error! Invalid switch element!")
+  end
+
   self:removeChild(switch)
 
   for p, sw in ipairs(self.switchs) do
@@ -435,6 +526,13 @@ function Context:removeSwitchPos(p)
 end
 
 function Context:addMeta(meta)
+  if((type(meta) == "table"
+    and meta["getNameElem"] ~= nil
+    and meta:getNameElem() ~= "meta")
+    or type(meta) ~= "table")then
+    error("Error! Invalid meta element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -462,6 +560,13 @@ function Context:setMetas(...)
   end
 end
 function Context:removeMeta(meta)
+  if((type(meta) == "table"
+    and meta["getNameElem"] ~= nil
+    and meta:getNameElem() ~= "meta")
+    or type(meta) ~= "table")then
+    error("Error! Invalid meta element!")
+  end
+
   self:removeChild(meta)
 
   for p, mt in ipairs(self.metas) do
@@ -477,6 +582,13 @@ function Context:removeMetaPos(p)
 end
 
 function Context:addMetaData(metadata)
+  if((type(metadata) == "table"
+    and metadata["getNameElem"] ~= nil
+    and metadata:getNameElem() ~= "metadata")
+    or type(metadata) ~= "table")then
+    error("Error! Invalid metadata element!")
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -490,7 +602,7 @@ end
 
 function Context:getMetaDataPos(p)
   if(p > #self.metadatas)then
-    error("Error! body element doesn't have a metadata child in position "..p.."!", 2)
+    error("Error! context element doesn't have a metadata child in position "..p.."!", 2)
   end
 
   return self.metadatas[p]
@@ -505,6 +617,13 @@ function Context:setMetaDatas(...)
 end
 
 function Context:removeMetaData(metadata)
+  if((type(metadata) == "table"
+    and metadata["getNameElem"] ~= nil
+    and metadata:getNameElem() ~= "metadata")
+    or type(metadata) ~= "table")then
+    error("Error! Invalid metadata element!")
+  end
+
   self:removeChild(metadata)
 
   for p, mt in ipairs(self.metadatas) do
@@ -547,7 +666,7 @@ function Switch:create(attributes, full)
   switch.refer = nil
 
   switch.referAss = nil
-  
+
   switch.ass = {}
 
   if(attributes ~= nil)then
@@ -583,11 +702,18 @@ end
 
 function Switch:setRefer(refer)
   if(type(refer) == "table")then
-    self:addAttribute("refer", refer:getId())
+    if(refer["getId"] ~= nil)then
+      self:addAttribute("refer", refer:getId())
+    else
+      error("Error! Invalid refer element!")
+    end
+
     self.referAss = refer
     table.insert(refer.ass, self)
-  else
+  elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
+  else
+    error("Error! Invalid refer element!")
   end
 end
 
@@ -596,6 +722,13 @@ function Switch:getRefer()
 end
 
 function Switch:setDefaultComponent(defaultComponent)
+  if((type(defaultComponent) == "table"
+    and defaultComponent["getNameElem"] ~= nil
+    and defaultComponent:getNameElem() ~= "defaultComponent")
+    or type(defaultComponent) ~= "table")then
+    error("Error! Invalid defaultComponent element!")
+  end
+
   self:addChild(defaultComponent, 1)
   self.defaultComponent = defaultComponent
 end
@@ -610,6 +743,13 @@ function Switch:removeDefaultComponent()
 end
 
 function Switch:addSwitchPort(switchPort)
+  if((type(switchPort) == "table"
+    and switchPort["getNameElem"] ~= nil
+    and switchPort:getNameElem() ~= "switchPort")
+    or type(switchPort) ~= "table")then
+    error("Error! Invalid switchPort element!")
+  end
+
   self:addChild(switchPort)
   table.insert(self.switchPorts, switchPort)
 end
@@ -645,6 +785,13 @@ function Switch:setSwitchPorts(...)
 end
 
 function Switch:removeSwitchPort(switchPort)
+  if((type(switchPort) == "table"
+    and switchPort["getNameElem"] ~= nil
+    and switchPort:getNameElem() ~= "switchPort")
+    or type(switchPort) ~= "table")then
+    error("Error! Invalid switchPort element!")
+  end
+
   self:removeChild(switchPort)
 
   for p, sp in ipairs(self.switchPorts) do
@@ -660,6 +807,13 @@ function Switch:removeSwitchPortPos(p)
 end
 
 function Switch:addBindRule(bindRule)
+  if((type(bindRule) == "table"
+    and bindRule["getNameElem"] ~= nil
+    and bindRule:getNameElem() ~= "bindRule")
+    or type(bindRule) ~= "table")then
+    error("Error! Invalid bindRule element!")
+  end
+
   self:addChild(bindRule)
   table.insert(self.bindRules, bindRule)
 end
@@ -681,6 +835,13 @@ function Switch:setBindRules(...)
 end
 
 function Switch:removeBindRule(bindRule)
+  if((type(bindRule) == "table"
+    and bindRule["getNameElem"] ~= nil
+    and bindRule:getNameElem() ~= "bindRule")
+    or type(bindRule) ~= "table")then
+    error("Error! Invalid bindRule element!")
+  end
+
   self:removeChild(bindRule)
 
   for p, br in ipairs(self.bindRules) do
@@ -696,6 +857,13 @@ function Switch:removeBindRulePos(p)
 end
 
 function Switch:addMedia(media)
+  if((type(media) == "table"
+    and media["getNameElem"] ~= nil
+    and media:getNameElem() ~= "media")
+    or type(media) ~= "table")then
+    error("Error! Invalid media element!")
+  end
+
   self:addChild(media)
   table.insert(self.medias, media)
 end
@@ -726,6 +894,13 @@ function Switch:setMedias(...)
   end
 end
 function Switch:removeMedia(media)
+  if((type(media) == "table"
+    and media["getNameElem"] ~= nil
+    and media:getNameElem() ~= "media")
+    or type(media) ~= "table")then
+    error("Error! Invalid media element!")
+  end
+
   self:removeChild(media)
 
   for p, md in ipairs(self.medias) do
@@ -735,12 +910,19 @@ function Switch:removeMedia(media)
   end
 end
 
-function Switch:removeMediaPos(i)
-  self:removeChildPos(i)
-  table.remove(self.medias, i)
+function Switch:removeMediaPos(p)
+  self:removeChildPos(p)
+  table.remove(self.medias, p)
 end
 
 function Switch:addContext(context)
+  if((type(context) == "table"
+    and context["getNameElem"] ~= nil
+    and context:getNameElem() ~= "context")
+    or type(context) ~= "table")then
+    error("Error! Invalid context element!")
+  end
+
   self:addChild(context)
   table.insert(self.contexts, context)
 end
@@ -776,6 +958,13 @@ function Switch:setContexts(...)
 end
 
 function Switch:removeContext(context)
+  if((type(context) == "table"
+    and context["getNameElem"] ~= nil
+    and context:getNameElem() ~= "context")
+    or type(context) ~= "table")then
+    error("Error! Invalid context element!")
+  end
+
   self:removeChild(context)
 
   for p, ct in ipairs(self.contexts) do
@@ -791,6 +980,13 @@ function Switch:removeContextPos(p)
 end
 
 function Switch:addSwitch(switch)
+  if((type(switch) == "table"
+    and switch["getNameElem"] ~= nil
+    and switch:getNameElem() ~= "switch")
+    or type(switch) ~= "table")then
+    error("Error! Invalid switch element!")
+  end
+
   self:addChild(switch)
   table.insert(self.switchs, switch)
 end
@@ -826,6 +1022,13 @@ function Switch:setSwitchs(...)
 end
 
 function Switch:removeSwitch(switch)
+  if((type(switch) == "table"
+    and switch["getNameElem"] ~= nil
+    and switch:getNameElem() ~= "switch")
+    or type(switch) ~= "table")then
+    error("Error! Invalid switch element!")
+  end
+
   self:removeChild(switch)
 
   for i, sw in ipairs(self.switchs) do
