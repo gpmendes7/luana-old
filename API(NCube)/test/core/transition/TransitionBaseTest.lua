@@ -31,13 +31,13 @@ local function test4()
   local transitionBase = TransitionBase:create()
   local status, err
 
-  status, err = pcall(transitionBase["setId"], TransitionBase, nil)
+  status, err = pcall(transitionBase["setId"], transitionBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(transitionBase["setId"], TransitionBase, {})
+  status, err = pcall(transitionBase["setId"], transitionBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(transitionBase["setId"], TransitionBase, function(a, b) return a+b end)
+  status, err = pcall(transitionBase["setId"], transitionBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -93,19 +93,19 @@ local function test7()
   local transitionBase = TransitionBase:create()
   local status, err
 
-  status, err = pcall(transitionBase["removeTransition"], TransitionBase, TransitionBase:create())
+  status, err = pcall(transitionBase["removeTransition"], transitionBase, TransitionBase:create())
   assert(not(status), "Error!")
 
-  status, err = pcall(transitionBase["removeTransition"], TransitionBase, "invalid")
+  status, err = pcall(transitionBase["removeTransition"], transitionBase, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(transitionBase["removeTransition"], TransitionBase, nil)
+  status, err = pcall(transitionBase["removeTransition"], transitionBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(transitionBase["removeTransition"], TransitionBase, {})
+  status, err = pcall(transitionBase["removeTransition"], transitionBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(transitionBase["removeTransition"], TransitionBase, function(a, b) return a+b end)
+  status, err = pcall(transitionBase["removeTransition"], transitionBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

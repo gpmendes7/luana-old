@@ -117,21 +117,27 @@ end
 local function test4()
   local head = Head:create()
   local status, err
+  local file, msg
 
-  status, err = pcall(head["setConnectorBase"], Head, DescriptorBase:create())
+  status, err = pcall(head["setConnectorBase"], head, DescriptorBase:create())
   assert(not(status), "Error!")
+  assert(err == "Error! Invalid connectorBase element!", "Error!")
 
-  status, err = pcall(head["setConnectorBase"], Head, "invalid")
+  status, err = pcall(head["setConnectorBase"], head, "invalid")
   assert(not(status), "Error!")
+  assert(err == "Error! Invalid connectorBase element!", "Error!")
 
-  status, err = pcall(head["setConnectorBase"], Head, nil)
+  status, err = pcall(head["setConnectorBase"], head, nil)
   assert(not(status), "Error!")
+  assert(err == "Error! Invalid connectorBase element!", "Error!")
 
-  status, err = pcall(head["setConnectorBase"], Head, {})
+  status, err = pcall(head["setConnectorBase"], head, {})
   assert(not(status), "Error!")
-
-  status, err = pcall(head["setConnectorBase"], Head, function(a, b) return a+b end)
+  assert(err == "Error! Invalid connectorBase element!", "Error!")
+    
+  status, err = pcall(head["setConnectorBase"], head, function(a, b) return a+b end)
   assert(not(status), "Error!")
+  assert(err == "Error! Invalid connectorBase element!", "Error!")
 end
 
 local function test5()

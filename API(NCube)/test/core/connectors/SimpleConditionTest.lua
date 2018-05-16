@@ -64,19 +64,19 @@ local function test4()
   local simpleCondition = SimpleCondition:create()
   local status, err
 
-  status, err = pcall(simpleCondition["setEventType"], SimpleCondition, "invalid")
+  status, err = pcall(simpleCondition["setEventType"], simpleCondition, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleCondition["setEventType"], SimpleCondition, nil)
+  status, err = pcall(simpleCondition["setEventType"], simpleCondition, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleCondition["setEventType"], SimpleCondition, 999999)
+  status, err = pcall(simpleCondition["setEventType"], simpleCondition, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleCondition["setEventType"], SimpleCondition, {})
+  status, err = pcall(simpleCondition["setEventType"], simpleCondition, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleCondition["setEventType"], SimpleCondition, function(a, b) return a+b end)
+  status, err = pcall(simpleCondition["setEventType"], simpleCondition, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

@@ -30,13 +30,13 @@ local function test4()
   local switchPort = SwitchPort:create()
   local status, err
 
-  status, err = pcall(switchPort["setId"], SwitchPort, nil)
+  status, err = pcall(switchPort["setId"], switchPort, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(switchPort["setId"], SwitchPort, {})
+  status, err = pcall(switchPort["setId"], switchPort, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(switchPort["setId"], SwitchPort, function(a, b) return a+b end)
+  status, err = pcall(switchPort["setId"], switchPort, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -73,19 +73,19 @@ local function test7()
   local switchPort = SwitchPort:create()
   local status, err
 
-  status, err = pcall(switchPort["addMapping"], SwitchPort, SwitchPort)
+  status, err = pcall(switchPort["addMapping"], switchPort, SwitchPort)
   assert(not(status), "Error!")
 
-  status, err = pcall(switchPort["addMapping"], SwitchPort, "invalid")
+  status, err = pcall(switchPort["addMapping"], switchPort, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(switchPort["addMapping"], SwitchPort, nil)
+  status, err = pcall(switchPort["addMapping"], switchPort, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(switchPort["addMapping"], SwitchPort, {})
+  status, err = pcall(switchPort["addMapping"], switchPort, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(switchPort["addMapping"], SwitchPort, function(a, b) return a+b end)
+  status, err = pcall(switchPort["addMapping"], switchPort, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

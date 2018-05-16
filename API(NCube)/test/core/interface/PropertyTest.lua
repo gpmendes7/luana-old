@@ -40,13 +40,13 @@ local function test4()
   local property = Property:create()
   local status, err
 
-  status, err = pcall(property["setName"], Property, nil)
+  status, err = pcall(property["setName"], property, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(property["setName"], Property, {})
+  status, err = pcall(property["setName"], property, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(property["setName"], Property, function(a, b) return a+b end)
+  status, err = pcall(property["setName"], property, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

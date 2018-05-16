@@ -30,7 +30,7 @@ local function test4()
   local defaultDescriptor = DefaultDescriptor:create()
   local status, err
   
-  status, err = pcall(defaultDescriptor["setDescriptor"], DefaultDescriptor:create(), nil)
+  status, err = pcall(defaultDescriptor["setDescriptor"], defaultDescriptor, DefaultDescriptor:create())
   assert(not(status), "Error!")
 
   status, err = pcall(defaultDescriptor["setDescriptor"], defaultDescriptor, nil)

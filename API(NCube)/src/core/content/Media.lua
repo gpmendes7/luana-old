@@ -87,12 +87,19 @@ function Media:getType()
 end
 
 function Media:setRefer(refer)
-  if(type(refer) == "table" and refer.nameElem == "media")then
-    self:addAttribute("refer", refer:getId())
+  if(type(refer) == "table")then
+    if(refer["getId"] ~= nil)then
+      self:addAttribute("refer", refer:getId())
+    else
+      error("Error! Invalid refer element!", 2)
+    end
+
     self.referAss = refer
     table.insert(refer.ass, self)
-  else
+  elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
+  else
+    error("Error! Invalid refer element!", 2)
   end
 end
 
@@ -118,12 +125,16 @@ end
 
 
 function Media:setDescriptor(descriptor)
-  if(type(descriptor) == "table" and descriptor.nameElem == "descriptor")then
+  if(type(descriptor) == "table"
+    and descriptor["getNameElem"] ~= nil
+    and descriptor:getNameElem() == "descriptor")then
     self:addAttribute("descriptor", descriptor:getId())
     self.descriptorAss = descriptor
-    table.insert(descriptor.ass, self)
-  else
+    table.insert(self.descriptorAss.ass, self)
+  elseif(type(descriptor) == "string")then
     self:addAttribute("descriptor", descriptor)
+  else
+    error("Error! Invalid descriptor element!", 2)
   end
 end
 
@@ -132,12 +143,23 @@ function Media:getDescriptor()
 end
 
 function Media:addArea(area)
+  if((type(area) == "table"
+    and area["getNameElem"] ~= nil
+    and area:getNameElem() ~= "area")
+    or (type(area) == "table"
+    and area["getNameElem"] == nil)
+    or type(area) ~= "table")then
+    error("Error! Invalid area element!", 2)
+  end
+
   self:addChild(area)
   table.insert(self.areas, area)
 end
 
 function Media:getAreaPos(p)
-  if(p > #self.areas)then
+  if(self.areas == nil)then
+    error("Error! media element with nil areas list!", 2)
+  elseif(p > #self.areas)then
     error("Error! media element doesn't have a area child in position "..p.."!", 2)
   end
 
@@ -147,6 +169,8 @@ end
 function Media:getAreaById(id)
   if(id == nil)then
     error("Error! id attribute of area element must be informed!", 2)
+  elseif(self.areas == nil)then
+    error("Error! media element with nil areas list!", 2)
   end
 
   for _, area in ipairs(self.areas) do
@@ -167,6 +191,19 @@ function Media:setAreas(...)
 end
 
 function Media:removeArea(area)
+  if((type(area) == "table"
+    and area["getNameElem"] ~= nil
+    and area:getNameElem() ~= "area")
+    or (type(area) == "table"
+    and area["getNameElem"] == nil)
+    or type(area) ~= "table")then
+    error("Error! Invalid area element!", 2)
+  elseif(self.children == nil)then
+    error("Error! media element with nil children list!", 2)
+  elseif(self.areas == nil)then
+    error("Error! media element with nil areas list!", 2)
+  end
+
   self:removeChild(area)
 
   for p, ar in ipairs(self.areas) do
@@ -177,17 +214,38 @@ function Media:removeArea(area)
 end
 
 function Media:removeAreaPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! media element with nil children list!", 2)
+  elseif(self.areas == nil)then
+    error("Error! media element with nil areas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! media element doesn't have a area child in position "..p.."!", 2)
+  elseif(p > #self.areas)then
+    error("Error! media element doesn't have a area child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.areas[p])
   table.remove(self.areas, p)
 end
 
 function Media:addProperty(property)
+  if((type(property) == "table"
+    and property["getNameElem"] ~= nil
+    and property:getNameElem() ~= "property")
+    or (type(property) == "table"
+    and property["getNameElem"] == nil)
+    or type(property) ~= "table")then
+    error("Error! Invalid property element!", 2)
+  end
+
   self:addChild(property)
   table.insert(self.propertys, property)
 end
 
 function Media:getPropertyPos(p)
-  if(p > #self.propertys)then
+  if(self.propertys == nil)then
+    error("Error! media element with nil propertys list!", 2)
+  elseif(p > #self.propertys)then
     error("Error! media element doesn't have a property child in position "..p.."!", 2)
   end
 
@@ -197,6 +255,8 @@ end
 function Media:getPropertyByName(name)
   if(name == nil)then
     error("Error! name attribute of property element must be informed!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! media element with nil propertys list!", 2)
   end
 
   for _, property in ipairs(self.propertys) do
@@ -217,6 +277,19 @@ function Media:setPropertys(...)
 end
 
 function Media:removeProperty(property)
+  if((type(property) == "table"
+    and property["getNameElem"] ~= nil
+    and property:getNameElem() ~= "property")
+    or (type(property) == "table"
+    and property["getNameElem"] == nil)
+    or type(property) ~= "table")then
+    error("Error! Invalid property element!", 2)
+  elseif(self.children == nil)then
+    error("Error! media element with nil children list!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! media element with nil propertys list!", 2)
+  end
+
   self:removeChild(property)
 
   for p, pr in ipairs(self.propertys) do
@@ -227,7 +300,17 @@ function Media:removeProperty(property)
 end
 
 function Media:removePropertyPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! media element with nil children list!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! media element with nil propertys list!", 2)
+  elseif(p > #self.children)then
+    error("Error! media element doesn't have a property child in position "..p.."!", 2)
+  elseif(p > #self.propertys)then
+    error("Error! media element doesn't have a property child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.propertys[p])
   table.remove(self.propertys, p)
 end
 

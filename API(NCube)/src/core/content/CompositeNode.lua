@@ -22,7 +22,7 @@ Context.childrenMap = {
   link = {Link, "many"},
   switch = {Switch, "many"},
   meta = {Meta, "many"},
-  metadata = {MetaData, "one"}
+  metadata = {MetaData, "many"}
 }
 
 Context.attributesTypeMap = {
@@ -85,7 +85,7 @@ function Context:setRefer(refer)
     if(refer["getId"] ~= nil)then
       self:addAttribute("refer", refer:getId())
     else
-      error("Error! Invalid refer element!")
+      error("Error! Invalid refer element!", 2)
     end
 
     self.referAss = refer
@@ -93,7 +93,7 @@ function Context:setRefer(refer)
   elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
   else
-    error("Error! Invalid refer element!")
+    error("Error! Invalid refer element!", 2)
   end
 end
 
@@ -105,8 +105,10 @@ function Context:addPort(port)
   if((type(port) == "table"
     and port["getNameElem"] ~= nil
     and port:getNameElem() ~= "port")
+    or (type(port) == "table"
+    and port["getNameElem"] == nil)
     or type(port) ~= "table")then
-    error("Error! Invalid port element!")
+    error("Error! Invalid port element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -121,8 +123,10 @@ function Context:addPort(port)
 end
 
 function Context:getPortPos(p)
-  if(p > #self.ports)then
-    error("Error! context element doesn't have a port child in position "..p.."!", 2)
+  if(self.ports == nil)then
+    error("Error! context element with nil ports list!", 2)
+  elseif(p > #self.ports)then
+    error("Error! context element element doesn't have a port child in position "..p.."!", 2)
   end
 
   return self.ports[p]
@@ -131,6 +135,8 @@ end
 function Context:getPortById(id)
   if(id == nil)then
     error("Error! id attribute of port element must be informed!", 2)
+  elseif(self.ports == nil)then
+    error("Error! context element with nil ports list!", 2)
   end
 
   for _, port in ipairs(self.ports) do
@@ -154,8 +160,14 @@ function Context:removePort(port)
   if((type(port) == "table"
     and port["getNameElem"] ~= nil
     and port:getNameElem() ~= "port")
+    or (type(port) == "table"
+    and port["getNameElem"] == nil)
     or type(port) ~= "table")then
-    error("Error! Invalid port element!")
+    error("Error! Invalid port element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.ports == nil)then
+    error("Error! context element with nil ports list!", 2)
   end
 
   self:removeChild(port)
@@ -168,7 +180,17 @@ function Context:removePort(port)
 end
 
 function Context:removePortPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.ports == nil)then
+    error("Error! context element with nil ports list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a port child in position "..p.."!", 2)
+  elseif(p > #self.ports)then
+    error("Error! context element doesn't have a port child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.ports[p])
   table.remove(self.ports, p)
 end
 
@@ -176,8 +198,10 @@ function Context:addProperty(property)
   if((type(property) == "table"
     and property["getNameElem"] ~= nil
     and property:getNameElem() ~= "property")
+    or (type(property) == "table"
+    and property["getNameElem"] == nil)
     or type(property) ~= "table")then
-    error("Error! Invalid property element!")
+    error("Error! Invalid property element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -192,7 +216,9 @@ function Context:addProperty(property)
 end
 
 function Context:getPropertyPos(p)
-  if(p > #self.propertys)then
+  if(self.propertys == nil)then
+    error("Error! context element with nil propertys list!", 2)
+  elseif(p > #self.propertys)then
     error("Error! context element doesn't have a property child in position "..p.."!", 2)
   end
 
@@ -202,6 +228,8 @@ end
 function Context:getPropertyByName(name)
   if(name == nil)then
     error("Error! name attribute of property element must be informed!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! context element with nil propertys list!", 2)
   end
 
   for _, property in ipairs(self.propertys) do
@@ -225,8 +253,14 @@ function Context:removeProperty(property)
   if((type(property) == "table"
     and property["getNameElem"] ~= nil
     and property:getNameElem() ~= "property")
+    or (type(property) == "table"
+    and property["getNameElem"] == nil)
     or type(property) ~= "table")then
     error("Error! Invalid property element!")
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! context element with nil propertys list!", 2)
   end
 
   self:removeChild(property)
@@ -239,7 +273,17 @@ function Context:removeProperty(property)
 end
 
 function Context:removePropertyPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! context element with nil propertys list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a property child in position "..p.."!", 2)
+  elseif(p > #self.propertys)then
+    error("Error! context element doesn't have a property child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.propertys[p])
   table.remove(self.propertys, p)
 end
 
@@ -247,8 +291,10 @@ function Context:addMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
     and media:getNameElem() ~= "media")
+    or (type(media) == "table"
+    and media["getNameElem"] == nil)
     or type(media) ~= "table")then
-    error("Error! Invalid media element!")
+    error("Error! Invalid media element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -263,7 +309,9 @@ function Context:addMedia(media)
 end
 
 function Context:getMediaPos(p)
-  if(p > #self.medias)then
+  if(self.medias == nil)then
+    error("Error! context element with nil medias list!", 2)
+  elseif(p > #self.medias)then
     error("Error! context element doesn't have a media child in position "..p.."!", 2)
   end
 
@@ -273,6 +321,8 @@ end
 function Context:getMediaById(id)
   if(id == nil)then
     error("Error! id attribute of media element must be informed!", 2)
+  elseif(self.medias == nil)then
+    error("Error! context element with nil medias list!", 2)
   end
 
   for _, media in ipairs(self.medias) do
@@ -295,8 +345,14 @@ function Context:removeMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
     and media:getNameElem() ~= "media")
+    or (type(media) == "table"
+    and media["getNameElem"] == nil)
     or type(media) ~= "table")then
-    error("Error! Invalid media element!")
+    error("Error! Invalid media element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.medias == nil)then
+    error("Error! context element with nil medias list!", 2)
   end
 
   self:removeChild(media)
@@ -309,7 +365,17 @@ function Context:removeMedia(media)
 end
 
 function Context:removeMediaPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.medias == nil)then
+    error("Error! context element with nil medias list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a media child in position "..p.."!", 2)
+  elseif(p > #self.medias)then
+    error("Error! context element doesn't have a media child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.medias[p])
   table.remove(self.medias, p)
 end
 
@@ -317,8 +383,10 @@ function Context:addContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
     and context:getNameElem() ~= "context")
+    or (type(context) == "table"
+    and context["getNameElem"] == nil)
     or type(context) ~= "table")then
-    error("Error! Invalid context element!")
+    error("Error! Invalid context element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -333,7 +401,9 @@ function Context:addContext(context)
 end
 
 function Context:getContextPos(p)
-  if(p > #self.contexts)then
+  if(self.contexts == nil)then
+    error("Error! context element with nil contexts list!", 2)
+  elseif(p > #self.contexts)then
     error("Error! context element doesn't have a context child in position "..p.."!", 2)
   end
 
@@ -341,7 +411,9 @@ function Context:getContextPos(p)
 end
 
 function Context:getContextById(id)
-  if(id == nil)then
+  if(self.contexts == nil)then
+    error("Error! context element with nil contexts list!", 2)
+  elseif(id == nil)then
     error("Error! id attribute of context element must be informed!", 2)
   end
 
@@ -366,8 +438,14 @@ function Context:removeContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
     and context:getNameElem() ~= "context")
+    or (type(context) == "table"
+    and context["getNameElem"] == nil)
     or type(context) ~= "table")then
-    error("Error! Invalid context element!")
+    error("Error! Invalid context element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! context element with nil contexts list!", 2)
   end
 
   self:removeChild(context)
@@ -380,7 +458,17 @@ function Context:removeContext(context)
 end
 
 function Context:removeContextPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! context element with nil contexts list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a context child in position "..p.."!", 2)
+  elseif(p > #self.contexts)then
+    error("Error! context element doesn't have a context child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.contexts[p])
   table.remove(self.contexts, p)
 end
 
@@ -388,8 +476,10 @@ function Context:addLink(link)
   if((type(link) == "table"
     and link["getNameElem"] ~= nil
     and link:getNameElem() ~= "link")
+    or (type(link) == "table"
+    and link["getNameElem"] == nil)
     or type(link) ~= "table")then
-    error("Error! Invalid link element!")
+    error("Error! Invalid link element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -404,7 +494,9 @@ function Context:addLink(link)
 end
 
 function Context:getLinkPos(p)
-  if(p > #self.links)then
+  if(self.links == nil)then
+    error("Error! context element with nil links list!", 2)
+  elseif(p > #self.links)then
     error("Error! context element doesn't have a link child in position "..p.."!", 2)
   end
 
@@ -414,6 +506,8 @@ end
 function Context:getLinkById(id)
   if(id == nil)then
     error("Error! id attribute of link element must be informed!", 2)
+  elseif(self.links == nil)then
+    error("Error! context element with nil links list!", 2)
   end
 
   for _, link in ipairs(self.links) do
@@ -436,8 +530,14 @@ function Context:removeLink(link)
   if((type(link) == "table"
     and link["getNameElem"] ~= nil
     and link:getNameElem() ~= "link")
+    or (type(link) == "table"
+    and link["getNameElem"] == nil)
     or type(link) ~= "table")then
-    error("Error! Invalid link element!")
+    error("Error! Invalid link element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.links == nil)then
+    error("Error! context element with nil links list!", 2)
   end
 
   self:removeChild(link)
@@ -450,7 +550,17 @@ function Context:removeLink(link)
 end
 
 function Context:removeLinkPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.links == nil)then
+    error("Error! context element with nil links list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a link child in position "..p.."!", 2)
+  elseif(p > #self.links)then
+    error("Error! context element doesn't have a link child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.links[p])
   table.remove(self.links, p)
 end
 
@@ -458,8 +568,10 @@ function Context:addSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
     and switch:getNameElem() ~= "switch")
+    or (type(switch) == "table"
+    and switch["getNameElem"] == nil)
     or type(switch) ~= "table")then
-    error("Error! Invalid switch element!")
+    error("Error! Invalid switch element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -474,7 +586,9 @@ function Context:addSwitch(switch)
 end
 
 function Context:getSwitchPos(p)
-  if(p > #self.switchs)then
+  if(self.switchs == nil)then
+    error("Error! context element with nil switchs list!", 2)
+  elseif(p > #self.switchs)then
     error("Error! context element doesn't have a switch child in position "..p.."!", 2)
   end
 
@@ -484,6 +598,8 @@ end
 function Context:getSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of switch element must be informed!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! context element with nil switchs list!", 2)
   end
 
   for _, switch in ipairs(self.switchs) do
@@ -507,8 +623,14 @@ function Context:removeSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
     and switch:getNameElem() ~= "switch")
+    or (type(switch) == "table"
+    and switch["getNameElem"] == nil)
     or type(switch) ~= "table")then
-    error("Error! Invalid switch element!")
+    error("Error! Invalid switch element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! context element with nil switchs list!", 2)
   end
 
   self:removeChild(switch)
@@ -521,7 +643,17 @@ function Context:removeSwitch(switch)
 end
 
 function Context:removeSwitchPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! context element with nil switchs list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a switch child in position "..p.."!", 2)
+  elseif(p > #self.switchs)then
+    error("Error! context element doesn't have a switch child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.switchs[p])
   table.remove(self.switchs, p)
 end
 
@@ -529,8 +661,10 @@ function Context:addMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
     and meta:getNameElem() ~= "meta")
+    or (type(meta) == "table"
+    and meta["getNameElem"] == nil)
     or type(meta) ~= "table")then
-    error("Error! Invalid meta element!")
+    error("Error! Invalid meta element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -545,7 +679,9 @@ function Context:addMeta(meta)
 end
 
 function Context:getMetaPos(p)
-  if(p > #self.metas)then
+  if(self.metas == nil)then
+    error("Error! context element with nil metas list!", 2)
+  elseif(p > #self.metas)then
     error("Error! context element doesn't have a meta child in position "..p.."!", 2)
   end
 
@@ -563,8 +699,14 @@ function Context:removeMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
     and meta:getNameElem() ~= "meta")
+    or (type(meta) == "table"
+    and meta["getNameElem"] == nil)
     or type(meta) ~= "table")then
-    error("Error! Invalid meta element!")
+    error("Error! Invalid meta element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.metas == nil)then
+    error("Error! context element with nil metas list!", 2)
   end
 
   self:removeChild(meta)
@@ -577,7 +719,17 @@ function Context:removeMeta(meta)
 end
 
 function Context:removeMetaPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.metas == nil)then
+    error("Error! context element with nil metas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a meta child in position "..p.."!", 2)
+  elseif(p > #self.metas)then
+    error("Error! context element doesn't have a meta child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.metas[p])
   table.remove(self.metas, p)
 end
 
@@ -585,8 +737,10 @@ function Context:addMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
     and metadata:getNameElem() ~= "metadata")
+    or (type(metadata) == "table"
+    and metadata["getNameElem"] == nil)
     or type(metadata) ~= "table")then
-    error("Error! Invalid metadata element!")
+    error("Error! Invalid metadata element!", 2)
   end
 
   local p = self:getPosAvailable("link")
@@ -601,7 +755,9 @@ function Context:addMetaData(metadata)
 end
 
 function Context:getMetaDataPos(p)
-  if(p > #self.metadatas)then
+  if(self.metadatas == nil)then
+    error("Error! context element with nil metadatas list!", 2)
+  elseif(p > #self.metadatas)then
     error("Error! context element doesn't have a metadata child in position "..p.."!", 2)
   end
 
@@ -620,8 +776,14 @@ function Context:removeMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
     and metadata:getNameElem() ~= "metadata")
+    or (type(metadata) == "table"
+    and metadata["getNameElem"] == nil)
     or type(metadata) ~= "table")then
-    error("Error! Invalid metadata element!")
+    error("Error! Invalid metadata element!", 2)
+  elseif(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.metadatas == nil)then
+    error("Error! context element with nil metadatas list!", 2)
   end
 
   self:removeChild(metadata)
@@ -631,6 +793,21 @@ function Context:removeMetaData(metadata)
       table.remove(self.metadatas, p)
     end
   end
+end
+
+function Context:removeMetaDataPos(p)
+  if(self.children == nil)then
+    error("Error! context element with nil children list!", 2)
+  elseif(self.metadatas == nil)then
+    error("Error! context element with nil metadatas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! context element doesn't have a metadata child in position "..p.."!", 2)
+  elseif(p > #self.metadatas)then
+    error("Error! context element doesn't have a metadata child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.metadatas[p])
+  table.remove(self.metadatas, p)
 end
 
 -- Classe Switch --
@@ -705,7 +882,7 @@ function Switch:setRefer(refer)
     if(refer["getId"] ~= nil)then
       self:addAttribute("refer", refer:getId())
     else
-      error("Error! Invalid refer element!")
+      error("Error! Invalid refer element!", 2)
     end
 
     self.referAss = refer
@@ -713,7 +890,7 @@ function Switch:setRefer(refer)
   elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
   else
-    error("Error! Invalid refer element!")
+    error("Error! Invalid refer element!", 2)
   end
 end
 
@@ -725,8 +902,10 @@ function Switch:setDefaultComponent(defaultComponent)
   if((type(defaultComponent) == "table"
     and defaultComponent["getNameElem"] ~= nil
     and defaultComponent:getNameElem() ~= "defaultComponent")
+    or (type(defaultComponent) == "table"
+    and defaultComponent["getNameElem"] == nil)
     or type(defaultComponent) ~= "table")then
-    error("Error! Invalid defaultComponent element!")
+    error("Error! Invalid defaultComponent element!", 2)
   end
 
   self:addChild(defaultComponent, 1)
@@ -746,8 +925,10 @@ function Switch:addSwitchPort(switchPort)
   if((type(switchPort) == "table"
     and switchPort["getNameElem"] ~= nil
     and switchPort:getNameElem() ~= "switchPort")
+    or (type(switchPort) == "table"
+    and switchPort["getNameElem"] == nil)
     or type(switchPort) ~= "table")then
-    error("Error! Invalid switchPort element!")
+    error("Error! Invalid switchPort element!", 2)
   end
 
   self:addChild(switchPort)
@@ -755,7 +936,9 @@ function Switch:addSwitchPort(switchPort)
 end
 
 function Switch:getSwitchPortPos(p)
-  if(p > #self.switchPorts)then
+  if(self.switchPorts == nil)then
+    error("Error! switch element with nil switchPorts list!", 2)
+  elseif(p > #self.switchPorts)then
     error("Error! switch element doesn't have a switchPort child in position "..p.."!", 2)
   end
 
@@ -765,6 +948,8 @@ end
 function Switch:getSwitchPortById(id)
   if(id == nil)then
     error("Error! id attribute of switchPort element must be informed!", 2)
+  elseif(self.switchPorts == nil)then
+    error("Error! switch element with nil switchPorts list!", 2)
   end
 
   for _, switchPort in ipairs(self.switchPorts) do
@@ -788,8 +973,14 @@ function Switch:removeSwitchPort(switchPort)
   if((type(switchPort) == "table"
     and switchPort["getNameElem"] ~= nil
     and switchPort:getNameElem() ~= "switchPort")
+    or (type(switchPort) == "table"
+    and switchPort["getNameElem"] == nil)
     or type(switchPort) ~= "table")then
-    error("Error! Invalid switchPort element!")
+    error("Error! Invalid switchPort element!", 2)
+  elseif(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.switchPorts == nil)then
+    error("Error! switch element with nil switchPorts list!", 2)
   end
 
   self:removeChild(switchPort)
@@ -802,7 +993,17 @@ function Switch:removeSwitchPort(switchPort)
 end
 
 function Switch:removeSwitchPortPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.switchPorts == nil)then
+    error("Error! switch element with nil switchPorts list!", 2)
+  elseif(p > #self.children)then
+    error("Error! switch element doesn't have a switchPort child in position "..p.."!", 2)
+  elseif(p > #self.switchPorts)then
+    error("Error! switch element doesn't have a switchPort child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.switchPorts[p])
   table.remove(self.switchPorts, p)
 end
 
@@ -810,8 +1011,10 @@ function Switch:addBindRule(bindRule)
   if((type(bindRule) == "table"
     and bindRule["getNameElem"] ~= nil
     and bindRule:getNameElem() ~= "bindRule")
+    or (type(bindRule) == "table"
+    and bindRule["getNameElem"] == nil)
     or type(bindRule) ~= "table")then
-    error("Error! Invalid bindRule element!")
+    error("Error! Invalid bindRule element!", 2)
   end
 
   self:addChild(bindRule)
@@ -819,7 +1022,9 @@ function Switch:addBindRule(bindRule)
 end
 
 function Switch:getBindRulePos(p)
-  if(p > #self.bindRules)then
+  if(self.bindRules == nil)then
+    error("Error! switch element with nil bindRules list!", 2)
+  elseif(p > #self.bindRules)then
     error("Error! switch element doesn't have a bindRule child in position "..p.."!", 2)
   end
 
@@ -838,8 +1043,14 @@ function Switch:removeBindRule(bindRule)
   if((type(bindRule) == "table"
     and bindRule["getNameElem"] ~= nil
     and bindRule:getNameElem() ~= "bindRule")
+    or (type(bindRule) == "table"
+    and bindRule["getNameElem"] == nil)
     or type(bindRule) ~= "table")then
-    error("Error! Invalid bindRule element!")
+    error("Error! Invalid bindRule element!", 2)
+  elseif(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.bindRules == nil)then
+    error("Error! switch element with nil bindRules list!", 2)
   end
 
   self:removeChild(bindRule)
@@ -852,7 +1063,17 @@ function Switch:removeBindRule(bindRule)
 end
 
 function Switch:removeBindRulePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.bindRules == nil)then
+    error("Error! switch element with nil bindRules list!", 2)
+  elseif(p > #self.children)then
+    error("Error! switch element doesn't have a bindRule child in position "..p.."!", 2)
+  elseif(p > #self.bindRules)then
+    error("Error! switch element doesn't have a bindRule child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.bindRules[p])
   table.remove(self.bindRules, p)
 end
 
@@ -860,8 +1081,10 @@ function Switch:addMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
     and media:getNameElem() ~= "media")
+    or (type(media) == "table"
+    and media["getNameElem"] == nil)
     or type(media) ~= "table")then
-    error("Error! Invalid media element!")
+    error("Error! Invalid media element!", 2)
   end
 
   self:addChild(media)
@@ -869,7 +1092,9 @@ function Switch:addMedia(media)
 end
 
 function Switch:getMediaPos(p)
-  if(p > #self.medias)then
+  if(self.medias == nil)then
+    error("Error! switch element with nil medias list!", 2)
+  elseif(p > #self.medias)then
     error("Error! switch element doesn't have a media child in position "..p.."!", 2)
   end
 
@@ -877,6 +1102,12 @@ function Switch:getMediaPos(p)
 end
 
 function Switch:getMediaById(id)
+  if(id == nil)then
+    error("Error! id attribute of media element must be informed!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! switch element with nil switchs list!", 2)
+  end
+
   for _, media in ipairs(self.medias) do
     if(media:getId() == id)then
       return media
@@ -897,8 +1128,14 @@ function Switch:removeMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
     and media:getNameElem() ~= "media")
+    or (type(media) == "table"
+    and media["getNameElem"] == nil)
     or type(media) ~= "table")then
-    error("Error! Invalid media element!")
+    error("Error! Invalid media element!", 2)
+  elseif(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.medias == nil)then
+    error("Error! switch element with nil medias list!", 2)
   end
 
   self:removeChild(media)
@@ -911,7 +1148,17 @@ function Switch:removeMedia(media)
 end
 
 function Switch:removeMediaPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.medias == nil)then
+    error("Error! switch element with nil medias list!", 2)
+  elseif(p > #self.children)then
+    error("Error! switch element doesn't have a media child in position "..p.."!", 2)
+  elseif(p > #self.medias)then
+    error("Error! switch element doesn't have a media child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.medias[p])
   table.remove(self.medias, p)
 end
 
@@ -919,8 +1166,10 @@ function Switch:addContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
     and context:getNameElem() ~= "context")
+    or (type(context) == "table"
+    and context["getNameElem"] == nil)
     or type(context) ~= "table")then
-    error("Error! Invalid context element!")
+    error("Error! Invalid context element!", 2)
   end
 
   self:addChild(context)
@@ -928,7 +1177,9 @@ function Switch:addContext(context)
 end
 
 function Switch:getContextPos(p)
-  if(p > #self.contexts)then
+  if(self.contexts == nil)then
+    error("Error! switch element with nil contexts list!", 2)
+  elseif(p > #self.contexts)then
     error("Error! switch element doesn't have a context child in position "..p.."!", 2)
   end
 
@@ -938,6 +1189,8 @@ end
 function Switch:getContextById(id)
   if(id == nil)then
     error("Error! id attribute of context element must be informed!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! switch element with nil contexts list!", 2)
   end
 
   for _, context in ipairs(self.contexts) do
@@ -961,8 +1214,14 @@ function Switch:removeContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
     and context:getNameElem() ~= "context")
+    or (type(context) == "table"
+    and context["getNameElem"] == nil)
     or type(context) ~= "table")then
-    error("Error! Invalid context element!")
+    error("Error! Invalid context element!", 2)
+  elseif(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! switch element with nil contexts list!", 2)
   end
 
   self:removeChild(context)
@@ -975,7 +1234,17 @@ function Switch:removeContext(context)
 end
 
 function Switch:removeContextPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! switch element with nil contexts list!", 2)
+  elseif(p > #self.children)then
+    error("Error! switch element doesn't have a context child in position "..p.."!", 2)
+  elseif(p > #self.contexts)then
+    error("Error! switch element doesn't have a context child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.contexts[p])
   table.remove(self.contexts, p)
 end
 
@@ -983,8 +1252,10 @@ function Switch:addSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
     and switch:getNameElem() ~= "switch")
+    or (type(switch) == "table"
+    and switch["getNameElem"] == nil)
     or type(switch) ~= "table")then
-    error("Error! Invalid switch element!")
+    error("Error! Invalid switch element!", 2)
   end
 
   self:addChild(switch)
@@ -992,7 +1263,9 @@ function Switch:addSwitch(switch)
 end
 
 function Switch:getSwitchPos(p)
-  if(p > #self.switchs)then
+  if(self.switchs == nil)then
+    error("Error! switch element with nil switchs list!", 2)
+  elseif(p > #self.switchs)then
     error("Error! switch element doesn't have a switch child in position "..p.."!", 2)
   end
 
@@ -1002,6 +1275,8 @@ end
 function Switch:getSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of switch element must be informed!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! switch element with nil switchs list!", 2)
   end
 
   for _, switch in ipairs(self.switchs) do
@@ -1025,8 +1300,14 @@ function Switch:removeSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
     and switch:getNameElem() ~= "switch")
+    or (type(switch) == "table"
+    and switch["getNameElem"] == nil)
     or type(switch) ~= "table")then
-    error("Error! Invalid switch element!")
+    error("Error! Invalid switch element!", 2)
+  elseif(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! switch element with nil switchs list!", 2)
   end
 
   self:removeChild(switch)
@@ -1039,7 +1320,17 @@ function Switch:removeSwitch(switch)
 end
 
 function Switch:removeSwitchPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! switch element with nil children list!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! switch element with nil switchs list!", 2)
+  elseif(p > #self.children)then
+    error("Error! switch element element doesn't have a switch child in position "..p.."!", 2)
+  elseif(p > #self.switchs)then
+    error("Error! switch element element doesn't have a switch child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.switchs[p])
   table.remove(self.switchs, p)
 end
 

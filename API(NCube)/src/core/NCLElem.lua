@@ -34,13 +34,13 @@ function NCLElem:addChild(child, p)
   if(child == nil)then
     error("Error! Attempt to set a nil child to "..self.nameElem.."!", 2)
   elseif(child.nameElem == nil)then
-    error("Error! Invalid child! It is not a NCLElement!", 2)
+    error("Error! Attempt to set a invalid child to "..self.nameElem.." because it is not a NCLElement!", 2)
   end
 
   local valid = false
 
   if(self.childrenMap == nil)then
-    error("Error! Nil childrenMap list!", 2)
+    error("Error! "..self.nameElem.." with nil childrenMap list!", 2)
   end
 
   for chd, _ in pairs(self.childrenMap) do
@@ -64,10 +64,8 @@ end
 
 function NCLElem:getChild(p)
   if(self.children == nil)then
-    error("Error! Nil children list!", 2)
-  end
-
-  if(p > #self.children)then
+    error("Error! "..self.nameElem.." with nil children list!", 2)
+  elseif(p > #self.children)then
     error("Error! "..self.nameElem.." element doesn't have a child in position "..p.."!", 2)
   end
 
@@ -76,13 +74,11 @@ end
 
 function NCLElem:getPosChild(child)
   if(child == nil)then
-    error("Error! Nil child!", 2)
+    error("Error! Nil is not a valid child to "..self.nameElem.."!", 2)
   elseif(child.nameElem == nil)then
-    error("Error! Invalid child! It is not a NCLElement!", 2)
-  end
-
-  if(self.children == nil)then
-    error("Error! Nil children list!", 2)
+    error("Error! Invalid child! It is not a NCLElement! Cannot be child of "..self.nameElem.."!", 2)
+  elseif(self.children == nil)then
+    error("Error! "..self.nameElem.." with nil children list!", 2)
   end
 
   for p, chd in ipairs(self.children) do
@@ -96,15 +92,13 @@ end
 
 function NCLElem:getLastPosChild(child)
   if(child == nil)then
-    error("Error! Nil child!", 2)
+    error("Error! Nil is not a valid child to "..self.nameElem.."!", 2)
+  elseif(self.children == nil)then
+    error("Error! "..self.nameElem.." with nil children list!", 2)
   end
 
-  if(self.children == nil)then
-    error("Error! Nil children list!", 2)
-  end
-  
   local p
-  
+
   for i, chd in ipairs(self.children) do
     if(child == chd.nameElem)then
       p = i
@@ -125,10 +119,8 @@ end
 
 function NCLElem:removeChildPos(p)
   if(self.children == nil)then
-    error("Error! Nil children list!", 2)
-  end
-
-  if(p > #self.children)then
+    error("Error! Attempt to remove failed! "..self.nameElem.." with nil children list!", 2)
+  elseif(p > #self.children)then
     error("Error! Attempt to remove failed! "..self.nameElem.." element doesn't have a child in position "..p.."!", 2)
   end
 
@@ -160,7 +152,7 @@ end
 
 function NCLElem:removeAllChildren()
   if(self.children == nil)then
-    error("Error! Nil children list!", 2)
+    error("Error!  Attempt to remove failed! "..self.nameElem.." with nil children list!", 2)
   end
 
   for _, child in ipairs(self.children) do

@@ -34,16 +34,16 @@ local function test4()
   local connectorParam = ConnectorParam:create()
   local status, err
 
-  status, err = pcall(connectorParam["setName"], ConnectorParam, nil)
+  status, err = pcall(connectorParam["setName"], connectorParam, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(connectorParam["setName"], ConnectorParam, 999999)
+  status, err = pcall(connectorParam["setName"], connectorParam, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(connectorParam["setName"], ConnectorParam, {})
+  status, err = pcall(connectorParam["setName"], connectorParam, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(connectorParam["setName"], ConnectorParam, function(a, b) return a+b end)
+  status, err = pcall(connectorParam["setName"], connectorParam, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

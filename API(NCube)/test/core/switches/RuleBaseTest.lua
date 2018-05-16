@@ -32,13 +32,13 @@ local function test4()
   local ruleBase = RuleBase:create()
   local status, err
 
-  status, err = pcall(ruleBase["setId"], RuleBase, nil)
+  status, err = pcall(ruleBase["setId"], ruleBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(ruleBase["setId"], RuleBase, {})
+  status, err = pcall(ruleBase["setId"], ruleBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(ruleBase["setId"], RuleBase, function(a, b) return a+b end)
+  status, err = pcall(ruleBase["setId"], ruleBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -113,19 +113,19 @@ local function test7()
   local ruleBase = RuleBase:create()
   local status, err
 
-  status, err = pcall(ruleBase["addRule"], RuleBase, CompositeRule:create())
+  status, err = pcall(ruleBase["addRule"], ruleBase, CompositeRule:create())
   assert(not(status), "Error!")
 
-  status, err = pcall(ruleBase["addRule"], RuleBase, "invalid")
+  status, err = pcall(ruleBase["addRule"], ruleBase, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(ruleBase["addRule"], RuleBase, nil)
+  status, err = pcall(ruleBase["addRule"], ruleBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(ruleBase["addRule"], RuleBase, {})
+  status, err = pcall(ruleBase["addRule"], ruleBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(ruleBase["addRule"], RuleBase, function(a, b) return a+b end)
+  status, err = pcall(ruleBase["addRule"], ruleBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

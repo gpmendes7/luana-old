@@ -49,8 +49,10 @@ function Head:setImportedDocumentBase(importedDocumentBase)
   if((type(importedDocumentBase) == "table"
     and importedDocumentBase["getNameElem"] ~= nil
     and importedDocumentBase:getNameElem() ~= "importedDocumentBase")
+    or (type(importedDocumentBase) == "table"
+    and importedDocumentBase["getNameElem"] == nil)
     or type(importedDocumentBase) ~= "table")then
-    error("Error! Invalid importedDocumentBase element!")
+    error("Error! Invalid importedDocumentBase element!", 2)
   end
 
   self:addChild(importedDocumentBase, 1)
@@ -70,8 +72,10 @@ function Head:setRuleBase(ruleBase)
   if((type(ruleBase) == "table"
     and ruleBase["getNameElem"] ~= nil
     and ruleBase:getNameElem() ~= "ruleBase")
+    or (type(ruleBase) == "table"
+    and ruleBase["getNameElem"] == nil)
     or type(ruleBase) ~= "table")then
-    error("Error! Invalid ruleBase element!")
+    error("Error! Invalid ruleBase element!", 2)
   end
 
   local p
@@ -105,8 +109,10 @@ function Head:setTransitionBase(transitionBase)
   if((type(transitionBase) == "table"
     and transitionBase["getNameElem"] ~= nil
     and transitionBase:getNameElem() ~= "transitionBase")
+    or (type(transitionBase) == "table"
+    and transitionBase["getNameElem"] == nil)
     or type(transitionBase) ~= "table")then
-    error("Error! Invalid transitionBase element!")
+    error("Error! Invalid transitionBase element!", 2)
   end
 
   local p
@@ -140,8 +146,10 @@ function Head:addRegionBase(regionBase)
   if((type(regionBase) == "table"
     and regionBase["getNameElem"] ~= nil
     and regionBase:getNameElem() ~= "regionBase")
+    or (type(regionBase) == "table"
+    and regionBase["getNameElem"] == nil)
     or type(regionBase) ~= "table")then
-    error("Error! Invalid regionBase element!")
+    error("Error! Invalid regionBase element!", 2)
   end
 
   local p = self:getPosAvailable("regionBase", "transitionBase", "ruleBase", "importedDocumentBase")
@@ -181,8 +189,10 @@ function Head:removeRegionBase(regionBase)
   if((type(regionBase) == "table"
     and regionBase["getNameElem"] ~= nil
     and regionBase:getNameElem() ~= "regionBase")
+    or (type(regionBase) == "table"
+    and regionBase["getNameElem"] == nil)
     or type(regionBase) ~= "table")then
-    error("Error! Invalid regionBase element!")
+    error("Error! Invalid regionBase element!", 2)
   end
 
 
@@ -204,8 +214,10 @@ function Head:setDescriptorBase(descriptorBase)
   if((type(descriptorBase) == "table"
     and descriptorBase["getNameElem"] ~= nil
     and descriptorBase:getNameElem() ~= "descriptorBase")
+    or (type(descriptorBase) == "table"
+    and descriptorBase["getNameElem"] == nil)
     or type(descriptorBase) ~= "table")then
-    error("Error! Invalid descriptorBase element!")
+    error("Error! Invalid descriptorBase element!", 2)
   end
 
   local p
@@ -239,8 +251,10 @@ function Head:setConnectorBase(connectorBase)
   if((type(connectorBase) == "table"
     and connectorBase["getNameElem"] ~= nil
     and connectorBase:getNameElem() ~= "connectorBase")
+    or (type(connectorBase) == "table"
+    and connectorBase["getNameElem"] == nil)
     or type(connectorBase) ~= "table")then
-    error("Error! Invalid connectorBase element!")
+    error("Error! Invalid connectorBase element!", 2)
   end
 
   local p
@@ -275,8 +289,10 @@ function Head:addMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
     and meta:getNameElem() ~= "meta")
+    or (type(meta) == "table"
+    and meta["getNameElem"] == nil)
     or type(meta) ~= "table")then
-    error("Error! Invalid meta element!")
+    error("Error! Invalid meta element!", 2)
   end
 
   local p = self:getPosAvailable("connectorBase", "descriptorBase", "regionBase",
@@ -310,8 +326,10 @@ function Head:removeMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
     and meta:getNameElem() ~= "meta")
+    or (type(meta) == "table"
+    and meta["getNameElem"] == nil)
     or type(meta) ~= "table")then
-    error("Error! Invalid meta element!")
+    error("Error! Invalid meta element!", 2)
   end
 
   self:removeChild(meta)
@@ -332,10 +350,12 @@ function Head:addMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
     and metadata:getNameElem() ~= "metadata")
+    or (type(metadata) == "table"
+    and metadata["getNameElem"] == nil)
     or type(metadata) ~= "table")then
-    error("Error! Invalid metadata element!")
+    error("Error! Invalid metadata element!", 2)
   end
-  
+
   local p = self:getPosAvailable("meta", "connectorBase", "descriptorBase", "regionBase",
     "transitionBase", "ruleBase", "importedDocumentBase")
 
@@ -364,8 +384,10 @@ function Head:removeMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
     and metadata:getNameElem() ~= "metadata")
+    or (type(metadata) == "table"
+    and metadata["getNameElem"] == nil)
     or type(metadata) ~= "table")then
-    error("Error! Invalid metadata element!")
+    error("Error! Invalid metadata element!", 2)
   end
 
   self:removeChild(metadata)

@@ -38,16 +38,16 @@ local function test4()
   local body = Body:create()
   local status, err
 
-  status, err = pcall(body["setId"], Body, nil)
+  status, err = pcall(body["setId"], body, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(body["setId"], Body, 999999)
+  status, err = pcall(body["setId"], body, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(body["setId"], Body, {})
+  status, err = pcall(body["setId"], body, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(body["setId"], Body, function(a, b) return a+b end)
+  status, err = pcall(body["setId"], body, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

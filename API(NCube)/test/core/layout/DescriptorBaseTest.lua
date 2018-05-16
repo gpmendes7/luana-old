@@ -33,13 +33,13 @@ local function test4()
   local descriptorBase = DescriptorBase:create()
   local status, err
 
-  status, err = pcall(descriptorBase["setId"], DescriptorBase, nil)
+  status, err = pcall(descriptorBase["setId"], descriptorBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(descriptorBase["setId"], DescriptorBase, {})
+  status, err = pcall(descriptorBase["setId"], descriptorBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(descriptorBase["setId"], DescriptorBase, function(a, b) return a+b end)
+  status, err = pcall(descriptorBase["setId"], descriptorBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

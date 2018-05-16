@@ -84,19 +84,19 @@ local function test4()
   local simpleAction = SimpleAction:create()
   local status, err
 
-  status, err = pcall(simpleAction["setEventType"], SimpleAction, "invalid")
+  status, err = pcall(simpleAction["setEventType"], simpleAction, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleAction["setEventType"], SimpleAction, nil)
+  status, err = pcall(simpleAction["setEventType"], simpleAction, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleAction["setEventType"], SimpleAction, 999999)
+  status, err = pcall(simpleAction["setEventType"], simpleAction, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleAction["setEventType"], SimpleAction, {})
+  status, err = pcall(simpleAction["setEventType"], simpleAction, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(simpleAction["setEventType"], SimpleAction, function(a, b) return a+b end)
+  status, err = pcall(simpleAction["setEventType"], simpleAction, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

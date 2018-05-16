@@ -31,16 +31,16 @@ local function test4()
   local connectorBase = ConnectorBase:create()
   local status, err
 
-  status, err = pcall(connectorBase["setId"], ConnectorBase, nil)
+  status, err = pcall(connectorBase["setId"], connectorBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(connectorBase["setId"], ConnectorBase, 999999)
+  status, err = pcall(connectorBase["setId"], connectorBase, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(connectorBase["setId"], ConnectorBase, {})
+  status, err = pcall(connectorBase["setId"], connectorBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(connectorBase["setId"], ConnectorBase, function(a, b) return a+b end)
+  status, err = pcall(connectorBase["setId"], connectorBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

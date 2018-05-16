@@ -30,16 +30,16 @@ local function test4()
   local importedDocumentBase = ImportedDocumentBase:create()
   local status, err
 
-  status, err = pcall(importedDocumentBase["setId"], ImportedDocumentBase, nil)
+  status, err = pcall(importedDocumentBase["setId"], importedDocumentBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(importedDocumentBase["setId"], ImportedDocumentBase, 999999)
+  status, err = pcall(importedDocumentBase["setId"], importedDocumentBase, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(importedDocumentBase["setId"], ImportedDocumentBase, {})
+  status, err = pcall(importedDocumentBase["setId"], importedDocumentBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(importedDocumentBase["setId"], ImportedDocumentBase, function(a, b) return a+b end)
+  status, err = pcall(importedDocumentBase["setId"], importedDocumentBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

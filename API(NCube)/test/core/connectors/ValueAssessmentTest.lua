@@ -29,13 +29,13 @@ local function test4()
   local valueAssessment = ValueAssessment:create()
   local status, err
 
-  status, err = pcall(valueAssessment["setValue"], ValueAssessment, nil)
+  status, err = pcall(valueAssessment["setValue"], valueAssessment, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(valueAssessment["setValue"], ValueAssessment, {})
+  status, err = pcall(valueAssessment["setValue"], valueAssessment, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(valueAssessment["setValue"], ValueAssessment, function(a, b) return a+b end)
+  status, err = pcall(valueAssessment["setValue"], valueAssessment, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

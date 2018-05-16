@@ -48,16 +48,16 @@ local function test4()
   local importBase = ImportBase:create()
   local status, err
 
-  status, err = pcall(importBase["setAlias"], ImportBase, nil)
+  status, err = pcall(importBase["setAlias"], importBase, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(importBase["setAlias"], ImportBase, 999999)
+  status, err = pcall(importBase["setAlias"], importBase, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(importBase["setAlias"], ImportBase, {})
+  status, err = pcall(importBase["setAlias"], importBase, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(importBase["setAlias"], ImportBase, function(a, b) return a+b end)
+  status, err = pcall(importBase["setAlias"], importBase, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

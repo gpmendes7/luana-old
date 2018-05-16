@@ -44,13 +44,13 @@ local function test4()
   local rule = Rule:create()
   local status, err
 
-  status, err = pcall(rule["setId"], Rule, nil)
+  status, err = pcall(rule["setId"], rule, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(rule["setId"], Rule, {})
+  status, err = pcall(rule["setId"], rule, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(rule["setId"], Rule, function(a, b) return a+b end)
+  status, err = pcall(rule["setId"], rule, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

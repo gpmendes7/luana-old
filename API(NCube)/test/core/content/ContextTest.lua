@@ -44,13 +44,13 @@ local function test4()
   local context = Context:create()
   local status, err
 
-  status, err = pcall(context["setId"], Context, nil)
+  status, err = pcall(context["setId"], context, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(context["setId"], Context, {})
+  status, err = pcall(context["setId"], context, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(context["setId"], Context, function(a, b) return a+b end)
+  status, err = pcall(context["setId"], context, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
@@ -196,19 +196,19 @@ local function test7()
   local context = Context:create()
   local status, err
 
-  status, err = pcall(context["addLink"], Context, Switch:create())
+  status, err = pcall(context["addLink"], context, Switch:create())
   assert(not(status), "Error!")
 
-  status, err = pcall(context["addLink"], Context, "invalid")
+  status, err = pcall(context["addLink"], context, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(context["addLink"], Context, nil)
+  status, err = pcall(context["addLink"], context, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(context["addLink"], Context, {})
+  status, err = pcall(context["addLink"], context, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(context["addLink"], Context, function(a, b) return a+b end)
+  status, err = pcall(context["addLink"], context, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

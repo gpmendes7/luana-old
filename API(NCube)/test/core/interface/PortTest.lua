@@ -41,13 +41,13 @@ local function test4()
   local port = Port:create()
   local status, err
 
-  status, err = pcall(port["setId"], Port, nil)
+  status, err = pcall(port["setId"], port, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(port["setId"], Port, {})
+  status, err = pcall(port["setId"], port, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(port["setId"], Port, function(a, b) return a+b end)
+  status, err = pcall(port["setId"], port, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

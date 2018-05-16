@@ -34,16 +34,16 @@ local function test4()
   local mapping = Mapping:create()
   local status, err
 
-  status, err = pcall(mapping["setComponent"], Mapping, Mapping:create())
+  status, err = pcall(mapping["setComponent"], mapping, Mapping:create())
   assert(not(status), "Error!")
 
-  status, err = pcall(mapping["setComponent"], Mapping, nil)
+  status, err = pcall(mapping["setComponent"], mapping, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(mapping["setComponent"], Mapping, {})
+  status, err = pcall(mapping["setComponent"], mapping, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(mapping["setComponent"], Mapping, function(a, b) return a+b end)
+  status, err = pcall(mapping["setComponent"], mapping, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

@@ -34,13 +34,13 @@ local function test4()
   local descriptorParam = DescriptorParam:create()
   local status, err
 
-  status, err = pcall(descriptorParam["setValue"], DescriptorParam, nil)
+  status, err = pcall(descriptorParam["setValue"], descriptorParam, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(descriptorParam["setValue"], DescriptorParam, {})
+  status, err = pcall(descriptorParam["setValue"], descriptorParam, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(descriptorParam["setValue"], DescriptorParam, function(a, b) return a+b end)
+  status, err = pcall(descriptorParam["setValue"], descriptorParam, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

@@ -118,19 +118,19 @@ local function test4()
   local descriptor = Descriptor:create()
   local status, err
   
-  status, err = pcall(descriptor["setFreeze"], Descriptor, "invalid")
+  status, err = pcall(descriptor["setFreeze"], descriptor, "invalid")
   assert(not(status), "Error!")
   
-  status, err = pcall(descriptor["setFreeze"], Descriptor, nil)
+  status, err = pcall(descriptor["setFreeze"], descriptor, nil)
   assert(not(status), "Error!")
   
-  status, err = pcall(descriptor["setFreeze"], Descriptor, 999999)
+  status, err = pcall(descriptor["setFreeze"], descriptor, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(descriptor["setFreeze"], Descriptor, {})
+  status, err = pcall(descriptor["setFreeze"], descriptor, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(descriptor["setFreeze"], Descriptor, function(a, b) return a+b end)
+  status, err = pcall(descriptor["setFreeze"], descriptor, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

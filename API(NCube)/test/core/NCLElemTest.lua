@@ -10,6 +10,8 @@ local function test1()
     
     local status, err
     
+    local file, msg
+    
     elemA = ElementA:create()      
     assert(elemA ~= nil, "Error!")
 
@@ -27,6 +29,8 @@ local function test1()
     
     status, err = pcall(elemA["create"], elemA, {id = nil, desc = nil})
     assert(not(status), "Error!")
+    file, msg = err:match("(.-:%d+): (.+)")
+    assert(msg == "Error! Attributes must be informed to be defined!", "Error!")
     
     elemA = ElementA:create({id = "id1", desc = "desc1"})      
     assert(elemA:getAttribute("id") == "id1", "Error!")
@@ -105,6 +109,8 @@ local function test2()
    
    local status, err
    
+   local file, msg
+   
    elemA = ElementA:create({id = "id1", desc = "desc1"}) 
   
    assert(#elemA:getChildren() == 0, "Error!")
@@ -153,6 +159,8 @@ local function test2()
    
    status, err = pcall(elemA["removeChild"], elemA, nil)
    assert(not(status), "Error!")
+   file, msg = err:match("(.-:%d+): (.+)")
+   assert(msg == "Error! Nil is not a valid child to elementA!", "Error!")
    
    status, err = pcall(elemA["removeChild"], elemA, elemC)
    assert(not(status), "Error!")

@@ -51,8 +51,10 @@ function AssessmentStatement:addAttributeAssessment(attributeAssessment)
   if((type(attributeAssessment) == "table"
     and attributeAssessment["getNameElem"] ~= nil
     and attributeAssessment:getNameElem() ~= "attributeAssessment")
+    or (type(attributeAssessment) == "table"
+    and attributeAssessment["getNameElem"] == nil)
     or type(attributeAssessment) ~= "table")then
-    error("Error! Invalid attributeAssessment element!")
+    error("Error! Invalid attributeAssessment element!", 2)
   end
 
   local p = self:getPosAvailable("attributeAssessment")
@@ -67,7 +69,9 @@ function AssessmentStatement:addAttributeAssessment(attributeAssessment)
 end
 
 function AssessmentStatement:getAttributeAssessmentPos(p)
-  if(p > #self.attributeAssessments)then
+  if(self.attributeAssessments == nil)then
+    error("Error! assessmentStatement element with nil attributeAssessments list!", 2)
+  elseif(p > #self.attributeAssessments)then
     error("Error! assessmentStatement element doesn't have an attributeAssessment child in position "..p.."!", 2)
   end
 
@@ -86,10 +90,16 @@ function AssessmentStatement:removeAttributeAssessment(attributeAssessment)
   if((type(attributeAssessment) == "table"
     and attributeAssessment["getNameElem"] ~= nil
     and attributeAssessment:getNameElem() ~= "attributeAssessment")
+    or (type(attributeAssessment) == "table"
+    and attributeAssessment["getNameElem"] == nil)
     or type(attributeAssessment) ~= "table")then
-    error("Error! Invalid attributeAssessment element!")
+    error("Error! Invalid attributeAssessment element!", 2)
+  elseif(self.children == nil)then
+    error("Error! assessmentStatement element with nil children list!", 2)
+  elseif(self.attributeAssessments == nil)then
+    error("Error! assessmentStatement element with nil attributeAssessments list!", 2)
   end
-  
+
   self:removeChild(attributeAssessment)
 
   for p, aa in ipairs(self.attributeAssessments) do
@@ -100,7 +110,17 @@ function AssessmentStatement:removeAttributeAssessment(attributeAssessment)
 end
 
 function AssessmentStatement:removeAttributeAssessmentPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! assessmentStatement element with nil children list!", 2)
+  elseif(self.attributeAssessments == nil)then
+    error("Error! assessmentStatement element with nil attributeAssessments list!", 2)
+  elseif(p > #self.children)then
+    error("Error! assessmentStatement element doesn't have a attributeAssessment child in position "..p.."!", 2)
+  elseif(p > #self.attributeAssessments)then
+    error("Error! assessmentStatement element doesn't have a attributeAssessment child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.attributeAssessments[p])
   table.remove(self.attributeAssessments, p)
 end
 
@@ -108,10 +128,12 @@ function AssessmentStatement:setValueAssessment(valueAssessment)
   if((type(valueAssessment) == "table"
     and valueAssessment["getNameElem"] ~= nil
     and valueAssessment:getNameElem() ~= "valueAssessment")
+    or (type(valueAssessment) == "table"
+    and valueAssessment["getNameElem"] == nil)
     or type(valueAssessment) ~= "table")then
-    error("Error! Invalid valueAssessment element!")
+    error("Error! Invalid valueAssessment element!", 2)
   end
-  
+
   local p
 
   if(self.valueAssessment == nil)then

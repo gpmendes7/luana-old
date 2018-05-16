@@ -56,8 +56,10 @@ function CausalConnector:addConnectorParam(connectorParam)
   if((type(connectorParam) == "table"
     and connectorParam["getNameElem"] ~= nil
     and connectorParam:getNameElem() ~= "connectorParam")
+    or (type(connectorParam) == "table"
+    and connectorParam["getNameElem"] == nil)
     or type(connectorParam) ~= "table")then
-    error("Error! Invalid connectorParam element!")
+    error("Error! Invalid connectorParam element!", 2)
   end
 
   local p = self:getPosAvailable("connectorParam")
@@ -72,7 +74,9 @@ function CausalConnector:addConnectorParam(connectorParam)
 end
 
 function CausalConnector:getConnectorParamPos(p)
-  if(p > #self.connectorParams)then
+  if(self.connectorParams == nil)then
+    error("Error! causalConnector element with nil connectorParams list!", 2)
+  elseif(p > #self.connectorParams)then
     error("Error! causalConnector element doesn't have a connectorParam child in position "..p.."!", 2)
   end
 
@@ -91,8 +95,14 @@ function CausalConnector:removeConnectorParam(connectorParam)
   if((type(connectorParam) == "table"
     and connectorParam["getNameElem"] ~= nil
     and connectorParam:getNameElem() ~= "connectorParam")
+    or (type(connectorParam) == "table"
+    and connectorParam["getNameElem"] == nil)
     or type(connectorParam) ~= "table")then
-    error("Error! Invalid connectorParam element!")
+    error("Error! Invalid connectorParam element!", 2)
+  elseif(self.children == nil)then
+    error("Error! causalConnector element with nil children list!", 2)
+  elseif(self.connectorParams == nil)then
+    error("Error! causalConnector element with nil connectorParams list!", 2)
   end
 
   self:removeChild(connectorParam)
@@ -105,7 +115,17 @@ function CausalConnector:removeConnectorParam(connectorParam)
 end
 
 function CausalConnector:removeConnectorParamPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! causalConnector element with nil children list!", 2)
+  elseif(self.connectorParams == nil)then
+    error("Error! causalConnector element with nil connectorParams list!", 2)
+  elseif(p > #self.children)then
+    error("Error! causalConnector element doesn't have a connectorParam child in position "..p.."!", 2)
+  elseif(p > #self.connectorParams)then
+    error("Error! causalConnector element doesn't have a connectorParam child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.connectorParams[p])
   table.remove(self.connectorParams, p)
 end
 
@@ -113,8 +133,10 @@ function CausalConnector:setSimpleCondition(simpleCondition)
   if((type(simpleCondition) == "table"
     and simpleCondition["getNameElem"] ~= nil
     and simpleCondition:getNameElem() ~= "simpleCondition")
+    or (type(simpleCondition) == "table"
+    and simpleCondition["getNameElem"] == nil)
     or type(simpleCondition) ~= "table")then
-    error("Error! Invalid simpleCondition element!")
+    error("Error! Invalid simpleCondition element!", 2)
   end
 
   local p
@@ -149,8 +171,10 @@ function CausalConnector:setCompoundCondition(compoundCondition)
   if((type(compoundCondition) == "table"
     and compoundCondition["getNameElem"] ~= nil
     and compoundCondition:getNameElem() ~= "compoundCondition")
+    or (type(compoundCondition) == "table"
+    and compoundCondition["getNameElem"] == nil)
     or type(compoundCondition) ~= "table")then
-    error("Error! Invalid compoundCondition element!")
+    error("Error! Invalid compoundCondition element!", 2)
   end
 
   local p
@@ -185,8 +209,10 @@ function CausalConnector:setSimpleAction(simpleAction)
   if((type(simpleAction) == "table"
     and simpleAction["getNameElem"] ~= nil
     and simpleAction:getNameElem() ~= "simpleAction")
+    or (type(simpleAction) == "table"
+    and simpleAction["getNameElem"] == nil)
     or type(simpleAction) ~= "table")then
-    error("Error! Invalid simpleAction element!")
+    error("Error! Invalid simpleAction element!",2 )
   end
 
   local p
@@ -221,6 +247,8 @@ function CausalConnector:setCompoundAction(compoundAction)
   if((type(compoundAction) == "table"
     and compoundAction["getNameElem"] ~= nil
     and compoundAction:getNameElem() ~= "compoundAction")
+    or (type(compoundAction) == "table"
+    and compoundAction["getNameElem"] == nil)
     or type(compoundAction) ~= "table")then
     error("Error! Invalid compoundAction element!")
   end

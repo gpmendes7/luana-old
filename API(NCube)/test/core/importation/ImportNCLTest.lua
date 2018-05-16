@@ -34,16 +34,16 @@ local function test4()
   local importNCL = ImportNCL:create()
   local status, err
 
-  status, err = pcall(importNCL["setDocumentURI"], ImportNCL, nil)
+  status, err = pcall(importNCL["setDocumentURI"], importNCL, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(importNCL["setDocumentURI"], ImportNCL, 999999)
+  status, err = pcall(importNCL["setDocumentURI"], importNCL, 999999)
   assert(not(status), "Error!")
 
-  status, err = pcall(importNCL["setDocumentURI"], ImportNCL, {})
+  status, err = pcall(importNCL["setDocumentURI"], importNCL, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(importNCL["setDocumentURI"], ImportNCL, function(a, b) return a+b end)
+  status, err = pcall(importNCL["setDocumentURI"], importNCL, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

@@ -84,16 +84,16 @@ local function test4()
   local transition = Transition:create()
   local status, err
 
-  status, err = pcall(transition["setType"], Transition, "invalid")
+  status, err = pcall(transition["setType"], transition, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(transition["setType"], Transition, nil)
+  status, err = pcall(transition["setType"], transition, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(transition["setType"], Transition, {})
+  status, err = pcall(transition["setType"], transition, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(transition["setType"], Transition, function(a, b) return a+b end)
+  status, err = pcall(transition["setType"], transition, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 

@@ -84,16 +84,16 @@ local function test4()
   local area = Area:create()
   local status, err
 
-  status, err = pcall(area["setEventType"], Area, "invalid")
+  status, err = pcall(area["setEventType"], area, "invalid")
   assert(not(status), "Error!")
 
-  status, err = pcall(area["setFirst"], Area, nil)
+  status, err = pcall(area["setFirst"], area, nil)
   assert(not(status), "Error!")
 
-  status, err = pcall(area["setFirst"], Area, {})
+  status, err = pcall(area["setFirst"], area, {})
   assert(not(status), "Error!")
 
-  status, err = pcall(area["setFirst"], Area, function(a, b) return a+b end)
+  status, err = pcall(area["setFirst"], area, function(a, b) return a+b end)
   assert(not(status), "Error!")
 end
 
