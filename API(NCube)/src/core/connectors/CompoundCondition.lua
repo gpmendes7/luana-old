@@ -42,7 +42,7 @@ function CompoundCondition:create(attributes, full)
   compoundCondition.compoundConditions = {}
   compoundCondition.assessmentStatements = {}
   compoundCondition.compoundStatements = {}
-  
+
   compoundCondition.symbols = {}
 
   if(full ~= nil)then
@@ -75,16 +75,20 @@ function CompoundCondition:addSimpleCondition(simpleCondition)
   if((type(simpleCondition) == "table"
     and simpleCondition["getNameElem"] ~= nil
     and simpleCondition:getNameElem() ~= "simpleCondition")
+    or (type(simpleCondition) == "table"
+    and simpleCondition["getNameElem"] == nil)
     or type(simpleCondition) ~= "table")then
-    error("Error! Invalid simpleCondition element!")
+    error("Error! Invalid simpleCondition element!", 2)
   end
-  
+
   self:addChild(simpleCondition)
   table.insert(self.simpleConditions, simpleCondition)
 end
 
 function CompoundCondition:getSimpleConditionPos(p)
-  if(p > #self.simpleConditions)then
+  if(self.simpleConditions == nil)then
+    error("Error! compoundCondition element with nil simpleConditions list!", 2)
+  elseif(p > #self.simpleConditions)then
     error("Error! compoundCondition element doesn't have a simpleCondition child in position "..p.."!", 2)
   end
 
@@ -103,10 +107,16 @@ function CompoundCondition:removeSimpleCondition(simpleCondition)
   if((type(simpleCondition) == "table"
     and simpleCondition["getNameElem"] ~= nil
     and simpleCondition:getNameElem() ~= "simpleCondition")
+    or (type(simpleCondition) == "table"
+    and simpleCondition["getNameElem"] == nil)
     or type(simpleCondition) ~= "table")then
-    error("Error! Invalid simpleCondition element!")
+    error("Error! Invalid simpleCondition element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.simpleConditions == nil)then
+    error("Error! compoundCondition element with nil simpleConditions list!", 2)
   end
-  
+
   self:removeChild(simpleCondition)
 
   for p, sc in ipairs(self.simpleConditions) do
@@ -117,7 +127,17 @@ function CompoundCondition:removeSimpleCondition(simpleCondition)
 end
 
 function CompoundCondition:removeSimpleConditionPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.simpleConditions == nil)then
+    error("Error! compoundCondition element with nil simpleConditions list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundCondition element doesn't have a simpleCondition child in position "..p.."!", 2)
+  elseif(p > #self.simpleConditions)then
+    error("Error! compoundCondition element doesn't have a simpleCondition child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.simpleConditions[p])
   table.remove(self.simpleConditions, p)
 end
 
@@ -125,16 +145,20 @@ function CompoundCondition:addCompoundCondition(compoundCondition)
   if((type(compoundCondition) == "table"
     and compoundCondition["getNameElem"] ~= nil
     and compoundCondition:getNameElem() ~= "compoundCondition")
+    or (type(compoundCondition) == "table"
+    and compoundCondition["getNameElem"] == nil)
     or type(compoundCondition) ~= "table")then
-    error("Error! Invalid compoundCondition element!")
+    error("Error! Invalid compoundCondition element!", 2)
   end
-  
+
   self:addChild(compoundCondition)
   table.insert(self.compoundConditions, compoundCondition)
 end
 
 function CompoundCondition:getCompoundConditionPos(p)
-  if(p > #self.compoundConditions)then
+  if(self.compoundConditions == nil)then
+    error("Error! compoundCondition element with nil compoundConditions list!", 2)
+  elseif(p > #self.compoundConditions)then
     error("Error! compoundCondition element doesn't have a compoundCondition child in position "..p.."!", 2)
   end
 
@@ -153,10 +177,16 @@ function CompoundCondition:removeCompoundCondition(compoundCondition)
   if((type(compoundCondition) == "table"
     and compoundCondition["getNameElem"] ~= nil
     and compoundCondition:getNameElem() ~= "compoundCondition")
+    or (type(compoundCondition) == "table"
+    and compoundCondition["getNameElem"] == nil)
     or type(compoundCondition) ~= "table")then
-    error("Error! Invalid compoundCondition element!")
+    error("Error! Invalid compoundCondition element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.compoundConditions == nil)then
+    error("Error! compoundCondition element with nil compoundConditions list!", 2)
   end
-  
+
   self:removeChild(compoundCondition)
 
   for p, cc in ipairs(self.compoundConditions) do
@@ -167,7 +197,17 @@ function CompoundCondition:removeCompoundCondition(compoundCondition)
 end
 
 function CompoundCondition:removeCompoundConditionPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.compoundConditions == nil)then
+    error("Error! compoundCondition element with nil compoundConditions list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundCondition element doesn't have a compoundCondition child in position "..p.."!", 2)
+  elseif(p > #self.compoundConditions)then
+    error("Error! compoundCondition element doesn't have a compoundCondition child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.compoundConditions[p])
   table.remove(self.compoundConditions, p)
 end
 
@@ -175,16 +215,20 @@ function CompoundCondition:addAssessmentStatement(assessmentStatement)
   if((type(assessmentStatement) == "table"
     and assessmentStatement["getNameElem"] ~= nil
     and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or (type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] == nil)
     or type(assessmentStatement) ~= "table")then
-    error("Error! Invalid assessmentStatement element!")
+    error("Error! Invalid assessmentStatement element!", 2)
   end
-  
+
   self:addChild(assessmentStatement)
   table.insert(self.assessmentStatements, assessmentStatement)
 end
 
 function CompoundCondition:getAssessmentStatementPos(p)
-  if(p > #self.assessmentStatements)then
+  if(self.assessmentStatements == nil)then
+    error("Error! compoundCondition element with nil assessmentStatements list!", 2)
+  elseif(p > #self.assessmentStatements)then
     error("Error! compoundCondition element doesn't have a assessmentStatement child in position "..p.."!", 2)
   end
 
@@ -203,10 +247,16 @@ function CompoundCondition:removeAssessmentStatement(assessmentStatement)
   if((type(assessmentStatement) == "table"
     and assessmentStatement["getNameElem"] ~= nil
     and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or (type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] == nil)
     or type(assessmentStatement) ~= "table")then
-    error("Error! Invalid assessmentStatement element!")
+    error("Error! Invalid assessmentStatement element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.assessmentStatements == nil)then
+    error("Error! compoundCondition element with nil assessmentStatements list!", 2)
   end
-  
+
   self:removeChild(assessmentStatement)
 
   for p, as in ipairs(self.assessmentStatements) do
@@ -217,7 +267,17 @@ function CompoundCondition:removeAssessmentStatement(assessmentStatement)
 end
 
 function CompoundCondition:removeAssessmentStatementPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.assessmentStatements == nil)then
+    error("Error! compoundCondition element with nil assessmentStatements list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundCondition element doesn't have a assessmentStatement child in position "..p.."!", 2)
+  elseif(p > #self.assessmentStatements)then
+    error("Error! compoundCondition element doesn't have a assessmentStatement child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.assessmentStatements[p])
   table.remove(self.assessmentStatements, p)
 end
 
@@ -225,16 +285,20 @@ function CompoundCondition:addCompoundStatement(compoundStatement)
   if((type(compoundStatement) == "table"
     and compoundStatement["getNameElem"] ~= nil
     and compoundStatement:getNameElem() ~= "compoundStatement")
+    or (type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] == nil)
     or type(compoundStatement) ~= "table")then
-    error("Error! Invalid compoundStatement element!")
+    error("Error! Invalid compoundStatement element!", 2)
   end
-  
+
   self:addChild(compoundStatement)
   table.insert(self.compoundStatements, compoundStatement)
 end
 
 function CompoundCondition:getCompoundStatementPos(p)
-  if(p > #self.compoundStatements)then
+  if(self.compoundStatements == nil)then
+    error("Error! compoundCondition element with nil compoundStatements list!", 2)
+  elseif(p > #self.compoundStatements)then
     error("Error! compoundCondition element doesn't have a compoundStatement child in position "..p.."!", 2)
   end
 
@@ -253,10 +317,16 @@ function CompoundCondition:removeCompoundStatement(compoundStatement)
   if((type(compoundStatement) == "table"
     and compoundStatement["getNameElem"] ~= nil
     and compoundStatement:getNameElem() ~= "compoundStatement")
+    or (type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] == nil)
     or type(compoundStatement) ~= "table")then
-    error("Error! Invalid compoundStatement element!")
+    error("Error! Invalid compoundStatement element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.compoundStatements == nil)then
+    error("Error! compoundCondition element with nil compoundStatements list!", 2)
   end
-  
+
   self:removeChild(compoundStatement)
 
   for p, cs in ipairs(self.compoundStatements) do
@@ -267,7 +337,17 @@ function CompoundCondition:removeCompoundStatement(compoundStatement)
 end
 
 function CompoundCondition:removeCompoundStatementPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundCondition element with nil children list!", 2)
+  elseif(self.compoundStatements == nil)then
+    error("Error! compoundCondition element with nil compoundStatements list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundCondition element doesn't have a compoundStatement child in position "..p.."!", 2)
+  elseif(p > #self.compoundStatements)then
+    error("Error! compoundCondition element doesn't have a compoundStatement child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.compoundStatements[p])
   table.remove(self.compoundStatements, p)
 end
 

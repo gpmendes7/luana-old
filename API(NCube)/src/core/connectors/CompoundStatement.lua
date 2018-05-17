@@ -61,16 +61,20 @@ function CompoundStatement:addAssessmentStatement(assessmentStatement)
   if((type(assessmentStatement) == "table"
     and assessmentStatement["getNameElem"] ~= nil
     and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or (type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] == nil)
     or type(assessmentStatement) ~= "table")then
-    error("Error! Invalid assessmentStatement element!")
+    error("Error! Invalid assessmentStatement element!", 2)
   end
-  
+
   self:addChild(assessmentStatement)
   table.insert(self.assessmentStatements, assessmentStatement)
 end
 
 function CompoundStatement:getAssessmentStatementPos(p)
-  if(p > #self.assessmentStatements)then
+  if(self.assessmentStatements == nil)then
+    error("Error! compoundStatement element with nil assessmentStatements list!", 2)
+  elseif(p > #self.assessmentStatements)then
     error("Error! compoundStatement element doesn't have a assessmentStatement child in position "..p.."!", 2)
   end
 
@@ -89,10 +93,16 @@ function CompoundStatement:removeAssessmentStatement(assessmentStatement)
   if((type(assessmentStatement) == "table"
     and assessmentStatement["getNameElem"] ~= nil
     and assessmentStatement:getNameElem() ~= "assessmentStatement")
+    or (type(assessmentStatement) == "table"
+    and assessmentStatement["getNameElem"] == nil)
     or type(assessmentStatement) ~= "table")then
-    error("Error! Invalid assessmentStatement element!")
+    error("Error! Invalid assessmentStatement element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundStatement element with nil children list!", 2)
+  elseif(self.assessmentStatements == nil)then
+    error("Error! compoundStatement element with nil assessmentStatements list!", 2)
   end
-  
+
   self:removeChild(assessmentStatement)
 
   for p, as in ipairs(self.assessmentStatements) do
@@ -103,7 +113,17 @@ function CompoundStatement:removeAssessmentStatement(assessmentStatement)
 end
 
 function CompoundStatement:removeAssessmentStatementPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundStatement element with nil children list!", 2)
+  elseif(self.assessmentStatements == nil)then
+    error("Error! compoundStatement element with nil assessmentStatements list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundStatement element doesn't have a assessmentStatement child in position "..p.."!", 2)
+  elseif(p > #self.assessmentStatements)then
+    error("Error! compoundStatement element doesn't have a assessmentStatement child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.assessmentStatements[p])
   table.remove(self.assessmentStatements, p)
 end
 
@@ -111,16 +131,20 @@ function CompoundStatement:addCompoundStatement(compoundStatement)
   if((type(compoundStatement) == "table"
     and compoundStatement["getNameElem"] ~= nil
     and compoundStatement:getNameElem() ~= "compoundStatement")
+    or (type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] == nil)
     or type(compoundStatement) ~= "table")then
-    error("Error! Invalid compoundStatement element!")
+    error("Error! Invalid compoundStatement element!", 2)
   end
-  
+
   self:addChild(compoundStatement)
   table.insert(self.compoundStatements, compoundStatement)
 end
 
 function CompoundStatement:getCompoundStatementPos(p)
-  if(p > #self.compoundStatements)then
+  if(self.compoundStatements == nil)then
+    error("Error! compoundStatement element with nil compoundStatements list!", 2)
+  elseif(p > #self.compoundStatements)then
     error("Error! compoundStatement element doesn't have a compoundStatement child in position "..p.."!", 2)
   end
 
@@ -139,10 +163,16 @@ function CompoundStatement:removeCompoundStatement(compoundStatement)
   if((type(compoundStatement) == "table"
     and compoundStatement["getNameElem"] ~= nil
     and compoundStatement:getNameElem() ~= "compoundStatement")
+    or (type(compoundStatement) == "table"
+    and compoundStatement["getNameElem"] == nil)
     or type(compoundStatement) ~= "table")then
-    error("Error! Invalid compoundStatement element!")
+    error("Error! Invalid compoundStatement element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundStatement element with nil children list!", 2)
+  elseif(self.compoundStatements == nil)then
+    error("Error! compoundStatement element with nil compoundStatements list!", 2)
   end
-  
+
   self:removeChild(compoundStatement)
 
   for p, cs in ipairs(self.compoundStatements) do
@@ -153,7 +183,17 @@ function CompoundStatement:removeCompoundStatement(compoundStatement)
 end
 
 function CompoundStatement:removeCompoundStatementPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundStatement element with nil children list!", 2)
+  elseif(self.compoundStatements == nil)then
+    error("Error! compoundStatement element with nil compoundStatements list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundStatement element doesn't have a compoundStatement child in position "..p.."!", 2)
+  elseif(p > #self.compoundStatements)then
+    error("Error! compoundStatement element doesn't have a compoundStatement child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.compoundStatements[p])
   table.remove(self.compoundStatements, p)
 end
 

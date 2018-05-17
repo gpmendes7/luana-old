@@ -83,11 +83,11 @@ local function test3()
 
   head:addRegionBase(regionBase)
   head:removeRegionBase(regionBase)
-  assert(head:getRegionBasePos(1) == nil, "Error!")
+  assert(head:getDescendantByAttribute("id", "rb1") == nil, "Error!")
 
   head:addRegionBase(regionBase)
   head:removeRegionBasePos(1)
-  assert(head:getRegionBasePos(1) == nil, "Error!")
+  assert(head:getDescendantByAttribute("id", "rb1") == nil, "Error!")
 
   head:setDescriptorBase(descriptorBase)
   head:removeDescriptorBase(descriptorBase)

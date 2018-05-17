@@ -32,7 +32,7 @@ function Body:create(attributes, full)
   local body = Body:new()
 
   body.id = nil
-  
+
   body.ass = {}
 
   if(attributes ~= nil)then
@@ -72,6 +72,15 @@ function Body:getId()
 end
 
 function Body:addPort(port)
+  if((type(port) == "table"
+    and port["getNameElem"] ~= nil
+    and port:getNameElem() ~= "port")
+    or (type(port) == "table"
+    and port["getNameElem"] == nil)
+    or type(port) ~= "table")then
+    error("Error! Invalid port element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -84,7 +93,9 @@ function Body:addPort(port)
 end
 
 function Body:getPortPos(p)
-  if(p > #self.ports)then
+  if(self.ports == nil)then
+    error("Error! body element with nil ports list!", 2)
+  elseif(p > #self.ports)then
     error("Error! body element doesn't have a port child in position "..p.."!", 2)
   end
 
@@ -94,6 +105,8 @@ end
 function Body:getPortById(id)
   if(id == nil)then
     error("Error! id attribute of port element must be informed!", 2)
+  elseif(self.ports == nil)then
+    error("Error! body element with nil ports list!", 2)
   end
 
   for _, port in ipairs(self.ports) do
@@ -114,6 +127,19 @@ function Body:setPorts(...)
 end
 
 function Body:removePort(port)
+  if((type(port) == "table"
+    and port["getNameElem"] ~= nil
+    and port:getNameElem() ~= "port")
+    or (type(port) == "table"
+    and port["getNameElem"] == nil)
+    or type(port) ~= "table")then
+    error("Error! Invalid port element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.ports == nil)then
+    error("Error! body element with nil ports list!", 2)
+  end
+
   self:removeChild(port)
 
   for p, pt in ipairs(self.ports) do
@@ -124,11 +150,30 @@ function Body:removePort(port)
 end
 
 function Body:removePortPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.ports == nil)then
+    error("Error! body element with nil ports list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a port child in position "..p.."!", 2)
+  elseif(p > #self.ports)then
+    error("Error! body element doesn't have a port child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.ports[p])
   table.remove(self.ports, p)
 end
 
 function Body:addProperty(property)
+  if((type(property) == "table"
+    and property["getNameElem"] ~= nil
+    and property:getNameElem() ~= "property")
+    or (type(property) == "table"
+    and property["getNameElem"] == nil)
+    or type(property) ~= "table")then
+    error("Error! Invalid property element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -141,7 +186,9 @@ function Body:addProperty(property)
 end
 
 function Body:getPropertyPos(p)
-  if(p > #self.propertys)then
+  if(self.propertys == nil)then
+    error("Error! body element with nil propertys list!", 2)
+  elseif(p > #self.propertys)then
     error("Error! body element doesn't have a property child in position "..p.."!", 2)
   end
 
@@ -151,6 +198,8 @@ end
 function Body:getPropertyByName(name)
   if(name == nil)then
     error("Error! name attribute of property element must be informed!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! body element with nil propertys list!", 2)
   end
 
   for _, property in ipairs(self.propertys) do
@@ -171,6 +220,19 @@ function Body:setPropertys(...)
 end
 
 function Body:removeProperty(property)
+  if((type(property) == "table"
+    and property["getNameElem"] ~= nil
+    and property:getNameElem() ~= "property")
+    or (type(property) == "table"
+    and property["getNameElem"] == nil)
+    or type(property) ~= "table")then
+    error("Error! Invalid property element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! body element with nil propertys list!", 2)
+  end
+
   self:removeChild(property)
 
   for p, pr in ipairs(self.propertys) do
@@ -181,11 +243,30 @@ function Body:removeProperty(property)
 end
 
 function Body:removePropertyPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.propertys == nil)then
+    error("Error! body element with nil propertys list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a property child in position "..p.."!", 2)
+  elseif(p > #self.propertys)then
+    error("Error! body element doesn't have a property child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.propertys[p])
   table.remove(self.propertys, p)
 end
 
 function Body:addMedia(media)
+  if((type(media) == "table"
+    and media["getNameElem"] ~= nil
+    and media:getNameElem() ~= "media")
+    or (type(media) == "table"
+    and media["getNameElem"] == nil)
+    or type(media) ~= "table")then
+    error("Error! Invalid media element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -198,7 +279,9 @@ function Body:addMedia(media)
 end
 
 function Body:getMediaPos(p)
-  if(p > #self.medias)then
+  if(self.medias == nil)then
+    error("Error! body element with nil medias list!", 2)
+  elseif(p > #self.medias)then
     error("Error! body element doesn't have a media child in position "..p.."!", 2)
   end
 
@@ -208,6 +291,8 @@ end
 function Body:getMediaById(id)
   if(id == nil)then
     error("Error! id attribute of media element must be informed!", 2)
+  elseif(self.medias == nil)then
+    error("Error! body element with nil medias list!", 2)
   end
 
   for _, media in ipairs(self.medias) do
@@ -226,7 +311,21 @@ function Body:setMedias(...)
     end
   end
 end
+
 function Body:removeMedia(media)
+  if((type(media) == "table"
+    and media["getNameElem"] ~= nil
+    and media:getNameElem() ~= "media")
+    or (type(media) == "table"
+    and media["getNameElem"] == nil)
+    or type(media) ~= "table")then
+    error("Error! Invalid media element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.medias == nil)then
+    error("Error! body element with nil medias list!", 2)
+  end
+
   self:removeChild(media)
 
   for p, md in ipairs(self.medias) do
@@ -237,11 +336,30 @@ function Body:removeMedia(media)
 end
 
 function Body:removeMediaPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.medias == nil)then
+    error("Error! body element with nil medias list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a media child in position "..p.."!", 2)
+  elseif(p > #self.medias)then
+    error("Error! body element doesn't have a media child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.medias[p])
   table.remove(self.medias, p)
 end
 
 function Body:addContext(context)
+  if((type(context) == "table"
+    and context["getNameElem"] ~= nil
+    and context:getNameElem() ~= "context")
+    or (type(context) == "table"
+    and context["getNameElem"] == nil)
+    or type(context) ~= "table")then
+    error("Error! Invalid context element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -254,6 +372,12 @@ function Body:addContext(context)
 end
 
 function Body:getContextPos(p)
+  if(self.contexts == nil)then
+    error("Error! body element with nil contexts list!", 2)
+  elseif(p > #self.contexts)then
+    error("Error! body element doesn't have a context child in position "..p.."!", 2)
+  end
+
   if(p > #self.contexts)then
     error("Error! body element doesn't have a context child in position "..p.."!", 2)
   end
@@ -262,7 +386,9 @@ function Body:getContextPos(p)
 end
 
 function Body:getContextById(id)
-  if(id == nil)then
+  if(self.contexts == nil)then
+    error("Error! body element with nil contexts list!", 2)
+  elseif(id == nil)then
     error("Error! id attribute of context element must be informed!", 2)
   end
 
@@ -284,6 +410,20 @@ function Body:setContexts(...)
 end
 
 function Body:removeContext(context)
+  if((type(context) == "table"
+    and context["getNameElem"] ~= nil
+    and context:getNameElem() ~= "context")
+    or (type(context) == "table"
+    and context["getNameElem"] == nil)
+    or type(context) ~= "table")then
+    error("Error! Invalid context element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! body element with nil contexts list!", 2)
+  end
+
+
   self:removeChild(context)
 
   for p, ct in ipairs(self.contexts) do
@@ -294,11 +434,30 @@ function Body:removeContext(context)
 end
 
 function Body:removeContextPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.contexts == nil)then
+    error("Error! body element with nil contexts list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a context child in position "..p.."!", 2)
+  elseif(p > #self.contexts)then
+    error("Error! body element doesn't have a context child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.contexts[p])
   table.remove(self.contexts, p)
 end
 
 function Body:addSwitch(switch)
+  if((type(switch) == "table"
+    and switch["getNameElem"] ~= nil
+    and switch:getNameElem() ~= "switch")
+    or (type(switch) == "table"
+    and switch["getNameElem"] == nil)
+    or type(switch) ~= "table")then
+    error("Error! Invalid switch element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -311,6 +470,13 @@ function Body:addSwitch(switch)
 end
 
 function Body:getSwitchPos(p)
+  if(self.switchs == nil)then
+    error("Error! body element with nil switchs list!", 2)
+  elseif(p > #self.switchs)then
+    error("Error! body element doesn't have a switch child in position "..p.."!", 2)
+  end
+
+
   if(p > #self.switchs)then
     error("Error! body element doesn't have a switch child in position "..p.."!", 2)
   end
@@ -321,6 +487,8 @@ end
 function Body:getSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of switch element must be informed!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! body element with nil switchs list!", 2)
   end
 
   for _, switch in ipairs(self.switchs) do
@@ -341,6 +509,19 @@ function Body:setSwitchs(...)
 end
 
 function Body:removeSwitch(switch)
+  if((type(switch) == "table"
+    and switch["getNameElem"] ~= nil
+    and switch:getNameElem() ~= "switch")
+    or (type(switch) == "table"
+    and switch["getNameElem"] == nil)
+    or type(switch) ~= "table")then
+    error("Error! Invalid switch element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! body element with nil switchs list!", 2)
+  end
+
   self:removeChild(switch)
 
   for p, sw in ipairs(self.switchs) do
@@ -351,12 +532,31 @@ function Body:removeSwitch(switch)
 end
 
 function Body:removeSwitchPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.switchs == nil)then
+    error("Error! body element with nil switchs list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a switch child in position "..p.."!", 2)
+  elseif(p > #self.switchs)then
+    error("Error! body element doesn't have a switch child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.switchs[p])
   table.remove(self.switchs, p)
 end
 
 
 function Body:addLink(link)
+  if((type(link) == "table"
+    and link["getNameElem"] ~= nil
+    and link:getNameElem() ~= "link")
+    or (type(link) == "table"
+    and link["getNameElem"] == nil)
+    or type(link) ~= "table")then
+    error("Error! Invalid link element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -369,7 +569,9 @@ function Body:addLink(link)
 end
 
 function Body:getLinkPos(p)
-  if(p > #self.links)then
+  if(self.links == nil)then
+    error("Error! body element with nil links list!", 2)
+  elseif(p > #self.links)then
     error("Error! body element doesn't have a link child in position "..p.."!", 2)
   end
 
@@ -379,6 +581,8 @@ end
 function Body:getLinkById(id)
   if(id == nil)then
     error("Error! id attribute of link element must be informed!", 2)
+  elseif(self.links == nil)then
+    error("Error! body element with nil links list!", 2)
   end
 
   for _, link in ipairs(self.links) do
@@ -398,6 +602,19 @@ function Body:setLinks(...)
   end
 end
 function Body:removeLink(link)
+  if((type(link) == "table"
+    and link["getNameElem"] ~= nil
+    and link:getNameElem() ~= "link")
+    or (type(link) == "table"
+    and link["getNameElem"] == nil)
+    or type(link) ~= "table")then
+    error("Error! Invalid link element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.links == nil)then
+    error("Error! body element with nil links list!", 2)
+  end
+
   self:removeChild(link)
 
   for p, lk in ipairs(self.links) do
@@ -408,11 +625,30 @@ function Body:removeLink(link)
 end
 
 function Body:removeLinkPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.links == nil)then
+    error("Error! body element with nil links list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a link child in position "..p.."!", 2)
+  elseif(p > #self.links)then
+    error("Error! body element doesn't have a link child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.links[p])
   table.remove(self.links, p)
 end
 
 function Body:addMeta(meta)
+  if((type(meta) == "table"
+    and meta["getNameElem"] ~= nil
+    and meta:getNameElem() ~= "meta")
+    or (type(meta) == "table"
+    and meta["getNameElem"] == nil)
+    or type(meta) ~= "table")then
+    error("Error! Invalid meta element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -425,6 +661,12 @@ function Body:addMeta(meta)
 end
 
 function Body:getMetaPos(p)
+  if(self.metas == nil)then
+    error("Error! body element with nil metas list!", 2)
+  elseif(p > #self.metas)then
+    error("Error! body element doesn't have a meta child in position "..p.."!", 2)
+  end
+
   if(p > #self.metas)then
     error("Error! body element doesn't have a meta child in position "..p.."!", 2)
   end
@@ -440,6 +682,19 @@ function Body:setMetas(...)
   end
 end
 function Body:removeMeta(meta)
+  if((type(meta) == "table"
+    and meta["getNameElem"] ~= nil
+    and meta:getNameElem() ~= "meta")
+    or (type(meta) == "table"
+    and meta["getNameElem"] == nil)
+    or type(meta) ~= "table")then
+    error("Error! Invalid meta element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.metas == nil)then
+    error("Error! body element with nil metas list!", 2)
+  end
+
   self:removeChild(meta)
 
   for p, mt in ipairs(self.metas) do
@@ -450,11 +705,30 @@ function Body:removeMeta(meta)
 end
 
 function Body:removeMetaPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.metas == nil)then
+    error("Error! body element with nil metas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a meta child in position "..p.."!", 2)
+  elseif(p > #self.metas)then
+    error("Error! body element doesn't have a meta child in position "..p.."!", 2)
+  end
+
   self:removeChildPos(p)
   table.remove(self.metas, p)
 end
 
 function Body:addMetaData(metadata)
+  if((type(metadata) == "table"
+    and metadata["getNameElem"] ~= nil
+    and metadata:getNameElem() ~= "metadata")
+    or (type(metadata) == "table"
+    and metadata["getNameElem"] == nil)
+    or type(metadata) ~= "table")then
+    error("Error! Invalid metadata element!", 2)
+  end
+
   local p = self:getPosAvailable("link")
 
   if(p ~= nil)then
@@ -467,7 +741,9 @@ function Body:addMetaData(metadata)
 end
 
 function Body:getMetaDataPos(p)
-  if(p > #self.metadatas)then
+  if(self.metadatas == nil)then
+    error("Error! body element with nil metadatas list!", 2)
+  elseif(p > #self.metadatas)then
     error("Error! body element doesn't have a metadata child in position "..p.."!", 2)
   end
 
@@ -483,6 +759,19 @@ function Body:setMetaDatas(...)
 end
 
 function Body:removeMetaData(metadata)
+  if((type(metadata) == "table"
+    and metadata["getNameElem"] ~= nil
+    and metadata:getNameElem() ~= "metadata")
+    or (type(metadata) == "table"
+    and metadata["getNameElem"] == nil)
+    or type(metadata) ~= "table")then
+    error("Error! Invalid metadata element!", 2)
+  elseif(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.metadatas == nil)then
+    error("Error! body element with nil metadatas list!", 2)
+  end
+
   self:removeChild(metadata)
 
   for p, mt in ipairs(self.metadatas) do
@@ -493,7 +782,17 @@ function Body:removeMetaData(metadata)
 end
 
 function Body:removeMetaDataPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! body element with nil children list!", 2)
+  elseif(self.metadatas == nil)then
+    error("Error! body element with nil metadatas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! body element doesn't have a metadata child in position "..p.."!", 2)
+  elseif(p > #self.metadatas)then
+    error("Error! body element doesn't have a metadata child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.metadatas[p])
   table.remove(self.metadatas, p)
 end
 

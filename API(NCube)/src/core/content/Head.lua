@@ -164,10 +164,22 @@ function Head:addRegionBase(regionBase)
 end
 
 function Head:getRegionBasePos(p)
+  if(self.regionBases == nil)then
+    error("Error! head element with nil regionBases list!", 2)
+  elseif(p > #self.regionBases)then
+    error("Error! head element doesn't have a regionBase child in position "..p.."!", 2)
+  end
+
   return self.regionBases[p]
 end
 
 function Head:getRegionBaseById(id)
+  if(id == nil)then
+    error("Error! id attribute of regionBase element must be informed!", 2)
+  elseif(self.regionBases == nil)then
+    error("Error! head element with nil regionBases list!", 2)
+  end
+
   for _, regionBase in ipairs(self.regionBases) do
     if(regionBase:getId() == id)then
       return regionBase
@@ -193,8 +205,11 @@ function Head:removeRegionBase(regionBase)
     and regionBase["getNameElem"] == nil)
     or type(regionBase) ~= "table")then
     error("Error! Invalid regionBase element!", 2)
+  elseif(self.children == nil)then
+    error("Error! head element with nil children list!", 2)
+  elseif(self.regionBases == nil)then
+    error("Error! head element with nil regionBases list!", 2)
   end
-
 
   self:removeChild(regionBase)
 
@@ -206,7 +221,17 @@ function Head:removeRegionBase(regionBase)
 end
 
 function Head:removeRegionBasePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! head element with nil children list!", 2)
+  elseif(self.regionBases == nil)then
+    error("Error! head element with nil regionBases list!", 2)
+  elseif(p > #self.children)then
+    error("Error! head element doesn't have a regionBase child in position "..p.."!", 2)
+  elseif(p > #self.regionBases)then
+    error("Error! head element doesn't have a regionBase child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.regionBases[p])
   table.remove(self.regionBases, p)
 end
 
@@ -308,7 +333,9 @@ function Head:addMeta(meta)
 end
 
 function Head:getMetaPos(p)
-  if(p > #self.metas)then
+  if(self.metas == nil)then
+    error("Error! head element with nil metas list!", 2)
+  elseif(p > #self.metas)then
     error("Error! head element doesn't have a meta child in position "..p.."!", 2)
   end
 
@@ -330,6 +357,10 @@ function Head:removeMeta(meta)
     and meta["getNameElem"] == nil)
     or type(meta) ~= "table")then
     error("Error! Invalid meta element!", 2)
+  elseif(self.children == nil)then
+    error("Error! head element with nil children list!", 2)
+  elseif(self.metas == nil)then
+    error("Error! head element with nil metas list!", 2)
   end
 
   self:removeChild(meta)
@@ -342,6 +373,16 @@ function Head:removeMeta(meta)
 end
 
 function Head:removeMetaPos(p)
+  if(self.children == nil)then
+    error("Error! head element with nil children list!", 2)
+  elseif(self.metas == nil)then
+    error("Error! head element with nil metas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! head element doesn't have a meta child in position "..p.."!", 2)
+  elseif(p > #self.metas)then
+    error("Error! head element doesn't have a meta child in position "..p.."!", 2)
+  end
+
   self:removeChildPos(p)
   table.remove(self.metas, p)
 end
@@ -369,6 +410,12 @@ function Head:addMetaData(metadata)
 end
 
 function Head:getMetaDataPos(p)
+  if(self.metadatas == nil)then
+    error("Error! head element with nil metadatas list!", 2)
+  elseif(p > #self.metadatas)then
+    error("Error! head element doesn't have a metadata child in position "..p.."!", 2)
+  end
+
   return self.metadatas[p]
 end
 
@@ -388,6 +435,10 @@ function Head:removeMetaData(metadata)
     and metadata["getNameElem"] == nil)
     or type(metadata) ~= "table")then
     error("Error! Invalid metadata element!", 2)
+  elseif(self.children == nil)then
+    error("Error! head element with nil children list!", 2)
+  elseif(self.metadatas == nil)then
+    error("Error! head element with nil metadatas list!", 2)
   end
 
   self:removeChild(metadata)
@@ -400,7 +451,17 @@ function Head:removeMetaData(metadata)
 end
 
 function Head:removeMetaDataPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! head element with nil children list!", 2)
+  elseif(self.metadatas == nil)then
+    error("Error! head element with nil metadatas list!", 2)
+  elseif(p > #self.children)then
+    error("Error! head element doesn't have a metadata child in position "..p.."!", 2)
+  elseif(p > #self.metadatas)then
+    error("Error! head element doesn't have a metadata child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.metadatas[p])
   table.remove(self.metadatas, p)
 end
 

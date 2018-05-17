@@ -100,6 +100,15 @@ function Document:getXmlHead()
 end
 
 function Document:setHead(head)
+  if((type(head) == "table"
+    and head["getNameElem"] ~= nil
+    and head:getNameElem() ~= "head")
+    or (type(head) == "table"
+    and head["getNameElem"] == nil)
+    or type(head) ~= "table")then
+    error("Error! Invalid head element!", 2)
+  end
+
   if(self.head == nil)then
     self:addChild(head, 1)
   else
@@ -115,12 +124,21 @@ function Document:getHead()
   return self.head
 end
 
-function Document:removeHead(head)
-  self:removeChild(head)
+function Document:removeHead()
+  self:removeChild(self.head)
   self.head = nil
 end
 
 function Document:setBody(body)
+  if((type(body) == "table"
+    and body["getNameElem"] ~= nil
+    and body:getNameElem() ~= "body")
+    or (type(body) == "table"
+    and body["getNameElem"] == nil)
+    or type(body) ~= "table")then
+    error("Error! Invalid body element!", 2)
+  end
+
   local p
 
   if(self.body == nil)then
@@ -142,8 +160,8 @@ function Document:getBody()
   return self.body
 end
 
-function Document:removeBody(body)
-  self:removeChild(body)
+function Document:removeBody()
+  self:removeChild(self.body)
   self.body = nil
 end
 
@@ -245,7 +263,7 @@ function Document:connectAssociatedElements()
       if(descendant.assMap ~= nil)then
         for _, ass in ipairs(descendant:getAssMap()) do
           local attribute = descendant:getAttribute(ass[1])
-     
+
           if(attribute ~= nil and string.match(attribute, "#") == nil)then
             local objAss = ass[2]
 
@@ -256,7 +274,7 @@ function Document:connectAssociatedElements()
 
               if(component ~= nil)then
                 local interface = component:getInterface(descendant.interface)
-                 
+
                 if(interface == nil and component.referAss ~= nil)then
                   interface = component.referAss:getInterface(descendant.interface)
                 end

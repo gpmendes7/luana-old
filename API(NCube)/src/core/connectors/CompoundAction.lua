@@ -36,7 +36,7 @@ function CompoundAction:create(attributes, full)
   compoundAction.children = {}
   compoundAction.simpleActions = {}
   compoundAction.compoundActions = {}
-  
+
   compoundAction.symbols = {}
 
   if(full ~= nil)then
@@ -67,16 +67,20 @@ function CompoundAction:addSimpleAction(simpleAction)
   if((type(simpleAction) == "table"
     and simpleAction["getNameElem"] ~= nil
     and simpleAction:getNameElem() ~= "simpleAction")
+    or (type(simpleAction) == "table"
+    and simpleAction["getNameElem"] == nil)
     or type(simpleAction) ~= "table")then
-    error("Error! Invalid simpleAction element!")
+    error("Error! Invalid simpleAction element!", 2)
   end
-  
+
   self:addChild(simpleAction)
   table.insert(self.simpleActions, simpleAction)
 end
 
 function CompoundAction:getSimpleActionPos(p)
-  if(p > #self.simpleActions)then
+  if(self.simpleActions == nil)then
+    error("Error! compoundAction element with nil simpleActions list!", 2)
+  elseif(p > #self.simpleActions)then
     error("Error! compoundAction element doesn't have a simpleAction child in position "..p.."!", 2)
   end
 
@@ -95,10 +99,16 @@ function CompoundAction:removeSimpleAction(simpleAction)
   if((type(simpleAction) == "table"
     and simpleAction["getNameElem"] ~= nil
     and simpleAction:getNameElem() ~= "simpleAction")
+    or (type(simpleAction) == "table"
+    and simpleAction["getNameElem"] == nil)
     or type(simpleAction) ~= "table")then
-    error("Error! Invalid simpleAction element!")
+    error("Error! Invalid simpleAction element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundAction element with nil children list!", 2)
+  elseif(self.simpleActions == nil)then
+    error("Error! compoundAction element with nil simpleActions list!", 2)
   end
-  
+
   self:removeChild(simpleAction)
 
   for p, sa in ipairs(self.simpleActions) do
@@ -109,7 +119,17 @@ function CompoundAction:removeSimpleAction(simpleAction)
 end
 
 function CompoundAction:removeSimpleActionPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compoundAction element with nil children list!", 2)
+  elseif(self.simpleActions == nil)then
+    error("Error! compoundAction element with nil simpleActions list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundAction element doesn't have a simpleAction child in position "..p.."!", 2)
+  elseif(p > #self.simpleActions)then
+    error("Error! compoundAction element doesn't have a simpleAction child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.simpleActions[p])
   table.remove(self.simpleActions, p)
 end
 
@@ -117,16 +137,20 @@ function CompoundAction:addCompoundAction(compoundAction)
   if((type(compoundAction) == "table"
     and compoundAction["getNameElem"] ~= nil
     and compoundAction:getNameElem() ~= "compoundAction")
+    or (type(compoundAction) == "table"
+    and compoundAction["getNameElem"] == nil)
     or type(compoundAction) ~= "table")then
-    error("Error! Invalid compoundAction element!")
+    error("Error! Invalid compoundAction element!", 2)
   end
-  
+
   self:addChild(compoundAction)
   table.insert(self.compoundActions, compoundAction)
 end
 
 function CompoundAction:getCompoundActionPos(p)
-  if(p > #self.compoundActions)then
+  if(self.compoundActions == nil)then
+    error("Error! compoundAction element with nil compoundActions list!", 2)
+  elseif(p > #self.compoundActions)then
     error("Error! compoundAction element doesn't have a compoundAction child in position "..p.."!", 2)
   end
 
@@ -145,10 +169,16 @@ function CompoundAction:removeCompoundAction(compoundAction)
   if((type(compoundAction) == "table"
     and compoundAction["getNameElem"] ~= nil
     and compoundAction:getNameElem() ~= "compoundAction")
+    or (type(compoundAction) == "table"
+    and compoundAction["getNameElem"] == nil)
     or type(compoundAction) ~= "table")then
-    error("Error! Invalid compoundAction element!")
+    error("Error! Invalid compoundAction element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compoundAction element with nil children list!", 2)
+  elseif(self.compoundActions == nil)then
+    error("Error! compoundAction element with nil compoundActions list!", 2)
   end
-  
+
   self:removeChild(compoundAction)
 
   for p, ca in ipairs(self.compoundActions) do
@@ -159,7 +189,17 @@ function CompoundAction:removeCompoundAction(compoundAction)
 end
 
 function CompoundAction:removeCompoundActionPos(p)
-  self:removeChildPos(p)
+   if(self.children == nil)then
+    error("Error! compoundAction element with nil children list!", 2)
+  elseif(self.compoundActions == nil)then
+    error("Error! compoundAction element with nil compoundActions list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compoundAction element doesn't have a compoundAction child in position "..p.."!", 2)
+  elseif(p > #self.compoundActions)then
+    error("Error! compoundAction element doesn't have a compoundAction child in position "..p.."!", 2)
+  end
+  
+  self:removeChild(self.compoundActions[p])
   table.remove(self.compoundActions, p)
 end
 

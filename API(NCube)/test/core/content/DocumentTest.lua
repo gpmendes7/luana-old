@@ -98,10 +98,10 @@ local function test6()
   document:setHead(head)
   document:setBody(body)
 
-  document:removeHead(head)
+  document:removeHead()
   assert(document:getHead() == nil, "Error!")
 
-  document:removeBody(body)
+  document:removeBody()
   assert(document:getBody() == nil, "Error!")
 end
 

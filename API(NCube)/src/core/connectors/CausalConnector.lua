@@ -212,7 +212,7 @@ function CausalConnector:setSimpleAction(simpleAction)
     or (type(simpleAction) == "table"
     and simpleAction["getNameElem"] == nil)
     or type(simpleAction) ~= "table")then
-    error("Error! Invalid simpleAction element!",2 )
+    error("Error! Invalid simpleAction element!", 2)
   end
 
   local p
