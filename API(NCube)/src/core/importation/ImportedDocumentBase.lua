@@ -44,16 +44,20 @@ function ImportedDocumentBase:addImportNCL(importNCL)
   if((type(importNCL) == "table"
     and importNCL["getNameElem"] ~= nil
     and importNCL:getNameElem() ~= "importNCL")
+    or (type(importNCL) == "table"
+    and importNCL["getNameElem"] == nil)
     or type(importNCL) ~= "table")then
-    error("Error! Invalid importNCL element!")
+    error("Error! Invalid importNCL element!", 2)
   end
-  
+
   self:addChild(importNCL)
   table.insert(self.importNCLs, importNCL)
 end
 
 function ImportedDocumentBase:getImportNCLPos(p)
-  if(p > #self.importNCLs)then
+  if(self.importNCLs == nil)then
+    error("Error! importedDocumentBase element with nil importNCLs list!", 2)
+  elseif(p > #self.importNCLs)then
     error("Error! importedDocumentBase element doesn't have a importNCL child in position "..p.."!", 2)
   end
 
@@ -72,10 +76,16 @@ function ImportedDocumentBase:removeImportNCL(importNCL)
   if((type(importNCL) == "table"
     and importNCL["getNameElem"] ~= nil
     and importNCL:getNameElem() ~= "importNCL")
+    or (type(importNCL) == "table"
+    and importNCL["getNameElem"] == nil)
     or type(importNCL) ~= "table")then
-    error("Error! Invalid importNCL element!")
+    error("Error! Invalid importNCL element!", 2)
+  elseif(self.children == nil)then
+    error("Error! importedDocumentBase element with nil children list!", 2)
+  elseif(self.importNCLs == nil)then
+    error("Error! importedDocumentBase element with nil importNCLs list!", 2)
   end
-  
+
   self:removeChild(importNCL)
 
   for p, ip in ipairs(self.importNCLs) do
@@ -86,7 +96,17 @@ function ImportedDocumentBase:removeImportNCL(importNCL)
 end
 
 function ImportedDocumentBase:removeImportNCLPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! importedDocumentBase element with nil children list!", 2)
+  elseif(self.importNCLs == nil)then
+    error("Error! importedDocumentBase element with nil importNCLs list!", 2)
+  elseif(p > #self.children)then
+    error("Error! importedDocumentBase element doesn't have a importNCL child in position "..p.."!", 2)
+  elseif(p > #self.importNCLs)then
+    error("Error! importedDocumentBase element doesn't have a importNCL child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.importNCLs[p])
   table.remove(self.importNCLs, p)
 end
 

@@ -41,9 +41,9 @@ function Region:create(attributes, full)
   region.height = nil
   region.width = nil
   region.zIndex = nil
-  
+
   region.symbols = {}
-  
+
   region.ass = {}
 
   if(attributes ~= nil)then
@@ -148,16 +148,20 @@ function Region:addRegion(region)
   if((type(region) == "table"
     and region["getNameElem"] ~= nil
     and region:getNameElem() ~= "region")
+    or (type(region) == "table"
+    and region["getNameElem"] == nil)
     or type(region) ~= "table")then
-    error("Error! Invalid region element!")
+    error("Error! Invalid region element!", 2)
   end
-  
+
   self:addChild(region)
   table.insert(self.regions, region)
 end
 
 function Region:getRegionPos(p)
-  if(p > #self.regions)then
+  if(self.regions == nil)then
+    error("Error! region element with nil regions list!", 2)
+  elseif(p > #self.regions)then
     error("Error! region element doesn't have a region child in position "..p.."!", 2)
   end
 
@@ -167,8 +171,10 @@ end
 function Region:getRegionById(id)
   if(id == nil)then
     error("Error! id attribute of region element must be informed!", 2)
+  elseif(self.regions == nil)then
+    error("Error! region element with nil regions list!", 2)
   end
-  
+
   for _, region in ipairs(self.regions) do
     if(region:getId() == id)then
       return region
@@ -190,10 +196,16 @@ function Region:removeRegion(region)
   if((type(region) == "table"
     and region["getNameElem"] ~= nil
     and region:getNameElem() ~= "region")
+    or (type(region) == "table"
+    and region["getNameElem"] == nil)
     or type(region) ~= "table")then
-    error("Error! Invalid region element!")
+    error("Error! Invalid region element!", 2)
+  elseif(self.children == nil)then
+    error("Error! region element with nil children list!", 2)
+  elseif(self.regions == nil)then
+    error("Error! region element with nil regions list!", 2)
   end
-  
+
   self:removeChild(region)
 
   for p, rg in ipairs(self.regions) do
@@ -204,6 +216,16 @@ function Region:removeRegion(region)
 end
 
 function Region:removeRegionPos(p)
+  if(self.children == nil)then
+    error("Error! region element with nil children list!", 2)
+  elseif(self.regions == nil)then
+    error("Error! region element with nil regions list!", 2)
+  elseif(p > #self.children)then
+    error("Error! region element doesn't have a region child in position "..p.."!", 2)
+  elseif(p > #self.regions)then
+    error("Error! region element doesn't have a region child in position "..p.."!", 2)
+  end
+
   self:removeChildPos(p)
   table.remove(self.regions, p)
 end

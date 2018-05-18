@@ -49,7 +49,7 @@ function Port:setComponent(component)
     elseif(component["getName"] ~= nil)then
       self:addAttribute("component", component:getName())
     else
-      error("Error! Invalid component element!")
+      error("Error! Invalid component element!", 2)
     end
 
     self.componentAss = component
@@ -57,7 +57,7 @@ function Port:setComponent(component)
   elseif(type(component) == "string" )then
     self:addAttribute("component", component)
   else
-    error("Error! Invalid component element!")
+    error("Error! Invalid component element!", 2)
   end
 end
 
@@ -76,7 +76,7 @@ function Port:setInterface(interface)
     elseif(interface["getName"] ~= nil)then
       self:addAttribute("interface", interface:getName())
     else
-      error("Error! Invalid interface element!")
+      error("Error! Invalid interface element!", 2)
     end
 
     self.interfaceAss = interface
@@ -84,7 +84,7 @@ function Port:setInterface(interface)
   elseif(type(interface) == "string" )then
     self:addAttribute("interface", interface)
   else
-    error("Error! Invalid interface element!")
+    error("Error! Invalid interface element!", 2)
   end
 end
 

@@ -52,8 +52,10 @@ function DescriptorBase:addDescriptorSwitch(descriptorSwitch)
   if((type(descriptorSwitch) == "table"
     and descriptorSwitch["getNameElem"] ~= nil
     and descriptorSwitch:getNameElem() ~= "descriptorSwitch")
+    or (type(descriptorSwitch) == "table"
+    and descriptorSwitch["getNameElem"] == nil)
     or type(descriptorSwitch) ~= "table")then
-    error("Error! Invalid descriptorSwitch element!")
+    error("Error! Invalid descriptorSwitch element!", 2)
   end
 
   self:addChild(descriptorSwitch)
@@ -61,7 +63,9 @@ function DescriptorBase:addDescriptorSwitch(descriptorSwitch)
 end
 
 function DescriptorBase:getDescriptorSwitchPos(p)
-  if(p > #self.descriptors)then
+  if(self.descriptorSwitchs == nil)then
+    error("Error! descriptorBase element with nil descriptorSwitchs list!", 2)
+  elseif(p > #self.descriptorSwitchs)then
     error("Error! descriptorBase element doesn't have a descriptorSwitch child in position "..p.."!", 2)
   end
 
@@ -71,6 +75,8 @@ end
 function DescriptorBase:getDescriptorSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of descriptorSwitch element must be informed!", 2)
+  elseif(self.descriptorSwitchs == nil)then
+    error("Error! descriptorBase element with nil descriptorSwitchs list!", 2)
   end
 
   for _, descriptorSwitch in ipairs(self.descriptorSwitchs) do
@@ -94,8 +100,14 @@ function DescriptorBase:removeDescriptorSwitch(descriptorSwitch)
   if((type(descriptorSwitch) == "table"
     and descriptorSwitch["getNameElem"] ~= nil
     and descriptorSwitch:getNameElem() ~= "descriptorSwitch")
+    or (type(descriptorSwitch) == "table"
+    and descriptorSwitch["getNameElem"] == nil)
     or type(descriptorSwitch) ~= "table")then
-    error("Error! Invalid descriptorSwitch element!")
+    error("Error! Invalid descriptorSwitch element!", 2)
+  elseif(self.children == nil)then
+    error("Error! descriptorBase element with nil children list!", 2)
+  elseif(self.descriptorSwitchs == nil)then
+    error("Error! descriptorBase element with nil descriptorSwitchs list!", 2)
   end
 
   self:removeChild(descriptorSwitch)
@@ -108,7 +120,17 @@ function DescriptorBase:removeDescriptorSwitch(descriptorSwitch)
 end
 
 function DescriptorBase:removeDescriptorSwitchPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! descriptorBase element with nil children list!", 2)
+  elseif(self.descriptorSwitchs == nil)then
+    error("Error! descriptorBase element with nil descriptorSwitchs list!", 2)
+  elseif(p > #self.children)then
+    error("Error! descriptorBase element doesn't have a descriptorSwitch child in position "..p.."!", 2)
+  elseif(p > #self.descriptorSwitchs)then
+    error("Error! descriptorBase element doesn't have a descriptorSwitch child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.descriptorSwitchs[p])
   table.remove(self.descriptorSwitchs, p)
 end
 
@@ -116,8 +138,10 @@ function DescriptorBase:addImportBase(importBase)
   if((type(importBase) == "table"
     and importBase["getNameElem"] ~= nil
     and importBase:getNameElem() ~= "importBase")
+    or (type(importBase) == "table"
+    and importBase["getNameElem"] == nil)
     or type(importBase) ~= "table")then
-    error("Error! Invalid importBase element!")
+    error("Error! Invalid importBase element!", 2)
   end
 
   self:addChild(importBase)
@@ -125,7 +149,9 @@ function DescriptorBase:addImportBase(importBase)
 end
 
 function DescriptorBase:getImportBasePos(p)
-  if(p > #self.importBases)then
+  if(self.importBases == nil)then
+    error("Error! descriptorBase element with nil importBases list!", 2)
+  elseif(p > #self.importBases)then
     error("Error! descriptorBase element doesn't have a importBase child in position "..p.."!", 2)
   end
 
@@ -135,6 +161,8 @@ end
 function DescriptorBase:getImportBaseByAlias(alias)
   if(alias == nil)then
     error("Error! alias attribute of importBase element must be informed!", 2)
+  elseif(self.importBases == nil)then
+    error("Error! descriptorBase element with nil importBases list!", 2)
   end
 
   for _, importBase in ipairs(self.importBases) do
@@ -158,10 +186,16 @@ function DescriptorBase:removeImportBase(importBase)
   if((type(importBase) == "table"
     and importBase["getNameElem"] ~= nil
     and importBase:getNameElem() ~= "importBase")
+    or (type(importBase) == "table"
+    and importBase["getNameElem"] == nil)
     or type(importBase) ~= "table")then
-    error("Error! Invalid importBase element!")
+    error("Error! Invalid importBase element!", 2)
+  elseif(self.children == nil)then
+    error("Error! descriptorBase element with nil children list!", 2)
+  elseif(self.importBases == nil)then
+    error("Error! descriptorBase element with nil importBases list!", 2)
   end
-  
+
   self:removeChild(importBase)
 
   for p, ib in ipairs(self.importBases) do
@@ -172,7 +206,17 @@ function DescriptorBase:removeImportBase(importBase)
 end
 
 function DescriptorBase:removeImportBasePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! descriptorBase element with nil children list!", 2)
+  elseif(self.importBases == nil)then
+    error("Error! descriptorBase element with nil importBases list!", 2)
+  elseif(p > #self.children)then
+    error("Error! descriptorBase element doesn't have a importBase child in position "..p.."!", 2)
+  elseif(p > #self.importBases)then
+    error("Error! descriptorBase element doesn't have a importBase child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.importBases[p])
   table.remove(self.importBases, p)
 end
 
@@ -180,16 +224,20 @@ function DescriptorBase:addDescriptor(descriptor)
   if((type(descriptor) == "table"
     and descriptor["getNameElem"] ~= nil
     and descriptor:getNameElem() ~= "descriptor")
+    or (type(descriptor) == "table"
+    and descriptor["getNameElem"] == nil)
     or type(descriptor) ~= "table")then
-    error("Error! Invalid descriptor element!")
+    error("Error! Invalid descriptor element!", 2)
   end
-  
+
   self:addChild(descriptor)
   table.insert(self.descriptors, descriptor)
 end
 
 function DescriptorBase:getDescriptorPos(p)
-  if(p > #self.descriptors)then
+  if(self.descriptors == nil)then
+    error("Error! descriptorBase element with nil descriptors list!", 2)
+  elseif(p > #self.descriptors)then
     error("Error! descriptorBase element doesn't have a descriptor child in position "..p.."!", 2)
   end
 
@@ -199,6 +247,8 @@ end
 function DescriptorBase:getDescriptorById(id)
   if(id == nil)then
     error("Error! id attribute of descriptor element must be informed!", 2)
+  elseif(self.descriptors == nil)then
+    error("Error! descriptorBase element with nil descriptors list!", 2)
   end
 
   for _, descriptor in ipairs(self.descriptors) do
@@ -218,14 +268,20 @@ function DescriptorBase:setDescriptors(...)
   end
 end
 
-function DescriptorBase:removeDescriptor(descriptor) 
+function DescriptorBase:removeDescriptor(descriptor)
   if((type(descriptor) == "table"
     and descriptor["getNameElem"] ~= nil
     and descriptor:getNameElem() ~= "descriptor")
+    or (type(descriptor) == "table"
+    and descriptor["getNameElem"] == nil)
     or type(descriptor) ~= "table")then
-    error("Error! Invalid descriptor element!")
+    error("Error! Invalid descriptor element!", 2)
+  elseif(self.children == nil)then
+    error("Error! descriptorBase element with nil children list!", 2)
+  elseif(self.descriptors == nil)then
+    error("Error! descriptorBase element with nil descriptors list!", 2)
   end
-  
+
   self:removeChild(descriptor)
 
   for p, dc in ipairs(self.descriptors) do
@@ -236,7 +292,17 @@ function DescriptorBase:removeDescriptor(descriptor)
 end
 
 function DescriptorBase:removeDescriptorPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! descriptorBase element with nil children list!", 2)
+  elseif(self.descriptors == nil)then
+    error("Error! descriptorBase element with nil descriptors list!", 2)
+  elseif(p > #self.children)then
+    error("Error! descriptorBase element doesn't have a descriptor child in position "..p.."!", 2)
+  elseif(p > #self.descriptors)then
+    error("Error! descriptorBase element doesn't have a descriptor child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.descriptors[p])
   table.remove(self.descriptors, p)
 end
 

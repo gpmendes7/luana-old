@@ -60,7 +60,7 @@ function ImportBase:setRegion(region)
   elseif(type(region) == "string" )then
     self:addAttribute("region", region)
   else
-    error("Error! Invalid region element!")
+    error("Error! Invalid region element!", 2)
   end
 end
 
@@ -74,7 +74,7 @@ end
 
 function ImportBase:setBaseId(baseId)
   if(type(baseId) == "table"
-    and region["getNameElem"] ~= nil
+    and baseId["getNameElem"] ~= nil
     and baseId:getNameElem() == "regionBase")then
     self:addAttribute("baseId", baseId:getId())
     self.baseIdAss = baseId
@@ -82,7 +82,7 @@ function ImportBase:setBaseId(baseId)
   elseif(type(baseId) == "string" )then
     self:addAttribute("baseId", baseId)
   else
-    error("Error! Invalid region element!")
+    error("Error! Invalid region element!", 2)
   end
 end
 

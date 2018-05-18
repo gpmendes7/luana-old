@@ -90,7 +90,7 @@ local function test6()
   descriptorBase:removeDescriptor(descriptor)
   assert(descriptorBase:getDescriptorById("d1") == nil, "Error!")
 
-  descriptorBase:addImportBase(importBase)
+  descriptorBase:addDescriptor(descriptor)
   descriptorBase:removeDescriptorPos(1)
   assert(descriptorBase:getDescriptorById("d1") == nil, "Error!")
 

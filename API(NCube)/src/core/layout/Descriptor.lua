@@ -128,7 +128,7 @@ function Descriptor:setRegion(region)
   elseif(type(region) == "string")then
     self:addAttribute("region", region)
   else
-    error("Error! Invalid region element!")
+    error("Error! Invalid region element!", 2)
   end
 end
 
@@ -252,7 +252,7 @@ function Descriptor:setTransIn(...)
           id = id + ","
         end
       else
-        return
+        error("Invalid transin element!", 2)
       end
     end
 
@@ -265,7 +265,7 @@ function Descriptor:setTransIn(...)
     elseif(type(arg[1]) == "string")then
       self:addAttribute("transIn", arg[1])
     else
-      error("Invalid transin element!")
+      error("Invalid transin element!", 2)
     end
   end
 end
@@ -294,7 +294,7 @@ function Descriptor:setTransOut(...)
           id = id + ","
         end
       else
-        return
+        error("Invalid transOut element!", 2)
       end
     end
 
@@ -307,7 +307,7 @@ function Descriptor:setTransOut(...)
     elseif(type(arg[1]) == "string")then
       self:addAttribute("transOut", arg[1])
     else
-      error("Invalid transOut element!")
+      error("Invalid transOut element!", 2)
     end
   end
 end
@@ -324,8 +324,10 @@ function Descriptor:addDescriptorParam(descriptorParam)
   if((type(descriptorParam) == "table"
     and descriptorParam["getNameElem"] ~= nil
     and descriptorParam:getNameElem() ~= "descriptorParam")
+    or (type(descriptorParam) == "table"
+    and descriptorParam["getNameElem"] == nil)
     or type(descriptorParam) ~= "table")then
-    error("Error! Invalid descriptorParam element!")
+    error("Error! Invalid descriptorParam element!", 2)
   end
 
   self:addChild(descriptorParam)
@@ -333,7 +335,9 @@ function Descriptor:addDescriptorParam(descriptorParam)
 end
 
 function Descriptor:getDescriptorParamPos(p)
-  if(p > #self.descriptorParams)then
+  if(self.descriptorParams == nil)then
+    error("Error! descriptor element with nil descriptorParams list!", 2)
+  elseif(p > #self.descriptorParams)then
     error("Error! descriptor element doesn't have a descriptorParam child in position "..p.."!", 2)
   end
 
@@ -352,8 +356,14 @@ function Descriptor:removeDescriptorParam(descriptorParam)
   if((type(descriptorParam) == "table"
     and descriptorParam["getNameElem"] ~= nil
     and descriptorParam:getNameElem() ~= "descriptorParam")
+    or (type(descriptorParam) == "table"
+    and descriptorParam["getNameElem"] == nil)
     or type(descriptorParam) ~= "table")then
-    error("Error! Invalid descriptorParam element!")
+    error("Error! Invalid descriptorParam element!", 2)
+  elseif(self.children == nil)then
+    error("Error! descriptor element with nil children list!", 2)
+  elseif(self.descriptorParams == nil)then
+    error("Error! descriptor element with nil descriptorParams list!", 2)
   end
 
   self:removeChild(descriptorParam)
@@ -366,7 +376,17 @@ function Descriptor:removeDescriptorParam(descriptorParam)
 end
 
 function Descriptor:removeDescriptorParamPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! descriptor element with nil children list!", 2)
+  elseif(self.descriptorParams == nil)then
+    error("Error! descriptor element with nil descriptorParams list!", 2)
+  elseif(p > #self.children)then
+    error("Error! descriptor element doesn't have a descriptorParam child in position "..p.."!", 2)
+  elseif(p > #self.descriptorParams)then
+    error("Error! descriptor element doesn't have a descriptorParam child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.descriptorParams[p])
   table.remove(self.descriptorParams, p)
 end
 

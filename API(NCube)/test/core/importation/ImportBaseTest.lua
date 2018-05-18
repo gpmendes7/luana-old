@@ -13,8 +13,6 @@ local function test1()
 end
 
 local function test2()
-  local importBase = nil
-
   local atts = {
     alias = "connBase",
     documentURI = "connBase.ncl",
