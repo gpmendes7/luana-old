@@ -61,8 +61,10 @@ function CompositeRule:addRule(rule)
   if((type(rule) == "table"
     and rule["getNameElem"] ~= nil
     and rule:getNameElem() ~= "rule")
+    or (type(rule) == "table"
+    and rule["getNameElem"] == nil)
     or type(rule) ~= "table")then
-    error("Error! Invalid rule element!")
+    error("Error! Invalid rule element!", 2)
   end
 
   local p = self:getPosAvailable("rule", "compositeRule")
@@ -77,7 +79,9 @@ function CompositeRule:addRule(rule)
 end
 
 function CompositeRule:getRulePos(p)
-  if(p > #self.rules)then
+  if(self.rules == nil)then
+    error("Error! compositeRule element with nil rules list!", 2)
+  elseif(p > #self.rules)then
     error("Error! compositeRule element doesn't have a rule child in position "..p.."!", 2)
   end
 
@@ -96,8 +100,14 @@ function CompositeRule:removeRule(rule)
   if((type(rule) == "table"
     and rule["getNameElem"] ~= nil
     and rule:getNameElem() ~= "rule")
+    or (type(rule) == "table"
+    and rule["getNameElem"] == nil)
     or type(rule) ~= "table")then
-    error("Error! Invalid rule element!")
+    error("Error! Invalid rule element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compositeRule element with nil children list!", 2)
+  elseif(self.rules == nil)then
+    error("Error! compositeRule element with nil rules list!", 2)
   end
 
   self:removeChild(rule)
@@ -110,7 +120,17 @@ function CompositeRule:removeRule(rule)
 end
 
 function CompositeRule:removeRulePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compositeRule element with nil children list!", 2)
+  elseif(self.rules == nil)then
+    error("Error! compositeRule element with nil rules list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compositeRule element doesn't have a rule child in position "..p.."!", 2)
+  elseif(p > #self.rules)then
+    error("Error! compositeRule element doesn't have a rule child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.rules[p])
   table.remove(self.rules, p)
 end
 
@@ -118,8 +138,10 @@ function CompositeRule:addCompositeRule(compositeRule)
   if((type(compositeRule) == "table"
     and compositeRule["getNameElem"] ~= nil
     and compositeRule:getNameElem() ~= "compositeRule")
+    or (type(compositeRule) == "table"
+    and compositeRule["getNameElem"] == nil)
     or type(compositeRule) ~= "table")then
-    error("Error! Invalid compositeRule element!")
+    error("Error! Invalid compositeRule element!", 2)
   end
 
   local p = self:getPosAvailable("compositeRule", "rule")
@@ -134,7 +156,9 @@ function CompositeRule:addCompositeRule(compositeRule)
 end
 
 function CompositeRule:getCompositeRulePos(p)
-  if(p > #self.compositeRules)then
+  if(self.compositeRules == nil)then
+    error("Error! compositeRule element with nil compositeRules list!", 2)
+  elseif(p > #self.compositeRules)then
     error("Error! compositeRule element doesn't have a compositeRule child in position "..p.."!", 2)
   end
 
@@ -153,8 +177,14 @@ function CompositeRule:removeCompositeRule(compositeRule)
   if((type(compositeRule) == "table"
     and compositeRule["getNameElem"] ~= nil
     and compositeRule:getNameElem() ~= "compositeRule")
+    or (type(compositeRule) == "table"
+    and compositeRule["getNameElem"] == nil)
     or type(compositeRule) ~= "table")then
-    error("Error! Invalid compositeRule element!")
+    error("Error! Invalid compositeRule element!", 2)
+  elseif(self.children == nil)then
+    error("Error! compositeRule element with nil children list!", 2)
+  elseif(self.compositeRules == nil)then
+    error("Error! compositeRule element with nil compositeRules list!", 2)
   end
 
   self:removeChild(compositeRule)
@@ -167,7 +197,17 @@ function CompositeRule:removeCompositeRule(compositeRule)
 end
 
 function CompositeRule:removeCompositeRulePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! compositeRule element with nil children list!", 2)
+  elseif(self.compositeRules == nil)then
+    error("Error! compositeRule element with nil compositeRules list!", 2)
+  elseif(p > #self.children)then
+    error("Error! compositeRule element doesn't have a compositeRule child in position "..p.."!", 2)
+  elseif(p > #self.compositeRules)then
+    error("Error! compositeRule element doesn't have a compositeRule child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.compositeRules[p])
   table.remove(self.compositeRules, p)
 end
 

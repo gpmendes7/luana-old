@@ -32,14 +32,18 @@ end
 
 function BindRule:setConstituent(constituent)
   if(type(constituent) == "table")then
-    if(constituent.getId ~= nil)then
+    if(constituent["getId"] ~= nil)then
       self:addAttribute("constituent", constituent:getId())
+    else
+      error("Error! Invalid constituent element!", 2)
     end
 
     self.constituentAss = constituent
     table.insert(constituent.ass, self)
-  else
+  elseif(type(constituent) == "string" )then
     self:addAttribute("constituent", constituent)
+  else
+    error("Error! Invalid constituent element!", 2)
   end
 end
 
@@ -49,14 +53,18 @@ end
 
 function BindRule:setRule(rule)
   if(type(rule) == "table")then
-    if(rule.getId ~= nil)then
+    if(rule["getId"] ~= nil)then
       self:addAttribute("rule", rule:getId())
+    else
+      error("Error! Invalid rule element!", 2)
     end
 
     self.ruleAss = rule
     table.insert(rule.ass, self)
-  else
+  elseif(type(rule) == "string" )then
     self:addAttribute("rule", rule)
+  else
+    error("Error! Invalid rule element!", 2)
   end
 end
 

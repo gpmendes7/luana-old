@@ -226,7 +226,7 @@ function Region:removeRegionPos(p)
     error("Error! region element doesn't have a region child in position "..p.."!", 2)
   end
 
-  self:removeChildPos(p)
+  self:removeChild(self.regions[p])
   table.remove(self.regions, p)
 end
 

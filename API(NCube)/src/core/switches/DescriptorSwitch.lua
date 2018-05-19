@@ -54,6 +54,8 @@ function DescriptorSwitch:setDefaultDescriptor(defaultDescriptor)
   if((type(defaultDescriptor) == "table"
     and defaultDescriptor["getNameElem"] ~= nil
     and defaultDescriptor:getNameElem() ~= "defaultDescriptor")
+    or (type(defaultDescriptor) == "table"
+    and defaultDescriptor["getNameElem"] == nil)
     or type(defaultDescriptor) ~= "table")then
     error("Error! Invalid defaultDescriptor element!")
   end
@@ -75,6 +77,8 @@ function DescriptorSwitch:addBindRule(bindRule)
   if((type(bindRule) == "table"
     and bindRule["getNameElem"] ~= nil
     and bindRule:getNameElem() ~= "bindRule")
+    or (type(bindRule) == "table"
+    and bindRule["getNameElem"] == nil)
     or type(bindRule) ~= "table")then
     error("Error! Invalid bindRule element!")
   end
@@ -84,7 +88,9 @@ function DescriptorSwitch:addBindRule(bindRule)
 end
 
 function DescriptorSwitch:getBindRulePos(p)
-  if(p > #self.bindRules)then
+  if(self.bindRules == nil)then
+    error("Error! descriptorSwitch element with nil bindRules list!", 2)
+  elseif(p > #self.bindRules)then
     error("Error! descriptorSwitch element doesn't have a bindRule child in position "..p.."!", 2)
   end
 
@@ -94,6 +100,8 @@ end
 function DescriptorSwitch:getBindRuleById(id)
   if(id == nil)then
     error("Error! id attribute of bindRule element must be informed!", 2)
+  elseif(self.bindRules == nil)then
+    error("Error! descriptorSwitch element with nil bindRules list!", 2)
   end
 
   for _, bindRule in ipairs(self.bindRules) do
@@ -117,8 +125,14 @@ function DescriptorSwitch:removeBindRule(bindRule)
   if((type(bindRule) == "table"
     and bindRule["getNameElem"] ~= nil
     and bindRule:getNameElem() ~= "bindRule")
+    or (type(bindRule) == "table"
+    and bindRule["getNameElem"] == nil)
     or type(bindRule) ~= "table")then
     error("Error! Invalid bindRule element!")
+  elseif(self.children == nil)then
+    error("Error! descriptorSwitch element with nil children list!", 2)
+  elseif(self.bindRules == nil)then
+    error("Error! descriptorSwitch element with nil bindRules list!", 2)
   end
 
   self:removeChild(bindRule)
@@ -131,7 +145,17 @@ function DescriptorSwitch:removeBindRule(bindRule)
 end
 
 function DescriptorSwitch:removeBindRulePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! descriptorSwitch element with nil children list!", 2)
+  elseif(self.bindRules == nil)then
+    error("Error! descriptorSwitch element with nil bindRules list!", 2)
+  elseif(p > #self.children)then
+    error("Error! descriptorSwitch element doesn't have a bindRule child in position "..p.."!", 2)
+  elseif(p > #self.bindRules)then
+    error("Error! descriptorSwitch element doesn't have a bindRule child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.bindRules[p])
   table.remove(self.bindRules, p)
 end
 
@@ -139,6 +163,8 @@ function DescriptorSwitch:addDescriptor(descriptor)
   if((type(descriptor) == "table"
     and descriptor["getNameElem"] ~= nil
     and descriptor:getNameElem() ~= "descriptor")
+    or (type(descriptor) == "table"
+    and descriptor["getNameElem"] == nil)
     or type(descriptor) ~= "table")then
     error("Error! Invalid descriptor element!")
   end
@@ -148,7 +174,9 @@ function DescriptorSwitch:addDescriptor(descriptor)
 end
 
 function DescriptorSwitch:getDescriptorPos(p)
-  if(p > #self.bindRules)then
+  if(self.descriptors == nil)then
+    error("Error! descriptorSwitch element with nil descriptors list!", 2)
+  elseif(p > #self.descriptors)then
     error("Error! descriptorSwitch element doesn't have a descriptor child in position "..p.."!", 2)
   end
 
@@ -158,6 +186,8 @@ end
 function DescriptorSwitch:getDescriptorById(id)
   if(id == nil)then
     error("Error! id attribute of descriptor element must be informed!", 2)
+  elseif(self.descriptors == nil)then
+    error("Error! descriptorSwitch element with nil descriptors list!", 2)
   end
 
   for _, descriptor in ipairs(self.descriptors) do
@@ -181,8 +211,14 @@ function DescriptorSwitch:removeDescriptor(descriptor)
   if((type(descriptor) == "table"
     and descriptor["getNameElem"] ~= nil
     and descriptor:getNameElem() ~= "descriptor")
+    or (type(descriptor) == "table"
+    and descriptor["getNameElem"] == nil)
     or type(descriptor) ~= "table")then
     error("Error! Invalid descriptor element!")
+  elseif(self.children == nil)then
+    error("Error! descriptorSwitch element with nil children list!", 2)
+  elseif(self.descriptors == nil)then
+    error("Error! descriptorSwitch element with nil descriptors list!", 2)
   end
 
   self:removeChild(descriptor)
@@ -195,7 +231,17 @@ function DescriptorSwitch:removeDescriptor(descriptor)
 end
 
 function DescriptorSwitch:removeDescriptorPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! descriptorSwitch element with nil children list!", 2)
+  elseif(self.descriptors == nil)then
+    error("Error! descriptorSwitch element with nil descriptors list!", 2)
+  elseif(p > #self.children)then
+    error("Error! descriptorSwitch element doesn't have a descriptor child in position "..p.."!", 2)
+  elseif(p > #self.descriptors)then
+    error("Error! descriptorSwitch element doesn't have a descriptor child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.descriptors[p])
   table.remove(self.descriptors, p)
 end
 

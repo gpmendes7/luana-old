@@ -62,7 +62,7 @@ function Link:setXConnector(xconnector)
   elseif(type(xconnector) == "string" )then
     self:addAttribute("xconnector", xconnector)
   else
-    error("Error! Invalid causalConnector element!")
+    error("Error! Invalid causalConnector element!", 2)
   end
 end
 
@@ -74,8 +74,10 @@ function Link:addLinkParam(linkParam)
   if((type(linkParam) == "table"
     and linkParam["getNameElem"] ~= nil
     and linkParam:getNameElem() ~= "linkParam")
+    or (type(linkParam) == "table"
+    and linkParam["getNameElem"] == nil)
     or type(linkParam) ~= "table")then
-    error("Error! Invalid linkParam element!")
+    error("Error! Invalid linkParam element!", 2)
   end
 
   self:addChild(linkParam)
@@ -83,7 +85,9 @@ function Link:addLinkParam(linkParam)
 end
 
 function Link:getLinkParamPos(p)
-  if(p > #self.linkParams)then
+  if(self.linkParams == nil)then
+    error("Error! link element with nil linkParams list!", 2)
+  elseif(p > #self.linkParams)then
     error("Error! link element doesn't have a linkParam child in position "..p.."!", 2)
   end
 
@@ -102,8 +106,14 @@ function Link:removeLinkParam(linkParam)
   if((type(linkParam) == "table"
     and linkParam["getNameElem"] ~= nil
     and linkParam:getNameElem() ~= "linkParam")
+    or (type(linkParam) == "table"
+    and linkParam["getNameElem"] == nil)
     or type(linkParam) ~= "table")then
-    error("Error! Invalid linkParam element!")
+    error("Error! Invalid linkParam element!", 2)
+  elseif(self.children == nil)then
+    error("Error! link element with nil children list!", 2)
+  elseif(self.linkParams == nil)then
+    error("Error! link element with nil linkParams list!", 2)
   end
 
   self:removeChild(linkParam)
@@ -116,7 +126,17 @@ function Link:removeLinkParam(linkParam)
 end
 
 function Link:removeLinkParamPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! link element with nil children list!", 2)
+  elseif(self.linkParams == nil)then
+    error("Error! link element with nil linkParams list!", 2)
+  elseif(p > #self.children)then
+    error("Error! link element doesn't have a linkParam child in position "..p.."!", 2)
+  elseif(p > #self.linkParams)then
+    error("Error! link element doesn't have a linkParam child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.linkParams[p])
   table.remove(self.linkParams, p)
 end
 
@@ -124,8 +144,10 @@ function Link:addBind(bind)
   if((type(bind) == "table"
     and bind["getNameElem"] ~= nil
     and bind:getNameElem() ~= "bind")
+    or (type(bind) == "table"
+    and bind["getNameElem"] == nil)
     or type(bind) ~= "table")then
-    error("Error! Invalid bind element!")
+    error("Error! Invalid bind element!", 2)
   end
 
   self:addChild(bind)
@@ -133,7 +155,9 @@ function Link:addBind(bind)
 end
 
 function Link:getBindPos(p)
-  if(p > #self.binds)then
+  if(self.binds == nil)then
+    error("Error! link element with nil binds list!", 2)
+  elseif(p > #self.binds)then
     error("Error! link element doesn't have a bind child in position "..p.."!", 2)
   end
 
@@ -152,8 +176,14 @@ function Link:removeBind(bind)
   if((type(bind) == "table"
     and bind["getNameElem"] ~= nil
     and bind:getNameElem() ~= "bind")
+    or (type(bind) == "table"
+    and bind["getNameElem"] == nil)
     or type(bind) ~= "table")then
-    error("Error! Invalid bind element!")
+    error("Error! Invalid bind element!", 2)
+  elseif(self.children == nil)then
+    error("Error! link element with nil children list!", 2)
+  elseif(self.binds == nil)then
+    error("Error! link element with nil link list!", 2)
   end
 
   self:removeChild(bind)
@@ -166,7 +196,17 @@ function Link:removeBind(bind)
 end
 
 function Link:removeBindPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! link element with nil children list!", 2)
+  elseif(self.binds == nil)then
+    error("Error! link element with nil binds list!", 2)
+  elseif(p > #self.children)then
+    error("Error! link element doesn't have a bind child in position "..p.."!", 2)
+  elseif(p > #self.binds)then
+    error("Error! link element doesn't have a bind child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.binds[p])
   table.remove(self.binds, p)
 end
 

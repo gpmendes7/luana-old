@@ -63,7 +63,7 @@ function Bind:setComponent(component)
     elseif(component["getName"] ~= nil)then
       self:addAttribute("component", component:getName())
     else
-      error("Error! Invalid component element!")
+      error("Error! Invalid component element!", 2)
     end
 
     self.componentAss = component
@@ -71,7 +71,7 @@ function Bind:setComponent(component)
   elseif(type(component) == "string" )then
     self:addAttribute("component", component)
   else
-    error("Error! Invalid component element!")
+    error("Error! Invalid component element!", 2)
   end
 end
 
@@ -86,7 +86,7 @@ function Bind:setInterface(interface)
     elseif(interface["getName"] ~= nil)then
       self:addAttribute("interface", interface:getName())
     else
-      error("Error! Invalid interface element!")
+      error("Error! Invalid interface element!", 2)
     end
 
     self.interfaceAss = interface
@@ -94,7 +94,7 @@ function Bind:setInterface(interface)
   elseif(type(interface) == "string" )then
     self:addAttribute("interface", interface)
   else
-    error("Error! Invalid interface element!")
+    error("Error! Invalid interface element!", 2)
   end
 end
 
@@ -112,7 +112,7 @@ function Bind:setDescriptor(descriptor)
   elseif(type(descriptor) == "string" )then
     self:addAttribute("descriptor", descriptor)
   else
-    error("Error! Invalid descriptor element!")
+    error("Error! Invalid descriptor element!", 2)
   end
 end
 
@@ -124,8 +124,10 @@ function Bind:addBindParam(bindParam)
   if((type(bindParam) == "table"
     and bindParam["getNameElem"] ~= nil
     and bindParam:getNameElem() ~= "bindParam")
+    or (type(bindParam) == "table"
+    and bindParam["getNameElem"] == nil)
     or type(bindParam) ~= "table")then
-    error("Error! Invalid bindParam element!")
+    error("Error! Invalid bindParam element!", 2)
   end
 
   local p = self:getPosAvailable("bindParam")
@@ -140,7 +142,9 @@ function Bind:addBindParam(bindParam)
 end
 
 function Bind:getBindParamPos(p)
-  if(p > #self.bindParams)then
+  if(self.bindParams == nil)then
+    error("Error! bind element with nil bindParams list!", 2)
+  elseif(p > #self.bindParams)then
     error("Error! bind element doesn't have a bindParam child in position "..p.."!", 2)
   end
 
@@ -159,8 +163,14 @@ function Bind:removeBindParam(bindParam)
   if((type(bindParam) == "table"
     and bindParam["getNameElem"] ~= nil
     and bindParam:getNameElem() ~= "bindParam")
+    or (type(bindParam) == "table"
+    and bindParam["getNameElem"] == nil)
     or type(bindParam) ~= "table")then
-    error("Error! Invalid bindParam element!")
+    error("Error! Invalid bindParam element!", 2)
+  elseif(self.children == nil)then
+    error("Error! bind element with nil children list!", 2)
+  elseif(self.bindParams == nil)then
+    error("Error! bind element with nil bindParams list!", 2)
   end
 
   self:removeChild(bindParam)
@@ -173,7 +183,17 @@ function Bind:removeBindParam(bindParam)
 end
 
 function Bind:removeBindParamPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! bind element with nil children list!", 2)
+  elseif(self.bindParams == nil)then
+    error("Error! bind element with nil bindParams list!", 2)
+  elseif(p > #self.children)then
+    error("Error! bind element doesn't have a bindParam child in position "..p.."!", 2)
+  elseif(p > #self.bindParams)then
+    error("Error! bind element doesn't have a bindParam child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.bindParams[p])
   table.remove(self.bindParams, p)
 end
 

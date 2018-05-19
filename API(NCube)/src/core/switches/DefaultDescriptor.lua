@@ -36,7 +36,7 @@ function DefaultDescriptor:setDescriptor(descriptor)
   elseif(type(descriptor) == "string" )then
     self:addAttribute("descriptor", descriptor)
   else
-    error("Error! Invalid descriptor element!")
+    error("Error! Invalid descriptor element!", 2)
   end
 end
 

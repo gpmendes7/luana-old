@@ -36,7 +36,7 @@ function DefaultComponent:setComponent(component)
   elseif(type(component) == "string" )then
     self:addAttribute("component", component)
   else
-    error("Error! Invalid component element!")
+    error("Error! Invalid component element!", 2)
   end
 end
 
