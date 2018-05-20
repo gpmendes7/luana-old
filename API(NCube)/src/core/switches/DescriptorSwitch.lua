@@ -57,7 +57,7 @@ function DescriptorSwitch:setDefaultDescriptor(defaultDescriptor)
     or (type(defaultDescriptor) == "table"
     and defaultDescriptor["getNameElem"] == nil)
     or type(defaultDescriptor) ~= "table")then
-    error("Error! Invalid defaultDescriptor element!")
+    error("Error! Invalid defaultDescriptor element!", 2)
   end
 
   self:addChild(defaultDescriptor, 1)
@@ -80,7 +80,7 @@ function DescriptorSwitch:addBindRule(bindRule)
     or (type(bindRule) == "table"
     and bindRule["getNameElem"] == nil)
     or type(bindRule) ~= "table")then
-    error("Error! Invalid bindRule element!")
+    error("Error! Invalid bindRule element!", 2)
   end
 
   self:addChild(bindRule)
@@ -166,7 +166,7 @@ function DescriptorSwitch:addDescriptor(descriptor)
     or (type(descriptor) == "table"
     and descriptor["getNameElem"] == nil)
     or type(descriptor) ~= "table")then
-    error("Error! Invalid descriptor element!")
+    error("Error! Invalid descriptor element!", 2)
   end
 
   self:addChild(descriptor)
@@ -214,7 +214,7 @@ function DescriptorSwitch:removeDescriptor(descriptor)
     or (type(descriptor) == "table"
     and descriptor["getNameElem"] == nil)
     or type(descriptor) ~= "table")then
-    error("Error! Invalid descriptor element!")
+    error("Error! Invalid descriptor element!", 2)
   elseif(self.children == nil)then
     error("Error! descriptorSwitch element with nil children list!", 2)
   elseif(self.descriptors == nil)then

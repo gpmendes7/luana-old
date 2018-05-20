@@ -48,8 +48,10 @@ function TransitionBase:addImportBase(importBase)
   if((type(importBase) == "table"
     and importBase["getNameElem"] ~= nil
     and importBase:getNameElem() ~= "importBase")
+    or (type(importBase) == "table"
+    and importBase["getNameElem"] == nil)
     or type(importBase) ~= "table")then
-    error("Error! Invalid importBase element!")
+    error("Error! Invalid importBase element!", 2)
   end
 
   self:addChild(importBase)
@@ -57,10 +59,22 @@ function TransitionBase:addImportBase(importBase)
 end
 
 function TransitionBase:getImportBasePos(p)
+  if(self.importBases == nil)then
+    error("Error! transitionBase element with nil importBases list!", 2)
+  elseif(p > #self.importBases)then
+    error("Error! transitionBase element doesn't have a importBase child in position "..p.."!", 2)
+  end
+
   return self.importBases[p]
 end
 
 function TransitionBase:getImportBaseByAlias(alias)
+  if(alias == nil)then
+    error("Error! alias attribute of importBase element must be informed!", 2)
+  elseif(self.importBases == nil)then
+    error("Error! transitionBase element with nil importBases list!", 2)
+  end
+
   for _, importBase in ipairs(self.importBases) do
     if(importBase:getAlias() == alias)then
       return importBase
@@ -82,8 +96,14 @@ function TransitionBase:removeImportBase(importBase)
   if((type(importBase) == "table"
     and importBase["getNameElem"] ~= nil
     and importBase:getNameElem() ~= "importBase")
+    or (type(importBase) == "table"
+    and importBase["getNameElem"] == nil)
     or type(importBase) ~= "table")then
-    error("Error! Invalid importBase element!")
+    error("Error! Invalid importBase element!", 2)
+  elseif(self.children == nil)then
+    error("Error! transitionBase element with nil children list!", 2)
+  elseif(self.importBases == nil)then
+    error("Error! transitionBase element with nil importBases list!", 2)
   end
 
   self:removeChild(importBase)
@@ -96,20 +116,51 @@ function TransitionBase:removeImportBase(importBase)
 end
 
 function TransitionBase:removeImportBasePos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! transitionBase element with nil children list!", 2)
+  elseif(self.importBases == nil)then
+    error("Error! transitionBase element with nil importBases list!", 2)
+  elseif(p > #self.children)then
+    error("Error! transitionBase element doesn't have a importBase child in position "..p.."!", 2)
+  elseif(p > #self.importBases)then
+    error("Error! transitionBase element doesn't have a importBase child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.importBases[p])
   table.remove(self.importBases, p)
 end
 
 function TransitionBase:addTransition(transition)
+  if((type(transition) == "table"
+    and transition["getNameElem"] ~= nil
+    and transition:getNameElem() ~= "transition")
+    or (type(transition) == "table"
+    and transition["getNameElem"] == nil)
+    or type(transition) ~= "table")then
+    error("Error! Invalid transition element!", 2)
+  end
+
   self:addChild(transition)
   table.insert(self.transitions, transition)
 end
 
 function TransitionBase:getTransitionPos(p)
+  if(self.transitions == nil)then
+    error("Error! transitionBase element with nil transitions list!", 2)
+  elseif(p > #self.transitions)then
+    error("Error! transitionBase element doesn't have a transition child in position "..p.."!", 2)
+  end
+
   return self.transitions[p]
 end
 
 function TransitionBase:getTransitionById(id)
+  if(alias == nil)then
+    error("Error! alias attribute of transition element must be informed!", 2)
+  elseif(self.transitions == nil)then
+    error("Error! transitionBase element with nil transitions list!", 2)
+  end
+
   for _, transition in ipairs(self.transitions) do
     if(transition:getId() == id)then
       return transition
@@ -128,6 +179,19 @@ function TransitionBase:setTransitions(...)
 end
 
 function TransitionBase:removeTransition(transition)
+  if((type(transition) == "table"
+    and transition["getNameElem"] ~= nil
+    and transition:getNameElem() ~= "transition")
+    or (type(transition) == "table"
+    and transition["getNameElem"] == nil)
+    or type(transition) ~= "table")then
+    error("Error! Invalid transition element!", 2)
+  elseif(self.children == nil)then
+    error("Error! transitionBase element with nil children list!", 2)
+  elseif(self.transitions == nil)then
+    error("Error! transitionBase element with nil transitions list!", 2)
+  end
+
   self:removeChild(transition)
 
   for p, ts in ipairs(self.transitions) do
@@ -138,7 +202,17 @@ function TransitionBase:removeTransition(transition)
 end
 
 function TransitionBase:removeTransitionPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! transitionBase element with nil children list!", 2)
+  elseif(self.transitions == nil)then
+    error("Error! transitionBase element with nil transitions list!", 2)
+  elseif(p > #self.children)then
+    error("Error! transitionBase element doesn't have a transition child in position "..p.."!", 2)
+  elseif(p > #self.transitions)then
+    error("Error! transitionBase element doesn't have a transition child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.transitions[p])
   table.remove(self.transitions, p)
 end
 

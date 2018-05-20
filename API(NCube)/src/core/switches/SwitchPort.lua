@@ -46,8 +46,10 @@ function SwitchPort:addMapping(mapping)
   if((type(mapping) == "table"
     and mapping["getNameElem"] ~= nil
     and mapping:getNameElem() ~= "mapping")
+    or (type(mapping) == "table"
+    and mapping["getNameElem"] == nil)
     or type(mapping) ~= "table")then
-    error("Error! Invalid mapping element!")
+    error("Error! Invalid mapping element!", 2)
   end
 
   self:addChild(mapping)
@@ -55,7 +57,9 @@ function SwitchPort:addMapping(mapping)
 end
 
 function SwitchPort:getMappingPos(p)
-  if(p > #self.mappings)then
+  if(self.mappings == nil)then
+    error("Error! switchPort element with nil mappings list!", 2)
+  elseif(p > #self.mappings)then
     error("Error! switchPort element doesn't have a mapping child in position "..p.."!", 2)
   end
 
@@ -65,6 +69,8 @@ end
 function SwitchPort:getMappingById(id)
   if(id == nil)then
     error("Error! id attribute of mapping element must be informed!", 2)
+  elseif(self.mappings == nil)then
+    error("Error! switchPort element with nil mappings list!", 2)
   end
 
   for _, mapping in ipairs(self.mappings) do
@@ -88,8 +94,14 @@ function SwitchPort:removeMapping(mapping)
   if((type(mapping) == "table"
     and mapping["getNameElem"] ~= nil
     and mapping:getNameElem() ~= "mapping")
+    or (type(mapping) == "table"
+    and mapping["getNameElem"] == nil)
     or type(mapping) ~= "table")then
-    error("Error! Invalid mapping element!")
+    error("Error! Invalid mapping element!", 2)
+  elseif(self.children == nil)then
+    error("Error! switchPort element with nil children list!", 2)
+  elseif(self.mappings == nil)then
+    error("Error! switchPort element with nil mappings list!", 2)
   end
 
   self:removeChild(mapping)
@@ -102,7 +114,17 @@ function SwitchPort:removeMapping(mapping)
 end
 
 function SwitchPort:removeMappingPos(p)
-  self:removeChildPos(p)
+  if(self.children == nil)then
+    error("Error! switchPort element with nil children list!", 2)
+  elseif(self.mappings == nil)then
+    error("Error! switchPort element with nil mappings list!", 2)
+  elseif(p > #self.children)then
+    error("Error! switchPort element doesn't have a mapping child in position "..p.."!", 2)
+  elseif(p > #self.mappings)then
+    error("Error! switchPort element doesn't have a mapping child in position "..p.."!", 2)
+  end
+
+  self:removeChild(self.mappings[p])
   table.remove(self.mappings, p)
 end
 
