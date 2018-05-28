@@ -597,7 +597,7 @@ end
 function Body:setLinks(...)
   if(#arg>0)then
     for _, link in ipairs(arg) do
-      self:addMedia(link)
+      self:addLink(link)
     end
   end
 end

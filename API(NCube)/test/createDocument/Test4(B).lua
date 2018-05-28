@@ -9,20 +9,20 @@ local head = Head:create()
 local regionBase = RegionBase:create()
 
 local rgTV = Region:create({id="rgTV", width=100, height=100})
-rgTV.symbols["width"]="%"
-rgTV.symbols["height"]="%"
+rgTV:addSymbol("width",  "%")
+rgTV:addSymbol("height", "%")
 
 local rgVideo1 = Region:create({id="rgVideo1", left=25, top=25, width=50, height=50})
-rgVideo1.symbols["left"]="%"
-rgVideo1.symbols["top"]="%"
-rgVideo1.symbols["width"]="%"
-rgVideo1.symbols["height"]="%"
+rgVideo1:addSymbol("left", "%")
+rgVideo1:addSymbol("top", "%")
+rgVideo1:addSymbol("width", "%")
+rgVideo1:addSymbol("height", "%")
 
 local rgLegenda = Region:create({id="rgLegenda", left=25, top=75, width=50, height=5})
-rgLegenda.symbols["left"]="%"
-rgLegenda.symbols["top"]="%"
-rgLegenda.symbols["width"]="%"
-rgLegenda.symbols["height"]="%"
+rgLegenda:addSymbol("left", "%")
+rgLegenda:addSymbol("top", "%")
+rgLegenda:addSymbol("width", "%")
+rgLegenda:addSymbol("height", "%")
 
 rgTV:addRegion(rgVideo1)
 rgTV:addRegion(rgLegenda)

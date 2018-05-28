@@ -9,10 +9,10 @@ local head = doc:getHead()
 local regionBase = head:getRegionBasePos(1)
 
 local rgTitulo1 = Region:create({id="rgTitulo1", left=25, top=5, width=50, height=15})
-rgTitulo1.symbols["left"]="%"
-rgTitulo1.symbols["top"]="%"
-rgTitulo1.symbols["width"]="%"
-rgTitulo1.symbols["height"]="%"
+rgTitulo1:addSymbol("left", "%")
+rgTitulo1:addSymbol("top", "%")
+rgTitulo1:addSymbol("width", "%")
+rgTitulo1:addSymbol("height", "%")
 
 local rgTV = regionBase:getDescendantByAttribute("id", "rgTV")
 rgTV:addRegion(rgTitulo1)
