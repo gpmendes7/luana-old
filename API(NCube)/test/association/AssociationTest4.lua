@@ -90,7 +90,44 @@ local function test4()
   assert(err == "Error! Invalid descriptor element!", "Error!")
 end
 
+local function test5()
+  local m1 = Mapping:create()
+  local c1 = Context:create({id = "c1"})
+  local a1 = Area:create({id = "a1"})
+  local nclExp, nclRet
+  local status, err
+  
+  m1:setComponent(c1)
+  
+  nclExp = "<mapping component=\"c1\"/>\n"
+  nclRet = m1:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
+  assert(m1.componentAss == c1, "Error!")
+  assert(c1.ass[1] == m1, "Error!")  
+  
+  status, err = pcall(m1["setComponent"], m1, Area:create())
+  assert(not(status), "Error!")
+  assert(err == "Error! Invalid component element!", "Error!")
+  
+  m1 = Mapping:create()
+  
+  m1:setInterface(a1)
+  
+  nclExp = "<mapping interface=\"a1\"/>\n"
+  nclRet = m1:table2Ncl(0)
+
+  assert(nclExp == nclRet, "Error!")
+  assert(m1.interfaceAss == a1, "Error!")
+  assert(a1.ass[1] == m1, "Error!")  
+  
+  status, err = pcall(m1["setInterface"], m1, Context:create())
+  assert(not(status), "Error!")
+  assert(err == "Error! Invalid interface element!", "Error!")
+end
+
 test1()
 test2()
 test3()
 test4()
+test5()
