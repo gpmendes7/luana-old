@@ -32,14 +32,19 @@ end
 
 function BindRule:setConstituent(constituent)
   if(type(constituent) == "table")then
-    if(constituent["getId"] ~= nil)then
-      self:addAttribute("constituent", constituent:getId())
-    else
+     if(constituent["getNameElem"] ~= nil
+      and constituent:getNameElem() ~= "switch"
+      and constituent:getNameElem() ~= "context"
+      and constituent:getNameElem() ~= "media"
+      and constituent:getNameElem() ~= "descriptor")then
       error("Error! Invalid constituent element!", 2)
+    elseif(constituent:getId() ~= nil)then
+      self:addAttribute("constituent", constituent:getId())
+      self.constituentAss = constituent
+      table.insert(constituent.ass, self)
+    else
+      error("Error! Constituent element with nil id attribute!", 2)
     end
-
-    self.constituentAss = constituent
-    table.insert(constituent.ass, self)
   elseif(type(constituent) == "string" )then
     self:addAttribute("constituent", constituent)
   else
@@ -53,14 +58,17 @@ end
 
 function BindRule:setRule(rule)
   if(type(rule) == "table")then
-    if(rule["getId"] ~= nil)then
-      self:addAttribute("rule", rule:getId())
-    else
+    if(rule["getNameElem"] ~= nil
+      and rule:getNameElem() ~= "rule"
+      and rule:getNameElem() ~= "compositeRule")then
       error("Error! Invalid rule element!", 2)
+    elseif(rule:getId() ~= nil)then
+      self:addAttribute("rule", rule:getId())
+      self.ruleAss = rule
+      table.insert(rule.ass, self)
+    else
+      error("Error! Rule element with nil id attribute!", 2)
     end
-
-    self.ruleAss = rule
-    table.insert(rule.ass, self)
   elseif(type(rule) == "string" )then
     self:addAttribute("rule", rule)
   else

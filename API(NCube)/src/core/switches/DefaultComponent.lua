@@ -27,12 +27,19 @@ function DefaultComponent:create(attributes)
 end
 
 function DefaultComponent:setComponent(component)
-  if(type(component) == "table"
-    and component["getNameElem"] ~= nil
-    and component:getNameElem() == "switch")then
-    self:addAttribute("component", component:getId())
-    self.componentAss = component
-    table.insert(component.ass, self)
+   if(type(component) == "table")then
+    if(component["getNameElem"] ~= nil
+      and component:getNameElem() ~= "switch"
+      and component:getNameElem() ~= "context"
+      and component:getNameElem() ~= "media")then
+      error("Error! Invalid component element!", 2)
+    elseif(component:getId() ~= nil)then
+      self:addAttribute("component", component:getId())
+      self.componentAss = component
+      table.insert(component.ass, self)
+    else
+      error("Error! Component element with nil id attribute!", 2)
+    end
   elseif(type(component) == "string" )then
     self:addAttribute("component", component)
   else

@@ -37,6 +37,8 @@ function CompositeRule:create(attributes, full)
     compositeRule:addRule(Rule:create())
     compositeRule:addCompositeRule(CompositeRule:create())
   end
+  
+  compositeRule.ass = {}
 
   return compositeRule
 end

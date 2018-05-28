@@ -44,16 +44,18 @@ end
 
 function Port:setComponent(component)
   if(type(component) == "table")then
-    if(component["getId"] ~= nil)then
-      self:addAttribute("component", component:getId())
-    elseif(component["getName"] ~= nil)then
-      self:addAttribute("component", component:getName())
-    else
+    if(component["getNameElem"] ~= nil
+      and component:getNameElem() ~= "context"
+      and component:getNameElem() ~= "switch"
+      and component:getNameElem() ~= "media")then
       error("Error! Invalid component element!", 2)
+    elseif(component:getId() ~= nil)then
+      self:addAttribute("component", component:getId())
+      self.componentAss = component
+      table.insert(component.ass, self)
+    else
+      error("Error! Component element with nil id attribute!", 2)
     end
-
-    self.componentAss = component
-    table.insert(component.ass, self)
   elseif(type(component) == "string" )then
     self:addAttribute("component", component)
   else
@@ -71,16 +73,23 @@ end
 
 function Port:setInterface(interface)
   if(type(interface) == "table")then
-    if(interface["getId"] ~= nil)then
-      self:addAttribute("interface", interface:getId())
-    elseif(interface["getName"] ~= nil)then
-      self:addAttribute("interface", interface:getName())
-    else
+    if(interface["getNameElem"] ~= nil
+      and interface:getNameElem() ~= "area"
+      and interface:getNameElem() ~= "property"
+      and interface:getNameElem() ~= "port"
+      and interface:getNameElem() ~= "switchPort")then
       error("Error! Invalid interface element!", 2)
+    else
+      if(interface["getId"] ~= nil and interface:getId() ~= nil)then
+        self:addAttribute("interface", interface:getId())
+      elseif(interface["getName"] ~= nil and interface:getName() ~= nil)then
+        self:addAttribute("interface", interface:getName())
+      else
+        error("Error! Interface element with nil id attribute!", 2)
+      end
+      self.interfaceAss = interface
+      table.insert(interface.ass, self)
     end
-
-    self.interfaceAss = interface
-    table.insert(interface.ass, self)
   elseif(type(interface) == "string" )then
     self:addAttribute("interface", interface)
   else

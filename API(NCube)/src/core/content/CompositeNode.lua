@@ -82,14 +82,17 @@ end
 
 function Context:setRefer(refer)
   if(type(refer) == "table")then
-    if(refer["getId"] ~= nil)then
-      self:addAttribute("refer", refer:getId())
-    else
+    if(refer["getNameElem"] ~= nil
+      and refer:getNameElem() ~= "context"
+      and refer:getNameElem() ~= "body")then
       error("Error! Invalid refer element!", 2)
+    elseif(refer:getId() ~= nil)then
+      self:addAttribute("refer", refer:getId())
+      self.referAss = refer
+      table.insert(refer.ass, self)
+    else
+      error("Error! Refer element with nil id attribute!", 2)
     end
-
-    self.referAss = refer
-    table.insert(refer.ass, self)
   elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
   else
@@ -879,14 +882,16 @@ end
 
 function Switch:setRefer(refer)
   if(type(refer) == "table")then
-    if(refer["getId"] ~= nil)then
-      self:addAttribute("refer", refer:getId())
-    else
+    if(refer["getNameElem"] ~= nil
+      and refer:getNameElem() ~= "switch")then
       error("Error! Invalid refer element!", 2)
+    elseif(refer:getId() ~= nil)then
+      self:addAttribute("refer", refer:getId())
+      self.referAss = refer
+      table.insert(refer.ass, self)
+    else
+      error("Error! Refer element with nil id attribute!", 2)
     end
-
-    self.referAss = refer
-    table.insert(refer.ass, self)
   elseif(type(refer) == "string" )then
     self:addAttribute("refer", refer)
   else

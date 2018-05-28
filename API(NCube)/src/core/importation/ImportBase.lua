@@ -82,7 +82,7 @@ function ImportBase:setBaseId(baseId)
   elseif(type(baseId) == "string" )then
     self:addAttribute("baseId", baseId)
   else
-    error("Error! Invalid region element!", 2)
+    error("Error! Invalid baseId element!", 2)
   end
 end
 

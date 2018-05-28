@@ -244,15 +244,15 @@ function Descriptor:setTransIn(...)
       if(type(transIn) == "table"
         and transIn["getNameElem"] ~= nil
         and transIn:getNameElem() == "transition")then
-        id = id + transIn:getId()
+        id = id..transIn:getId()
         table.insert(self.transInAss, transIn)
         table.insert(transIn.ass, self)
 
         if(p < #arg)then
-          id = id + ","
+          id = id..", "
         end
       else
-        error("Invalid transin element!", 2)
+        error("Error! Invalid transIn element!", 2)
       end
     end
 
@@ -262,10 +262,12 @@ function Descriptor:setTransIn(...)
       and arg[1]["getNameElem"] ~= nil
       and arg[1]:getNameElem() == "transition")then
       self:addAttribute("transIn", arg[1]:getId())
+      table.insert(self.transInAss, arg[1])
+      table.insert(arg[1].ass, self)
     elseif(type(arg[1]) == "string")then
       self:addAttribute("transIn", arg[1])
     else
-      error("Invalid transin element!", 2)
+      error("Error! Invalid transIn element!", 2)
     end
   end
 end
@@ -286,15 +288,15 @@ function Descriptor:setTransOut(...)
       if(type(transOut) == "table"
         and transOut["getNameElem"] ~= nil
         and transOut:getNameElem() == "transition")then
-        id = id + transOut:getId()
+        id = id..transOut:getId()
         table.insert(self.transOutAss, transOut)
         table.insert(transOut.ass, self)
 
         if(p < #arg)then
-          id = id + ","
+          id = id..", "
         end
       else
-        error("Invalid transOut element!", 2)
+        error("Error! Invalid transOut element!", 2)
       end
     end
 
@@ -304,10 +306,12 @@ function Descriptor:setTransOut(...)
       and arg[1]["getNameElem"] ~= nil
       and arg[1]:getNameElem() == "transition")then
       self:addAttribute("transOut", arg[1]:getId())
+      table.insert(self.transOutAss, arg[1])
+      table.insert(arg[1].ass, self)
     elseif(type(arg[1]) == "string")then
       self:addAttribute("transOut", arg[1])
     else
-      error("Invalid transOut element!", 2)
+      error("Error! Invalid transOut element!", 2)
     end
   end
 end
