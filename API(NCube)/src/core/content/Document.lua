@@ -1,3 +1,6 @@
+---@module Module that contains the Document class
+--@author Gabriel Pereira Mendes
+
 local Validator = require "valid/Validator"
 local NCLElem = require "core/NCLElem"
 local Head = require "core/content/Head"
@@ -20,6 +23,10 @@ Document.attributesTypeMap = {
   ["xsi:schemaLocation"] = "string"
 }
 
+---Create a new Document object
+--@param attributes list of attributes to be initialized
+--@param xmlHead xml header of the document
+--@param full boolean flag to indicate if the object will be created with filled children list
 function Document:create(attributes, xmlHead, full)
   local xmlHead = xmlHead or nil
   local document = Document:new()
