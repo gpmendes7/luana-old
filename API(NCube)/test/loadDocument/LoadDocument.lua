@@ -80,22 +80,3 @@ local doc = Document:create()
 
 -- doc:loadNcl("t.ncl")
 doc:writeNcl()
-
---local dVideo1 = doc:getDescendantByAttribute("id", "dVideo1")
---
---print(dVideo1:writeNcl())
---print(dVideo1.regionAss:writeNcl())
---
---local bounds = doc:getDescendantByAttribute("name", "bounds")
---for _, obj in ipairs(bounds.ass) do
---   obj:writeNcl()
---end
-
---local component = doc:getDescendantByAttribute("id", "video1")
---local visible = component:getDescendantByAttribute("name", "visible")
---
---print(visible:writeNcl())
---print(#visible.ass)
---for _, obj in ipairs(visible.ass) do
---   obj:writeNcl()
---end
