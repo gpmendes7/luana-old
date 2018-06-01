@@ -1,20 +1,85 @@
----@module Module that contains the Document class
---@author Gabriel Pereira Mendes
+local NCLElem = require("core/NCLElem")
+local Validator = require("valid/Validator")
+local Head = require("core/content/Head")
+local Body = require("core/content/Body")
 
-local Validator = require "valid/Validator"
-local NCLElem = require "core/NCLElem"
-local Head = require "core/content/Head"
-local Body = require "core/content/Body"
-
+---
+-- Implements Document Class representing <b>&lt;ncl&gt;</b> element.
+-- 
+-- The <b>&lt;ncl&gt;</b> tag represents the root of an NCL document.
+-- 
+-- The <b>&lt;ncl&gt;</b> tag is the container for all other NCL elements (except for the <?xml> tag).
+-- 
+-- Implemented based in: <a href="http://handbook.ncl.org.br/doku.php?id=ncl">http://handbook.ncl.org.br/doku.php?id=ncl</a>
+-- 
+-- @module Document
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage -- The module needs to be imported to be used with the instruction
+-- 
+-- local document = require 'core/content/Document'
+-- 
+-- @usage -- Now, the object will be created passing the list of atributes
+-- -- with id attribute, the xml header and the flag equals to 1.
+-- -- This way, the object doc will be created with children objects
+-- -- additioned from each children classes.
+-- 
+-- local doc = Document:create({id = "document1", 
+--                              xmlns = "http://www.ncl.org.br/NCL3.0/EDTVProfile"},
+--                             "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>", 1)
+--  
+-- @usage -- We can also define create the object, define the attributes 
+-- -- or children in another likeway  
+-- 
+-- local doc = Document:create()
+-- doc:setId("document1")
+-- doc:setXmlns("http://www.ncl.org.br/NCL3.0/EDTVProfile")
+-- doc:setXmlHead("<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>")   
+-- doc:setHead(Head:create())
+-- doc:setBody(Body:create())      
+--  
+-- @usage -- To load a document we use loadNcl method 
+-- 
+-- local doc = Document:create()
+-- 
+-- doc:loadNcl("document.ncl")    
+-- 
+-- @usage -- To save a document we use saveNcl method
+--  
+-- local doc = Document:create()
+-- 
+-- -- other instructions here...
+-- 
+-- doc:saveNcl("document.ncl")                                           
 local Document = NCLElem:extends()
 
+---
+-- Name of <b>&lt;ncl&gt;</b> element.
+-- @field [parent=#Document] #string nameElem  
 Document.nameElem = "ncl"
 
+---
+-- List with maps to associate classes representing
+-- children elements from <b>&lt;ncl&gt;</b> element.
+-- 
+-- Is indexed by the name of the children elements.
+-- 
+-- Each item of the list is like: childrenElementName = {childrenClassName, cardinality}
+-- 
+-- @field [parent=#Document] #table childrenMap  
 Document.childrenMap = {
   head = {Head, "one"},
   body = {Body, "one"}
 }
 
+---
+-- List containing the data types of each attribute
+-- belonging <b>&lt;ncl&gt;</b> element.
+-- 
+-- @field [parent=#Document] #table attributesTypeMap  
 Document.attributesTypeMap = {
   id = "string",
   title = "string",
@@ -23,10 +88,17 @@ Document.attributesTypeMap = {
   ["xsi:schemaLocation"] = "string"
 }
 
----Create a new Document object
---@param attributes list of attributes to be initialized
---@param xmlHead xml header of the document
---@param full boolean flag to indicate if the object will be created with filled children list
+---
+-- Returns a new Document object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children Class.
+-- In this case, `full` must be passed to the method with a valid number.  
+-- @function [parent=#Document] create
+-- @param #table attributes list of attributes to be initialized.
+-- @param #string xmlHead xml header of the document.
+-- @param #number full numeric flag to indicate if the object 
+--                will be created with filled children list.
+-- @return #Document new Document object created.
 function Document:create(attributes, xmlHead, full)
   local xmlHead = xmlHead or nil
   local document = Document:new()
@@ -55,46 +127,90 @@ function Document:create(attributes, xmlHead, full)
   return document
 end
 
+---
+-- Sets a value to id attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setId
+-- @param #string id id atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setId(id)
   self:addAttribute("id", id)
 end
 
+---
+-- Returns the value of the id attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] getId
+-- @return #string id id atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getId()
   return self:getAttribute("id")
 end
 
+---
+-- Sets a value to title attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setTitle
+-- @param #string title title atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setTitle(title)
   self:addAttribute("title", title)
 end
 
+---
+-- Returns the value of the title attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] getTitle
+-- @return #string title title atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getTitle()
   return self:getAttribute("title")
 end
 
+---
+-- Sets a value to xmlns attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setXmlns
+-- @param #string xmlns xmlns atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setXmlns(xmlns)
   self:addAttribute("xmlns", xmlns)
 end
 
+---
+-- Returns the value of the xmlns attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] getXmlns
+-- @return #string xmlns xmlns atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getXmlns()
   return self:getAttribute("xmlns")
 end
 
+---
+-- Sets a value to xsi attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setXsi
+-- @param #string xsi xsi atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setXsi(xsi)
   self:addAttribute("xmlns:xsi", xsi)
 end
 
+---
+-- Returns the value of the xsi attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] getXsi
+-- @return #string xsi xsi atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getXsi()
   return self:getAttribute("xmlns:xsi")
 end
 
+---
+-- Sets a value to schemaLocation attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setSchemaLocation
+-- @param #string schemaLocation schemaLocation atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setSchemaLocation(schemaLocation)
   self:addAttribute("xsi:schemaLocation", schemaLocation)
 end
 
+---
+-- Returns the value of the schemaLocation attribute of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] getSchemaLocation
+-- @return #string schemaLocation schemaLocation atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getSchemaLocation()
   return self:getAttribute("xsi:schemaLocation")
 end
 
+---
+-- Sets a value to xml header of the document file.
+-- @function [parent=#Document] setXmlHead
+-- @param #string xmlHead xml header of the document file.
 function Document:setXmlHead(xmlHead)
   if(Validator:isInvalidString(xmlHead))then
     error("Error! Invalid xml head to ncl element! It must be a valid string!", 2)
@@ -102,10 +218,18 @@ function Document:setXmlHead(xmlHead)
   self.xmlHead = xmlHead
 end
 
+---
+-- Returns the value of the xml header of the document file. 
+-- @function [parent=#Document] getXmlHead
+-- @param #string xmlHead xml header of the document file.
 function Document:getXmlHead()
   return self.xmlHead
 end
 
+---
+-- Sets the child <b>&lt;head&gt;</b> element of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setHead
+-- @param #Head head object representing the <b>&lt;head&gt;</b> element.
 function Document:setHead(head)
   if((type(head) == "table"
     and head["getNameElem"] ~= nil
@@ -127,15 +251,26 @@ function Document:setHead(head)
   self.head = head
 end
 
+---
+-- Sets a value to xml header of the document file.
+-- @function [parent=#Document] getHead
+-- @return #Head head object representing the <b>&lt;head&gt;</b> element.
 function Document:getHead()
   return self.head
 end
 
+---
+-- Removes the child <b>&lt;head&gt;</b> element of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] removeHead
 function Document:removeHead()
   self:removeChild(self.head)
   self.head = nil
 end
 
+---
+-- Sets the child <b>&lt;body&gt;</b> element of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] setBody
+-- @param #Body body object representing the <b>&lt;body&gt;</b> element.
 function Document:setBody(body)
   if((type(body) == "table"
     and body["getNameElem"] ~= nil
@@ -163,15 +298,28 @@ function Document:setBody(body)
   self.body = body
 end
 
+---
+-- Sets a value to xml header of the document file.
+-- @function [parent=#Document] getBody
+-- @return #Body body object representing the <b>&lt;body&gt;</b> element.
 function Document:getBody()
   return self.body
 end
 
+---
+-- Removes the child <b>&lt;body&gt;</b> element of the <b>&lt;ncl&gt;</b> element. 
+-- @function [parent=#Document] removeBody
 function Document:removeBody()
   self:removeChild(self.body)
   self.body = nil
 end
 
+---
+-- Save a document in extern file.
+-- All children elements added to the current document
+-- are, step by step, translated into the corresponding ncl format.
+-- @function [parent=#Document] saveNcl
+-- @param #string name name of the extern file where the document will be save.
 function Document:saveNcl(name)
   local ncl = self:table2Ncl(0)
   local file = io.open(name, "w")
@@ -184,7 +332,7 @@ function Document:removeComments(ncl)
   local _, nclosed = string.gsub(ncl, "%-%->", "")
 
   if(nopen ~= nclosed)then
-    error("Error! NCL document is badly formatted! Syntax error!")
+    error("Error! Document with invalid syntax!", 2)
   end
 
   local t = string.find(ncl,"<!%-%-")
@@ -198,7 +346,7 @@ function Document:removeComments(ncl)
   local x = string.find(ncl,"%-%->", u+1)
 
   if((u < t) or (v ~= nil and v < u) or (x ~= nil and x < v))then
-    error("Error! NCL document is badly formatted! Syntax error!")
+    error("Error! Document with invalid syntax!", 2)
   end
 
   local newNcl = ncl
@@ -219,7 +367,7 @@ function Document:removeComments(ncl)
     x = string.find(newNcl,"%-%->", u+1)
 
     if((u < t) or (v ~= nil and v < u) or (x ~= nil and x < v))then
-      error("Error! NCL document is badly formatted! Syntax error!1")
+      error("Error! Document with invalid syntax!", 2)
     end
   end
 
@@ -242,7 +390,7 @@ function Document:readNclFile(name)
         self:setXmlHead(line)
         isXmlHead = false
       elseif(isXmlHead and string.find(line, "<?xml") == nil)then
-        error("Error! File "..name.." is a invalid NCL document! The file must have an XML header!")
+        error("Error! File "..name.." is a invalid NCL document! The file must have an XML header!", 2)
       else
         ncl = ncl..line.."\n"
       end
@@ -251,12 +399,12 @@ function Document:readNclFile(name)
     file:close()
 
     if(ncl == "")then
-      error("Error! File "..name.." is a invalid NCL document! Empty file!")
+      error("Error! File "..name.." is a invalid NCL document! Empty file!", 2)
     end
 
     ncl = self:removeComments(ncl)
   else
-    error("Error! File "..name.." does not exist!")
+    error("Error! File "..name.." does not exist!", 2)
   end
 
   return ncl
@@ -308,11 +456,21 @@ function Document:connectAssociatedElements()
   end
 end
 
+---
+-- Load a document from an extern file.
+-- All children elements present in the file 
+-- are, step by step, translated into the corresponding objects.
+-- 
+-- Each object will have a parent and can have a list of children.
+-- 
+-- The hierarchy is also kept between the objects created.
+-- @function [parent=#Document] loadNcl
+-- @param #string name name of the extern file where the document will be load.
 function Document:loadNcl(name)
   local ncl = self:readNclFile(name)
 
   if(ncl == nil)then
-    error("Error! File "..name.." couldn't be read! Invalid NCL document!")
+    error("Error! File "..name.." couldn't be read! Invalid NCL document!", 2)
   else
     local s = string.find(ncl, "<ncl ")
     local t = string.find(ncl, ">", s)

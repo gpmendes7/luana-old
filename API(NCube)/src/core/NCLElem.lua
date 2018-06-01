@@ -1,31 +1,162 @@
 local Class = require "oo/Class"
 local Validator = require "valid/Validator"
 
-local NCLElem = Class:createClass{
-  nameElem = nil,
-  parent = nil,
-  children = nil,
-  childrenMap = nil,
-  assMap = nil,
-  attributesTypeMap = nil,
-  attributesStringValueMap = nil,
-  symbols = nil,
-  attributesSymbolMap = nil,
-  ncl = nil
-}
+---
+-- Implements NCLElemet Class representing all elements in NCL language.
+-- 
+-- This classes has attributes and method shared among all classes in API NCube.
+-- 
+-- It has methods to manage NCL documents like loading, saving etc. 
+-- 
+-- @module NCLElem
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage -- The module needs to be imported to be used with the instruction
+-- 
+-- local NCLElem = require("core/NCLElem")
+-- 
+-- @usage -- All classes in NCube are created calling extends methods
+-- -- This method return a new child class of NCLElement
+-- 
+-- local ChildClass = NCLElem:extends()
+local NCLElem = Class:createClass{}
 
+---
+-- Name of corresponding NCL element. 
+-- 
+-- @field [parent=#NCLElem] #string nameElem 
+NCLElem.nameElem = nil
+
+---
+-- Parent of corresponding NCL element. 
+-- 
+-- @field [parent=#NCLElem] #NCLElem parent
+NCLElem.parent = nil
+
+---
+-- List of children elements belonging to corresponding NCL element. 
+-- 
+-- This attribute is used by `table2Ncl`
+-- method to store objects createds and by `ncl2Table` 
+-- to translate these objects in corresponding NCL elements. 
+-- 
+-- It is also used in any method responsible for 
+-- manage children elements like add, search or remove.
+-- 
+-- @field [parent=#NCLElem] #table children
+NCLElem.children = nil
+
+---
+-- List with associative map that assigns 
+-- to each children element a cardinality.
+-- 
+-- This attribute is used by `table2Ncl` e `ncl2Table`
+-- methods to create objects represening children NCL elements. 
+-- 
+-- @field [parent=#NCLElem] #table childrenMap
+NCLElem.childrenMap = nil
+
+---
+-- List with associative map that connects 
+-- an attribute to an specific object.
+-- 
+-- It is used to establish a relation between two elements semantically 
+-- connected in a NCL document.
+-- 
+-- For instance: <b>&lt;link&gt;</b> and <b>&lt;causalConnector&gt;</b> elements are
+-- connected by `xconnector` attribute of <b>&lt;link&gt;</b> element.
+-- 
+-- It is true because this `xconnector` refers to `id` 
+-- atrribute of <b>&lt;causalConnector&gt;</b> element.
+-- 
+-- @field [parent=#NCLElem] #table assMap
+NCLElem.assMap = nil
+
+---
+-- List with associative map containing the valid
+-- data types to each attribute in corresponding NCL element.
+-- 
+-- It is used to restrict the values to be assign to each attribute.
+--  
+-- Is indexed by the name of the attributes.
+-- @usage -- Each item of the list is like: 
+-- NCLElem.attributesTypeMap = {attributeA = {type1, type2, type3, ...},
+--                              attributeB = {type4, type5, type6, ...}}
+-- 
+-- @field [parent=#NCLElem] #table attributesTypeMap
+NCLElem.attributesTypeMap = nil
+
+---
+-- List with associative map containing the valid
+-- values to string attributes.
+-- 
+-- Is indexed by the name of the attributes.
+-- 
+-- @usage -- Each item of the list is like: 
+-- NCLElem.attributesStringValueMap = {attributeA = {value1, value2, value3, ...}
+--                                     attributeB = {value4, value5, value6, ...}
+--                                     
+-- @field [parent=#NCLElem] #table attributesStringValueMap
+NCLElem.attributesStringValueMap = nil
+
+---
+-- List with associative map containing a valid
+-- symbol used to each numeric attribute in corresponding NCL element.
+-- 
+-- Is indexed by the name of the attributes.
+-- 
+-- @usage -- Each item of the list is like: 
+-- NCLElem.symbols = {attributeA = symbol1, 
+--                    attributeB = symbol2}
+--                                     
+-- @field [parent=#NCLElem] #table symbols
+NCLElem.symbols = nil
+
+---
+-- List with associative map containing all valid
+-- symbols to each numeric attribute in corresponding NCL element.
+-- 
+-- @usage -- Each item of the list is like: 
+-- NCLElem.attributesSymbolMap = {attributeA = {symbol1, symbol2, symbol3, ...}, 
+--                                attributeB = {symbol4, symbol5, symbol6, ...}, 
+--                                
+-- 
+-- @field [parent=#NCLElem] #table attributesSymbolMap
+NCLElem.attributesSymbolMap = nil
+
+---
+-- NCL format of corresponding NCL element. 
+-- 
+-- Initialized on document loading 
+-- 
+-- @field [parent=#NCLElem] #string ncl
+NCLElem.ncl = nil
+
+--- Returns a new class child of @{#NCLElem}.
+-- @function [parent=#NCLElem] extends
+-- @return #NCLElem new class child of @{#NCLElem}.
 function NCLElem:extends()
   return Class:createClass(NCLElem)
 end
 
+--- Returns the name of corresponding NCL element. 
+-- @function [parent=#NCLElem] getNameElem
+-- @return #NCLElem name of corresponding NCL element. 
 function NCLElem:getNameElem()
   return self.nameElem
 end
 
+--- Sets the parent of corresponding NCL element. 
+-- @function [parent=#NCLElem] setParent
+-- @param #NCLElem parent parent of corresponding NCL element. 
 function NCLElem:setParent(parent)
   self.parent = parent
 end
 
+--- Returns the parent of corresponding NCL element. 
+-- @function [parent=#NCLElem] getParent
+-- @return #NCLElem parent of corresponding NCL element. 
 function NCLElem:getParent()
   return self.parent
 end
@@ -427,7 +558,7 @@ function NCLElem:canBeNumber(attribute)
 end
 
 function NCLElem:readAttributes()
-  local s, e, t, u, r, v, w, z
+  local _, s, e, t, u, r, v, w, z
 
   _, s = string.find(self.ncl, "<"..self.nameElem.." ")
   _, t = string.find(self.ncl, "<"..self.nameElem..">")
@@ -586,7 +717,7 @@ function NCLElem:readChildNcl(childrenNcl, childName)
 end
 
 function NCLElem:ncl2Table()
-  local s, e, t, u
+  local _, s, e, t, u
 
   if(self:getNameElem() == "metadata")then
     _, s = string.find(self:getNcl(), "<metadata>")
