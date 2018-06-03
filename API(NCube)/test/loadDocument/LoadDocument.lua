@@ -14,7 +14,7 @@ local doc = Document:create()
 
 -- doc:loadNcl("docs/luaRocks/main.ncl")
 
--- doc:loadNcl("docs/nclcd/exemplo01.ncl")
+ --doc:loadNcl("docs/nclcd/exemplo01.ncl")
 -- doc:loadNcl("docs/nclcd/composerConnectorBase.conn")
 -- doc:loadNcl("docs/nclcd/exemplo02.ncl")
 -- doc:loadNcl("docs/nclcd/exemplo02.conn")
@@ -62,7 +62,7 @@ local doc = Document:create()
 -- doc:loadNcl("docs/primeirojoao/advert.ncl")
 -- doc:loadNcl("docs/primeirojoao/causalConnBase.ncl")
 
--- doc:loadNcl("docs/raiderOfTheLostVideogame/RaiderOfTheLostVideogame.ncl")
+ doc:loadNcl("docs/raiderOfTheLostVideogame/RaiderOfTheLostVideogame.ncl")
 
 -- doc:loadNcl("docs/sultan/sultan.ncl")
 -- doc:loadNcl("docs/sultan/sultan.ncl~")

@@ -3,133 +3,133 @@ local Validator = require "valid/Validator"
 
 ---
 -- Implements NCLElemet Class representing all elements in NCL language.
--- 
+--
 -- This classes has attributes and method shared among all classes in API NCube.
--- 
--- It has methods to manage NCL documents like loading, saving etc. 
--- 
+--
+-- It has methods to manage NCL documents like loading, saving etc.
+--
 -- @module NCLElem
--- 
+--
 -- @author Gabriel Pereira Mendes
--- 
--- @usage -- The module needs to be imported to be used with the instruction
--- 
+--
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
 -- local NCLElem = require("core/NCLElem")
--- 
--- @usage -- All classes in NCube are created calling extends methods
+--
+-- @usage 
+-- -- All classes in NCube are created calling extends methods
 -- -- This method return a new child class of NCLElement
--- 
 -- local ChildClass = NCLElem:extends()
 local NCLElem = Class:createClass{}
 
 ---
--- Name of corresponding NCL element. 
--- 
--- @field [parent=#NCLElem] #string nameElem 
+-- Name of current NCL element.
+--
+-- @field [parent=#NCLElem] #string nameElem
 NCLElem.nameElem = nil
 
 ---
--- Parent of corresponding NCL element. 
--- 
+-- Parent of current NCL element.
+--
 -- @field [parent=#NCLElem] #NCLElem parent
 NCLElem.parent = nil
 
 ---
--- List of children elements belonging to corresponding NCL element. 
--- 
+-- List of children elements belonging to current NCL element.
+--
 -- This attribute is used by `table2Ncl`
--- method to store objects createds and by `ncl2Table` 
--- to translate these objects in corresponding NCL elements. 
--- 
--- It is also used in any method responsible for 
+-- method to store objects createds and by `ncl2Table`
+-- to translate these objects in current NCL elements.
+--
+-- It is also used in any method responsible for
 -- manage children elements like add, search or remove.
--- 
+--
 -- @field [parent=#NCLElem] #table children
 NCLElem.children = nil
 
 ---
--- List with associative map that assigns 
+-- List with associative map that assigns
 -- to each children element a cardinality.
--- 
+--
 -- This attribute is used by `table2Ncl` e `ncl2Table`
--- methods to create objects represening children NCL elements. 
--- 
+-- methods to create objects represening children NCL elements.
+--
 -- @field [parent=#NCLElem] #table childrenMap
 NCLElem.childrenMap = nil
 
 ---
--- List with associative map that connects 
+-- List with associative map that connects
 -- an attribute to an specific object.
--- 
--- It is used to establish a relation between two elements semantically 
+--
+-- It is used to establish a relation between two elements semantically
 -- connected in a NCL document.
--- 
+--
 -- For instance: <b>&lt;link&gt;</b> and <b>&lt;causalConnector&gt;</b> elements are
 -- connected by `xconnector` attribute of <b>&lt;link&gt;</b> element.
--- 
--- It is true because this `xconnector` refers to `id` 
+--
+-- It is true because this `xconnector` refers to `id`
 -- atrribute of <b>&lt;causalConnector&gt;</b> element.
--- 
+--
 -- @field [parent=#NCLElem] #table assMap
 NCLElem.assMap = nil
 
 ---
 -- List with associative map containing the valid
--- data types to each attribute in corresponding NCL element.
--- 
+-- data types to each attribute in current NCL element.
+--
 -- It is used to restrict the values to be assign to each attribute.
---  
+--
 -- Is indexed by the name of the attributes.
--- @usage -- Each item of the list is like: 
+-- @usage -- Each item of the list is like:
 -- NCLElem.attributesTypeMap = {attributeA = {type1, type2, type3, ...},
 --                              attributeB = {type4, type5, type6, ...}}
--- 
+--
 -- @field [parent=#NCLElem] #table attributesTypeMap
 NCLElem.attributesTypeMap = nil
 
 ---
 -- List with associative map containing the valid
 -- values to string attributes.
--- 
+--
 -- Is indexed by the name of the attributes.
--- 
--- @usage -- Each item of the list is like: 
+--
+-- @usage -- Each item of the list is like:
 -- NCLElem.attributesStringValueMap = {attributeA = {value1, value2, value3, ...}
 --                                     attributeB = {value4, value5, value6, ...}
---                                     
+--
 -- @field [parent=#NCLElem] #table attributesStringValueMap
 NCLElem.attributesStringValueMap = nil
 
 ---
 -- List with associative map containing a valid
--- symbol used to each numeric attribute in corresponding NCL element.
--- 
+-- symbol used to each numeric attribute in current NCL element.
+--
 -- Is indexed by the name of the attributes.
--- 
--- @usage -- Each item of the list is like: 
--- NCLElem.symbols = {attributeA = symbol1, 
+--
+-- @usage -- Each item of the list is like:
+-- NCLElem.symbols = {attributeA = symbol1,
 --                    attributeB = symbol2}
---                                     
+--
 -- @field [parent=#NCLElem] #table symbols
 NCLElem.symbols = nil
 
 ---
 -- List with associative map containing all valid
--- symbols to each numeric attribute in corresponding NCL element.
--- 
--- @usage -- Each item of the list is like: 
--- NCLElem.attributesSymbolMap = {attributeA = {symbol1, symbol2, symbol3, ...}, 
---                                attributeB = {symbol4, symbol5, symbol6, ...}, 
---                                
--- 
+-- symbols to each numeric attribute in current NCL element.
+--
+-- @usage -- Each item of the list is like:
+-- NCLElem.attributesSymbolMap = {attributeA = {symbol1, symbol2, symbol3, ...},
+--                                attributeB = {symbol4, symbol5, symbol6, ...},
+--
+--
 -- @field [parent=#NCLElem] #table attributesSymbolMap
 NCLElem.attributesSymbolMap = nil
 
 ---
--- NCL format of corresponding NCL element. 
--- 
--- Initialized on document loading 
--- 
+-- NCL format of current NCL element.
+--
+-- Initialized on document loading
+--
 -- @field [parent=#NCLElem] #string ncl
 NCLElem.ncl = nil
 
@@ -140,27 +140,35 @@ function NCLElem:extends()
   return Class:createClass(NCLElem)
 end
 
---- Returns the name of corresponding NCL element. 
+--- Returns the name of current NCL element.
 -- @function [parent=#NCLElem] getNameElem
--- @return #NCLElem name of corresponding NCL element. 
+-- @return #NCLElem name of current NCL element.
 function NCLElem:getNameElem()
   return self.nameElem
 end
 
---- Sets the parent of corresponding NCL element. 
+--- Sets the parent of current NCL element.
 -- @function [parent=#NCLElem] setParent
--- @param #NCLElem parent parent of corresponding NCL element. 
+-- @param #NCLElem parent parent of current NCL element.
 function NCLElem:setParent(parent)
   self.parent = parent
 end
 
---- Returns the parent of corresponding NCL element. 
+--- Returns the parent of current NCL element.
 -- @function [parent=#NCLElem] getParent
--- @return #NCLElem parent of corresponding NCL element. 
+-- @return #NCLElem parent of current NCL element.
 function NCLElem:getParent()
   return self.parent
 end
 
+--- Adds a child to current NCL element.
+--
+-- The method checks if the child represents
+-- a valid child NCL element.
+--
+-- @function [parent=#NCLElem] addChild
+-- @param #NCLElem child child of current NCL element.
+-- @param #NCLElem p position to be placed the child (optional parameter).
 function NCLElem:addChild(child, p)
   if(child == nil)then
     error("Error! Attempt to set a nil child to "..self.nameElem.."!", 2)
@@ -193,6 +201,14 @@ function NCLElem:addChild(child, p)
   child:setParent(self)
 end
 
+--- Returns the child of current NCL element
+--  in position p.
+--
+-- The method checks if there is a child in position p.
+--
+-- @function [parent=#NCLElem] getChild
+-- @param #NCLElem p child's position of current NCL element.
+-- @return #NCLElem child of current NCL element.
 function NCLElem:getChild(p)
   if(self.children == nil)then
     error("Error! "..self.nameElem.." with nil children list!", 2)
@@ -248,6 +264,13 @@ function NCLElem:getPosAvailable(...)
   end
 end
 
+--- Removes the child of current NCL element
+--  in position p.
+--
+-- The method checks if there is a child in position p.
+--
+-- @function [parent=#NCLElem] removeChildPos
+-- @param #NCLElem p child's position of current NCL element.
 function NCLElem:removeChildPos(p)
   if(self.children == nil)then
     error("Error! Attempt to remove failed! "..self.nameElem.." with nil children list!", 2)
@@ -259,6 +282,12 @@ function NCLElem:removeChildPos(p)
   table.remove(self.children, p)
 end
 
+--- Removes the child of current NCL element.
+--
+-- The method checks if the child belongs to current NCL element.
+--
+-- @function [parent=#NCLElem] removeChild
+-- @param #NCLElem child child of current NCL element.
 function NCLElem:removeChild(child)
   local p = self:getPosChild(child)
 
@@ -269,6 +298,9 @@ function NCLElem:removeChild(child)
   self:removeChildPos(p)
 end
 
+--- Adds multiple children at once to current NCL element.
+-- @function [parent=#NCLElem] setChildren
+-- @param ... one or more children of current NCL element.
 function NCLElem:setChildren(...)
   if(#arg > 0)then
     for _, child in ipairs(arg) do
@@ -277,11 +309,16 @@ function NCLElem:setChildren(...)
   end
 end
 
+--- Returns all children of current NCL element.
+-- @function [parent=#NCLElem] getChildren
+-- @return #table list of children of current NCL element.
 function NCLElem:getChildren()
   return self.children
 end
 
-function NCLElem:removeAllChildren()
+--- Removes all children of current NCL element.
+-- @function [parent=#NCLElem] removeChildren
+function NCLElem:removeChildren()
   if(self.children == nil)then
     error("Error!  Attempt to remove failed! "..self.nameElem.." with nil children list!", 2)
   end
@@ -301,6 +338,9 @@ function NCLElem:getAssMap()
   return self.assMap
 end
 
+--- Returns all descendants of current NCL element.
+-- @function [parent=#NCLElem] getDescendants
+-- @return #table list of descendants of current NCL element.
 function NCLElem:getDescendants()
   local descendants = {}
 
@@ -325,6 +365,11 @@ function NCLElem:getDescendants()
   return descendants
 end
 
+--- Returns one or more descendants of current NCL element
+--  by a specific attribute.
+--
+-- @function [parent=#NCLElem] getDescendantByAttribute
+-- @return #table list of descendants of current NCL element.
 function NCLElem:getDescendantByAttribute(attribute, value)
   local descs = self:getDescendants()
   local targetDescs = {}
@@ -391,6 +436,10 @@ function NCLElem:isValidRangeStringType(attribute, value)
   return false
 end
 
+--- Adds a new value to an attribute of current NCL element.
+-- @function [parent=#NCLElem] addAttribute
+-- @param #string attribute attribute of current NCL element.
+-- @param #string value atributes's value of current NCL element.
 function NCLElem:addAttribute(attribute, value)
   if(Validator:isInvalidString(attribute))then
     error("Error! Nil, empty or invalid attribute informed in "..self.nameElem.." element! It must be a valid string!", 2)
@@ -408,6 +457,9 @@ function NCLElem:addAttribute(attribute, value)
   end
 end
 
+--- Clears the value of an attribute beloging to current NCL element.
+-- @function [parent=#NCLElem] removeAttribute
+-- @param #string attribute attribute of current NCL element.
 function NCLElem:removeAttribute(attribute)
   if(Validator:isEmptyOrNil(attribute))then
     error("Error! Empty or nil attribute is not a valid attribute to "..self.nameElem.." element!", 2)
@@ -420,6 +472,9 @@ function NCLElem:removeAttribute(attribute)
   end
 end
 
+--- Returns the value of an attribute beloging to current NCL element.
+-- @function [parent=#NCLElem] getAttribute
+-- @param #string attribute attribute of current NCL element.
 function NCLElem:getAttribute(attribute)
   if(Validator:isEmptyOrNil(attribute))then
     error("Error! Empty or nil attribute is not a valid attribute to "..self.nameElem.." element!", 2)
@@ -462,6 +517,9 @@ function NCLElem:isEmptyTable(attributes)
   return true
 end
 
+--- Adds multiple attributes at once to current NCL element.
+-- @function [parent=#NCLElem] setAttributes
+-- @param #table attributes attributes of current NCL element.
 function NCLElem:setAttributes(attributes)
   if(attributes == nil
     or type(attributes) ~= "table"
@@ -474,13 +532,17 @@ function NCLElem:setAttributes(attributes)
   end
 end
 
+--- Adds a symbol to a numeric attribute beloging to current NCL element.
+-- @function [parent=#NCLElem] addSymbol
+-- @param #string attribute attribute of current NCL element.
+-- @param #string value atributes's value of current NCL element.
 function NCLElem:addSymbol(attribute, symbol)
   if(self.attributesSymbolMap == nil)then
     self.symbols[attribute] = symbol
     return
   end
 
-  local isInvalidSymbol = false
+  local isInvalidSymbol = true
 
   if(type(self.attributesSymbolMap[attribute]) == "table")then
     for _, sb in ipairs(self.attributesSymbolMap[attribute]) do
@@ -502,45 +564,12 @@ function NCLElem:addSymbol(attribute, symbol)
   end
 end
 
-function NCLElem:putAttributeSymbol(attribute, value)
-  local sb
-
-  if(self.attributesSymbolMap ~= nil and self.symbols ~= nil)then
-    if(string.match(value, "(%d+)%.(%d+)") == nil and string.match(value, "(%d+)") == nil)then
-      return
-    end
-
-    sb = string.match(value, "(%a+)")
-    if(sb == nil and string.match(value, "(%%+)") ~= nil)then
-      sb = "%"
-    end
-
-    local isInvalidSymbol = true
-
-    if(sb ~= nil)then
-      if(type(self.attributesSymbolMap[attribute]) == "table")then
-        for _, symbol in ipairs(self.attributesSymbolMap[attribute]) do
-          if(sb == symbol)then
-            isInvalidSymbol = false
-            break
-          end
-        end
-
-      else
-        if(self.attributesSymbolMap[attribute] == sb) then
-          isInvalidSymbol = false
-        end
-      end
-
-      if(isInvalidSymbol)then
-        error("Error! "..attribute.." attribute cannot have "..sb.." character in "..self.nameElem.." element!", 2)
-      end
-    end
-
-    self.symbols[attribute] = sb
-  else
-    return
+function NCLElem:readSymbol(attribute, value)
+  if(string.match(value, "(%d+)%.(%d+)") == nil and string.match(value, "(%d+)") == nil)then
+    return nil
   end
+  
+  return string.match(string.reverse(value), "%D+")   
 end
 
 function NCLElem:canBeNumber(attribute)
@@ -584,8 +613,14 @@ function NCLElem:readAttributes()
       if(self:canBeNumber(attribute)
         and string.match(value, ":") == nil
         and string.match(value, ",") == nil
-        and string.match(value, "%s") == nil)then
-        self:putAttributeSymbol(attribute, value)
+        and string.match(value, "%s") == nil
+        and string.match(value, "%$") == nil
+        and (string.find(value, "(%d+)%D*")) == 1)then
+        local sb = self:readSymbol(attribute, value)
+  
+        if(not Validator:isEmptyOrNil(sb))then
+          self:addSymbol(attribute, sb)
+        end
 
         if(string.match(value, "(%d+)%.(%d+)") ~= nil)then
           local pInt, pFrac = string.match(value, "(%d+)%.(%d+)")
@@ -598,7 +633,7 @@ function NCLElem:readAttributes()
       elseif(self.attributesTypeMap[attribute] == "boolean" and value == "true")then
         value = true
       end
-
+    
       self:addAttribute(attribute, value)
 
       attributes = string.sub(attributes, z+1, string.len(attributes))
@@ -716,6 +751,22 @@ function NCLElem:readChildNcl(childrenNcl, childName)
   end
 end
 
+--- Translates a NCL element in a object of the class NCLElem.
+-- 
+-- The method has some few basic validations about ncl syntax
+-- like: opening and closing of tags, invalid attributes or children 
+-- added to current NCL element. 
+-- 
+-- The created object depends on the ncl attribute of 
+-- current NCL element.
+-- 
+-- @usage 
+-- local ncl = "<element attribute="2"/>
+-- local element = Element:create()
+-- element:setNcl(ncl)
+-- element:ncl2Table() 
+-- 
+-- @function [parent=#NCLElem] ncl2Table
 function NCLElem:ncl2Table()
   local _, s, e, t, u
 
@@ -784,6 +835,24 @@ function NCLElem:ncl2Table()
   end
 end
 
+--- Translates the a object of the class NCLElem to its corresponding  NCL format.
+-- 
+-- This method converts, recursively, children and descendants of current object
+-- to its corresponding  NCL format.
+-- 
+-- 
+-- @function [parent=#NCLElem] table2Ncl
+-- @param #number deep deep of tag that contains NCL element
+-- 
+-- @usage 
+-- local element = Element:create()
+-- element:addChild(Element2:create())
+-- element:table2Ncl(0)
+-- 
+-- -- must to produce
+-- <element>
+--  <element2/>
+-- <element>
 function NCLElem:table2Ncl(deep)
   local ncl = ""
 
@@ -868,6 +937,8 @@ function NCLElem:buildNcl()
   self.ncl = self:table2Ncl(0)
 end
 
+--- Prints the object of the class NCLElem to its corresponding NCL format.
+-- @function [parent=#NCLElem] writeNcl
 function NCLElem:writeNcl()
   self:buildNcl()
   print(self.ncl)

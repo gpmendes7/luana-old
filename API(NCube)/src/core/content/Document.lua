@@ -18,22 +18,22 @@ local Body = require("core/content/Body")
 -- 
 -- @author Gabriel Pereira Mendes
 -- 
--- @usage -- The module needs to be imported to be used with the instruction
--- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
 -- local document = require 'core/content/Document'
 -- 
--- @usage -- Now, the object will be created passing the list of atributes
+-- @usage 
+-- -- Now, the object will be created passing the list of atributes
 -- -- with id attribute, the xml header and the flag equals to 1.
 -- -- This way, the object doc will be created with children objects
 -- -- additioned from each children classes.
--- 
 -- local doc = Document:create({id = "document1", 
 --                              xmlns = "http://www.ncl.org.br/NCL3.0/EDTVProfile"},
 --                             "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>", 1)
 --  
--- @usage -- We can also define create the object, define the attributes 
+-- @usage 
+-- -- We can also define create the object, define the attributes 
 -- -- or children in another likeway  
--- 
 -- local doc = Document:create()
 -- doc:setId("document1")
 -- doc:setXmlns("http://www.ncl.org.br/NCL3.0/EDTVProfile")
@@ -41,18 +41,16 @@ local Body = require("core/content/Body")
 -- doc:setHead(Head:create())
 -- doc:setBody(Body:create())      
 --  
--- @usage -- To load a document we use loadNcl method 
--- 
--- local doc = Document:create()
--- 
+-- @usage 
+-- -- To load a document we use loadNcl method 
+-- -- local doc = Document:create()
 -- doc:loadNcl("document.ncl")    
 -- 
--- @usage -- To save a document we use saveNcl method
---  
+-- @usage 
+-- -- To save a document we use saveNcl method
 -- local doc = Document:create()
 -- 
 -- -- other instructions here...
--- 
 -- doc:saveNcl("document.ncl")                                           
 local Document = NCLElem:extends()
 
@@ -315,7 +313,7 @@ function Document:removeBody()
 end
 
 ---
--- Save a document in extern file.
+-- Saves a document in extern file.
 -- All children elements added to the current document
 -- are, step by step, translated into the corresponding ncl format.
 -- @function [parent=#Document] saveNcl
@@ -457,7 +455,7 @@ function Document:connectAssociatedElements()
 end
 
 ---
--- Load a document from an extern file.
+-- Loads a document from an extern file.
 -- All children elements present in the file 
 -- are, step by step, translated into the corresponding objects.
 -- 

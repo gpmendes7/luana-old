@@ -176,7 +176,7 @@ local function test2()
    assert(err == "Error! Attempt to remove failed! elementA element doesn't have a child in position 10!", "Error!")
       
    elemA = ElementA:create(nil, 1) 
-   elemA:removeAllChildren()  
+   elemA:removeChildren()  
    
    assert(#elemA:getChildren() == 0, "Error!")
    
