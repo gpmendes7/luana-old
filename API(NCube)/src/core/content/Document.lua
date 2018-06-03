@@ -10,7 +10,8 @@ local Body = require("core/content/Body")
 -- 
 -- The <b>&lt;ncl&gt;</b> tag is the container for all other NCL elements (except for the <?xml> tag).
 -- 
--- Implemented based in: <a href="http://handbook.ncl.org.br/doku.php?id=ncl">http://handbook.ncl.org.br/doku.php?id=ncl</a>
+-- Implemented based in: <a href="http://handbook.ncl.org.br/doku.php?id=ncl">
+-- http://handbook.ncl.org.br/doku.php?id=ncl</a>
 -- 
 -- @module Document
 -- 
@@ -20,9 +21,8 @@ local Body = require("core/content/Body")
 -- 
 -- @usage 
 -- -- The module needs to be imported to be used with the instruction
--- local document = require 'core/content/Document'
+-- local Document = require "core/content/Document"
 -- 
--- @usage 
 -- -- Now, the object will be created passing the list of atributes
 -- -- with id attribute, the xml header and the flag equals to 1.
 -- -- This way, the object doc will be created with children objects
@@ -31,7 +31,6 @@ local Body = require("core/content/Body")
 --                              xmlns = "http://www.ncl.org.br/NCL3.0/EDTVProfile"},
 --                             "<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>", 1)
 --  
--- @usage 
 -- -- We can also define create the object, define the attributes 
 -- -- or children in another likeway  
 -- local doc = Document:create()
@@ -40,13 +39,11 @@ local Body = require("core/content/Body")
 -- doc:setXmlHead("<?xml version= \"1.0\" encoding=\"ISO-8859-1\"?>")   
 -- doc:setHead(Head:create())
 -- doc:setBody(Body:create())      
---  
--- @usage 
+--   
 -- -- To load a document we use loadNcl method 
 -- -- local doc = Document:create()
 -- doc:loadNcl("document.ncl")    
 -- 
--- @usage 
 -- -- To save a document we use saveNcl method
 -- local doc = Document:create()
 -- 
@@ -62,10 +59,6 @@ Document.nameElem = "ncl"
 ---
 -- List with maps to associate classes representing
 -- children elements from <b>&lt;ncl&gt;</b> element.
--- 
--- Is indexed by the name of the children elements.
--- 
--- Each item of the list is like: childrenElementName = {childrenClassName, cardinality}
 -- 
 -- @field [parent=#Document] #table childrenMap  
 Document.childrenMap = {
@@ -90,7 +83,9 @@ Document.attributesTypeMap = {
 -- Returns a new Document object. 
 -- If `full` flag is not nil, the object will
 -- receive default children objects of each children Class.
--- In this case, `full` must be passed to the method with a valid number.  
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
 -- @function [parent=#Document] create
 -- @param #table attributes list of attributes to be initialized.
 -- @param #string xmlHead xml header of the document.
@@ -126,81 +121,81 @@ function Document:create(attributes, xmlHead, full)
 end
 
 ---
--- Sets a value to id attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Sets a value to `id` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setId
--- @param #string id id atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string id `id` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setId(id)
   self:addAttribute("id", id)
 end
 
 ---
--- Returns the value of the id attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Returns the value of the `id` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getId
--- @return #string id id atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `id` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getId()
   return self:getAttribute("id")
 end
 
 ---
--- Sets a value to title attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Sets a value to `title` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setTitle
--- @param #string title title atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string title `title` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setTitle(title)
   self:addAttribute("title", title)
 end
 
 ---
--- Returns the value of the title attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Returns the value of the `title` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getTitle
--- @return #string title title atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `title` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getTitle()
   return self:getAttribute("title")
 end
 
 ---
--- Sets a value to xmlns attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Sets a value to `xmlns` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setXmlns
--- @param #string xmlns xmlns atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string xmlns ´xmlns´ atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setXmlns(xmlns)
   self:addAttribute("xmlns", xmlns)
 end
 
 ---
--- Returns the value of the xmlns attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Returns the value of the `xmlns` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getXmlns
--- @return #string xmlns xmlns atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `xmlns` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getXmlns()
   return self:getAttribute("xmlns")
 end
 
 ---
--- Sets a value to xsi attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Sets a value to `xsi` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setXsi
--- @param #string xsi xsi atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string xsi `xsi` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setXsi(xsi)
   self:addAttribute("xmlns:xsi", xsi)
 end
 
 ---
--- Returns the value of the xsi attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Returns the value of the `xsi` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getXsi
--- @return #string xsi xsi atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `xsi` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getXsi()
   return self:getAttribute("xmlns:xsi")
 end
 
 ---
--- Sets a value to schemaLocation attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Sets a value to `schemaLocation` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setSchemaLocation
--- @param #string schemaLocation schemaLocation atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string schemaLocation `schemaLocation` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setSchemaLocation(schemaLocation)
   self:addAttribute("xsi:schemaLocation", schemaLocation)
 end
 
 ---
--- Returns the value of the schemaLocation attribute of the <b>&lt;ncl&gt;</b> element. 
+-- Returns the value of the `schemaLocation` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getSchemaLocation
--- @return #string schemaLocation schemaLocation atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `schemaLocation` atribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getSchemaLocation()
   return self:getAttribute("xsi:schemaLocation")
 end
@@ -219,7 +214,7 @@ end
 ---
 -- Returns the value of the xml header of the document file. 
 -- @function [parent=#Document] getXmlHead
--- @param #string xmlHead xml header of the document file.
+-- @param #string xml header of the document file.
 function Document:getXmlHead()
   return self.xmlHead
 end
@@ -250,7 +245,7 @@ function Document:setHead(head)
 end
 
 ---
--- Sets a value to xml header of the document file.
+-- Returns the <b>&lt;head&gt;</b> child element of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getHead
 -- @return #Head head object representing the <b>&lt;head&gt;</b> element.
 function Document:getHead()
@@ -258,7 +253,7 @@ function Document:getHead()
 end
 
 ---
--- Removes the child <b>&lt;head&gt;</b> element of the <b>&lt;ncl&gt;</b> element. 
+-- Removes the <b>&lt;head&gt;</b> child element of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] removeHead
 function Document:removeHead()
   self:removeChild(self.head)
@@ -297,7 +292,7 @@ function Document:setBody(body)
 end
 
 ---
--- Sets a value to xml header of the document file.
+-- Returns the <b>&lt;body&gt;</b> child element of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getBody
 -- @return #Body body object representing the <b>&lt;body&gt;</b> element.
 function Document:getBody()
@@ -305,7 +300,7 @@ function Document:getBody()
 end
 
 ---
--- Removes the child <b>&lt;body&gt;</b> element of the <b>&lt;ncl&gt;</b> element. 
+-- Removes the <b>&lt;body&gt;</b> child element of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] removeBody
 function Document:removeBody()
   self:removeChild(self.body)

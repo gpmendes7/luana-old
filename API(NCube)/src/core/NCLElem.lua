@@ -50,6 +50,10 @@ NCLElem.children = nil
 ---
 -- List with associative map that assigns
 -- to each children element a cardinality.
+-- 
+-- Is indexed by the name of the children elements.
+-- 
+-- Each item of the list is like: childrenElementName = {childrenClassName, cardinality}
 --
 -- This attribute is used by `table2Ncl` e `ncl2Table`
 -- methods to create objects represening children NCL elements.
@@ -757,7 +761,7 @@ end
 -- like: opening and closing of tags, invalid attributes or children 
 -- added to current NCL element. 
 -- 
--- The created object depends on the ncl attribute of 
+-- The created object depends on the `ncl` attribute of 
 -- current NCL element.
 -- 
 -- @usage 

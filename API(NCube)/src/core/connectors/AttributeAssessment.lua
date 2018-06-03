@@ -2,6 +2,33 @@ local NCLElem = require "core/NCLElem"
 
 local AttributeAssessment = NCLElem:extends()
 
+---
+-- Implements AttributeAssessment Class representing <b>&lt;attributeAssessment&gt;</b> element.
+-- 
+-- The <b>&lt;attributeAssessment&gt;</b> element is used to define a variable to be evaluated, in <b>&lt;assessmentStatement&gt;</b> elements, against other variable values or an absolute value.
+-- 
+-- The variable can be a property specifies in a <b>&lt;property&gt;</b> element, or can be a (presentation, selection or attribution) event attribute: occurrences, repetition or state (which has the following values: “occurring”, “paused”, or “sleeping”).
+-- 
+-- The <b>&lt;attributeAssessment&gt;</b> element has a `role` attribute, which has to be unique in the connector role set. This attribute is the connector interface point, which is associated to node interfaces (<b>&lt;port&gt;</b>, <b>&lt;area&gt;</b>, <b>&lt;property&gt;</b> or <b>&lt;switchPort&gt;</b> elements) by a <b>&lt;link&gt;</b> that refers to the connector.
+-- 
+-- The variable defined by the element depends on its `eventType` attribute and its `attributeType` attribute:
+--   If the `eventType` value is “presentation”, the attributeType attribute may specifyas variable:the “occurrences” or “repetition” event attributes,or the “state” event state.
+--   If the `eventType` is “attribution” the attributeType may have the values: “nodeProperty” (specifying a node property), “occurrences”, “repetition” or “state”.
+--   If the `eventType` value is “selection”, the <b>&lt;attributeAssessment&gt;</b> can also define to which selection apparatus (for example, keyboard keys or remote control keys) it refers, through its key attribute. The `attributeType` attribute may have the values: “occurrences” (default) or “state”.
+--   An `offset` value may be added to an <b>&lt;attributeAssessment&gt;</b> before its comparison in an <assessmentStatement> element. For example, an offset may be added to an attributeassessment to specify: “the screen vertical position plus 50 pixels”.
+--  
+-- Implemented based in: <a href="http://handbook.ncl.org.br/doku.php?id=attributeassessment">
+-- http://handbook.ncl.org.br/doku.php?id=attributeassessment</a>
+-- 
+-- @module AttributeAssessment
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local AttributeAssessment = require "core/connectors/AttributeAssessment" 
 AttributeAssessment.nameElem = "attributeAssessment"
 
 AttributeAssessment.attributesTypeMap = {
