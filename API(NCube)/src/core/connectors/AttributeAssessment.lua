@@ -1,7 +1,5 @@
 local NCLElem = require "core/NCLElem"
 
-local AttributeAssessment = NCLElem:extends()
-
 ---
 -- Implements AttributeAssessment Class representing <b>&lt;attributeAssessment&gt;</b> element.
 -- 
@@ -28,9 +26,20 @@ local AttributeAssessment = NCLElem:extends()
 -- 
 -- @usage 
 -- -- The module needs to be imported to be used with the instruction
--- local AttributeAssessment = require "core/connectors/AttributeAssessment" 
+-- local AttributeAssessment = require "core/connectors/AttributeAssessment"
+local AttributeAssessment = NCLElem:extends()
+
+---
+-- Name of <b>&lt;attributeAssessment&gt;</b> element.
+-- 
+-- @field [parent=#AttributeAssessment] #string nameElem 
 AttributeAssessment.nameElem = "attributeAssessment"
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;attributeAssessment&gt;</b> element.
+-- 
+-- @field [parent=#AttributeAssessment] #table attributesTypeMap
 AttributeAssessment.attributesTypeMap = {
   role = "string",
   eventType = "string",
@@ -39,6 +48,11 @@ AttributeAssessment.attributesTypeMap = {
   offset = "string"
 }
 
+---
+-- List containing all possible pre-definied values to string attributes
+-- belonging <b>&lt;attributeAssessment&gt;</b> element.
+-- 
+-- @field [parent=#AttributeAssessment] #table attributesStringValueMap 
 AttributeAssessment.attributesStringValueMap = {
   eventType = {"presentation", "selection", "attribution"},
   key = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -53,6 +67,16 @@ AttributeAssessment.attributesStringValueMap = {
   attributeType = {"nodeProperty", "occurrences", "repetition", "state"}
 }
 
+---
+-- Returns a new AttributeAssessment object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children Class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#AttributeAssessment] create
+-- @param #table attributes list of attributes to be initialized.
+-- @return #AttributeAssessment new AttributeAssessment object created.
 function AttributeAssessment:create(attributes)
   local attributeAssessment = AttributeAssessment:new()
 
@@ -69,42 +93,107 @@ function AttributeAssessment:create(attributes)
   return attributeAssessment
 end
 
+---
+-- Sets a value to `role` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] setRole
+-- @param #string role `role` atribute of the
+-- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setRole(role)
   self:addAttribute("role", role)
 end
 
+---
+-- Returns the value of the `role` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] getRole
+-- @return #string `role` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getRole()
   return self:getAttribute("role")
 end
 
+---
+-- Sets a value to `eventType` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] setEventType
+-- @param #string eventType `eventType` atribute of the
+-- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setEventType(eventType)
   self:addAttribute("eventType", eventType)
 end
 
+---
+-- Returns the value of the `eventType` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] getEventType
+-- @return #string `eventType` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getEventType()
   return self:getAttribute("eventType")
 end
 
+---
+-- Sets a value to `key` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] setKey
+-- @param #string key `key` atribute of the
+-- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setKey(key)
   self:addAttribute("key", key)
 end
 
+---
+-- Returns the value of the `key` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] getKey
+-- @return #string `key` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getKey()
   return self:getAttribute("key")
 end
 
+---
+-- Sets a value to `attributeType` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] setAttributeType
+-- @param #string attributeType `attributeType` atribute of the
+-- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setAttributeType(attributeType)
   self:addAttribute("attributeType", attributeType)
 end
 
+---
+-- Returns the value of the `attributeType` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] getAttributeType
+-- @return #string `attributeType` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getAttributeType()
   return self:getAttribute("attributeType")
 end
 
+---
+-- Sets a value to `offset` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] setOffset
+-- @param #string offset `offset` atribute of the
+-- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setOffset(offset)
   self:addAttribute("offset", offset)
 end
 
+---
+-- Returns the value of the `offset` attribute of the 
+-- <b>&lt;attributeAssessment&gt;</b> element. 
+-- 
+-- @function [parent=#AttributeAssessment] getOffset
+-- @return #string `offset` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getOffset()
   return self:getAttribute("offset")
 end

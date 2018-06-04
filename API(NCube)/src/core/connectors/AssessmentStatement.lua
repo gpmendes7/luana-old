@@ -28,6 +28,7 @@ local AssessmentStatement = NCLElem:extends()
 
 ---
 -- Name of <b>&lt;assessmentStatement&gt;</b> element.
+-- 
 -- @field [parent=#AssessmentStatement] #string nameElem  
 AssessmentStatement.nameElem = "assessmentStatement"
 
@@ -43,7 +44,7 @@ AssessmentStatement.childrenMap = {
 
 ---
 -- List containing the data types of each attribute
--- belonging <b>&lt;assessmentStatement&gt;</b> element.
+-- belonging to <b>&lt;assessmentStatement&gt;</b> element.
 -- 
 -- @field [parent=#AssessmentStatement] #table attributesTypeMap  
 AssessmentStatement.attributesTypeMap = {
@@ -96,7 +97,7 @@ end
 -- <b>&lt;assessmentStatement&gt;</b> element. 
 -- 
 -- @function [parent=#AssessmentStatement] setComparator
--- @param #string comparator comparator atribute of the
+-- @param #string comparator `comparator` atribute of the
 -- <b>&lt;assessmentStatement&gt;</b> element.
 function AssessmentStatement:setComparator(comparator)
   self:addAttribute("comparator", comparator)

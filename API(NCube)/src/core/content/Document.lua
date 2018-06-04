@@ -68,7 +68,7 @@ Document.childrenMap = {
 
 ---
 -- List containing the data types of each attribute
--- belonging <b>&lt;ncl&gt;</b> element.
+-- belonging to <b>&lt;ncl&gt;</b> element.
 -- 
 -- @field [parent=#Document] #table attributesTypeMap  
 Document.attributesTypeMap = {
