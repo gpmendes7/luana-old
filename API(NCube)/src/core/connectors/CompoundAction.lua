@@ -223,7 +223,7 @@ end
 
 ---
 -- Removes a <b>&lt;simpleAction&gt;</b> child element of the 
--- <b>&lt;CompoundAction&gt;</b> element in position `p`.
+-- <b>&lt;compoundAction&gt;</b> element in position `p`.
 -- 
 -- @function [parent=#CompoundAction] removeSimpleActionPos
 -- @param #number p position of the <b>&lt;simpleAction&gt;</b> child element.

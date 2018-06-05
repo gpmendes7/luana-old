@@ -3,10 +3,34 @@ local SimpleCondition = require "core/connectors/SimpleCondition"
 local AssessmentStatement = require "core/connectors/AssessmentStatement"
 local CompoundStatement = require "core/connectors/CompoundStatement"
 
+---
+-- Implements CompoundCondition Class representing <b>&lt;compoundCondition&gt;</b> element.
+-- 
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=compoundcondition">
+-- http://handbook.ncl.org.br/doku.php?id=compoundcondition</a>
+-- 
+-- @module CompoundCondition
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local CompoundCondition = require "core/connectors/CompoundCondition" 
 local CompoundCondition = NCLElem:extends()
 
+---
+-- Name of <b>&lt;compoundCondition&gt;</b> element.
+-- 
+-- @field [parent=#CompoundCondition] #string nameElem
 CompoundCondition.nameElem = "compoundCondition"
 
+---
+-- List with maps to associate classes representing
+-- children elements from <b>&lt;compoundCondition&gt;</b> element.
+-- 
+-- @field [parent=#CompoundCondition] #table childrenMap
 CompoundCondition.childrenMap = {
   simpleCondition = {SimpleCondition, "many"},
   compoundCondition = {CompoundCondition, "many"},
@@ -14,19 +38,46 @@ CompoundCondition.childrenMap = {
   compoundStatement = {CompoundStatement, "many"}
 }
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;compoundCondition&gt;</b> element.
+-- 
+-- @field [parent=#CompoundCondition] #table attributesTypeMap 
 CompoundCondition.attributesTypeMap = {
   operator = "string",
   delay = {"string", "number"}
 }
 
+---
+-- List containing all possible pre-definied values to string attributes
+-- belonging to <b>&lt;compoundCondition&gt;</b> element.
+-- 
+-- @field [parent=#CompoundCondition] #table attributesStringValueMap
 CompoundCondition.attributesStringValueMap = {
   operator = {"and", "or"}
 }
 
+---
+-- List containing all possible pre-definied symbols to numeric attributes
+-- belonging to <b>&lt;compoundCondition&gt;</b> element.
+-- 
+-- @field [parent=#CompoundCondition] #table attributesSymbolMap 
 CompoundCondition.attributesSymbolMap = {
   delay = "s"
 }
 
+---
+-- Returns a new CompoundCondition object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#CompoundCondition] create
+-- @param #table attributes list of attributes to be initialized.
+-- @param #number full numeric flag to indicate if the object 
+--                will be created with filled children list.
+-- @return #CompoundCondition new CompoundCondition object created.
 function CompoundCondition:create(attributes, full)
   local compoundCondition = CompoundCondition:new()
 
@@ -55,22 +106,55 @@ function CompoundCondition:create(attributes, full)
   return compoundCondition
 end
 
+---
+-- Sets a value to `operator` attribute of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] setComparator
+-- @param #string operator `operator` atribute of the
+-- <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:setOperator(operator)
   self:addAttribute("operator", operator)
 end
 
+---
+-- Returns the value of the `operator` attribute of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] getComparator
+-- @return #string `operator` atribute of the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:getOperator()
   return self:getAttribute("operator")
 end
 
-function CompoundCondition:setDelay(delay, symbol)
-  self:addAttribute("delay", delay, symbol)
+---
+-- Sets a value to `delay` attribute of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] setDelay
+-- @param #stringOrnumber delay `delay` atribute of the
+-- <b>&lt;compoundCondition&gt;</b> element.
+function CompoundCondition:setDelay(delay)
+  self:addAttribute("delay", delay)
 end
 
+---
+-- Returns the value of the `delay` attribute of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] getDelay
+-- @return #stringOrnumber `delay` atribute of the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:getDelay()
   return self:getAttribute("delay")
 end
 
+---
+-- Adds a <b>&lt;simpleCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] addSimpleCondition
+-- @param #SimpleCondition simpleCondition object representing the 
+-- <b>&lt;simpleCondition&gt;</b> element.
 function CompoundCondition:addSimpleCondition(simpleCondition)
   if((type(simpleCondition) == "table"
     and simpleCondition["getNameElem"] ~= nil
@@ -85,6 +169,13 @@ function CompoundCondition:addSimpleCondition(simpleCondition)
   table.insert(self.simpleConditions, simpleCondition)
 end
 
+---
+-- Returns a <b>&lt;simpleCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#CompoundCondition] getSimpleConditionPos
+-- @param #number p  position of the object representing the <b>&lt;simpleCondition&gt;</b> element.
 function CompoundCondition:getSimpleConditionPos(p)
   if(self.simpleConditions == nil)then
     error("Error! compoundCondition element with nil simpleConditions list!", 2)
@@ -95,6 +186,12 @@ function CompoundCondition:getSimpleConditionPos(p)
   return self.simpleConditions[p]
 end
 
+---
+-- Adds so many <b>&lt;simpleCondition&gt;</b> child elements of the <b>&lt;compoundCondition&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#CompoundCondition] setSimpleConditions
+-- @param #SimpleCondition ... objects representing the <b>&lt;simpleCondition&gt;</b> element.
 function CompoundCondition:setSimpleConditions(...)
   if(#arg>0)then
     for _, simpleCondition in ipairs(arg) do
@@ -103,6 +200,12 @@ function CompoundCondition:setSimpleConditions(...)
   end
 end
 
+---
+-- Removes a <b>&lt;simpleCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] removeSimpleCondition
+-- @param #SimpleCondition simpleCondition object representing the <b>&lt;simpleCondition&gt;</b> element.
 function CompoundCondition:removeSimpleCondition(simpleCondition)
   if((type(simpleCondition) == "table"
     and simpleCondition["getNameElem"] ~= nil
@@ -126,6 +229,12 @@ function CompoundCondition:removeSimpleCondition(simpleCondition)
   end
 end
 
+---
+-- Removes a <b>&lt;simpleCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#CompoundCondition] removeSimpleConditionPos
+-- @param #number p position of the <b>&lt;simpleCondition&gt;</b> child element.
 function CompoundCondition:removeSimpleConditionPos(p)
   if(self.children == nil)then
     error("Error! compoundCondition element with nil children list!", 2)
@@ -141,6 +250,13 @@ function CompoundCondition:removeSimpleConditionPos(p)
   table.remove(self.simpleConditions, p)
 end
 
+---
+-- Adds a <b>&lt;compoundCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] addCompoundCondition
+-- @param #CompoundCondition compoundCondition object representing the 
+-- <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:addCompoundCondition(compoundCondition)
   if((type(compoundCondition) == "table"
     and compoundCondition["getNameElem"] ~= nil
@@ -155,6 +271,13 @@ function CompoundCondition:addCompoundCondition(compoundCondition)
   table.insert(self.compoundConditions, compoundCondition)
 end
 
+---
+-- Returns a <b>&lt;compoundCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#CompoundCondition] getCompoundConditionPos
+-- @param #number p  position of the object representing the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:getCompoundConditionPos(p)
   if(self.compoundConditions == nil)then
     error("Error! compoundCondition element with nil compoundConditions list!", 2)
@@ -165,6 +288,12 @@ function CompoundCondition:getCompoundConditionPos(p)
   return self.compoundConditions[p]
 end
 
+---
+-- Adds so many <b>&lt;compoundCondition&gt;</b> child elements of the <b>&lt;compoundCondition&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#CompoundCondition] setCompoundConditions
+-- @param #CompoundCondition ... objects representing the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:setCompoundConditions(...)
   if(#arg>0)then
     for i, compoundCondition in ipairs(arg) do
@@ -173,6 +302,12 @@ function CompoundCondition:setCompoundConditions(...)
   end
 end
 
+---
+-- Removes a <b>&lt;compoundCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] removeCompoundCondition
+-- @param #CompoundCondition compoundCondition object representing the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:removeCompoundCondition(compoundCondition)
   if((type(compoundCondition) == "table"
     and compoundCondition["getNameElem"] ~= nil
@@ -196,6 +331,12 @@ function CompoundCondition:removeCompoundCondition(compoundCondition)
   end
 end
 
+---
+-- Removes a <b>&lt;compoundCondition&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#CompoundCondition] removeCompoundConditionPos
+-- @param #number p position of the <b>&lt;compoundCondition&gt;</b> child element.
 function CompoundCondition:removeCompoundConditionPos(p)
   if(self.children == nil)then
     error("Error! compoundCondition element with nil children list!", 2)
@@ -211,6 +352,13 @@ function CompoundCondition:removeCompoundConditionPos(p)
   table.remove(self.compoundConditions, p)
 end
 
+---
+-- Adds a <b>&lt;assessmentStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] addAssessmentStatement
+-- @param #AssessmentStatement assessmentStatement object representing the 
+-- <b>&lt;assessmentStatement&gt;</b> element.
 function CompoundCondition:addAssessmentStatement(assessmentStatement)
   if((type(assessmentStatement) == "table"
     and assessmentStatement["getNameElem"] ~= nil
@@ -225,6 +373,13 @@ function CompoundCondition:addAssessmentStatement(assessmentStatement)
   table.insert(self.assessmentStatements, assessmentStatement)
 end
 
+---
+-- Returns a <b>&lt;assessmentStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#CompoundCondition] getAssessmentStatementPos
+-- @param #number p  position of the object representing the <b>&lt;assessmentStatement&gt;</b> element.
 function CompoundCondition:getAssessmentStatementPos(p)
   if(self.assessmentStatements == nil)then
     error("Error! compoundCondition element with nil assessmentStatements list!", 2)
@@ -235,6 +390,12 @@ function CompoundCondition:getAssessmentStatementPos(p)
   return self.assessmentStatements[p]
 end
 
+---
+-- Adds so many <b>&lt;assessmentStatement&gt;</b> child elements of the <b>&lt;compoundCondition&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#CompoundCondition] setAssessmentStatements
+-- @param #AssessmentStatement ... objects representing the <b>&lt;assessmentStatement&gt;</b> element.
 function CompoundCondition:setAssessmentStatements(...)
   if(#arg>0)then
     for _, assessmentStatement in ipairs(arg) do
@@ -243,6 +404,12 @@ function CompoundCondition:setAssessmentStatements(...)
   end
 end
 
+---
+-- Removes a <b>&lt;assessmentStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] removeAssessmentStatement
+-- @param #AssessmentStatement assessmentStatement object representing the <b>&lt;assessmentStatement&gt;</b> element.
 function CompoundCondition:removeAssessmentStatement(assessmentStatement)
   if((type(assessmentStatement) == "table"
     and assessmentStatement["getNameElem"] ~= nil
@@ -266,6 +433,12 @@ function CompoundCondition:removeAssessmentStatement(assessmentStatement)
   end
 end
 
+---
+-- Removes a <b>&lt;assessmentStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#CompoundCondition] removeAssessmentStatementPos
+-- @param #number p position of the <b>&lt;assessmentStatement&gt;</b> child element.
 function CompoundCondition:removeAssessmentStatementPos(p)
   if(self.children == nil)then
     error("Error! compoundCondition element with nil children list!", 2)
@@ -281,6 +454,13 @@ function CompoundCondition:removeAssessmentStatementPos(p)
   table.remove(self.assessmentStatements, p)
 end
 
+---
+-- Adds a <b>&lt;compoundStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] addCompoundStatement
+-- @param #CompoundStatement compoundStatement object representing the 
+-- <b>&lt;compoundStatement&gt;</b> element.
 function CompoundCondition:addCompoundStatement(compoundStatement)
   if((type(compoundStatement) == "table"
     and compoundStatement["getNameElem"] ~= nil
@@ -295,6 +475,13 @@ function CompoundCondition:addCompoundStatement(compoundStatement)
   table.insert(self.compoundStatements, compoundStatement)
 end
 
+---
+-- Returns a <b>&lt;compoundStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#CompoundCondition] getCompoundStatementPos
+-- @param #number p  position of the object representing the <b>&lt;compoundStatement&gt;</b> element.
 function CompoundCondition:getCompoundStatementPos(p)
   if(self.compoundStatements == nil)then
     error("Error! compoundCondition element with nil compoundStatements list!", 2)
@@ -305,6 +492,12 @@ function CompoundCondition:getCompoundStatementPos(p)
   return self.compoundStatements[p]
 end
 
+---
+-- Adds so many <b>&lt;compoundStatement&gt;</b> child elements of the <b>&lt;compoundCondition&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#CompoundCondition] setCompoundStatements
+-- @param #CompoundStatement ... objects representing the <b>&lt;compoundStatement&gt;</b> element.
 function CompoundCondition:setCompoundStatements(...)
   if(#arg>0)then
     for _, compoundStatement in ipairs(arg) do
@@ -313,6 +506,12 @@ function CompoundCondition:setCompoundStatements(...)
   end
 end
 
+---
+-- Removes a <b>&lt;compoundStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element. 
+-- 
+-- @function [parent=#CompoundCondition] removeCompoundStatement
+-- @param #CompoundStatement compoundStatement object representing the <b>&lt;compoundStatement&gt;</b> element.
 function CompoundCondition:removeCompoundStatement(compoundStatement)
   if((type(compoundStatement) == "table"
     and compoundStatement["getNameElem"] ~= nil
@@ -336,6 +535,12 @@ function CompoundCondition:removeCompoundStatement(compoundStatement)
   end
 end
 
+---
+-- Removes a <b>&lt;compoundStatement&gt;</b> child element of the 
+-- <b>&lt;compoundCondition&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#CompoundCondition] removeCompoundStatementPos
+-- @param #number p position of the <b>&lt;compoundStatement&gt;</b> child element.
 function CompoundCondition:removeCompoundStatementPos(p)
   if(self.children == nil)then
     error("Error! compoundCondition element with nil children list!", 2)
