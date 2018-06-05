@@ -46,7 +46,7 @@ AssessmentStatement.attributesTypeMap = {
 
 ---
 -- List containing all possible pre-definied values to string attributes
--- belonging <b>&lt;assessmentStatement&gt;</b> element.
+-- belonging to <b>&lt;assessmentStatement&gt;</b> element.
 -- 
 -- @field [parent=#AssessmentStatement] #table attributesStringValueMap 
 AssessmentStatement.attributesStringValueMap = {
