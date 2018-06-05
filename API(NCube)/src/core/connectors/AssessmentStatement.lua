@@ -5,14 +5,7 @@ local ValueAssessment = require "core/connectors/ValueAssessment"
 ---
 -- Implements AssessmentStatement Class representing <b>&lt;assessmentStatement&gt;</b> element.
 -- 
--- The <b>&lt;assessmentStatement&gt;</b> element is used to compare variable values specified in 
--- <b>&lt;attributeAssessment&gt;</b>  elements, or to compare the values of these variables with 
--- absolute values specified in <b>&lt;valueAssessment&gt;</b> elements.
--- 
--- The <b>&lt;assessmentStatement&gt;</b> element has a comparator attribute that compares the values inferred 
--- from its child elements (<attributeAssessment> elements and <b>&lt;valueAssessment&gt;</b> elements).
---  
--- Implemented based in: <a href="http://handbook.ncl.org.br/doku.php?id=assessmentstatement">
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=assessmentstatement">
 -- http://handbook.ncl.org.br/doku.php?id=assessmentstatement</a>
 -- 
 -- @module AssessmentStatement
@@ -63,7 +56,7 @@ AssessmentStatement.attributesStringValueMap = {
 ---
 -- Returns a new AssessmentStatement object. 
 -- If `full` flag is not nil, the object will
--- receive default children objects of each children Class.
+-- receive default children objects of each children class.
 -- 
 -- This case, `full` must be passed to the method with a valid number.  
 -- 
@@ -176,8 +169,8 @@ end
 -- Removes a <b>&lt;attributeAssessment&gt;</b> child element of the 
 -- <b>&lt;assessmentStatement&gt;</b> element. 
 -- 
--- @function [parent=#AssessmentStatement] setAttributeAssessments
--- @param #AttributeAssessment ... objects representing the <b>&lt;attributeAssessment&gt;</b> element.
+-- @function [parent=#AssessmentStatement] removeAttributeAssessment
+-- @param #AttributeAssessment attributeAssessment object representing the <b>&lt;attributeAssessment&gt;</b> element.
 function AssessmentStatement:removeAttributeAssessment(attributeAssessment)
   if((type(attributeAssessment) == "table"
     and attributeAssessment["getNameElem"] ~= nil

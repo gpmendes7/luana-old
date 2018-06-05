@@ -4,13 +4,9 @@ local Head = require("core/content/Head")
 local Body = require("core/content/Body")
 
 ---
--- Implements Document Class representing <b>&lt;ncl&gt;</b> element.
+-- Implements Document Class representing <b>&lt;ncl&gt;</b> element. 
 -- 
--- The <b>&lt;ncl&gt;</b> tag represents the root of an NCL document.
--- 
--- The <b>&lt;ncl&gt;</b> tag is the container for all other NCL elements (except for the <?xml> tag).
--- 
--- Implemented based in: <a href="http://handbook.ncl.org.br/doku.php?id=ncl">
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=ncl">
 -- http://handbook.ncl.org.br/doku.php?id=ncl</a>
 -- 
 -- @module Document
@@ -82,7 +78,7 @@ Document.attributesTypeMap = {
 ---
 -- Returns a new Document object. 
 -- If `full` flag is not nil, the object will
--- receive default children objects of each children Class.
+-- receive default children objects of each children class.
 -- 
 -- This case, `full` must be passed to the method with a valid number.  
 -- 
