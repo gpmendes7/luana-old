@@ -2,19 +2,60 @@ local NCLElem = require "core/NCLElem"
 local ImportBase = require "core/importation/ImportBase"
 local CausalConnector = require "core/connectors/CausalConnector"
 
+---
+-- Implements ConnectorBase Class representing <b>&lt;connectorBase&gt;</b> element.
+-- 
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=connectorbase">
+-- http://handbook.ncl.org.br/doku.php?id=connectorbase</a>
+-- 
+-- @module ConnectorBase
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local ConnectorBase = require "core/connectors/ConnectorBase" 
 local ConnectorBase = NCLElem:extends()
 
+---
+-- Name of <b>&lt;connectorBase&gt;</b> element.
+-- 
+-- @field [parent=#ConnectorBase] #string nameElem
 ConnectorBase.nameElem = "connectorBase"
 
+---
+-- List with maps to associate classes representing
+-- children elements from <b>&lt;connectorBase&gt;</b> element.
+-- 
+-- @field [parent=#ConnectorBase] #table childrenMap
 ConnectorBase.childrenMap = {
   importBase = {ImportBase, "many"},
   causalConnector = {CausalConnector, "many"}
 }
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;connectorBase&gt;</b> element.
+-- 
+-- @field [parent=#ConnectorBase] #table attributesTypeMap 
 ConnectorBase.attributesTypeMap = {
   id = "string"
 }
 
+---
+-- Returns a new ConnectorBase object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#ConnectorBase] create
+-- @param #table attributes list of attributes to be initialized.
+-- @param #number full numeric flag to indicate if the object 
+--                will be created with filled children list.
+-- @return #ConnectorBase new ConnectorBase object created.
 function ConnectorBase:create(attributes, full)
   local connectorBase = ConnectorBase:new()
 
@@ -36,14 +77,34 @@ function ConnectorBase:create(attributes, full)
   return connectorBase
 end
 
+---
+-- Sets a value to `id` attribute of the 
+-- <b>&lt;connectorBase&gt;</b> element. 
+-- 
+-- @function [parent=#ConnectorBase] setId
+-- @param #string id `id` atribute of the
+-- <b>&lt;connectorBase&gt;</b> element.
 function ConnectorBase:setId(id)
   self:addAttribute("id", id)
 end
 
+---
+-- Returns the value of the `id` attribute of the 
+-- <b>&lt;connectorBase&gt;</b> element. 
+-- 
+-- @function [parent=#ConnectorBase] getId
+-- @return #string `id` atribute of the <b>&lt;connectorBase&gt;</b> element.
 function ConnectorBase:getId()
   return self:getAttribute("id")
 end
 
+---
+-- Adds a <b>&lt;importBase&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element. 
+-- 
+-- @function [parent=#ConnectorBase] addImportBase
+-- @param #ImportBase importBase object representing the 
+-- <b>&lt;importBase&gt;</b> element.
 function ConnectorBase:addImportBase(importBase)
   if((type(importBase) == "table"
     and importBase["getNameElem"] ~= nil
@@ -58,6 +119,13 @@ function ConnectorBase:addImportBase(importBase)
   table.insert(self.importBases, importBase)
 end
 
+---
+-- Returns a <b>&lt;importBase&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#ConnectorBase] getImportBasePos
+-- @param #number p  position of the object representing the <b>&lt;importBase&gt;</b> element.
 function ConnectorBase:getImportBasePos(p)
   if(self.importBases == nil)then
     error("Error! connectorBase element with nil importBases list!", 2)
