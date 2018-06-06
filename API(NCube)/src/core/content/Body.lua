@@ -9,10 +9,34 @@ local Link = require "core/linking/Link"
 local Meta = require "core/metadata/Meta"
 local MetaData = require "core/metadata/MetaData"
 
+---
+-- Implements Body Class representing <b>&lt;body&gt;</b> element.
+-- 
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=body">
+-- http://handbook.ncl.org.br/doku.php?id=body</a>
+-- 
+-- @module Body
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local Body = require "core/content/Body" 
 local Body = NCLElem:extends()
 
+---
+-- Name of <b>&lt;body&gt;</b> element.
+-- 
+-- @field [parent=#Body] #string nameElem 
 Body.nameElem = "body"
 
+---
+-- List with maps to associate classes representing
+-- children elements from <b>&lt;body&gt;</b> element.
+-- 
+-- @field [parent=#Body] #table childrenMap
 Body.childrenMap = {
   port = {Port, "many"},
   property = {Property, "many"},
@@ -24,10 +48,27 @@ Body.childrenMap = {
   metadata = {MetaData, "many"}
 }
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;body&gt;</b> element.
+-- 
+-- @field [parent=#Body] #table attributesTypeMap
 Body.attributesTypeMap = {
   id = "string"
 }
 
+---
+-- Returns a new Body object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#Body] create
+-- @param #table attributes list of attributes to be initialized.
+-- @param #number full numeric flag to indicate if the object 
+--                will be created with filled children list.
+-- @return #Body new Body object created.
 function Body:create(attributes, full)
   local body = Body:new()
 
@@ -63,14 +104,34 @@ function Body:create(attributes, full)
   return body
 end
 
+---
+-- Sets a value to `id` attribute of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] setId
+-- @param #string comparator `id` atribute of the
+-- <b>&lt;body&gt;</b> element.
 function Body:setId(id)
   self:addAttribute("id", id)
 end
 
+---
+-- Returns the value of the `id` attribute of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] getId
+-- @return #string `id` atribute of the <b>&lt;body&gt;</b> element.
 function Body:getId()
   return self:getAttribute("id")
 end
 
+---
+-- Adds a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addPort
+-- @param #Port port object representing the 
+-- <b>&lt;port&gt;</b> element.
 function Body:addPort(port)
   if((type(port) == "table"
     and port["getNameElem"] ~= nil
@@ -92,6 +153,13 @@ function Body:addPort(port)
   table.insert(self.ports, port)
 end
 
+---
+-- Returns a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getPortPos
+-- @param #number p  position of the object representing the <b>&lt;port&gt;</b> element.
 function Body:getPortPos(p)
   if(self.ports == nil)then
     error("Error! body element with nil ports list!", 2)
@@ -102,6 +170,13 @@ function Body:getPortPos(p)
   return self.ports[p]
 end
 
+---
+-- Returns a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Body] getPortById
+-- @param #string id `id` attribute of the <b>&lt;port&gt;</b> element.
 function Body:getPortById(id)
   if(id == nil)then
     error("Error! id attribute of port element must be informed!", 2)
@@ -118,6 +193,12 @@ function Body:getPortById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;port&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setPorts
+-- @param #Port ... objects representing the <b>&lt;port&gt;</b> element.
 function Body:setPorts(...)
   if(#arg>0)then
     for _, port in ipairs(arg) do
@@ -126,6 +207,12 @@ function Body:setPorts(...)
   end
 end
 
+---
+-- Removes a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] removePort
+-- @param #Port port object representing the <b>&lt;port&gt;</b> element.
 function Body:removePort(port)
   if((type(port) == "table"
     and port["getNameElem"] ~= nil
@@ -149,6 +236,12 @@ function Body:removePort(port)
   end
 end
 
+---
+-- Removes a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removePortPos
+-- @param #number p position of the <b>&lt;port&gt;</b> child element.
 function Body:removePortPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -164,6 +257,13 @@ function Body:removePortPos(p)
   table.remove(self.ports, p)
 end
 
+---
+-- Adds a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addProperty
+-- @param #Property property object representing the 
+-- <b>&lt;property&gt;</b> element.
 function Body:addProperty(property)
   if((type(property) == "table"
     and property["getNameElem"] ~= nil
@@ -185,6 +285,13 @@ function Body:addProperty(property)
   table.insert(self.propertys, property)
 end
 
+---
+-- Returns a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getPropertyPos
+-- @param #number p  position of the object representing the <b>&lt;property&gt;</b> element.
 function Body:getPropertyPos(p)
   if(self.propertys == nil)then
     error("Error! body element with nil propertys list!", 2)
@@ -195,6 +302,13 @@ function Body:getPropertyPos(p)
   return self.propertys[p]
 end
 
+---
+-- Returns a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- by `name` attribute.
+--  
+-- @function [parent=#Body] getPropertyByName
+-- @param #string name `name` attribute of the <b>&lt;property&gt;</b> element.
 function Body:getPropertyByName(name)
   if(name == nil)then
     error("Error! name attribute of property element must be informed!", 2)
@@ -211,6 +325,12 @@ function Body:getPropertyByName(name)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;property&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setPropertys
+-- @param #Property ... objects representing the <b>&lt;property&gt;</b> element.
 function Body:setPropertys(...)
   if(#arg>0)then
     for _, property in ipairs(arg) do
@@ -219,6 +339,12 @@ function Body:setPropertys(...)
   end
 end
 
+---
+-- Removes a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] removeProperty
+-- @param #Property property object representing the <b>&lt;property&gt;</b> element.
 function Body:removeProperty(property)
   if((type(property) == "table"
     and property["getNameElem"] ~= nil
@@ -242,6 +368,12 @@ function Body:removeProperty(property)
   end
 end
 
+---
+-- Removes a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removePropertyPos
+-- @param #number p position of the <b>&lt;property&gt;</b> child element.
 function Body:removePropertyPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -257,6 +389,13 @@ function Body:removePropertyPos(p)
   table.remove(self.propertys, p)
 end
 
+---
+-- Adds a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addMedia
+-- @param #Media media object representing the 
+-- <b>&lt;media&gt;</b> element.
 function Body:addMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
@@ -278,6 +417,13 @@ function Body:addMedia(media)
   table.insert(self.medias, media)
 end
 
+---
+-- Returns a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getMediaPos
+-- @param #number p  position of the object representing the <b>&lt;media&gt;</b> element.
 function Body:getMediaPos(p)
   if(self.medias == nil)then
     error("Error! body element with nil medias list!", 2)
@@ -288,6 +434,13 @@ function Body:getMediaPos(p)
   return self.medias[p]
 end
 
+---
+-- Returns a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Body] getMediaById
+-- @param #string id `id` attribute of the <b>&lt;media&gt;</b> element.
 function Body:getMediaById(id)
   if(id == nil)then
     error("Error! id attribute of media element must be informed!", 2)
@@ -304,6 +457,12 @@ function Body:getMediaById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;media&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setMedias
+-- @param #Media ... objects representing the <b>&lt;media&gt;</b> element.
 function Body:setMedias(...)
   if(#arg>0)then
     for _, media in ipairs(arg) do
@@ -312,6 +471,12 @@ function Body:setMedias(...)
   end
 end
 
+---
+-- Removes a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] removeMedia
+-- @param #Media media object representing the <b>&lt;media&gt;</b> element.
 function Body:removeMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
@@ -335,6 +500,12 @@ function Body:removeMedia(media)
   end
 end
 
+---
+-- Removes a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeMediaPos
+-- @param #number p position of the <b>&lt;media&gt;</b> child element.
 function Body:removeMediaPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -350,6 +521,13 @@ function Body:removeMediaPos(p)
   table.remove(self.medias, p)
 end
 
+---
+-- Adds a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addContext
+-- @param #Context context object representing the 
+-- <b>&lt;context&gt;</b> element.
 function Body:addContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
@@ -371,6 +549,13 @@ function Body:addContext(context)
   table.insert(self.contexts, context)
 end
 
+---
+-- Returns a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getContextPos
+-- @param #number p  position of the object representing the <b>&lt;context&gt;</b> element.
 function Body:getContextPos(p)
   if(self.contexts == nil)then
     error("Error! body element with nil contexts list!", 2)
@@ -385,6 +570,13 @@ function Body:getContextPos(p)
   return self.contexts[p]
 end
 
+---
+-- Returns a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Body] getContextById
+-- @param #string id `id` attribute of the <b>&lt;context&gt;</b> element.
 function Body:getContextById(id)
   if(self.contexts == nil)then
     error("Error! body element with nil contexts list!", 2)
@@ -401,6 +593,12 @@ function Body:getContextById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;context&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setContexts
+-- @param #Context ... objects representing the <b>&lt;context&gt;</b> element.
 function Body:setContexts(...)
   if(#arg>0)then
     for _, context in ipairs(arg) do
@@ -409,6 +607,12 @@ function Body:setContexts(...)
   end
 end
 
+---
+-- Removes a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] removeContext
+-- @param #Context context object representing the <b>&lt;context&gt;</b> element.
 function Body:removeContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
@@ -433,6 +637,12 @@ function Body:removeContext(context)
   end
 end
 
+---
+-- Removes a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeContextPos
+-- @param #number p position of the <b>&lt;context&gt;</b> child element.
 function Body:removeContextPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -448,6 +658,13 @@ function Body:removeContextPos(p)
   table.remove(self.contexts, p)
 end
 
+---
+-- Adds a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addSwitch
+-- @param #Switch switch object representing the 
+-- <b>&lt;switch&gt;</b> element.
 function Body:addSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
@@ -469,6 +686,13 @@ function Body:addSwitch(switch)
   table.insert(self.switchs, switch)
 end
 
+---
+-- Returns a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getSwitchPos
+-- @param #number p  position of the object representing the <b>&lt;switch&gt;</b> element.
 function Body:getSwitchPos(p)
   if(self.switchs == nil)then
     error("Error! body element with nil switchs list!", 2)
@@ -484,6 +708,13 @@ function Body:getSwitchPos(p)
   return self.switchs[p]
 end
 
+---
+-- Returns a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Body] getSwitchById
+-- @param #string id `id` attribute of the <b>&lt;switch&gt;</b> element.
 function Body:getSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of switch element must be informed!", 2)
@@ -500,6 +731,12 @@ function Body:getSwitchById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;switch&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setSwitchs
+-- @param #Switch ... objects representing the <b>&lt;switch&gt;</b> element.
 function Body:setSwitchs(...)
   if(#arg>0)then
     for _, switch in ipairs(arg) do
@@ -508,6 +745,12 @@ function Body:setSwitchs(...)
   end
 end
 
+---
+-- Removes a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] removeSwitch
+-- @param #Switch switch object representing the <b>&lt;switch&gt;</b> element.
 function Body:removeSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
@@ -531,6 +774,12 @@ function Body:removeSwitch(switch)
   end
 end
 
+---
+-- Removes a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeSwitchPos
+-- @param #number p position of the <b>&lt;switch&gt;</b> child element.
 function Body:removeSwitchPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -546,7 +795,13 @@ function Body:removeSwitchPos(p)
   table.remove(self.switchs, p)
 end
 
-
+---
+-- Adds a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addLink
+-- @param #Link link object representing the 
+-- <b>&lt;link&gt;</b> element.
 function Body:addLink(link)
   if((type(link) == "table"
     and link["getNameElem"] ~= nil
@@ -568,6 +823,13 @@ function Body:addLink(link)
   table.insert(self.links, link)
 end
 
+---
+-- Returns a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getLinkPos
+-- @param #number p  position of the object representing the <b>&lt;link&gt;</b> element.
 function Body:getLinkPos(p)
   if(self.links == nil)then
     error("Error! body element with nil links list!", 2)
@@ -578,6 +840,13 @@ function Body:getLinkPos(p)
   return self.links[p]
 end
 
+---
+-- Returns a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Body] getLinkById
+-- @param #string id `id` attribute of the <b>&lt;link&gt;</b> element.
 function Body:getLinkById(id)
   if(id == nil)then
     error("Error! id attribute of link element must be informed!", 2)
@@ -594,6 +863,12 @@ function Body:getLinkById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;link&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setLinks
+-- @param #Link ... objects representing the <b>&lt;link&gt;</b> element.
 function Body:setLinks(...)
   if(#arg>0)then
     for _, link in ipairs(arg) do

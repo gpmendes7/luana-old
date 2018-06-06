@@ -1,8 +1,8 @@
-local ElementA = require "core/content/pseudo/ElementA"
-local ElementB = require "core/content/pseudo/ElementB"
-local ElementC = require "core/content/pseudo/ElementC"
-local ElementD = require "core/content/pseudo/ElementD"
-local ElementE = require "core/content/pseudo/ElementE"
+local ElementA = require "core/pseudo/ElementA"
+local ElementB = require "core/pseudo/ElementB"
+local ElementC = require "core/pseudo/ElementC"
+local ElementD = require "core/pseudo/ElementD"
+local ElementE = require "core/pseudo/ElementE"
 
 
 local function test1()
