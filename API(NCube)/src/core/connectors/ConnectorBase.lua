@@ -136,6 +136,13 @@ function ConnectorBase:getImportBasePos(p)
   return self.importBases[p]
 end
 
+---
+-- Returns a <b>&lt;importBase&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element
+-- by `alias` attribute.
+--  
+-- @function [parent=#ConnectorBase] getImportBaseByAlias
+-- @param #string alias `alias` attribute of the <b>&lt;importBase&gt;</b> element.
 function ConnectorBase:getImportBaseByAlias(alias)
   if(alias == nil)then
     error("Error! alias attribute of connectorbase element must be informed!", 2)
@@ -152,6 +159,12 @@ function ConnectorBase:getImportBaseByAlias(alias)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;importBase&gt;</b> child elements of the <b>&lt;connectorBase&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#ConnectorBase] setImportBases
+-- @param #ImportBase ... objects representing the <b>&lt;importBase&gt;</b> element.
 function ConnectorBase:setImportBases(...)
   if(#arg>0)then
     for _, importBase in ipairs(arg) do
@@ -160,6 +173,12 @@ function ConnectorBase:setImportBases(...)
   end
 end
 
+---
+-- Removes a <b>&lt;importBase&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element. 
+-- 
+-- @function [parent=#ConnectorBase] removeImportBase
+-- @param #ImportBase importBase object representing the <b>&lt;importBase&gt;</b> element.
 function ConnectorBase:removeImportBase(importBase)
   if((type(importBase) == "table"
     and importBase["getNameElem"] ~= nil
@@ -183,6 +202,12 @@ function ConnectorBase:removeImportBase(importBase)
   end
 end
 
+---
+-- Removes a <b>&lt;importBase&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#ConnectorBase] removeImportBasePos
+-- @param #number p position of the <b>&lt;importBase&gt;</b> child element.
 function ConnectorBase:removeImportBasePos(p)
   if(self.children == nil)then
     error("Error! connectorBase element with nil children list!", 2)
@@ -198,6 +223,13 @@ function ConnectorBase:removeImportBasePos(p)
   table.remove(self.importBases, p)
 end
 
+---
+-- Adds a <b>&lt;causalConnector&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element. 
+-- 
+-- @function [parent=#ConnectorBase] addCausalConnector
+-- @param #CausalConnector causalConnector object representing the 
+-- <b>&lt;causalConnector&gt;</b> element.
 function ConnectorBase:addCausalConnector(causalConnector)
   if((type(causalConnector) == "table"
     and causalConnector["getNameElem"] ~= nil
@@ -212,6 +244,13 @@ function ConnectorBase:addCausalConnector(causalConnector)
   table.insert(self.causalConnectors, causalConnector)
 end
 
+---
+-- Returns a <b>&lt;causalConnector&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#ConnectorBase] getCausalConnectorPos
+-- @param #number p  position of the object representing the <b>&lt;causalConnector&gt;</b> element.
 function ConnectorBase:getCausalConnectorPos(p)
   if(self.causalConnectors == nil)then
     error("Error! connectorBase element with nil causalConnectors list!", 2)
@@ -222,6 +261,13 @@ function ConnectorBase:getCausalConnectorPos(p)
   return self.causalConnectors[p]
 end
 
+---
+-- Returns a <b>&lt;causalConnector&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#ConnectorBase] getCausalConnectorById
+-- @param #string id `id` attribute of the <b>&lt;causalConnector&gt;</b> element.
 function ConnectorBase:getCausalConnectorById(id)
   if(id == nil)then
     error("Error! id attribute of connectorbase element must be informed!", 2)
@@ -238,6 +284,12 @@ function ConnectorBase:getCausalConnectorById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;causalConnector&gt;</b> child elements of the <b>&lt;connectorBase&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#ConnectorBase] setCausalConnectors
+-- @param #CausalConnector ... objects representing the <b>&lt;causalConnector&gt;</b> element.
 function ConnectorBase:setCausalConnectors(...)
   if(#arg>0)then
     for _, causalConnector in ipairs(arg) do
@@ -246,6 +298,12 @@ function ConnectorBase:setCausalConnectors(...)
   end
 end
 
+---
+-- Removes a <b>&lt;causalConnector&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element. 
+-- 
+-- @function [parent=#ConnectorBase] removeCausalConnector
+-- @param #CausalConnector causalConnector object representing the <b>&lt;causalConnector&gt;</b> element.
 function ConnectorBase:removeCausalConnector(causalConnector)
   if((type(causalConnector) == "table"
     and causalConnector["getNameElem"] ~= nil
@@ -269,6 +327,12 @@ function ConnectorBase:removeCausalConnector(causalConnector)
   end
 end
 
+---
+-- Removes a <b>&lt;causalConnector&gt;</b> child element of the 
+-- <b>&lt;connectorBase&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#ConnectorBase] removeCausalConnectorPos
+-- @param #number p position of the <b>&lt;causalConnector&gt;</b> child element.
 function ConnectorBase:removeCausalConnectorPos(p)
   if(self.children == nil)then
     error("Error! connectorBase element with nil children list!", 2)
