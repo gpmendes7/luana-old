@@ -119,7 +119,7 @@ local function test5()
   local simpleAction = SimpleAction:create(atts)
   
   simpleAction:addSymbol("delay", "s")
-  simpleAction:addSymbol("repeat", "s")
+  simpleAction:addSymbol("repeatDelay", "s")
   simpleAction:addSymbol("duration", "s")
   
   local nclExp = "<simpleAction"
