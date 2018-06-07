@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ncl id="exemplo07ConnBase" 
+     xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile">
+
+<head>
+   <connectorBase>
+      <causalConnector id="onBeginSetStart">
+         <connectorParam name="bounds"/>
+         <simpleCondition role="onBegin"/>
+         <compoundAction operator="seq">
+            <simpleAction role="set" value="$bounds"/>
+            <simpleAction role="start"/>
+         </compoundAction>
+      </causalConnector>
+
+      <causalConnector id="onEndSetStop">
+         <connectorParam name="bounds"/>
+         <simpleCondition role="onEnd"/>
+         <compoundAction operator="seq">
+            <simpleAction role="set" value="$bounds"/>
+            <simpleAction role="stop"/>
+         </compoundAction>
+      </causalConnector>
+   </connectorBase>
+</head>
+
+</ncl>

@@ -1,2 +1,2 @@
-# NCube
-API Lua destinada a facilitar a criação de ferramentas de autoria de documentos NCL.
+# LuaNa (Lua API for NCL Authoring)
+Lua API designed to facilitate the creation of NCL document authoring tools.
