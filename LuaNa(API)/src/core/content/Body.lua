@@ -109,7 +109,7 @@ end
 -- <b>&lt;body&gt;</b> element. 
 -- 
 -- @function [parent=#Body] setId
--- @param #string comparator `id` atribute of the
+-- @param #string id `id` atribute of the
 -- <b>&lt;body&gt;</b> element.
 function Body:setId(id)
   self:addAttribute("id", id)
@@ -992,10 +992,10 @@ end
 
 ---
 -- Removes a <b>&lt;meta&gt;</b> child element of the 
--- <b>&lt;body&gt;</b> element in position `p`.
+-- <b>&lt;body&gt;</b> element. 
 -- 
 -- @function [parent=#Body] removeMeta
--- @param #number p position of the <b>&lt;meta&gt;</b> child element.
+-- @param #Meta meta object representing the <b>&lt;meta&gt;</b> element.
 function Body:removeMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
@@ -1101,10 +1101,10 @@ end
 
 ---
 -- Removes a <b>&lt;metadata&gt;</b> child element of the 
--- <b>&lt;body&gt;</b> element in position `p`.
+-- <b>&lt;body&gt;</b> element. 
 -- 
 -- @function [parent=#Body] removeMetaData
--- @param #number p position of the <b>&lt;metadata&gt;</b> child element.
+-- @param #Metadata metadata object representing the <b>&lt;metadata&gt;</b> element.
 function Body:removeMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil

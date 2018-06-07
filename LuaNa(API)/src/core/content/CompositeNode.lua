@@ -1,19 +1,50 @@
 local NCLElem = require "core/NCLElem"
-
 local Port = require "core/interface/Port"
 local Property = require "core/interface/Property"
 local Media = require "core/content/Media"
 local Link = require "core/linking/Link"
 local Meta = require "core/metadata/Meta"
 local MetaData = require "core/metadata/MetaData"
+local DefaultComponent = require "core/switches/DefaultComponent"
+local SwitchPort = require "core/switches/SwitchPort"
+local BindRule = require "core/switches/BindRule"
 
+---
+-- Implements Context Class representing <b>&lt;context&gt;</b> element and
+-- Switch Class representing <b>&lt;switch&gt;</b> element.
+-- 
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=context">
+-- http://handbook.ncl.org.br/doku.php?id=context</a> and
+-- <a href="http://handbook.ncl.org.br/doku.php?id=switch">
+-- http://handbook.ncl.org.br/doku.php?id=switch</a>
+-- 
+-- @module CompositeNode
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local CompositeNodes = require "core/content/CompositeNode"
+-- local Context = CompositeNodes[1]
+-- local Switch = CompositeNodes[2]
+ 
 local Context = NCLElem:extends()
+
 local Switch = NCLElem:extends()
 
--- Class Context ---
-
+---
+-- Name of <b>&lt;context&gt;</b> element.
+-- 
+-- @field [parent=#Context] #string nameElem
 Context.nameElem = "context"
 
+---
+-- List with maps to associate classes representing
+-- children elements from <b>&lt;context&gt;</b> element.
+-- 
+-- @field [parent=#Context] #table childrenMap
 Context.childrenMap = {
   port = {Port, "many"},
   property = {Property, "many"},
@@ -25,15 +56,37 @@ Context.childrenMap = {
   metadata = {MetaData, "many"}
 }
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;context&gt;</b> element.
+-- 
+-- @field [parent=#Context] #table attributesTypeMap
 Context.attributesTypeMap = {
   id = "string",
   refer = "string"
 }
 
+---
+-- List with associative map that connects an attribute to an specific object
+-- representing a child NCL element of <b>&lt;context&gt;</b> element.
+-- 
+-- @field [parent=#Context] #table assMap
 Context.assMap = {
   {"refer", "referAss"}
 }
 
+---
+-- Returns a new Context object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#Context] create
+-- @param #table attributes list of attributes to be initialized.
+-- @param #number full numeric flag to indicate if the object 
+--                will be created with filled children list.
+-- @return #Context new Context object created.
 function Context:create(attributes, full)
   local context = Context:new()
 
@@ -72,14 +125,34 @@ function Context:create(attributes, full)
   return context
 end
 
+---
+-- Sets a value to `id` attribute of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] setId
+-- @param #string id `id` atribute of the
+-- <b>&lt;context&gt;</b> element.
 function Context:setId(id)
   self:addAttribute("id", id)
 end
 
+---
+-- Returns the value of the `id` attribute of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] getId
+-- @return #string `id` atribute of the <b>&lt;context&gt;</b> element.
 function Context:getId()
   return self:getAttribute("id")
 end
 
+---
+-- Sets a value to `refer` attribute of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] setRefer
+-- @param #string refer `refer` atribute of the
+-- <b>&lt;context&gt;</b> element.
 function Context:setRefer(refer)
   if(type(refer) == "table")then
     if(refer["getNameElem"] ~= nil
@@ -100,10 +173,23 @@ function Context:setRefer(refer)
   end
 end
 
+---
+-- Returns the value of the `refer` attribute of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] getRefer
+-- @return #string `refer` atribute of the <b>&lt;context&gt;</b> element.
 function Context:getRefer()
   return self:getAttribute("refer")
 end
 
+---
+-- Adds a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addPort
+-- @param #Port port object representing the 
+-- <b>&lt;port&gt;</b> element.
 function Context:addPort(port)
   if((type(port) == "table"
     and port["getNameElem"] ~= nil
@@ -125,6 +211,13 @@ function Context:addPort(port)
   table.insert(self.ports, port)
 end
 
+---
+-- Returns a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getPortPos
+-- @param #number p  position of the object representing the <b>&lt;port&gt;</b> element.
 function Context:getPortPos(p)
   if(self.ports == nil)then
     error("Error! context element with nil ports list!", 2)
@@ -135,6 +228,13 @@ function Context:getPortPos(p)
   return self.ports[p]
 end
 
+---
+-- Returns a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Context] getPortById
+-- @param #string id `id` attribute of the <b>&lt;port&gt;</b> element.
 function Context:getPortById(id)
   if(id == nil)then
     error("Error! id attribute of port element must be informed!", 2)
@@ -151,6 +251,12 @@ function Context:getPortById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;port&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setPorts
+-- @param #Port ... objects representing the <b>&lt;port&gt;</b> element.
 function Context:setPorts(...)
   if(#arg>0)then
     for _, port in ipairs(arg) do
@@ -159,6 +265,12 @@ function Context:setPorts(...)
   end
 end
 
+---
+-- Removes a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removePort
+-- @param #Port port object representing the <b>&lt;port&gt;</b> element.
 function Context:removePort(port)
   if((type(port) == "table"
     and port["getNameElem"] ~= nil
@@ -182,6 +294,12 @@ function Context:removePort(port)
   end
 end
 
+---
+-- Removes a <b>&lt;port&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removePortPos
+-- @param #number p position of the <b>&lt;port&gt;</b> child element.
 function Context:removePortPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -197,6 +315,13 @@ function Context:removePortPos(p)
   table.remove(self.ports, p)
 end
 
+---
+-- Adds a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addProperty
+-- @param #Property property object representing the 
+-- <b>&lt;property&gt;</b> element.
 function Context:addProperty(property)
   if((type(property) == "table"
     and property["getNameElem"] ~= nil
@@ -218,6 +343,13 @@ function Context:addProperty(property)
   table.insert(self.propertys, property)
 end
 
+---
+-- Returns a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getPropertyPos
+-- @param #number p  position of the object representing the <b>&lt;property&gt;</b> element.
 function Context:getPropertyPos(p)
   if(self.propertys == nil)then
     error("Error! context element with nil propertys list!", 2)
@@ -228,6 +360,13 @@ function Context:getPropertyPos(p)
   return self.propertys[p]
 end
 
+---
+-- Returns a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- by `name` attribute.
+--  
+-- @function [parent=#Context] getPropertyByName
+-- @param #string name `name` attribute of the <b>&lt;property&gt;</b> element.
 function Context:getPropertyByName(name)
   if(name == nil)then
     error("Error! name attribute of property element must be informed!", 2)
@@ -244,6 +383,12 @@ function Context:getPropertyByName(name)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;property&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setPropertys
+-- @param #Property ... objects representing the <b>&lt;property&gt;</b> element.
 function Context:setPropertys(...)
   if(#arg>0)then
     for _, property in ipairs(arg) do
@@ -252,6 +397,12 @@ function Context:setPropertys(...)
   end
 end
 
+---
+-- Removes a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeProperty
+-- @param #Property property object representing the <b>&lt;property&gt;</b> element.
 function Context:removeProperty(property)
   if((type(property) == "table"
     and property["getNameElem"] ~= nil
@@ -275,6 +426,12 @@ function Context:removeProperty(property)
   end
 end
 
+---
+-- Removes a <b>&lt;property&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removePropertyPos
+-- @param #number p position of the <b>&lt;property&gt;</b> child element.
 function Context:removePropertyPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -290,6 +447,13 @@ function Context:removePropertyPos(p)
   table.remove(self.propertys, p)
 end
 
+---
+-- Adds a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addMedia
+-- @param #Media media object representing the 
+-- <b>&lt;media&gt;</b> element.
 function Context:addMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
@@ -311,6 +475,13 @@ function Context:addMedia(media)
   table.insert(self.medias, media)
 end
 
+---
+-- Returns a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getMediaPos
+-- @param #number p  position of the object representing the <b>&lt;media&gt;</b> element.
 function Context:getMediaPos(p)
   if(self.medias == nil)then
     error("Error! context element with nil medias list!", 2)
@@ -321,6 +492,13 @@ function Context:getMediaPos(p)
   return self.medias[p]
 end
 
+---
+-- Returns a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Context] getMediaById
+-- @param #string id `id` attribute of the <b>&lt;media&gt;</b> element.
 function Context:getMediaById(id)
   if(id == nil)then
     error("Error! id attribute of media element must be informed!", 2)
@@ -337,6 +515,12 @@ function Context:getMediaById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;media&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setMedias
+-- @param #Media ... objects representing the <b>&lt;media&gt;</b> element.
 function Context:setMedias(...)
   if(#arg>0)then
     for _, media in ipairs(arg) do
@@ -344,6 +528,13 @@ function Context:setMedias(...)
     end
   end
 end
+
+---
+-- Removes a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeMedia
+-- @param #Media media object representing the <b>&lt;media&gt;</b> element.
 function Context:removeMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
@@ -367,6 +558,12 @@ function Context:removeMedia(media)
   end
 end
 
+---
+-- Removes a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removeMediaPos
+-- @param #number p position of the <b>&lt;media&gt;</b> child element.
 function Context:removeMediaPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -382,6 +579,13 @@ function Context:removeMediaPos(p)
   table.remove(self.medias, p)
 end
 
+---
+-- Adds a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addContext
+-- @param #Context context object representing the 
+-- <b>&lt;context&gt;</b> element.
 function Context:addContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
@@ -403,6 +607,13 @@ function Context:addContext(context)
   table.insert(self.contexts, context)
 end
 
+---
+-- Returns a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getContextPos
+-- @param #number p  position of the object representing the <b>&lt;context&gt;</b> element.
 function Context:getContextPos(p)
   if(self.contexts == nil)then
     error("Error! context element with nil contexts list!", 2)
@@ -413,6 +624,13 @@ function Context:getContextPos(p)
   return self.contexts[p]
 end
 
+---
+-- Returns a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Context] getContextById
+-- @param #string id `id` attribute of the <b>&lt;context&gt;</b> element.
 function Context:getContextById(id)
   if(self.contexts == nil)then
     error("Error! context element with nil contexts list!", 2)
@@ -429,6 +647,12 @@ function Context:getContextById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;context&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setContexts
+-- @param #Context ... objects representing the <b>&lt;context&gt;</b> element.
 function Context:setContexts(...)
   if(#arg>0)then
     for _, context in ipairs(arg) do
@@ -437,6 +661,12 @@ function Context:setContexts(...)
   end
 end
 
+---
+-- Removes a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeContext
+-- @param #Context context object representing the <b>&lt;context&gt;</b> element.
 function Context:removeContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
@@ -460,6 +690,12 @@ function Context:removeContext(context)
   end
 end
 
+---
+-- Removes a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removeContextPos
+-- @param #number p position of the <b>&lt;context&gt;</b> child element.
 function Context:removeContextPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -475,6 +711,13 @@ function Context:removeContextPos(p)
   table.remove(self.contexts, p)
 end
 
+---
+-- Adds a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addLink
+-- @param #Link link object representing the 
+-- <b>&lt;link&gt;</b> element.
 function Context:addLink(link)
   if((type(link) == "table"
     and link["getNameElem"] ~= nil
@@ -496,6 +739,13 @@ function Context:addLink(link)
   table.insert(self.links, link)
 end
 
+---
+-- Returns a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getLinkPos
+-- @param #number p  position of the object representing the <b>&lt;link&gt;</b> element.
 function Context:getLinkPos(p)
   if(self.links == nil)then
     error("Error! context element with nil links list!", 2)
@@ -506,6 +756,13 @@ function Context:getLinkPos(p)
   return self.links[p]
 end
 
+---
+-- Returns a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Context] getLinkById
+-- @param #string id `id` attribute of the <b>&lt;link&gt;</b> element.
 function Context:getLinkById(id)
   if(id == nil)then
     error("Error! id attribute of link element must be informed!", 2)
@@ -522,6 +779,12 @@ function Context:getLinkById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;link&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setLinks
+-- @param #Link ... objects representing the <b>&lt;link&gt;</b> element.
 function Context:setLinks(...)
   if(#arg>0)then
     for _, link in ipairs(arg) do
@@ -529,6 +792,13 @@ function Context:setLinks(...)
     end
   end
 end
+
+---
+-- Removes a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeLink
+-- @param #Link link object representing the <b>&lt;link&gt;</b> element.
 function Context:removeLink(link)
   if((type(link) == "table"
     and link["getNameElem"] ~= nil
@@ -552,6 +822,12 @@ function Context:removeLink(link)
   end
 end
 
+---
+-- Removes a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removeLinkPos
+-- @param #number p position of the <b>&lt;link&gt;</b> child element.
 function Context:removeLinkPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -567,6 +843,13 @@ function Context:removeLinkPos(p)
   table.remove(self.links, p)
 end
 
+---
+-- Adds a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addSwitch
+-- @param #Switch switch object representing the 
+-- <b>&lt;switch&gt;</b> element.
 function Context:addSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
@@ -588,6 +871,13 @@ function Context:addSwitch(switch)
   table.insert(self.switchs, switch)
 end
 
+---
+-- Returns a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getSwitchPos
+-- @param #number p  position of the object representing the <b>&lt;switch&gt;</b> element.
 function Context:getSwitchPos(p)
   if(self.switchs == nil)then
     error("Error! context element with nil switchs list!", 2)
@@ -598,6 +888,13 @@ function Context:getSwitchPos(p)
   return self.switchs[p]
 end
 
+---
+-- Returns a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Context] getSwitchById
+-- @param #string id `id` attribute of the <b>&lt;switch&gt;</b> element.
 function Context:getSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of switch element must be informed!", 2)
@@ -614,6 +911,12 @@ function Context:getSwitchById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;switch&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setSwitchs
+-- @param #Switch ... objects representing the <b>&lt;switch&gt;</b> element.
 function Context:setSwitchs(...)
   if(#arg>0)then
     for _, switch in ipairs(arg) do
@@ -622,6 +925,12 @@ function Context:setSwitchs(...)
   end
 end
 
+---
+-- Removes a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeSwitch
+-- @param #Switch switch object representing the <b>&lt;switch&gt;</b> element.
 function Context:removeSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
@@ -645,6 +954,12 @@ function Context:removeSwitch(switch)
   end
 end
 
+---
+-- Removes a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removeSwitchPos
+-- @param #number p position of the <b>&lt;switch&gt;</b> child element.
 function Context:removeSwitchPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -660,6 +975,13 @@ function Context:removeSwitchPos(p)
   table.remove(self.switchs, p)
 end
 
+---
+-- Adds a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addMeta
+-- @param #Meta meta object representing the 
+-- <b>&lt;meta&gt;</b> element.
 function Context:addMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
@@ -681,6 +1003,13 @@ function Context:addMeta(meta)
   table.insert(self.metas, meta)
 end
 
+---
+-- Returns a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getMetaPos
+-- @param #number p  position of the object representing the <b>&lt;meta&gt;</b> element.
 function Context:getMetaPos(p)
   if(self.metas == nil)then
     error("Error! context element with nil metas list!", 2)
@@ -691,6 +1020,12 @@ function Context:getMetaPos(p)
   return self.metas[p]
 end
 
+---
+-- Adds so many <b>&lt;meta&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setMetas
+-- @param #Meta ... objects representing the <b>&lt;meta&gt;</b> element.
 function Context:setMetas(...)
   if(#arg>0)then
     for _, meta in ipairs(arg) do
@@ -698,6 +1033,13 @@ function Context:setMetas(...)
     end
   end
 end
+
+---
+-- Removes a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeMeta
+-- @param #Meta meta object representing the <b>&lt;meta&gt;</b> element.
 function Context:removeMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
@@ -721,6 +1063,12 @@ function Context:removeMeta(meta)
   end
 end
 
+---
+-- Removes a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removeMetaPos
+-- @param #number p position of the <b>&lt;meta&gt;</b> child element.
 function Context:removeMetaPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -736,6 +1084,13 @@ function Context:removeMetaPos(p)
   table.remove(self.metas, p)
 end
 
+---
+-- Adds a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] addMetaData
+-- @param #Metadata metadata object representing the 
+-- <b>&lt;metadata&gt;</b> element.
 function Context:addMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
@@ -757,6 +1112,13 @@ function Context:addMetaData(metadata)
   table.insert(self.metadatas, metadata)
 end
 
+---
+-- Returns a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Context] getMetaDataPos
+-- @param #number p  position of the object representing the <b>&lt;metadata&gt;</b> element.
 function Context:getMetaDataPos(p)
   if(self.metadatas == nil)then
     error("Error! context element with nil metadatas list!", 2)
@@ -767,6 +1129,12 @@ function Context:getMetaDataPos(p)
   return self.metadatas[p]
 end
 
+---
+-- Adds so many <b>&lt;metadata&gt;</b> child elements of the <b>&lt;context&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Context] setMetaDatas
+-- @param #Metadata ... objects representing the <b>&lt;metadata&gt;</b> element.
 function Context:setMetaDatas(...)
   if(#arg>0)then
     for _, metadata in ipairs(arg) do
@@ -775,6 +1143,12 @@ function Context:setMetaDatas(...)
   end
 end
 
+---
+-- Removes a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Context] removeMetaData
+-- @param #Metadata metadata object representing the <b>&lt;metadata&gt;</b> element.
 function Context:removeMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
@@ -798,6 +1172,12 @@ function Context:removeMetaData(metadata)
   end
 end
 
+---
+-- Removes a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;context&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Context] removeMetaDataPos
+-- @param #number p position of the <b>&lt;metadata&gt;</b> child element.
 function Context:removeMetaDataPos(p)
   if(self.children == nil)then
     error("Error! context element with nil children list!", 2)
@@ -813,14 +1193,17 @@ function Context:removeMetaDataPos(p)
   table.remove(self.metadatas, p)
 end
 
--- Classe Switch --
-
-local DefaultComponent = require "core/switches/DefaultComponent"
-local SwitchPort = require "core/switches/SwitchPort"
-local BindRule = require "core/switches/BindRule"
-
+---
+-- Name of <b>&lt;switch&gt;</b> element.
+-- 
+-- @field [parent=#Switch] #string nameElem 
 Switch.nameElem = "switch"
 
+---
+-- List with maps to associate classes representing
+-- children elements from <b>&lt;switch&gt;</b> element.
+-- 
+-- @field [parent=#Switch] #table childrenMap
 Switch.childrenMap = {
   defaultComponent = {DefaultComponent, "one"},
   switchPort = {SwitchPort, "many"},
@@ -830,15 +1213,37 @@ Switch.childrenMap = {
   switch = {Switch, "many"}
 }
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;switch&gt;</b> element.
+-- 
+-- @field [parent=#Switch] #table attributesTypeMap
 Switch.attributesTypeMap = {
   id = "string",
   refer = "string"
 }
 
+---
+-- List with associative map that connects an attribute to an specific object
+-- representing a child NCL element of <b>&lt;switch&gt;</b> element.
+-- 
+-- @field [parent=#Switch] #table assMap
 Switch.assMap = {
   {"refer", "referAss"}
 }
 
+---
+-- Returns a new Switch object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#Switch] create
+-- @param #table attributes list of attributes to be initialized.
+-- @param #number full numeric flag to indicate if the object 
+--                will be created with filled children list.
+-- @return #Switch new Switch object created.
 function Switch:create(attributes, full)
   local switch = Switch:new()
 
@@ -872,14 +1277,34 @@ function Switch:create(attributes, full)
   return switch
 end
 
+---
+-- Sets a value to `id` attribute of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] setId
+-- @param #string id `id` atribute of the
+-- <b>&lt;body&gt;</b> element.
 function Switch:setId(id)
   self:addAttribute("id", id)
 end
 
+---
+-- Returns the value of the `id` attribute of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] getId
+-- @return #string `id` atribute of the <b>&lt;switch&gt;</b> element.
 function Switch:getId()
   return self:getAttribute("id")
 end
 
+---
+-- Sets a value to `refer` attribute of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] setRefer
+-- @param #string refer `refer` atribute of the
+-- <b>&lt;switch&gt;</b> element.
 function Switch:setRefer(refer)
   if(type(refer) == "table")then
     if(refer["getNameElem"] ~= nil
@@ -899,10 +1324,23 @@ function Switch:setRefer(refer)
   end
 end
 
+---
+-- Returns the value of the `refer` attribute of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] getRefer
+-- @return #string `refer` atribute of the <b>&lt;switch&gt;</b> element.
 function Switch:getRefer()
   return self:getAttribute("refer")
 end
 
+---
+-- Sets the <b>&lt;defaultComponent&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] setDefaultComponent
+-- @param #DefaultComponent defaultComponent object representing the 
+-- <b>&lt;defaultComponent&gt;</b> element.
 function Switch:setDefaultComponent(defaultComponent)
   if((type(defaultComponent) == "table"
     and defaultComponent["getNameElem"] ~= nil
@@ -917,15 +1355,33 @@ function Switch:setDefaultComponent(defaultComponent)
   self.defaultComponent = defaultComponent
 end
 
+---
+-- Returns the <b>&lt;defaultComponent&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element.
+--  
+-- @function [parent=#Switch] getDefaultComponent
+-- @return #DefaultComponent defaultComponent object representing the <b>&lt;defaultComponent&gt;</b> element.
 function Switch:getDefaultComponent()
   return self.defaultComponent
 end
 
+---
+-- Removes the <b>&lt;defaultComponent&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element.
+-- 
+-- @function [parent=#Switch] removeDefaultComponent
 function Switch:removeDefaultComponent()
   self:removeChild(self.defaultComponent)
   self.defaultComponent = nil
 end
 
+---
+-- Adds a <b>&lt;switchPort&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] addSwitchPort
+-- @param #SwitchPort switchPort object representing the 
+-- <b>&lt;switchPort&gt;</b> element.
 function Switch:addSwitchPort(switchPort)
   if((type(switchPort) == "table"
     and switchPort["getNameElem"] ~= nil
@@ -940,6 +1396,13 @@ function Switch:addSwitchPort(switchPort)
   table.insert(self.switchPorts, switchPort)
 end
 
+---
+-- Returns a <b>&lt;switchPort&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Switch] getSwitchPortPos
+-- @param #number p  position of the object representing the <b>&lt;switchPort&gt;</b> element.
 function Switch:getSwitchPortPos(p)
   if(self.switchPorts == nil)then
     error("Error! switch element with nil switchPorts list!", 2)
@@ -950,6 +1413,13 @@ function Switch:getSwitchPortPos(p)
   return self.switchPorts[p]
 end
 
+---
+-- Returns a <b>&lt;switchPort&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Switch] getSwitchPortById
+-- @param #string id `id` attribute of the <b>&lt;switchPort&gt;</b> element.
 function Switch:getSwitchPortById(id)
   if(id == nil)then
     error("Error! id attribute of switchPort element must be informed!", 2)
@@ -966,6 +1436,12 @@ function Switch:getSwitchPortById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;switchPort&gt;</b> child elements of the <b>&lt;switch&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Switch] setSwitchPorts
+-- @param #SwitchPort ... objects representing the <b>&lt;switchPort&gt;</b> element.
 function Switch:setSwitchPorts(...)
   if(#arg>0)then
     for _, switchPort in ipairs(arg) do
@@ -974,6 +1450,12 @@ function Switch:setSwitchPorts(...)
   end
 end
 
+---
+-- Removes a <b>&lt;switchPort&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] removeSwitchPort
+-- @param #SwitchPort switchPort object representing the <b>&lt;switchPort&gt;</b> element.
 function Switch:removeSwitchPort(switchPort)
   if((type(switchPort) == "table"
     and switchPort["getNameElem"] ~= nil
@@ -997,6 +1479,12 @@ function Switch:removeSwitchPort(switchPort)
   end
 end
 
+---
+-- Removes a <b>&lt;switchPort&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Switch] removeSwitchPortPos
+-- @param #number p position of the <b>&lt;switchPort&gt;</b> child element.
 function Switch:removeSwitchPortPos(p)
   if(self.children == nil)then
     error("Error! switch element with nil children list!", 2)
@@ -1012,6 +1500,13 @@ function Switch:removeSwitchPortPos(p)
   table.remove(self.switchPorts, p)
 end
 
+---
+-- Adds a <b>&lt;bindRule&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] addBindRule
+-- @param #BindRule bindRule object representing the 
+-- <b>&lt;bindRule&gt;</b> element.
 function Switch:addBindRule(bindRule)
   if((type(bindRule) == "table"
     and bindRule["getNameElem"] ~= nil
@@ -1026,6 +1521,13 @@ function Switch:addBindRule(bindRule)
   table.insert(self.bindRules, bindRule)
 end
 
+---
+-- Returns a <b>&lt;bindRule&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Switch] getBindRulePos
+-- @param #number p  position of the object representing the <b>&lt;bindRule&gt;</b> element.
 function Switch:getBindRulePos(p)
   if(self.bindRules == nil)then
     error("Error! switch element with nil bindRules list!", 2)
@@ -1036,6 +1538,12 @@ function Switch:getBindRulePos(p)
   return self.bindRules[p]
 end
 
+---
+-- Adds so many <b>&lt;bindRule&gt;</b> child elements of the <b>&lt;switch&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Switch] setBindRules
+-- @param #BindRule ... objects representing the <b>&lt;bindRule&gt;</b> element.
 function Switch:setBindRules(...)
   if(#arg>0)then
     for _, bindRule in ipairs(arg) do
@@ -1044,6 +1552,12 @@ function Switch:setBindRules(...)
   end
 end
 
+---
+-- Removes a <b>&lt;bindRule&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] removeBindRule
+-- @param #BindRule bindRule object representing the <b>&lt;bindRule&gt;</b> element.
 function Switch:removeBindRule(bindRule)
   if((type(bindRule) == "table"
     and bindRule["getNameElem"] ~= nil
@@ -1067,6 +1581,12 @@ function Switch:removeBindRule(bindRule)
   end
 end
 
+---
+-- Removes a <b>&lt;bindRule&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Switch] removeBindRulePos
+-- @param #number p position of the <b>&lt;bindRule&gt;</b> child element.
 function Switch:removeBindRulePos(p)
   if(self.children == nil)then
     error("Error! switch element with nil children list!", 2)
@@ -1082,6 +1602,13 @@ function Switch:removeBindRulePos(p)
   table.remove(self.bindRules, p)
 end
 
+---
+-- Adds a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] addMedia
+-- @param #Media media object representing the 
+-- <b>&lt;media&gt;</b> element.
 function Switch:addMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
@@ -1096,6 +1623,13 @@ function Switch:addMedia(media)
   table.insert(self.medias, media)
 end
 
+---
+-- Returns a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Switch] getMediaPos
+-- @param #number p  position of the object representing the <b>&lt;media&gt;</b> element.
 function Switch:getMediaPos(p)
   if(self.medias == nil)then
     error("Error! switch element with nil medias list!", 2)
@@ -1106,6 +1640,13 @@ function Switch:getMediaPos(p)
   return self.medias[p]
 end
 
+---
+-- Returns a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Switch] getMediaById
+-- @param #string id `id` attribute of the <b>&lt;media&gt;</b> element.
 function Switch:getMediaById(id)
   if(id == nil)then
     error("Error! id attribute of media element must be informed!", 2)
@@ -1122,6 +1663,12 @@ function Switch:getMediaById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;media&gt;</b> child elements of the <b>&lt;switch&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Switch] setMedias
+-- @param #Media ... objects representing the <b>&lt;media&gt;</b> element.
 function Switch:setMedias(...)
   if(#arg>0)then
     for _, media in ipairs(arg) do
@@ -1129,6 +1676,13 @@ function Switch:setMedias(...)
     end
   end
 end
+
+---
+-- Removes a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] removeMedia
+-- @param #Media media object representing the <b>&lt;media&gt;</b> element.
 function Switch:removeMedia(media)
   if((type(media) == "table"
     and media["getNameElem"] ~= nil
@@ -1152,6 +1706,12 @@ function Switch:removeMedia(media)
   end
 end
 
+---
+-- Removes a <b>&lt;media&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Switch] removeMediaPos
+-- @param #number p position of the <b>&lt;media&gt;</b> child element.
 function Switch:removeMediaPos(p)
   if(self.children == nil)then
     error("Error! switch element with nil children list!", 2)
@@ -1167,6 +1727,13 @@ function Switch:removeMediaPos(p)
   table.remove(self.medias, p)
 end
 
+---
+-- Adds a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] addContext
+-- @param #Context context object representing the 
+-- <b>&lt;context&gt;</b> element.
 function Switch:addContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
@@ -1181,6 +1748,13 @@ function Switch:addContext(context)
   table.insert(self.contexts, context)
 end
 
+---
+-- Returns a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Switch] getContextPos
+-- @param #number p  position of the object representing the <b>&lt;context&gt;</b> element.
 function Switch:getContextPos(p)
   if(self.contexts == nil)then
     error("Error! switch element with nil contexts list!", 2)
@@ -1191,6 +1765,13 @@ function Switch:getContextPos(p)
   return self.contexts[p]
 end
 
+---
+-- Returns a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Switch] getContextById
+-- @param #string id `id` attribute of the <b>&lt;context&gt;</b> element.
 function Switch:getContextById(id)
   if(id == nil)then
     error("Error! id attribute of context element must be informed!", 2)
@@ -1207,6 +1788,12 @@ function Switch:getContextById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;context&gt;</b> child elements of the <b>&lt;switch&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Switch] setContexts
+-- @param #Context ... objects representing the <b>&lt;context&gt;</b> element.
 function Switch:setContexts(...)
   if(#arg>0)then
     for _, context in ipairs(arg) do
@@ -1215,6 +1802,12 @@ function Switch:setContexts(...)
   end
 end
 
+---
+-- Removes a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] removeContext
+-- @param #Context context object representing the <b>&lt;context&gt;</b> element.
 function Switch:removeContext(context)
   if((type(context) == "table"
     and context["getNameElem"] ~= nil
@@ -1238,6 +1831,12 @@ function Switch:removeContext(context)
   end
 end
 
+---
+-- Removes a <b>&lt;context&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Switch] removeContextPos
+-- @param #number p position of the <b>&lt;context&gt;</b> child element.
 function Switch:removeContextPos(p)
   if(self.children == nil)then
     error("Error! switch element with nil children list!", 2)
@@ -1253,6 +1852,13 @@ function Switch:removeContextPos(p)
   table.remove(self.contexts, p)
 end
 
+---
+-- Adds a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] addSwitch
+-- @param #Switch switch object representing the 
+-- <b>&lt;switch&gt;</b> element.
 function Switch:addSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
@@ -1267,6 +1873,13 @@ function Switch:addSwitch(switch)
   table.insert(self.switchs, switch)
 end
 
+---
+-- Returns a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Switch] getSwitchPos
+-- @param #number p  position of the object representing the <b>&lt;switch&gt;</b> element.
 function Switch:getSwitchPos(p)
   if(self.switchs == nil)then
     error("Error! switch element with nil switchs list!", 2)
@@ -1277,6 +1890,13 @@ function Switch:getSwitchPos(p)
   return self.switchs[p]
 end
 
+---
+-- Returns a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element
+-- by `id` attribute.
+--  
+-- @function [parent=#Switch] getSwitchById
+-- @param #string id `id` attribute of the <b>&lt;switch&gt;</b> element.
 function Switch:getSwitchById(id)
   if(id == nil)then
     error("Error! id attribute of switch element must be informed!", 2)
@@ -1293,6 +1913,12 @@ function Switch:getSwitchById(id)
   return nil
 end
 
+---
+-- Adds so many <b>&lt;switch&gt;</b> child elements of the <b>&lt;switch&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Switch] setSwitchs
+-- @param #Switch ... objects representing the <b>&lt;switch&gt;</b> element.
 function Switch:setSwitchs(...)
   if(#arg>0)then
     for _, switch in ipairs(arg) do
@@ -1301,6 +1927,12 @@ function Switch:setSwitchs(...)
   end
 end
 
+---
+-- Removes a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] removeSwitch
+-- @param #Switch switch object representing the <b>&lt;switch&gt;</b> element.
 function Switch:removeSwitch(switch)
   if((type(switch) == "table"
     and switch["getNameElem"] ~= nil
@@ -1324,6 +1956,12 @@ function Switch:removeSwitch(switch)
   end
 end
 
+---
+-- Removes a <b>&lt;switch&gt;</b> child element of the 
+-- <b>&lt;switch&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Switch] removeSwitchPos
+-- @param #number p position of the <b>&lt;switch&gt;</b> child element.
 function Switch:removeSwitchPos(p)
   if(self.children == nil)then
     error("Error! switch element with nil children list!", 2)
