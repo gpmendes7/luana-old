@@ -876,6 +876,13 @@ function Body:setLinks(...)
     end
   end
 end
+
+---
+-- Removes a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] removeLink
+-- @param #Link link object representing the <b>&lt;link&gt;</b> element.
 function Body:removeLink(link)
   if((type(link) == "table"
     and link["getNameElem"] ~= nil
@@ -899,6 +906,12 @@ function Body:removeLink(link)
   end
 end
 
+---
+-- Removes a <b>&lt;link&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeLinkPos
+-- @param #number p position of the <b>&lt;link&gt;</b> child element.
 function Body:removeLinkPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -914,6 +927,13 @@ function Body:removeLinkPos(p)
   table.remove(self.links, p)
 end
 
+---
+-- Adds a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addMeta
+-- @param #Meta meta object representing the 
+-- <b>&lt;meta&gt;</b> element.
 function Body:addMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
@@ -935,6 +955,13 @@ function Body:addMeta(meta)
   table.insert(self.metas, meta)
 end
 
+---
+-- Returns a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getMetaPos
+-- @param #number p  position of the object representing the <b>&lt;meta&gt;</b> element.
 function Body:getMetaPos(p)
   if(self.metas == nil)then
     error("Error! body element with nil metas list!", 2)
@@ -949,6 +976,12 @@ function Body:getMetaPos(p)
   return self.metas[p]
 end
 
+---
+-- Adds so many <b>&lt;meta&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setMetas
+-- @param #Meta ... objects representing the <b>&lt;meta&gt;</b> element.
 function Body:setMetas(...)
   if(#arg>0)then
     for _, meta in ipairs(arg) do
@@ -956,6 +989,13 @@ function Body:setMetas(...)
     end
   end
 end
+
+---
+-- Removes a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeMeta
+-- @param #number p position of the <b>&lt;meta&gt;</b> child element.
 function Body:removeMeta(meta)
   if((type(meta) == "table"
     and meta["getNameElem"] ~= nil
@@ -979,6 +1019,12 @@ function Body:removeMeta(meta)
   end
 end
 
+---
+-- Removes a <b>&lt;meta&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeMetaPos
+-- @param #number p position of the <b>&lt;meta&gt;</b> child element.
 function Body:removeMetaPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
@@ -994,6 +1040,13 @@ function Body:removeMetaPos(p)
   table.remove(self.metas, p)
 end
 
+---
+-- Adds a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element. 
+-- 
+-- @function [parent=#Body] addMetaData
+-- @param #Metadata metadata object representing the 
+-- <b>&lt;metadata&gt;</b> element.
 function Body:addMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
@@ -1015,6 +1068,13 @@ function Body:addMetaData(metadata)
   table.insert(self.metadatas, metadata)
 end
 
+---
+-- Returns a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element
+-- in position `p`.
+--  
+-- @function [parent=#Body] getMetaDataPos
+-- @param #number p  position of the object representing the <b>&lt;metadata&gt;</b> element.
 function Body:getMetaDataPos(p)
   if(self.metadatas == nil)then
     error("Error! body element with nil metadatas list!", 2)
@@ -1025,6 +1085,12 @@ function Body:getMetaDataPos(p)
   return self.metadatas[p]
 end
 
+---
+-- Adds so many <b>&lt;metadata&gt;</b> child elements of the <b>&lt;body&gt;</b> element
+-- passed as parameters.
+-- 
+-- @function [parent=#Body] setMetaDatas
+-- @param #Metadata ... objects representing the <b>&lt;metadata&gt;</b> element.
 function Body:setMetaDatas(...)
   if(#arg>0)then
     for _, metadata in ipairs(arg) do
@@ -1033,6 +1099,12 @@ function Body:setMetaDatas(...)
   end
 end
 
+---
+-- Removes a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeMetaData
+-- @param #number p position of the <b>&lt;metadata&gt;</b> child element.
 function Body:removeMetaData(metadata)
   if((type(metadata) == "table"
     and metadata["getNameElem"] ~= nil
@@ -1056,6 +1128,12 @@ function Body:removeMetaData(metadata)
   end
 end
 
+---
+-- Removes a <b>&lt;metadata&gt;</b> child element of the 
+-- <b>&lt;body&gt;</b> element in position `p`.
+-- 
+-- @function [parent=#Body] removeMetaDataPos
+-- @param #number p position of the <b>&lt;metadata&gt;</b> child element.
 function Body:removeMetaDataPos(p)
   if(self.children == nil)then
     error("Error! body element with nil children list!", 2)
