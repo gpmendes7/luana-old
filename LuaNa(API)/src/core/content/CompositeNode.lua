@@ -151,7 +151,7 @@ end
 -- <b>&lt;context&gt;</b> element. 
 -- 
 -- @function [parent=#Context] setRefer
--- @param #string refer `refer` atribute of the
+-- @param #stringOrObject refer `refer` atribute of the
 -- <b>&lt;context&gt;</b> element.
 function Context:setRefer(refer)
   if(type(refer) == "table")then
@@ -1303,7 +1303,7 @@ end
 -- <b>&lt;switch&gt;</b> element. 
 -- 
 -- @function [parent=#Switch] setRefer
--- @param #string refer `refer` atribute of the
+-- @param #stringOrObject refer `refer` atribute of the
 -- <b>&lt;switch&gt;</b> element.
 function Switch:setRefer(refer)
   if(type(refer) == "table")then
