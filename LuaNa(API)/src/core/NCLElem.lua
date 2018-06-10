@@ -177,7 +177,7 @@ function NCLElem:addChild(child, p)
   if(child == nil)then
     error("Error! Attempt to set a nil child to "..self.nameElem.."!", 2)
   elseif(child.nameElem == nil)then
-    error("Error! Attempt to set a invalid child to "..self.nameElem.." because it is not a NCLElement!", 2)
+    error("Error! Attempt to set a invalid child to "..self.nameElem.." because it is not a valid NCLElement!", 2)
   end
 
   local valid = false
