@@ -1,9 +1,33 @@
 local NCLElem = require "core/NCLElem"
 
+---
+-- Implements ImportBase Class representing <b>&lt;importBase&gt;</b> element.
+-- 
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=importbase">
+-- http://handbook.ncl.org.br/doku.php?id=importbase</a>
+-- 
+-- @module ImportBase
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local ImportBase = require "core/importantion/ImportBase" 
 local ImportBase = NCLElem:extends()
 
+---
+-- Name of <b>&lt;importBase&gt;</b> element.
+-- 
+-- @field [parent=#ImportBase] #string nameElem 
 ImportBase.nameElem = "importBase"
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;importBase&gt;</b> element.
+-- 
+-- @field [parent=#ImportBase] #table attributesTypeMap  
 ImportBase.attributesTypeMap = {
   alias = "string",
   documentURI = "string",
@@ -11,11 +35,26 @@ ImportBase.attributesTypeMap = {
   baseId = "string"
 }
 
+---
+-- List with associative map that connects an attribute to an specific object
+-- representing a child NCL element of <b>&lt;importBase&gt;</b> element.
+-- 
+-- @field [parent=#ImportBase] #table assMap
 ImportBase.assMap = {
   {"region", "regionAss"},
   {"baseId", "baseIdAss"}
 }
 
+---
+-- Returns a new ImportBase object. 
+-- If `full` flag is not nil, the object will
+-- receive default children objects of each children class.
+-- 
+-- This case, `full` must be passed to the method with a valid number.  
+-- 
+-- @function [parent=#ImportBase] create
+-- @param #table attributes list of attributes to be initialized.
+-- @return #ImportBase new ImportBase object created.
 function ImportBase:create(attributes)
   local importBase = ImportBase:new()
 
@@ -34,22 +73,55 @@ function ImportBase:create(attributes)
   return importBase
 end
 
+---
+-- Sets a value to `alias` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] setAlias
+-- @param #string alias `alias` atribute of the
+-- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setAlias(alias)
   self:addAttribute("alias", alias)
 end
 
+---
+-- Returns the value of the `alias` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] getAlias
+-- @return #string `alias` atribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getAlias()
   return self:getAttribute("alias")
 end
 
+---
+-- Sets a value to `documentURI` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] setDocumentURI
+-- @param #string documentURI `documentURI` atribute of the
+-- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setDocumentURI(documentURI)
   self:addAttribute("documentURI", documentURI)
 end
 
+---
+-- Returns the value of the `documentURI` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] getDocumentURI
+-- @return #string `documentURI` atribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getDocumentURI()
   return self:getAttribute("documentURI")
 end
 
+---
+-- Sets a value to `region` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] setRegion
+-- @param #stringOrobject region `region` atribute of the
+-- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setRegion(region)
   if(type(region) == "table"
     and region["getNameElem"] ~= nil
@@ -64,14 +136,33 @@ function ImportBase:setRegion(region)
   end
 end
 
+---
+-- Returns the value of the `region` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] getRegion
+-- @return #string `region` atribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getRegion()
   return self:getAttribute("region")
 end
 
+---
+-- Returns the region associated to
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] getRegionAss
+-- @return #object region associated to <b>&lt;importBase&gt;</b> element.
 function ImportBase:getRegionAss()
   return self.regionAss
 end
 
+---
+-- Sets a value to `baseId` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] setBaseId
+-- @param #stringOrobject baseId `baseId` atribute of the
+-- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setBaseId(baseId)
   if(type(baseId) == "table"
     and baseId["getNameElem"] ~= nil
@@ -86,10 +177,22 @@ function ImportBase:setBaseId(baseId)
   end
 end
 
+---
+-- Returns the value of the `baseId` attribute of the 
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] getBaseId
+-- @return #string `baseId` atribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getBaseId()
   return self:getAttribute("baseId")
 end
 
+---
+-- Returns the baseId associated to
+-- <b>&lt;importBase&gt;</b> element. 
+-- 
+-- @function [parent=#ImportBase] getBaseIdAss
+-- @return #object baseId associated to <b>&lt;importBase&gt;</b> element.
 function ImportBase:getBaseIdAss()
   return self.baseIdAss
 end

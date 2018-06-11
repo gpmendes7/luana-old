@@ -126,7 +126,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setDelay
--- @param #stringOrNumber delay `delay` atribute of the
+-- @param #stringOrnumber delay `delay` atribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setDelay(delay)
   self:addAttribute("delay", delay)
@@ -137,7 +137,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getDelay
--- @return #stringOrNumber `delay` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #stringOrnumber `delay` atribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getDelay()
   return self:getAttribute("delay")
 end
@@ -210,7 +210,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#min] setMin
--- @param #stringOrNumber min `min` atribute of the
+-- @param #stringOrnumber min `min` atribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setMin(min)
   self:addAttribute("min", min)
@@ -221,7 +221,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getMin
--- @return #stringOrNumber `min` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #stringOrnumber `min` atribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getMin()
   return self:getAttribute("min")
 end
@@ -231,7 +231,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setMax
--- @param #stringOrNumber max `max` atribute of the
+-- @param #stringOrnumber max `max` atribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setMax(max)
   self:addAttribute("max", max)
@@ -242,7 +242,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getMax
--- @return #stringOrNumber `max` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #stringOrnumber `max` atribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getMax()
   return self:getAttribute("max")
 end

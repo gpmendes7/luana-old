@@ -10,6 +10,7 @@ local function test1()
   assert(media:getSrc() == nil, "Error!")
   assert(media:getType() == nil, "Error!")
   assert(media:getRefer() == nil, "Error!")
+  assert(media:getReferAss() == nil, "Error!")
   assert(media:getInstance() == nil, "Error!")
   assert(media:getDescriptor() == nil, "Error!")
 end

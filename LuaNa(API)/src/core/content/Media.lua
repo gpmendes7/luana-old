@@ -213,6 +213,16 @@ function Media:getRefer()
 end
 
 ---
+-- Returns the refer associated to
+-- <b>&lt;media&gt;</b> element. 
+-- 
+-- @function [parent=#Media] getReferAss
+-- @return #object refer associated to <b>&lt;media&gt;</b> element.
+function Media:getReferAss()
+  return self.referAss
+end
+
+---
 -- Sets a value to `instance` attribute of the 
 -- <b>&lt;media&gt;</b> element. 
 -- 
