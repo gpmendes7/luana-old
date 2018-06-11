@@ -69,10 +69,6 @@ SimpleAction.attributesSymbolMap = {
 
 ---
 -- Returns a new SimpleAction object. 
--- If `full` flag is not nil, the object will
--- receive default children objects of each children class.
--- 
--- This case, `full` must be passed to the method with a valid number.  
 -- 
 -- @function [parent=#SimpleAction] create
 -- @param #table attributes list of attributes to be initialized.

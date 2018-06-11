@@ -34,11 +34,7 @@ ConnectorParam.attributesTypeMap = {
 }
 
 ---
--- Returns a new ConnectorParam object. 
--- If `full` flag is not nil, the object will
--- receive default children objects of each children class.
--- 
--- This case, `full` must be passed to the method with a valid number.  
+-- Returns a new ConnectorParam object.  
 -- 
 -- @function [parent=#ConnectorParam] create
 -- @param #table attributes list of attributes to be initialized.

@@ -34,10 +34,6 @@ ValueAssessment.attributesTypeMap = {
 
 ---
 -- Returns a new ValueAssessment object. 
--- If `full` flag is not nil, the object will
--- receive default children objects of each children class.
--- 
--- This case, `full` must be passed to the method with a valid number.  
 -- 
 -- @function [parent=#ValueAssessment] create
 -- @param #table attributes list of attributes to be initialized.
