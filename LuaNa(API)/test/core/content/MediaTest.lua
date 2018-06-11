@@ -13,6 +13,7 @@ local function test1()
   assert(media:getReferAss() == nil, "Error!")
   assert(media:getInstance() == nil, "Error!")
   assert(media:getDescriptor() == nil, "Error!")
+  assert(media:getDescriptorAss() == nil, "Error!")
 end
 
 local function test2()

@@ -184,6 +184,16 @@ function Context:getRefer()
 end
 
 ---
+-- Returns the refer associated to
+-- <b>&lt;context&gt;</b> element. 
+-- 
+-- @function [parent=#Context] getReferAss
+-- @return #object refer associated to <b>&lt;context&gt;</b> element.
+function Context:getReferAss()
+  return self.referAss
+end
+
+---
 -- Adds a <b>&lt;port&gt;</b> child element of the 
 -- <b>&lt;context&gt;</b> element. 
 -- 
@@ -1332,6 +1342,16 @@ end
 -- @return #string `refer` atribute of the <b>&lt;switch&gt;</b> element.
 function Switch:getRefer()
   return self:getAttribute("refer")
+end
+
+---
+-- Returns the refer associated to
+-- <b>&lt;switch&gt;</b> element. 
+-- 
+-- @function [parent=#Switch] getReferAss
+-- @return #object refer associated to <b>&lt;switch&gt;</b> element.
+function Switch:getReferAss()
+  return self.referAss
 end
 
 ---

@@ -14,6 +14,7 @@ local function test1()
   assert(context ~= nil, "Error!")
   assert(context:getId() == nil, "Error!")
   assert(context:getRefer() == nil, "Error!")
+  assert(context:getReferAss() == nil, "Error!")
 end
 
 local function test2()

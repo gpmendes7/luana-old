@@ -296,6 +296,16 @@ function Media:getDescriptor()
 end
 
 ---
+-- Returns the descriptor associated to
+-- <b>&lt;media&gt;</b> element. 
+-- 
+-- @function [parent=#Media] getDescriptorAss
+-- @return #object descriptor associated to <b>&lt;media&gt;</b> element.
+function Media:getDescriptorAss()
+  return self.descriptorAss
+end
+
+---
 -- Adds a <b>&lt;area&gt;</b> child element of the 
 -- <b>&lt;media&gt;</b> element. 
 -- 
