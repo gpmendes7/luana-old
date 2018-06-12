@@ -1,20 +1,55 @@
 local NCLElem = require "core/NCLElem"
 
+---
+-- Implements Port Class representing <b>&lt;port&gt;</b> element.
+-- 
+-- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=port">
+-- http://handbook.ncl.org.br/doku.php?id=port</a>
+-- 
+-- @module Port
+-- 
+-- @extends #NCLElement
+-- 
+-- @author Gabriel Pereira Mendes
+-- 
+-- @usage 
+-- -- The module needs to be imported to be used with the instruction
+-- local Port = require "core/interface/Port" 
 local Port = NCLElem:extends()
 
+---
+-- Name of <b>&lt;port&gt;</b> element.
+-- 
+-- @field [parent=#Port] #string nameElem
 Port.nameElem = "port"
 
+---
+-- List containing the data types of each attribute
+-- belonging to <b>&lt;port&gt;</b> element.
+-- 
+-- @field [parent=#Port] #table attributesTypeMap 
 Port.attributesTypeMap = {
   id = "string",
   component = "string",
   interface = "string"
 }
 
+---
+-- List with associative map that connects an attribute to an specific object
+-- representing a child NCL element of <b>&lt;port&gt;</b> element.
+-- 
+-- @field [parent=#Port] #table assMap
 Port.assMap = {
   {"component", "componentAss"},
   {"interface", "interfaceAss"}
 }
 
+---
+-- Returns a new Port object. 
+-- 
+-- @function [parent=#Port] create
+-- @param #table attributes list of attributes to be initialized.
+-- @return #Port new Port object created.
 function Port:create(attributes)
   local port = Port:new()
 
@@ -34,14 +69,34 @@ function Port:create(attributes)
   return port
 end
 
+---
+-- Sets a value to `id` attribute of the 
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] setId
+-- @param #string id `id` atribute of the
+-- <b>&lt;port&gt;</b> element.
 function Port:setId(id)
   self:addAttribute("id", id)
 end
 
+---
+-- Returns the value of the `id` attribute of the 
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] getId
+-- @return #string `id` atribute of the <b>&lt;port&gt;</b> element.
 function Port:getId()
   return self:getAttribute("id")
 end
 
+---
+-- Sets a value to `component` attribute of the 
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] setComponent
+-- @param #stringOrobject component `component` atribute of the
+-- <b>&lt;port&gt;</b> element.
 function Port:setComponent(component)
   if(type(component) == "table")then
     if(component["getNameElem"] ~= nil
@@ -63,14 +118,33 @@ function Port:setComponent(component)
   end
 end
 
+---
+-- Returns the value of the `component` attribute of the 
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] getComponent
+-- @return #string `component` atribute of the <b>&lt;port&gt;</b> element.
 function Port:getComponent()
   return self:getAttribute("component")
 end
 
+---
+-- Returns the component associated to
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] getComponentAss
+-- @return #object component associated to <b>&lt;port&gt;</b> element.
 function Port:getComponentAss()
   return self.componentAss
 end
 
+---
+-- Sets a value to `interface` attribute of the 
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] setInterface
+-- @param #stringOrobject interface `interface` atribute of the
+-- <b>&lt;port&gt;</b> element.
 function Port:setInterface(interface)
   if(type(interface) == "table")then
     if(interface["getNameElem"] ~= nil
@@ -97,10 +171,22 @@ function Port:setInterface(interface)
   end
 end
 
+---
+-- Returns the value of the `interface` attribute of the 
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] getInterface
+-- @return #string `interface` atribute of the <b>&lt;port&gt;</b> element.
 function Port:getInterface()
   return self:getAttribute("interface")
 end
 
+---
+-- Returns the interface associated to
+-- <b>&lt;port&gt;</b> element. 
+-- 
+-- @function [parent=#Port] getInterfaceAss
+-- @return #object interface associated to <b>&lt;port&gt;</b> element.
 function Port:getInterfaceAss()
   return self.interfaceAss
 end
