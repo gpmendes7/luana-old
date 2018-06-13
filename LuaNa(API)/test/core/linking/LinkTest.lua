@@ -8,6 +8,7 @@ local function test1()
   assert(link ~= nil, "Error!")
   assert(link:getId() == nil, "Error!")
   assert(link:getXConnector() == nil, "Error!")
+  assert(link:getCausalConnectorAss() == nil, "Error!")
 end
 
 local function test2()
