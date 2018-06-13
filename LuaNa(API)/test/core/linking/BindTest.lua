@@ -7,8 +7,11 @@ local function test1()
   assert(bind ~= nil, "Error!")
   assert(bind:getRole() == nil, "Error!")
   assert(bind:getComponent() == nil, "Error!")
+  assert(bind:getComponentAss() == nil, "Error!")
   assert(bind:getInterface() == nil, "Error!")
+  assert(bind:getInterfaceAss() == nil, "Error!")
   assert(bind:getDescriptor() == nil, "Error!")
+  assert(bind:getDescriptorAss() == nil, "Error!")
 end
 
 local function test2()
