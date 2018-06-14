@@ -5,7 +5,9 @@ local function test1()
 
   assert(bindRule ~= nil, "Error!")
   assert(bindRule:getConstituent() == nil, "Error!")
+  assert(bindRule:getConstituentAss() == nil, "Error!")
   assert(bindRule:getRule() == nil, "Error!")
+  assert(bindRule:getRuleAss() == nil, "Error!")
 end
 
 local function test2()
