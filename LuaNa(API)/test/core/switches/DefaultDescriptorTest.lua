@@ -5,6 +5,7 @@ local function test1()
    
    assert(defaultDescriptor ~= nil, "Error!")
    assert(defaultDescriptor:getDescriptor() == nil, "Error!")   
+   assert(defaultDescriptor:getDescriptorAss() == nil, "Error!")   
 end
 
 local function test2()   

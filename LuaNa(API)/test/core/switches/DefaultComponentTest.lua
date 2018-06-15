@@ -5,6 +5,7 @@ local function test1()
 
   assert(defaultComponent ~= nil, "Error!")
   assert(defaultComponent:getComponent() == nil, "Error!")
+  assert(defaultComponent:getComponentAss() == nil, "Error!")
 end
 
 local function test2()

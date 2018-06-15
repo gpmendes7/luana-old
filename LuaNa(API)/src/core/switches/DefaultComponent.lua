@@ -103,7 +103,7 @@ end
 -- Returns the component associated to
 -- <b>&lt;defaultComponent&gt;</b> element. 
 -- 
--- @function [parent=#Media] getReferAss
+-- @function [parent=#DefaultComponent] getComponentAss
 -- @return #object component associated to <b>&lt;defaultComponent&gt;</b> element.
 function DefaultComponent:getComponentAss()
   return self.componentAss
