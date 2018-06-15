@@ -5,7 +5,9 @@ local function test1()
 
   assert(mapping ~= nil, "Error!")
   assert(mapping:getComponent() == nil, "Error!")
+  assert(mapping:getComponentAss() == nil, "Error!")
   assert(mapping:getInterface() == nil, "Error!")
+  assert(mapping:getInterfaceAss() == nil, "Error!")
 end
 
 local function test2()
