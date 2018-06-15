@@ -90,7 +90,7 @@ end
 -- <b>&lt;assessmentStatement&gt;</b> element. 
 -- 
 -- @function [parent=#AssessmentStatement] setComparator
--- @param #string comparator `comparator` atribute of the
+-- @param #string comparator `comparator` attribute of the
 -- <b>&lt;assessmentStatement&gt;</b> element.
 function AssessmentStatement:setComparator(comparator)
   self:addAttribute("comparator", comparator)
@@ -101,7 +101,7 @@ end
 -- <b>&lt;assessmentStatement&gt;</b> element. 
 -- 
 -- @function [parent=#AssessmentStatement] getComparator
--- @return #string `comparator` atribute of the <b>&lt;assessmentStatement&gt;</b> element.
+-- @return #string `comparator` attribute of the <b>&lt;assessmentStatement&gt;</b> element.
 function AssessmentStatement:getComparator()
   return self:getAttribute("comparator")
 end

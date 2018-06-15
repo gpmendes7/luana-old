@@ -86,7 +86,7 @@ end
 -- <b>&lt;descriptorBase&gt;</b> element. 
 -- 
 -- @function [parent=#DescriptorBase] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;descriptorBase&gt;</b> element.
 function DescriptorBase:setId(id)
   self:addAttribute("id", id)
@@ -97,7 +97,7 @@ end
 -- <b>&lt;descriptorBase&gt;</b> element. 
 -- 
 -- @function [parent=#DescriptorBase] getId
--- @return #string `id` atribute of the <b>&lt;descriptorBase&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;descriptorBase&gt;</b> element.
 function DescriptorBase:getId()
   return self:getAttribute("id")
 end

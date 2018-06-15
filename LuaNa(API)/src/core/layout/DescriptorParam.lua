@@ -59,7 +59,7 @@ end
 -- <b>&lt;descriptorParam&gt;</b> element. 
 -- 
 -- @function [parent=#DescriptorParam] setName
--- @param #string name `name` atribute of the
+-- @param #string name `name` attribute of the
 -- <b>&lt;descriptorParam&gt;</b> element.
 function DescriptorParam:setName(name)
   self:addAttribute("name", name)
@@ -70,7 +70,7 @@ end
 -- <b>&lt;descriptorParam&gt;</b> element. 
 -- 
 -- @function [parent=#DescriptorParam] getName
--- @return #string `name` atribute of the <b>&lt;descriptorParam&gt;</b> element.
+-- @return #string `name` attribute of the <b>&lt;descriptorParam&gt;</b> element.
 function DescriptorParam:getName()
   return self:getAttribute("name")
 end
@@ -80,7 +80,7 @@ end
 -- <b>&lt;descriptorParam&gt;</b> element. 
 -- 
 -- @function [parent=#DescriptorParam] setValue
--- @param #stringOrnumber value `value` atribute of the
+-- @param #stringOrnumber value `value` attribute of the
 -- <b>&lt;descriptorParam&gt;</b> element.
 function DescriptorParam:setValue(value)
   self:addAttribute("value", value)
@@ -91,7 +91,7 @@ end
 -- <b>&lt;descriptorParam&gt;</b> element. 
 -- 
 -- @function [parent=#DescriptorParam] getValue
--- @return #stringOrnumber `value` atribute of the <b>&lt;descriptorParam&gt;</b> element.
+-- @return #stringOrnumber `value` attribute of the <b>&lt;descriptorParam&gt;</b> element.
 function DescriptorParam:getValue()
   return self:getAttribute("value")
 end

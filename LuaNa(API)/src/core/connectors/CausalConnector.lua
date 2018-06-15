@@ -90,7 +90,7 @@ end
 -- <b>&lt;causalConnector&gt;</b> element. 
 -- 
 -- @function [parent=#CausalConnector] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;causalConnector&gt;</b> element.
 function CausalConnector:setId(id)
   self:addAttribute("id", id)
@@ -101,7 +101,7 @@ end
 -- <b>&lt;causalConnector&gt;</b> element. 
 -- 
 -- @function [parent=#CausalConnector] getId
--- @return #string `id` atribute of the <b>&lt;causalConnector&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;causalConnector&gt;</b> element.
 function CausalConnector:getId()
   return self:getAttribute("id")
 end

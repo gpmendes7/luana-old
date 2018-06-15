@@ -101,7 +101,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setRole
--- @param #string role `role` atribute of the
+-- @param #string role `role` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setRole(role)
   self:addAttribute("role", role)
@@ -112,7 +112,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getRole
--- @return #string `role` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #string `role` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getRole()
   return self:getAttribute("role")
 end
@@ -122,7 +122,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setDelay
--- @param #stringOrnumber delay `delay` atribute of the
+-- @param #stringOrnumber delay `delay` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setDelay(delay)
   self:addAttribute("delay", delay)
@@ -133,7 +133,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getDelay
--- @return #stringOrnumber `delay` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #stringOrnumber `delay` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getDelay()
   return self:getAttribute("delay")
 end
@@ -143,7 +143,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setEventType
--- @param #string eventType `eventType` atribute of the
+-- @param #string eventType `eventType` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setEventType(eventType)
   self:addAttribute("eventType", eventType)
@@ -154,7 +154,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getEventType
--- @return #string `eventType` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #string `eventType` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getEventType()
   return self:getAttribute("eventType")
 end
@@ -164,7 +164,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setKey
--- @param #string key `key` atribute of the
+-- @param #string key `key` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setKey(key)
   self:addAttribute("key", key)
@@ -175,7 +175,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getKey
--- @return #string `key` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #string `key` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getKey()
   return self:getAttribute("key")
 end
@@ -185,7 +185,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setTransition
--- @param #string transition `transition` atribute of the
+-- @param #string transition `transition` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setTransition(transition)
   self:addAttribute("transition", transition)
@@ -196,7 +196,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getTransition
--- @return #string `transition` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #string `transition` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getTransition()
   return self:getAttribute("transition")
 end
@@ -206,7 +206,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#min] setMin
--- @param #stringOrnumber min `min` atribute of the
+-- @param #stringOrnumber min `min` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setMin(min)
   self:addAttribute("min", min)
@@ -217,7 +217,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getMin
--- @return #stringOrnumber `min` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #stringOrnumber `min` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getMin()
   return self:getAttribute("min")
 end
@@ -227,7 +227,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setMax
--- @param #stringOrnumber max `max` atribute of the
+-- @param #stringOrnumber max `max` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setMax(max)
   self:addAttribute("max", max)
@@ -238,7 +238,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getMax
--- @return #stringOrnumber `max` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #stringOrnumber `max` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getMax()
   return self:getAttribute("max")
 end
@@ -248,7 +248,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] setQualifier
--- @param #string qualifier `qualifier` atribute of the
+-- @param #string qualifier `qualifier` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:setQualifier(qualifier)
   self:addAttribute("qualifier", qualifier)
@@ -259,7 +259,7 @@ end
 -- <b>&lt;simpleCondition&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleCondition] getQualifier
--- @return #string `qualifier` atribute of the <b>&lt;simpleCondition&gt;</b> element.
+-- @return #string `qualifier` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getQualifier()
   return self:getAttribute("qualifier")
 end

@@ -111,7 +111,7 @@ end
 -- <b>&lt;compoundCondition&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundCondition] setComparator
--- @param #string operator `operator` atribute of the
+-- @param #string operator `operator` attribute of the
 -- <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:setOperator(operator)
   self:addAttribute("operator", operator)
@@ -122,7 +122,7 @@ end
 -- <b>&lt;compoundCondition&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundCondition] getComparator
--- @return #string `operator` atribute of the <b>&lt;compoundCondition&gt;</b> element.
+-- @return #string `operator` attribute of the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:getOperator()
   return self:getAttribute("operator")
 end
@@ -132,7 +132,7 @@ end
 -- <b>&lt;compoundCondition&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundCondition] setDelay
--- @param #stringOrnumber delay `delay` atribute of the
+-- @param #stringOrnumber delay `delay` attribute of the
 -- <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:setDelay(delay)
   self:addAttribute("delay", delay)
@@ -143,7 +143,7 @@ end
 -- <b>&lt;compoundCondition&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundCondition] getDelay
--- @return #stringOrnumber `delay` atribute of the <b>&lt;compoundCondition&gt;</b> element.
+-- @return #stringOrnumber `delay` attribute of the <b>&lt;compoundCondition&gt;</b> element.
 function CompoundCondition:getDelay()
   return self:getAttribute("delay")
 end

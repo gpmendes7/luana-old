@@ -103,7 +103,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setRole
--- @param #string role `role` atribute of the
+-- @param #string role `role` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setRole(role)
   self:addAttribute("role", role)
@@ -114,7 +114,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getRole
--- @return #string `role` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #string `role` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getRole()
   return self:getAttribute("role")
 end
@@ -124,7 +124,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setDelay
--- @param #stringOrnumber delay `delay` atribute of the
+-- @param #stringOrnumber delay `delay` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setDelay(delay)
   self:addAttribute("delay", delay)
@@ -135,7 +135,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getDelay
--- @return #stringOrnumber `delay` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `delay` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getDelay()
   return self:getAttribute("delay")
 end
@@ -145,7 +145,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setEventType
--- @param #string eventType `eventType` atribute of the
+-- @param #string eventType `eventType` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setEventType(eventType)
   self:addAttribute("eventType", eventType)
@@ -156,7 +156,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getEventType
--- @return #string `eventType` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #string `eventType` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getEventType()
   return self:getAttribute("eventType")
 end
@@ -166,7 +166,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setActionType
--- @param #string actionType `actionType` atribute of the
+-- @param #string actionType `actionType` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setActionType(actionType)
   self:addAttribute("actionType", actionType)
@@ -177,7 +177,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getActionType
--- @return #string `actionType` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #string `actionType` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getActionType()
   return self:getAttribute("actionType")
 end
@@ -187,7 +187,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setValue
--- @param #stringOrnumber value `value` atribute of the
+-- @param #stringOrnumber value `value` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setValue(value)
   self:addAttribute("value", value)
@@ -198,7 +198,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getValue
--- @return #stringOrnumber `value` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `value` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getValue()
   return self:getAttribute("value")
 end
@@ -208,7 +208,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setMin
--- @param #stringOrnumber min `min` atribute of the
+-- @param #stringOrnumber min `min` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setMin(min)
   self:addAttribute("min", min)
@@ -219,7 +219,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getMin
--- @return #stringOrnumber `min` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `min` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getMin()
   return self:getAttribute("min")
 end
@@ -229,7 +229,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setMax
--- @param #stringOrnumber max `max` atribute of the
+-- @param #stringOrnumber max `max` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setMax(max)
   self:addAttribute("max", max)
@@ -240,7 +240,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getMax
--- @return #stringOrnumber `max` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `max` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getMax()
   return self:getAttribute("max")
 end
@@ -250,7 +250,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setQualifier
--- @param #string qualifier `qualifier` atribute of the
+-- @param #string qualifier `qualifier` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setQualifier(qualifier)
   self:addAttribute("qualifier", qualifier)
@@ -261,7 +261,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getQualifier
--- @return #string `qualifier` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #string `qualifier` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getQualifier()
   return self:getAttribute("qualifier")
 end
@@ -271,7 +271,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setRepeat
--- @param #stringOrnumber rep `rep` atribute of the
+-- @param #stringOrnumber rep `rep` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setRepeat(rep)
   self:addAttribute("repeat", rep)
@@ -282,7 +282,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getRepeat
--- @return #stringOrnumber `repeat` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `repeat` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getRepeat()
   return self:getAttribute("repeat")
 end
@@ -292,7 +292,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setRepeatDelay
--- @param #stringOrnumber repeatDelay `repeatDelay` atribute of the
+-- @param #stringOrnumber repeatDelay `repeatDelay` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setRepeatDelay(repeatDelay)
   self:addAttribute("repeatDelay", repeatDelay)
@@ -303,7 +303,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getRepeatDelay
--- @return #stringOrnumber `repeatDelay` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `repeatDelay` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getRepeatDelay()
   return self:getAttribute("repeatDelay")
 end
@@ -313,7 +313,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setDuration
--- @param #stringOrnumber duration `duration` atribute of the
+-- @param #stringOrnumber duration `duration` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setDuration(duration)
   self:addAttribute("duration", duration)
@@ -324,7 +324,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getDuration
--- @return #stringOrnumber `duration` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `duration` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getDuration()
   return self:getAttribute("duration")
 end
@@ -334,7 +334,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] setBy
--- @param #stringOrnumber by `by` atribute of the
+-- @param #stringOrnumber by `by` attribute of the
 -- <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:setBy(by)
   self:addAttribute("by", by)
@@ -345,7 +345,7 @@ end
 -- <b>&lt;simpleAction&gt;</b> element. 
 -- 
 -- @function [parent=#SimpleAction] getBy
--- @return #stringOrnumber `by` atribute of the <b>&lt;simpleAction&gt;</b> element.
+-- @return #stringOrnumber `by` attribute of the <b>&lt;simpleAction&gt;</b> element.
 function SimpleAction:getBy()
   return self:getAttribute("by")
 end

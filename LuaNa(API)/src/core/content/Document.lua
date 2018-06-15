@@ -19,7 +19,7 @@ local Body = require("core/content/Body")
 -- -- The module needs to be imported to be used with the instruction
 -- local Document = require "core/content/Document"
 -- 
--- -- Now, the object will be created passing the list of atributes
+-- -- Now, the object will be created passing the list of attributes
 -- -- with id attribute, the xml header and the flag equals to 1.
 -- -- This way, the object doc will be created with children objects
 -- -- additioned from each children classes.
@@ -119,7 +119,7 @@ end
 ---
 -- Sets a value to `id` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setId
--- @param #string id `id` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string id `id` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setId(id)
   self:addAttribute("id", id)
 end
@@ -127,7 +127,7 @@ end
 ---
 -- Returns the value of the `id` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getId
--- @return #string `id` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getId()
   return self:getAttribute("id")
 end
@@ -135,7 +135,7 @@ end
 ---
 -- Sets a value to `title` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setTitle
--- @param #string title `title` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string title `title` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setTitle(title)
   self:addAttribute("title", title)
 end
@@ -143,7 +143,7 @@ end
 ---
 -- Returns the value of the `title` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getTitle
--- @return #string `title` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `title` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getTitle()
   return self:getAttribute("title")
 end
@@ -151,7 +151,7 @@ end
 ---
 -- Sets a value to `xmlns` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setXmlns
--- @param #string xmlns ´xmlns´ atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string xmlns ´xmlns´ attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setXmlns(xmlns)
   self:addAttribute("xmlns", xmlns)
 end
@@ -159,7 +159,7 @@ end
 ---
 -- Returns the value of the `xmlns` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getXmlns
--- @return #string `xmlns` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `xmlns` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getXmlns()
   return self:getAttribute("xmlns")
 end
@@ -167,7 +167,7 @@ end
 ---
 -- Sets a value to `xsi` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setXsi
--- @param #string xsi `xsi` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string xsi `xsi` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setXsi(xsi)
   self:addAttribute("xmlns:xsi", xsi)
 end
@@ -175,7 +175,7 @@ end
 ---
 -- Returns the value of the `xsi` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getXsi
--- @return #string `xsi` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `xsi` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getXsi()
   return self:getAttribute("xmlns:xsi")
 end
@@ -183,7 +183,7 @@ end
 ---
 -- Sets a value to `schemaLocation` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] setSchemaLocation
--- @param #string schemaLocation `schemaLocation` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @param #string schemaLocation `schemaLocation` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:setSchemaLocation(schemaLocation)
   self:addAttribute("xsi:schemaLocation", schemaLocation)
 end
@@ -191,7 +191,7 @@ end
 ---
 -- Returns the value of the `schemaLocation` attribute of the <b>&lt;ncl&gt;</b> element. 
 -- @function [parent=#Document] getSchemaLocation
--- @return #string `schemaLocation` atribute of the <b>&lt;ncl&gt;</b> element.
+-- @return #string `schemaLocation` attribute of the <b>&lt;ncl&gt;</b> element.
 function Document:getSchemaLocation()
   return self:getAttribute("xsi:schemaLocation")
 end

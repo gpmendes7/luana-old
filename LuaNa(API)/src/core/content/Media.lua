@@ -118,7 +118,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setId(id)
   self:addAttribute("id", id)
@@ -129,7 +129,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getId
--- @return #string `id` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getId()
   return self:getAttribute("id")
 end
@@ -139,7 +139,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setSrc
--- @param #string src `src` atribute of the
+-- @param #string src `src` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setSrc(src)
   self:addAttribute("src", src)
@@ -150,7 +150,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getSrc
--- @return #string `src` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `src` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getSrc()
   return self:getAttribute("src")
 end
@@ -160,7 +160,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setType
--- @param #string type `type` atribute of the
+-- @param #string type `type` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setType(type)
   self:addAttribute("type", type)
@@ -171,7 +171,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getType
--- @return #string `type` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `type` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getType()
   return self:getAttribute("type")
 end
@@ -181,7 +181,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setRefer
--- @param #stringOrObject refer `refer` atribute of the
+-- @param #stringOrObject refer `refer` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setRefer(refer)
   if(type(refer) == "table")then
@@ -207,7 +207,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getRefer
--- @return #string `refer` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `refer` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getRefer()
   return self:getAttribute("refer")
 end
@@ -227,7 +227,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setType
--- @param #string instance `instance` atribute of the
+-- @param #string instance `instance` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setInstance(instance)
   self:addAttribute("instance", instance)
@@ -238,7 +238,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getInstance
--- @return #string `instance` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `instance` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getInstance()
   return self:getAttribute("instance")
 end
@@ -248,7 +248,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setNewInstance
--- @param #string newInstance `newInstance` atribute of the
+-- @param #string newInstance `newInstance` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setNewInstance(newInstance)
   self:addAttribute("newInstance", newInstance)
@@ -259,7 +259,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getNewInstance
--- @return #string `newInstance` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `newInstance` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getNewInstance()
   return self:getAttribute("newInstance")
 end
@@ -269,7 +269,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] setDescriptor
--- @param #stringOrObject descriptor `descriptor` atribute of the
+-- @param #stringOrObject descriptor `descriptor` attribute of the
 -- <b>&lt;media&gt;</b> element.
 function Media:setDescriptor(descriptor)
   if(type(descriptor) == "table"
@@ -290,7 +290,7 @@ end
 -- <b>&lt;media&gt;</b> element. 
 -- 
 -- @function [parent=#Media] getDescriptor
--- @return #string `descriptor` atribute of the <b>&lt;media&gt;</b> element.
+-- @return #string `descriptor` attribute of the <b>&lt;media&gt;</b> element.
 function Media:getDescriptor()
   return self:getAttribute("descriptor")
 end

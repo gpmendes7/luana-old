@@ -155,7 +155,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setId(id)
   self:addAttribute("id", id)
@@ -166,7 +166,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getId
--- @return #string `id` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getId()
   return self:getAttribute("id")
 end
@@ -176,7 +176,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setPlayer
--- @param #string player `player` atribute of the
+-- @param #string player `player` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setPlayer(player)
   self:addAttribute("player", player)
@@ -187,7 +187,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getPlayer
--- @return #string `player` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `player` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getPlayer()
   return self:getAttribute("player")
 end
@@ -197,7 +197,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setExplicitDur
--- @param #stringOrnumber explicitDur `explicitDur` atribute of the
+-- @param #stringOrnumber explicitDur `explicitDur` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setExplicitDur(explicitDur)
   self:addAttribute("explicitDur", explicitDur)
@@ -208,7 +208,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getExplicitDur
--- @return #stringOrnumber `explicitDur` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `explicitDur` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getExplicitDur()
   return self:getAttribute("explicitDur")
 end
@@ -218,7 +218,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setRegion
--- @param #stringOrobject region `region` atribute of the
+-- @param #stringOrobject region `region` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setRegion(region)
   if(type(region) == "table"
@@ -239,7 +239,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getRegion
--- @return #string `region` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `region` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getRegion()
   return self:getAttribute("region")
 end
@@ -259,7 +259,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFreeze
--- @param #boolean freeze `freeze` atribute of the
+-- @param #boolean freeze `freeze` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFreeze(freeze)
   self:addAttribute("freeze", freeze)
@@ -270,7 +270,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFreeze
--- @return #boolean `freeze` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #boolean `freeze` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFreeze()
   return self:getAttribute("freeze")
 end
@@ -280,7 +280,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setMoveLeft
--- @param #stringOrnumber moveLeft `moveLeft` atribute of the
+-- @param #stringOrnumber moveLeft `moveLeft` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setMoveLeft(moveLeft)
   self:addAttribute("moveLeft", moveLeft)
@@ -291,7 +291,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getMoveLeft
--- @return #stringOrnumber `moveLeft` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `moveLeft` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getMoveLeft()
   return self:getAttribute("moveLeft")
 end
@@ -301,7 +301,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setMoveRight
--- @param #stringOrnumber moveRight `moveRight` atribute of the
+-- @param #stringOrnumber moveRight `moveRight` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setMoveRight(moveRight)
   self:addAttribute("moveRight", moveRight)
@@ -312,7 +312,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getMoveRight
--- @return #stringOrnumber `moveRight` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `moveRight` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getMoveRight()
   return self:getAttribute("moveRight")
 end
@@ -322,7 +322,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setMoveUp
--- @param #stringOrnumber moveUp `moveUp` atribute of the
+-- @param #stringOrnumber moveUp `moveUp` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setMoveUp(moveUp)
   self:addAttribute("moveUp", moveUp)
@@ -333,7 +333,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getMoveUp
--- @return #stringOrnumber `moveUp` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `moveUp` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getMoveUp()
   return self:getAttribute("moveUp")
 end
@@ -343,7 +343,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setMoveDown
--- @param #stringOrnumber moveDown `moveDown` atribute of the
+-- @param #stringOrnumber moveDown `moveDown` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setMoveDown(moveDown)
   self:addAttribute("moveDown", moveDown)
@@ -354,7 +354,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getMoveDown
--- @return #stringOrnumber `moveDown` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `moveDown` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getMoveDown()
   return self:getAttribute("moveDown")
 end
@@ -364,7 +364,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFocusIndex
--- @param #stringOrnumber focusIndex `focusIndex` atribute of the
+-- @param #stringOrnumber focusIndex `focusIndex` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFocusIndex(focusIndex)
   self:addAttribute("focusIndex", focusIndex)
@@ -375,7 +375,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFocusIndex
--- @return #stringOrnumber `focusIndex` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `focusIndex` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFocusIndex()
   return self:getAttribute("focusIndex")
 end
@@ -385,7 +385,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFocusBorderColor
--- @param #string focusBorderColor `focusBorderColor` atribute of the
+-- @param #string focusBorderColor `focusBorderColor` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFocusBorderColor(focusBorderColor)
   self:addAttribute("focusBorderColor", focusBorderColor)
@@ -396,7 +396,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFocusBorderColor
--- @return #string `focusBorderColor` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `focusBorderColor` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFocusBorderColor()
   return self:getAttribute("focusBorderColor")
 end
@@ -406,7 +406,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFocusBorderWidth
--- @param #stringOrnumber focusBorderWidth `focusBorderWidth` atribute of the
+-- @param #stringOrnumber focusBorderWidth `focusBorderWidth` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFocusBorderWidth(focusBorderWidth)
   self:addAttribute("focusBorderWidth", focusBorderWidth)
@@ -417,7 +417,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFocusBorderWidth
--- @return #stringOrnumber `focusBorderWidth` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `focusBorderWidth` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFocusBorderWidth()
   return self:getAttribute("focusBorderWidth")
 end
@@ -427,7 +427,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFocusBorderTransparency
--- @param #stringOrnumber focusBorderTransparency `focusBorderTransparency` atribute of the
+-- @param #stringOrnumber focusBorderTransparency `focusBorderTransparency` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFocusBorderTransparency(focusBorderTransparency)
   self:addAttribute("focusBorderTransparency", focusBorderTransparency)
@@ -438,7 +438,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFocusBorderTransparency
--- @return #stringOrnumber `focusBorderTransparency` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #stringOrnumber `focusBorderTransparency` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFocusBorderTransparency()
   return self:getAttribute("focusBorderTransparency")
 end
@@ -448,7 +448,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFocusSrc
--- @param #string focusSrc `focusSrc` atribute of the
+-- @param #string focusSrc `focusSrc` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFocusSrc(focusSrc)
   self:addAttribute("focusSrc", focusSrc)
@@ -459,7 +459,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFocusSrc
--- @return #string `focusSrc` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `focusSrc` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFocusSrc()
   return self:getAttribute("focusSrc")
 end
@@ -469,7 +469,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setFocusSelSrc
--- @param #string focusSelSrc `focusSelSrc` atribute of the
+-- @param #string focusSelSrc `focusSelSrc` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setFocusSelSrc(focusSelSrc)
   self:addAttribute("focusSelSrc", focusSelSrc)
@@ -480,7 +480,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getFocusSelSrc
--- @return #string `focusSelSrc` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `focusSelSrc` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getFocusSelSrc()
   return self:getAttribute("focusSelSrc")
 end
@@ -490,7 +490,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] setSelBorderColor
--- @param #string selBorderColor `selBorderColor` atribute of the
+-- @param #string selBorderColor `selBorderColor` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setSelBorderColor(selBorderColor)
   self:addAttribute("selBorderColor", selBorderColor)
@@ -501,7 +501,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getSelBorderColor
--- @return #string `selBorderColor` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `selBorderColor` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getSelBorderColor()
   return self:getAttribute("selBorderColor")
 end
@@ -513,7 +513,7 @@ end
 -- Can receive one or more transition objects.
 -- 
 -- @function [parent=#Descriptor] setTransIn
--- @param #stringOrobject ... `transIn` atribute of the
+-- @param #stringOrobject ... `transIn` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setTransIn(...)
   if(#arg > 1)then
@@ -556,7 +556,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getTransIn
--- @return #string `transIn` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `transIn` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getTransIn()
   return self:getAttribute("transIn")
 end
@@ -579,7 +579,7 @@ end
 -- Can receive one or more transition objects.
 -- 
 -- @function [parent=#Descriptor] setTransOut
--- @param #stringOrobject ... `transOut` atribute of the
+-- @param #stringOrobject ... `transOut` attribute of the
 -- <b>&lt;descriptor&gt;</b> element.
 function Descriptor:setTransOut(...)
   if(#arg > 1)then
@@ -622,7 +622,7 @@ end
 -- <b>&lt;descriptor&gt;</b> element. 
 -- 
 -- @function [parent=#Descriptor] getTransOut
--- @return #string `transOut` atribute of the <b>&lt;descriptor&gt;</b> element.
+-- @return #string `transOut` attribute of the <b>&lt;descriptor&gt;</b> element.
 function Descriptor:getTransOut()
   return self:getAttribute("transOut")
 end

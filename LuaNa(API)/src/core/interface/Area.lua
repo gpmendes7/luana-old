@@ -93,7 +93,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setId(id)
    self:addAttribute("id", id)
@@ -104,7 +104,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getId
--- @return #string `id` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getId()
    return self:getAttribute("id")
 end
@@ -114,7 +114,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setCoords
--- @param #string coords `coords` atribute of the
+-- @param #string coords `coords` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setCoords(coords)
    self:addAttribute("coords", coords)
@@ -125,7 +125,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getCoords
--- @return #string `coords` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #string `coords` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getCoords()
    return self:getAttribute("coords")
 end
@@ -135,7 +135,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setBegin
--- @param #stringOrnumber begin `begin` atribute of the
+-- @param #stringOrnumber begin `begin` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setBegin(begin)
    self:addAttribute("begin", begin)
@@ -146,7 +146,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getBegin
--- @return #stringOrnumber `begin` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #stringOrnumber `begin` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getBegin()
    return self:getAttribute("begin")
 end
@@ -156,7 +156,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setEnd
--- @param #stringOrnumber endAtt `endAtt` atribute of the
+-- @param #stringOrnumber endAtt `endAtt` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setEnd(endAtt)
    self:addAttribute("end", endAtt)
@@ -167,7 +167,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getEnd
--- @return #stringOrnumber `begin` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #stringOrnumber `begin` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getEnd()
    return self:getAttribute("end")
 end
@@ -177,7 +177,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setBeginText
--- @param #string beginText `beginText` atribute of the
+-- @param #string beginText `beginText` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setBeginText(beginText)
    self:addAttribute("beginText", beginText)
@@ -188,7 +188,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getBeginText
--- @return #string `beginText` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #string `beginText` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getBeginText()
    return self:getAttribute("beginText")
 end
@@ -198,7 +198,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setEndText
--- @param #string endText `endText` atribute of the
+-- @param #string endText `endText` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setEndText(endText)
    self:addAttribute("endText", endText)
@@ -209,7 +209,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getEndText
--- @return #string `endText` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #string `endText` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getEndText()
    return self:getAttribute("endText")
 end
@@ -219,7 +219,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setBeginPosition
--- @param #number beginPosition `beginPosition` atribute of the
+-- @param #number beginPosition `beginPosition` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setBeginPosition(beginPosition)
    self:addAttribute("beginPosition", beginPosition)
@@ -230,7 +230,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getBeginPosition
--- @return #number `beginPosition` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #number `beginPosition` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getBeginPosition()
    return self:getAttribute("beginPosition")
 end
@@ -240,7 +240,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setEndPosition
--- @param #number endPosition `endPosition` atribute of the
+-- @param #number endPosition `endPosition` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setEndPosition(endPosition)
    self:addAttribute("endPosition", endPosition)
@@ -251,7 +251,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getEndPosition
--- @return #number `endPosition` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #number `endPosition` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getEndPosition()
    return self:getAttribute("endPosition")
 end
@@ -261,7 +261,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setFirst
--- @param #number first `first` atribute of the
+-- @param #number first `first` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setFirst(first)
    self:addAttribute("first", first)
@@ -272,7 +272,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getFirst
--- @return #number `first` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #number `first` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getFirst()
    return self:getAttribute("first")
 end
@@ -282,7 +282,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setLast
--- @param #number last `last` atribute of the
+-- @param #number last `last` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setLast(last)
    self:addAttribute("last", last)
@@ -293,7 +293,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getLast
--- @return #number `last` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #number `last` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getLast()
    return self:getAttribute("last")
 end
@@ -303,7 +303,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setLabel
--- @param #string label `label` atribute of the
+-- @param #string label `label` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setLabel(label)
    self:addAttribute("label", label)
@@ -314,7 +314,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getLabel
--- @return #string `label` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #string `label` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getLabel()
    return self:getAttribute("label")
 end
@@ -324,7 +324,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] setClip
--- @param #string clip `clip` atribute of the
+-- @param #string clip `clip` attribute of the
 -- <b>&lt;area&gt;</b> element.
 function Area:setClip(clip)
    self:addAttribute("clip", clip)
@@ -335,7 +335,7 @@ end
 -- <b>&lt;area&gt;</b> element. 
 -- 
 -- @function [parent=#Area] getClip
--- @return #string `clip` atribute of the <b>&lt;area&gt;</b> element.
+-- @return #string `clip` attribute of the <b>&lt;area&gt;</b> element.
 function Area:getClip()
    return self:getAttribute("clip")
 end

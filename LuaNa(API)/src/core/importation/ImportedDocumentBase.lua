@@ -78,7 +78,7 @@ end
 -- <b>&lt;importedDocumentBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportedDocumentBase] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;importedDocumentBase&gt;</b> element.
 function ImportedDocumentBase:setId(id)
   self:addAttribute("id", id)
@@ -89,7 +89,7 @@ end
 -- <b>&lt;importedDocumentBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportedDocumentBase] getId
--- @return #string `id` atribute of the <b>&lt;importedDocumentBase&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;importedDocumentBase&gt;</b> element.
 function ImportedDocumentBase:getId()
   return self:getAttribute("id")
 end

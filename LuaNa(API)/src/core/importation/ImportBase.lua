@@ -74,7 +74,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] setAlias
--- @param #string alias `alias` atribute of the
+-- @param #string alias `alias` attribute of the
 -- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setAlias(alias)
   self:addAttribute("alias", alias)
@@ -85,7 +85,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] getAlias
--- @return #string `alias` atribute of the <b>&lt;importBase&gt;</b> element.
+-- @return #string `alias` attribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getAlias()
   return self:getAttribute("alias")
 end
@@ -95,7 +95,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] setDocumentURI
--- @param #string documentURI `documentURI` atribute of the
+-- @param #string documentURI `documentURI` attribute of the
 -- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setDocumentURI(documentURI)
   self:addAttribute("documentURI", documentURI)
@@ -106,7 +106,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] getDocumentURI
--- @return #string `documentURI` atribute of the <b>&lt;importBase&gt;</b> element.
+-- @return #string `documentURI` attribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getDocumentURI()
   return self:getAttribute("documentURI")
 end
@@ -116,7 +116,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] setRegion
--- @param #stringOrobject region `region` atribute of the
+-- @param #stringOrobject region `region` attribute of the
 -- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setRegion(region)
   if(type(region) == "table"
@@ -137,7 +137,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] getRegion
--- @return #string `region` atribute of the <b>&lt;importBase&gt;</b> element.
+-- @return #string `region` attribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getRegion()
   return self:getAttribute("region")
 end
@@ -157,7 +157,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] setBaseId
--- @param #stringOrobject baseId `baseId` atribute of the
+-- @param #stringOrobject baseId `baseId` attribute of the
 -- <b>&lt;importBase&gt;</b> element.
 function ImportBase:setBaseId(baseId)
   if(type(baseId) == "table"
@@ -178,7 +178,7 @@ end
 -- <b>&lt;importBase&gt;</b> element. 
 -- 
 -- @function [parent=#ImportBase] getBaseId
--- @return #string `baseId` atribute of the <b>&lt;importBase&gt;</b> element.
+-- @return #string `baseId` attribute of the <b>&lt;importBase&gt;</b> element.
 function ImportBase:getBaseId()
   return self:getAttribute("baseId")
 end

@@ -443,7 +443,7 @@ end
 --- Adds a new value to an attribute of current NCL element.
 -- @function [parent=#NCLElem] addAttribute
 -- @param #string attribute attribute of current NCL element.
--- @param #string value atributes's value of current NCL element.
+-- @param #string value attributes's value of current NCL element.
 function NCLElem:addAttribute(attribute, value)
   if(Validator:isInvalidString(attribute))then
     error("Error! Nil, empty or invalid attribute informed in "..self.nameElem.." element! It must be a valid string!", 2)
@@ -539,7 +539,7 @@ end
 --- Adds a symbol to a numeric attribute beloging to current NCL element.
 -- @function [parent=#NCLElem] addSymbol
 -- @param #string attribute attribute of current NCL element.
--- @param #string value atributes's value of current NCL element.
+-- @param #string value attributes's value of current NCL element.
 function NCLElem:addSymbol(attribute, symbol)
   if(self.attributesSymbolMap == nil)then
     self.symbols[attribute] = symbol

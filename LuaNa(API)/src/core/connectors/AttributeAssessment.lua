@@ -82,7 +82,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] setRole
--- @param #string role `role` atribute of the
+-- @param #string role `role` attribute of the
 -- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setRole(role)
   self:addAttribute("role", role)
@@ -93,7 +93,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] getRole
--- @return #string `role` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
+-- @return #string `role` attribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getRole()
   return self:getAttribute("role")
 end
@@ -103,7 +103,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] setEventType
--- @param #string eventType `eventType` atribute of the
+-- @param #string eventType `eventType` attribute of the
 -- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setEventType(eventType)
   self:addAttribute("eventType", eventType)
@@ -114,7 +114,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] getEventType
--- @return #string `eventType` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
+-- @return #string `eventType` attribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getEventType()
   return self:getAttribute("eventType")
 end
@@ -124,7 +124,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] setKey
--- @param #string key `key` atribute of the
+-- @param #string key `key` attribute of the
 -- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setKey(key)
   self:addAttribute("key", key)
@@ -135,7 +135,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] getKey
--- @return #string `key` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
+-- @return #string `key` attribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getKey()
   return self:getAttribute("key")
 end
@@ -145,7 +145,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] setAttributeType
--- @param #string attributeType `attributeType` atribute of the
+-- @param #string attributeType `attributeType` attribute of the
 -- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setAttributeType(attributeType)
   self:addAttribute("attributeType", attributeType)
@@ -156,7 +156,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] getAttributeType
--- @return #string `attributeType` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
+-- @return #string `attributeType` attribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getAttributeType()
   return self:getAttribute("attributeType")
 end
@@ -166,7 +166,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] setOffset
--- @param #string offset `offset` atribute of the
+-- @param #string offset `offset` attribute of the
 -- <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:setOffset(offset)
   self:addAttribute("offset", offset)
@@ -177,7 +177,7 @@ end
 -- <b>&lt;attributeAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#AttributeAssessment] getOffset
--- @return #string `offset` atribute of the <b>&lt;attributeAssessment&gt;</b> element.
+-- @return #string `offset` attribute of the <b>&lt;attributeAssessment&gt;</b> element.
 function AttributeAssessment:getOffset()
   return self:getAttribute("offset")
 end

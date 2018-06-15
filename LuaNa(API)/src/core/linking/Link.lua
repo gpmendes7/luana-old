@@ -95,7 +95,7 @@ end
 -- <b>&lt;link&gt;</b> element. 
 -- 
 -- @function [parent=#Link] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;link&gt;</b> element.
 function Link:setId(id)
   self:addAttribute("id", id)
@@ -106,7 +106,7 @@ end
 -- <b>&lt;link&gt;</b> element. 
 -- 
 -- @function [parent=#Link] getId
--- @return #string `id` atribute of the <b>&lt;link&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;link&gt;</b> element.
 function Link:getId()
   return self:getAttribute("id")
 end
@@ -116,7 +116,7 @@ end
 -- <b>&lt;link&gt;</b> element. 
 -- 
 -- @function [parent=#Link] setXConnector
--- @param #stringOrobject xconnector `xconnector` atribute of the
+-- @param #stringOrobject xconnector `xconnector` attribute of the
 -- <b>&lt;link&gt;</b> element.
 function Link:setXConnector(xconnector)
   if(type(xconnector) == "table"
@@ -137,7 +137,7 @@ end
 -- <b>&lt;link&gt;</b> element. 
 -- 
 -- @function [parent=#Link] getXConnector
--- @return #string `xconnector` atribute of the <b>&lt;link&gt;</b> element.
+-- @return #string `xconnector` attribute of the <b>&lt;link&gt;</b> element.
 function Link:getXConnector()
   return self:getAttribute("xconnector")
 end

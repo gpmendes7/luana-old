@@ -59,7 +59,7 @@ end
 -- <b>&lt;linkParam&gt;</b> element. 
 -- 
 -- @function [parent=#LinkParam] setName
--- @param #string name `name` atribute of the
+-- @param #string name `name` attribute of the
 -- <b>&lt;linkParam&gt;</b> element.
 function LinkParam:setName(name)
    self:addAttribute("name", name)
@@ -70,7 +70,7 @@ end
 -- <b>&lt;linkParam&gt;</b> element. 
 -- 
 -- @function [parent=#LinkParam] getName
--- @return #string `name` atribute of the <b>&lt;linkParam&gt;</b> element.
+-- @return #string `name` attribute of the <b>&lt;linkParam&gt;</b> element.
 function LinkParam:getName()
    return self:getAttribute("name")
 end
@@ -80,7 +80,7 @@ end
 -- <b>&lt;linkParam&gt;</b> element. 
 -- 
 -- @function [parent=#LinkParam] setValue
--- @param #stringOrnumber value `value` atribute of the
+-- @param #stringOrnumber value `value` attribute of the
 -- <b>&lt;linkParam&gt;</b> element.
 function LinkParam:setValue(value)
    self:addAttribute("value", value)
@@ -91,7 +91,7 @@ end
 -- <b>&lt;linkParam&gt;</b> element. 
 -- 
 -- @function [parent=#LinkParam] getValue
--- @return #stringOrnumber `value` atribute of the <b>&lt;linkParam&gt;</b> element.
+-- @return #stringOrnumber `value` attribute of the <b>&lt;linkParam&gt;</b> element.
 function LinkParam:getValue()
    return self:getAttribute("value")
 end

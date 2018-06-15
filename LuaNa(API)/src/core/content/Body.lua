@@ -109,7 +109,7 @@ end
 -- <b>&lt;body&gt;</b> element. 
 -- 
 -- @function [parent=#Body] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;body&gt;</b> element.
 function Body:setId(id)
   self:addAttribute("id", id)
@@ -120,7 +120,7 @@ end
 -- <b>&lt;body&gt;</b> element. 
 -- 
 -- @function [parent=#Body] getId
--- @return #string `id` atribute of the <b>&lt;body&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;body&gt;</b> element.
 function Body:getId()
   return self:getAttribute("id")
 end

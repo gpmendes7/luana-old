@@ -103,7 +103,7 @@ end
 -- <b>&lt;compoundAction&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundAction] setComparator
--- @param #string operator `operator` atribute of the
+-- @param #string operator `operator` attribute of the
 -- <b>&lt;compoundAction&gt;</b> element.
 function CompoundAction:setOperator(operator)
   self:addAttribute("operator", operator)
@@ -114,7 +114,7 @@ end
 -- <b>&lt;compoundAction&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundAction] getComparator
--- @return #string `operator` atribute of the <b>&lt;compoundAction&gt;</b> element.
+-- @return #string `operator` attribute of the <b>&lt;compoundAction&gt;</b> element.
 function CompoundAction:getOperator()
   return self:getAttribute("operator")
 end
@@ -124,7 +124,7 @@ end
 -- <b>&lt;compoundAction&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundAction] setDelay
--- @param #stringOrnumber delay `delay` atribute of the
+-- @param #stringOrnumber delay `delay` attribute of the
 -- <b>&lt;compoundAction&gt;</b> element.
 function CompoundAction:setDelay(delay)
   self:addAttribute("delay", delay)
@@ -135,7 +135,7 @@ end
 -- <b>&lt;compoundAction&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundAction] getDelay
--- @return #stringOrnumber `delay` atribute of the <b>&lt;compoundAction&gt;</b> element.
+-- @return #stringOrnumber `delay` attribute of the <b>&lt;compoundAction&gt;</b> element.
 function CompoundAction:getDelay()
   return self:getAttribute("delay")
 end

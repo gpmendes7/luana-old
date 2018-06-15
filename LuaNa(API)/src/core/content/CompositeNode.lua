@@ -130,7 +130,7 @@ end
 -- <b>&lt;context&gt;</b> element. 
 -- 
 -- @function [parent=#Context] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;context&gt;</b> element.
 function Context:setId(id)
   self:addAttribute("id", id)
@@ -141,7 +141,7 @@ end
 -- <b>&lt;context&gt;</b> element. 
 -- 
 -- @function [parent=#Context] getId
--- @return #string `id` atribute of the <b>&lt;context&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;context&gt;</b> element.
 function Context:getId()
   return self:getAttribute("id")
 end
@@ -151,7 +151,7 @@ end
 -- <b>&lt;context&gt;</b> element. 
 -- 
 -- @function [parent=#Context] setRefer
--- @param #stringOrObject refer `refer` atribute of the
+-- @param #stringOrObject refer `refer` attribute of the
 -- <b>&lt;context&gt;</b> element.
 function Context:setRefer(refer)
   if(type(refer) == "table")then
@@ -178,7 +178,7 @@ end
 -- <b>&lt;context&gt;</b> element. 
 -- 
 -- @function [parent=#Context] getRefer
--- @return #string `refer` atribute of the <b>&lt;context&gt;</b> element.
+-- @return #string `refer` attribute of the <b>&lt;context&gt;</b> element.
 function Context:getRefer()
   return self:getAttribute("refer")
 end
@@ -1292,7 +1292,7 @@ end
 -- <b>&lt;switch&gt;</b> element. 
 -- 
 -- @function [parent=#Switch] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;body&gt;</b> element.
 function Switch:setId(id)
   self:addAttribute("id", id)
@@ -1303,7 +1303,7 @@ end
 -- <b>&lt;switch&gt;</b> element. 
 -- 
 -- @function [parent=#Switch] getId
--- @return #string `id` atribute of the <b>&lt;switch&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;switch&gt;</b> element.
 function Switch:getId()
   return self:getAttribute("id")
 end
@@ -1313,7 +1313,7 @@ end
 -- <b>&lt;switch&gt;</b> element. 
 -- 
 -- @function [parent=#Switch] setRefer
--- @param #stringOrObject refer `refer` atribute of the
+-- @param #stringOrObject refer `refer` attribute of the
 -- <b>&lt;switch&gt;</b> element.
 function Switch:setRefer(refer)
   if(type(refer) == "table")then
@@ -1339,7 +1339,7 @@ end
 -- <b>&lt;switch&gt;</b> element. 
 -- 
 -- @function [parent=#Switch] getRefer
--- @return #string `refer` atribute of the <b>&lt;switch&gt;</b> element.
+-- @return #string `refer` attribute of the <b>&lt;switch&gt;</b> element.
 function Switch:getRefer()
   return self:getAttribute("refer")
 end

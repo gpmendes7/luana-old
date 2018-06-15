@@ -74,7 +74,7 @@ end
 -- <b>&lt;port&gt;</b> element. 
 -- 
 -- @function [parent=#Port] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;port&gt;</b> element.
 function Port:setId(id)
   self:addAttribute("id", id)
@@ -85,7 +85,7 @@ end
 -- <b>&lt;port&gt;</b> element. 
 -- 
 -- @function [parent=#Port] getId
--- @return #string `id` atribute of the <b>&lt;port&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;port&gt;</b> element.
 function Port:getId()
   return self:getAttribute("id")
 end
@@ -95,7 +95,7 @@ end
 -- <b>&lt;port&gt;</b> element. 
 -- 
 -- @function [parent=#Port] setComponent
--- @param #stringOrobject component `component` atribute of the
+-- @param #stringOrobject component `component` attribute of the
 -- <b>&lt;port&gt;</b> element.
 function Port:setComponent(component)
   if(type(component) == "table")then
@@ -123,7 +123,7 @@ end
 -- <b>&lt;port&gt;</b> element. 
 -- 
 -- @function [parent=#Port] getComponent
--- @return #string `component` atribute of the <b>&lt;port&gt;</b> element.
+-- @return #string `component` attribute of the <b>&lt;port&gt;</b> element.
 function Port:getComponent()
   return self:getAttribute("component")
 end
@@ -143,7 +143,7 @@ end
 -- <b>&lt;port&gt;</b> element. 
 -- 
 -- @function [parent=#Port] setInterface
--- @param #stringOrobject interface `interface` atribute of the
+-- @param #stringOrobject interface `interface` attribute of the
 -- <b>&lt;port&gt;</b> element.
 function Port:setInterface(interface)
   if(type(interface) == "table")then
@@ -176,7 +176,7 @@ end
 -- <b>&lt;port&gt;</b> element. 
 -- 
 -- @function [parent=#Port] getInterface
--- @return #string `interface` atribute of the <b>&lt;port&gt;</b> element.
+-- @return #string `interface` attribute of the <b>&lt;port&gt;</b> element.
 function Port:getInterface()
   return self:getAttribute("interface")
 end

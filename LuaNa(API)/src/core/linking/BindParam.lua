@@ -59,7 +59,7 @@ end
 -- <b>&lt;bindParam&gt;</b> element. 
 -- 
 -- @function [parent=#BindParam] setName
--- @param #string name `name` atribute of the
+-- @param #string name `name` attribute of the
 -- <b>&lt;bindParam&gt;</b> element.
 function BindParam:setName(name)
   self:addAttribute("name", name)
@@ -70,7 +70,7 @@ end
 -- <b>&lt;bindParam&gt;</b> element. 
 -- 
 -- @function [parent=#BindParam] getName
--- @return #string `name` atribute of the <b>&lt;bindParam&gt;</b> element.
+-- @return #string `name` attribute of the <b>&lt;bindParam&gt;</b> element.
 function BindParam:getName()
   return self:getAttribute("name")
 end
@@ -80,7 +80,7 @@ end
 -- <b>&lt;bindParam&gt;</b> element. 
 -- 
 -- @function [parent=#BindParam] setValue
--- @param #stringOrnumber value `value` atribute of the
+-- @param #stringOrnumber value `value` attribute of the
 -- <b>&lt;bindParam&gt;</b> element.
 function BindParam:setValue(value)
   self:addAttribute("value", value)
@@ -91,7 +91,7 @@ end
 -- <b>&lt;bindParam&gt;</b> element. 
 -- 
 -- @function [parent=#BindParam] getValue
--- @return #stringOrnumber `value` atribute of the <b>&lt;bindParam&gt;</b> element.
+-- @return #stringOrnumber `value` attribute of the <b>&lt;bindParam&gt;</b> element.
 function BindParam:getValue()
   return self:getAttribute("value")
 end

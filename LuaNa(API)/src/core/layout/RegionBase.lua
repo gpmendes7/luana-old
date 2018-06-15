@@ -99,7 +99,7 @@ end
 -- <b>&lt;regionBase&gt;</b> element. 
 -- 
 -- @function [parent=#RegionBase] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;regionBase&gt;</b> element.
 function RegionBase:setId(id)
   self:addAttribute("id", id)
@@ -110,7 +110,7 @@ end
 -- <b>&lt;regionBase&gt;</b> element. 
 -- 
 -- @function [parent=#RegionBase] getId
--- @return #string `id` atribute of the <b>&lt;regionBase&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;regionBase&gt;</b> element.
 function RegionBase:getId()
   return self:getAttribute("id")
 end
@@ -120,7 +120,7 @@ end
 -- <b>&lt;regionBase&gt;</b> element. 
 -- 
 -- @function [parent=#RegionBase] setDevice
--- @param #string device `device` atribute of the
+-- @param #string device `device` attribute of the
 -- <b>&lt;regionBase&gt;</b> element.
 function RegionBase:setDevice(device)
   self:addAttribute("device", device)
@@ -131,7 +131,7 @@ end
 -- <b>&lt;regionBase&gt;</b> element. 
 -- 
 -- @function [parent=#RegionBase] getDevice
--- @return #string `device` atribute of the <b>&lt;regionBase&gt;</b> element.
+-- @return #string `device` attribute of the <b>&lt;regionBase&gt;</b> element.
 function RegionBase:getDevice()
   return self:getAttribute("device")
 end
@@ -141,7 +141,7 @@ end
 -- <b>&lt;regionBase&gt;</b> element. 
 -- 
 -- @function [parent=#RegionBase] setRegion
--- @param #stringOrobject region `region` atribute of the
+-- @param #stringOrobject region `region` attribute of the
 -- <b>&lt;regionBase&gt;</b> element.
 function RegionBase:setRegion(region)
   if(type(region) == "table"
@@ -162,7 +162,7 @@ end
 -- <b>&lt;regionBase&gt;</b> element. 
 -- 
 -- @function [parent=#RegionBase] getRegion
--- @return #string `region` atribute of the <b>&lt;regionBase&gt;</b> element.
+-- @return #string `region` attribute of the <b>&lt;regionBase&gt;</b> element.
 function RegionBase:getRegion()
   return self:getAttribute("region")
 end

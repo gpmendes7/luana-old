@@ -70,7 +70,7 @@ end
 -- <b>&lt;bindRule&gt;</b> element. 
 -- 
 -- @function [parent=#BindRule] setConstituent
--- @param #stringOrobject constituent `constituent` atribute of the
+-- @param #stringOrobject constituent `constituent` attribute of the
 -- <b>&lt;bindRule&gt;</b> element.
 function BindRule:setConstituent(constituent)
   if(type(constituent) == "table")then
@@ -99,7 +99,7 @@ end
 -- <b>&lt;bindRule&gt;</b> element. 
 -- 
 -- @function [parent=#BindRule] getConstituent
--- @return #string `constituent` atribute of the <b>&lt;bindRule&gt;</b> element.
+-- @return #string `constituent` attribute of the <b>&lt;bindRule&gt;</b> element.
 function BindRule:getConstituent()
   return self:getAttribute("constituent")
 end
@@ -119,7 +119,7 @@ end
 -- <b>&lt;bindRule&gt;</b> element. 
 -- 
 -- @function [parent=#BindRule] setRule
--- @param #stringOrobject rule `rule` atribute of the
+-- @param #stringOrobject rule `rule` attribute of the
 -- <b>&lt;bindRule&gt;</b> element.
 function BindRule:setRule(rule)
   if(type(rule) == "table")then
@@ -146,7 +146,7 @@ end
 -- <b>&lt;bindRule&gt;</b> element. 
 -- 
 -- @function [parent=#BindRule] getRule
--- @return #string `rule` atribute of the <b>&lt;bindRule&gt;</b> element.
+-- @return #string `rule` attribute of the <b>&lt;bindRule&gt;</b> element.
 function BindRule:getRule()
   return self:getAttribute("rule")
 end

@@ -57,7 +57,7 @@ end
 -- <b>&lt;meta&gt;</b> element. 
 -- 
 -- @function [parent=#Meta] setName
--- @param #string name `name` atribute of the
+-- @param #string name `name` attribute of the
 -- <b>&lt;meta&gt;</b> element.
 function Meta:setName(name)
   self:addAttribute("name", name)
@@ -68,7 +68,7 @@ end
 -- <b>&lt;meta&gt;</b> element. 
 -- 
 -- @function [parent=#Meta] getName
--- @return #string `name` atribute of the <b>&lt;meta&gt;</b> element.
+-- @return #string `name` attribute of the <b>&lt;meta&gt;</b> element.
 function Meta:getName()
   return self:getAttribute("name")
 end
@@ -78,7 +78,7 @@ end
 -- <b>&lt;meta&gt;</b> element. 
 -- 
 -- @function [parent=#Meta] setContent
--- @param #string content `content` atribute of the
+-- @param #string content `content` attribute of the
 -- <b>&lt;meta&gt;</b> element.
 function Meta:setContent(content)
   self:addAttribute("content", content)
@@ -89,7 +89,7 @@ end
 -- <b>&lt;meta&gt;</b> element. 
 -- 
 -- @function [parent=#Meta] getContent
--- @return #string `content` atribute of the <b>&lt;meta&gt;</b> element.
+-- @return #string `content` attribute of the <b>&lt;meta&gt;</b> element.
 function Meta:getContent()
   return self:getAttribute("content")
 end

@@ -99,7 +99,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] setRole
--- @param #string role `role` atribute of the
+-- @param #string role `role` attribute of the
 -- <b>&lt;bind&gt;</b> element.
 function Bind:setRole(role)
   self:addAttribute("role", role)
@@ -110,7 +110,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] getRole
--- @return #string `role` atribute of the <b>&lt;bind&gt;</b> element.
+-- @return #string `role` attribute of the <b>&lt;bind&gt;</b> element.
 function Bind:getRole()
   return self:getAttribute("role")
 end
@@ -120,7 +120,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] setComponent
--- @param #stringOrobject component `component` atribute of the
+-- @param #stringOrobject component `component` attribute of the
 -- <b>&lt;bind&gt;</b> element.
 function Bind:setComponent(component)
   if(type(component) == "table")then
@@ -149,7 +149,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] getComponent
--- @return #string `component` atribute of the <b>&lt;bind&gt;</b> element.
+-- @return #string `component` attribute of the <b>&lt;bind&gt;</b> element.
 function Bind:getComponent()
   return self:getAttribute("component")
 end
@@ -169,7 +169,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] setInterface
--- @param #stringOrobject interface `interface` atribute of the
+-- @param #stringOrobject interface `interface` attribute of the
 -- <b>&lt;bind&gt;</b> element.
 function Bind:setInterface(interface)
   if(type(interface) == "table")then
@@ -202,7 +202,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] getInterface
--- @return #string `interface` atribute of the <b>&lt;bind&gt;</b> element.
+-- @return #string `interface` attribute of the <b>&lt;bind&gt;</b> element.
 function Bind:getInterface()
   return self:getAttribute("interface")
 end
@@ -222,7 +222,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] setDescriptor
--- @param #stringOrobject descriptor `descriptor` atribute of the
+-- @param #stringOrobject descriptor `descriptor` attribute of the
 -- <b>&lt;bind&gt;</b> element.
 function Bind:setDescriptor(descriptor)
   if(type(descriptor) == "table"
@@ -243,7 +243,7 @@ end
 -- <b>&lt;bind&gt;</b> element. 
 -- 
 -- @function [parent=#Bind] getDescriptor
--- @return #string `descriptor` atribute of the <b>&lt;bind&gt;</b> element.
+-- @return #string `descriptor` attribute of the <b>&lt;bind&gt;</b> element.
 function Bind:getDescriptor()
   return self:getAttribute("descriptor")
 end

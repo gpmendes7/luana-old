@@ -111,7 +111,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setId(id)
   self:addAttribute("id", id)
@@ -122,7 +122,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getId
--- @return #string `id` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getId()
   return self:getAttribute("id")
 end
@@ -132,7 +132,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setTitle
--- @param #string title `title` atribute of the
+-- @param #string title `title` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setTitle(title)
   self:addAttribute("title", title)
@@ -143,7 +143,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getTitle
--- @return #string `title` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #string `title` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getTitle()
   return self:getAttribute("title")
 end
@@ -153,7 +153,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setLeft
--- @param #number left `left` atribute of the
+-- @param #number left `left` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setLeft(left)
   self:addAttribute("left", left)
@@ -164,7 +164,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getLeft
--- @return #number `left` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `left` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getLeft()
   return self:getAttribute("left")
 end
@@ -174,7 +174,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setRight
--- @param #number right `right` atribute of the
+-- @param #number right `right` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setRight(right)
   self:addAttribute("right", right)
@@ -185,7 +185,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getRight
--- @return #number `right` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `right` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getRight()
   return self:getAttribute("right")
 end
@@ -195,7 +195,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setTop
--- @param #number top `top` atribute of the
+-- @param #number top `top` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setTop(top)
   self:addAttribute("top", top)
@@ -206,7 +206,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getTop
--- @return #number `top` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `top` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getTop()
   return self:getAttribute("top")
 end
@@ -216,7 +216,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setBottom
--- @param #number bottom `bottom` atribute of the
+-- @param #number bottom `bottom` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setBottom(bottom)
   self:addAttribute("bottom", bottom)
@@ -227,7 +227,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getBottom
--- @return #number `bottom` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `bottom` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getBottom()
   return self:getAttribute("bottom")
 end
@@ -237,7 +237,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setHeight
--- @param #number height `height` atribute of the
+-- @param #number height `height` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setHeight(height)
   self:addAttribute("height", height)
@@ -248,7 +248,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getHeight
--- @return #number `height` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `height` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getHeight()
   return self:getAttribute("height")
 end
@@ -258,7 +258,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setWidth
--- @param #number width `width` atribute of the
+-- @param #number width `width` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setWidth(width)
   self:addAttribute("width", width)
@@ -269,7 +269,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getWidth
--- @return #number `width` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `width` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getWidth()
   return self:getAttribute("width")
 end
@@ -279,9 +279,9 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setDim
--- @param #number height `height` atribute of the
+-- @param #number height `height` attribute of the
 -- <b>&lt;region&gt;</b> element.
--- @param #number width `width` atribute of the
+-- @param #number width `width` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setDim(height, width)
   self:setHeight(height)
@@ -293,13 +293,13 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setPos
--- @param #number left `left` atribute of the
+-- @param #number left `left` attribute of the
 -- <b>&lt;region&gt;</b> element.
--- @param #number right `right` atribute of the
+-- @param #number right `right` attribute of the
 -- <b>&lt;region&gt;</b> element.
--- @param #number top `top` atribute of the
+-- @param #number top `top` attribute of the
 -- <b>&lt;region&gt;</b> element.
--- @param #number bottom `bottom` atribute of the
+-- @param #number bottom `bottom` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setPos(left, right, top, bottom)
   self:setLeft(left)
@@ -313,7 +313,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] setZIndex
--- @param #number zIndex `zIndex` atribute of the
+-- @param #number zIndex `zIndex` attribute of the
 -- <b>&lt;region&gt;</b> element.
 function Region:setZIndex(zIndex)
   self:addAttribute("zIndex", zIndex)
@@ -324,7 +324,7 @@ end
 -- <b>&lt;region&gt;</b> element. 
 -- 
 -- @function [parent=#Region] getZIndex
--- @return #number `zIndex` atribute of the <b>&lt;region&gt;</b> element.
+-- @return #number `zIndex` attribute of the <b>&lt;region&gt;</b> element.
 function Region:getZIndex()
   return self:getAttribute("zIndex")
 end

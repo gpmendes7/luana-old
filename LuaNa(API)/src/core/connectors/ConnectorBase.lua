@@ -82,7 +82,7 @@ end
 -- <b>&lt;connectorBase&gt;</b> element. 
 -- 
 -- @function [parent=#ConnectorBase] setId
--- @param #string id `id` atribute of the
+-- @param #string id `id` attribute of the
 -- <b>&lt;connectorBase&gt;</b> element.
 function ConnectorBase:setId(id)
   self:addAttribute("id", id)
@@ -93,7 +93,7 @@ end
 -- <b>&lt;connectorBase&gt;</b> element. 
 -- 
 -- @function [parent=#ConnectorBase] getId
--- @return #string `id` atribute of the <b>&lt;connectorBase&gt;</b> element.
+-- @return #string `id` attribute of the <b>&lt;connectorBase&gt;</b> element.
 function ConnectorBase:getId()
   return self:getAttribute("id")
 end

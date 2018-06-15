@@ -92,7 +92,7 @@ end
 -- <b>&lt;compoundStatement&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundStatement] setOperator
--- @param #string operator `operator` atribute of the
+-- @param #string operator `operator` attribute of the
 -- <b>&lt;compoundStatement&gt;</b> element.
 function CompoundStatement:setOperator(operator)
   self:addAttribute("operator", operator)
@@ -103,7 +103,7 @@ end
 -- <b>&lt;compoundStatement&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundStatement] getComparator
--- @return #string `operator` atribute of the <b>&lt;compoundStatement&gt;</b> element.
+-- @return #string `operator` attribute of the <b>&lt;compoundStatement&gt;</b> element.
 function CompoundStatement:getOperator()
   return self:getAttribute("operator")
 end
@@ -113,7 +113,7 @@ end
 -- <b>&lt;compoundStatement&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundStatement] setIsNegated
--- @param #boolean operator `isNegated` atribute of the
+-- @param #boolean operator `isNegated` attribute of the
 -- <b>&lt;compoundStatement&gt;</b> element.
 function CompoundStatement:setIsNegated(isNegated)
   self:addAttribute("isNegated", isNegated)
@@ -124,7 +124,7 @@ end
 -- <b>&lt;compoundStatement&gt;</b> element. 
 -- 
 -- @function [parent=#CompoundStatement] getIsNegated
--- @return #boolean `isNegated` atribute of the <b>&lt;compoundStatement&gt;</b> element.
+-- @return #boolean `isNegated` attribute of the <b>&lt;compoundStatement&gt;</b> element.
 function CompoundStatement:getIsNegated()
   return self:getAttribute("isNegated")
 end

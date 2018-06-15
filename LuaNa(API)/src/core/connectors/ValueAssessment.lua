@@ -55,7 +55,7 @@ end
 -- <b>&lt;valueAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#ValueAssessment] setValue
--- @param #string value `value` atribute of the
+-- @param #string value `value` attribute of the
 -- <b>&lt;valueAssessment&gt;</b> element.
 function ValueAssessment:setValue(value)
   self:addAttribute("value", value)
@@ -66,7 +66,7 @@ end
 -- <b>&lt;valueAssessment&gt;</b> element. 
 -- 
 -- @function [parent=#ValueAssessment] getValue
--- @return #string `value` atribute of the <b>&lt;valueAssessment&gt;</b> element.
+-- @return #string `value` attribute of the <b>&lt;valueAssessment&gt;</b> element.
 function ValueAssessment:getValue()
   return self:getAttribute("value")
 end

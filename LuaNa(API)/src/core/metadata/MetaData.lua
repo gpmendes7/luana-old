@@ -41,7 +41,7 @@ end
 -- <b>&lt;metaData&gt;</b> element. 
 -- 
 -- @function [parent=#MetaData] setRdfTree
--- @param #string rdfTree `rdfTree` atribute of the
+-- @param #string rdfTree `rdfTree` attribute of the
 -- <b>&lt;metaData&gt;</b> element.
 function MetaData:setRdfTree(rdfTree)
     self.rdfTree = rdfTree
@@ -52,7 +52,7 @@ end
 -- <b>&lt;metaData&gt;</b> element. 
 -- 
 -- @function [parent=#MetaData] getRdfTree
--- @return #string `rdfTree` atribute of the <b>&lt;metaData&gt;</b> element.
+-- @return #string `rdfTree` attribute of the <b>&lt;metaData&gt;</b> element.
 function MetaData:getRdfTree()
     return self.rdfTree
 end

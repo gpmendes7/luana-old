@@ -61,7 +61,7 @@ end
 -- <b>&lt;property&gt;</b> element. 
 -- 
 -- @function [parent=#Property] setName
--- @param #string name `name` atribute of the
+-- @param #string name `name` attribute of the
 -- <b>&lt;property&gt;</b> element.
 function Property:setName(name)
   self:addAttribute("name", name)
@@ -72,7 +72,7 @@ end
 -- <b>&lt;property&gt;</b> element. 
 -- 
 -- @function [parent=#Property] getName
--- @return #string `name` atribute of the <b>&lt;property&gt;</b> element.
+-- @return #string `name` attribute of the <b>&lt;property&gt;</b> element.
 function Property:getName()
   return self:getAttribute("name")
 end
@@ -82,7 +82,7 @@ end
 -- <b>&lt;property&gt;</b> element. 
 -- 
 -- @function [parent=#Property] setValue
--- @param #stringOrnumber value `value` atribute of the
+-- @param #stringOrnumber value `value` attribute of the
 -- <b>&lt;property&gt;</b> element.
 function Property:setValue(value)
   self:addAttribute("value", value)
@@ -93,7 +93,7 @@ end
 -- <b>&lt;property&gt;</b> element. 
 -- 
 -- @function [parent=#Property] getValue
--- @return #stringOrnumber `value` atribute of the <b>&lt;property&gt;</b> element.
+-- @return #stringOrnumber `value` attribute of the <b>&lt;property&gt;</b> element.
 function Property:getValue()
   return self:getAttribute("value")
 end
@@ -103,7 +103,7 @@ end
 -- <b>&lt;property&gt;</b> element. 
 -- 
 -- @function [parent=#Property] setExternable
--- @param #boolean externable `externable` atribute of the
+-- @param #boolean externable `externable` attribute of the
 -- <b>&lt;property&gt;</b> element.
 function Property:setExternable(externable)
   self:addAttribute("externable", externable)
@@ -114,7 +114,7 @@ end
 -- <b>&lt;property&gt;</b> element. 
 -- 
 -- @function [parent=#Property] getExternable
--- @return #boolean `externable` atribute of the <b>&lt;property&gt;</b> element.
+-- @return #boolean `externable` attribute of the <b>&lt;property&gt;</b> element.
 function Property:getExternable()
   return self:getAttribute("externable")
 end

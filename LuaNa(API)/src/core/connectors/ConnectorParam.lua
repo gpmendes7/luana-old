@@ -57,7 +57,7 @@ end
 -- <b>&lt;connectorParam&gt;</b> element. 
 -- 
 -- @function [parent=#ConnectorParam] setName
--- @param #string name `name` atribute of the
+-- @param #string name `name` attribute of the
 -- <b>&lt;connectorParam&gt;</b> element.
 function ConnectorParam:setName(name)
   self:addAttribute("name", name)
@@ -68,7 +68,7 @@ end
 -- <b>&lt;connectorParam&gt;</b> element. 
 -- 
 -- @function [parent=#ConnectorParam] getName
--- @return #string `name` atribute of the <b>&lt;connectorParam&gt;</b> element.
+-- @return #string `name` attribute of the <b>&lt;connectorParam&gt;</b> element.
 function ConnectorParam:getName()
   return self:getAttribute("name")
 end
@@ -78,7 +78,7 @@ end
 -- <b>&lt;connectorParam&gt;</b> element. 
 -- 
 -- @function [parent=#ConnectorParam] setType
--- @param #string type `type` atribute of the
+-- @param #string type `type` attribute of the
 -- <b>&lt;connectorParam&gt;</b> element.
 function ConnectorParam:setType(type)
   self:addAttribute("type", type)
@@ -89,7 +89,7 @@ end
 -- <b>&lt;connectorParam&gt;</b> element. 
 -- 
 -- @function [parent=#ConnectorParam] getType
--- @return #string `type` atribute of the <b>&lt;connectorParam&gt;</b> element.
+-- @return #string `type` attribute of the <b>&lt;connectorParam&gt;</b> element.
 function ConnectorParam:getType()
   return self:getAttribute("type")
 end
