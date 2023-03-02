@@ -1,5 +1,5 @@
-local Class = require "oo/Class"
-local Validator = require "valid/Validator"
+local Class = require "../../src/oo/Class"
+local Validator = require "../../src/valid/Validator"
 
 ---
 -- Implements NCLElemet Class representing all elements in NCL language.
@@ -12,11 +12,11 @@ local Validator = require "valid/Validator"
 --
 -- @author Gabriel Pereira Mendes
 --
--- @usage 
+-- @usage
 -- -- The module needs to be imported to be used with the instruction
 -- local NCLElem = require("core/NCLElem")
 --
--- @usage 
+-- @usage
 -- -- All classes in LuaNa are created calling extends methods
 -- -- This method return a new child class of NCLElement
 -- local ChildClass = NCLElem:extends()
@@ -50,9 +50,9 @@ NCLElem.children = nil
 ---
 -- List with associative map that assigns
 -- to each children element a cardinality.
--- 
+--
 -- Is indexed by the name of the children elements.
--- 
+--
 -- Each item of the list is like: childrenElementName = {childrenClassName, cardinality}
 --
 -- This attribute is used by `table2Ncl` e `ncl2Table`
@@ -542,7 +542,9 @@ end
 -- @param #string value attributes's value of current NCL element.
 function NCLElem:addSymbol(attribute, symbol)
   if(self.attributesSymbolMap == nil)then
-    self.symbols[attribute] = symbol
+    if(self.symbols ~= nil)then
+		self.symbols[attribute] = symbol
+	end
     return
   end
 
@@ -572,8 +574,8 @@ function NCLElem:readSymbol(attribute, value)
   if(string.match(value, "(%d+)%.(%d+)") == nil and string.match(value, "(%d+)") == nil)then
     return nil
   end
-  
-  return string.match(string.reverse(value), "%D+")   
+
+  return string.match(string.reverse(value), "%D+")
 end
 
 function NCLElem:canBeNumber(attribute)
@@ -621,7 +623,7 @@ function NCLElem:readAttributes()
         and string.match(value, "%$") == nil
         and (string.find(value, "(%d+)%D*")) == 1)then
         local sb = self:readSymbol(attribute, value)
-  
+
         if(not Validator:isEmptyOrNil(sb))then
           self:addSymbol(attribute, sb)
         end
@@ -637,7 +639,7 @@ function NCLElem:readAttributes()
       elseif(self.attributesTypeMap[attribute] == "boolean" and value == "true")then
         value = true
       end
-    
+
       self:addAttribute(attribute, value)
 
       attributes = string.sub(attributes, z+1, string.len(attributes))
@@ -756,20 +758,20 @@ function NCLElem:readChildNcl(childrenNcl, childName)
 end
 
 --- Translates a NCL element in a object of the class NCLElem.
--- 
+--
 -- The method has some few basic validations about ncl syntax
--- like: opening and closing of tags, invalid attributes or children 
--- added to current NCL element. 
--- 
--- The created object depends on the `ncl` attribute of 
+-- like: opening and closing of tags, invalid attributes or children
+-- added to current NCL element.
+--
+-- The created object depends on the `ncl` attribute of
 -- current NCL element.
--- 
--- @usage 
+--
+-- @usage
 -- local ncl = "<element attribute="2"/>
 -- local element = Element:create()
 -- element:setNcl(ncl)
--- element:ncl2Table() 
--- 
+-- element:ncl2Table()
+--
 -- @function [parent=#NCLElem] ncl2Table
 function NCLElem:ncl2Table()
   local _, s, e, t, u
@@ -840,19 +842,19 @@ function NCLElem:ncl2Table()
 end
 
 --- Translates the a object of the class NCLElem to its corresponding  NCL format.
--- 
+--
 -- This method converts, recursively, children and descendants of current object
 -- to its corresponding  NCL format.
--- 
--- 
+--
+--
 -- @function [parent=#NCLElem] table2Ncl
 -- @param #number deep deep of tag that contains NCL element
--- 
--- @usage 
+--
+-- @usage
 -- local element = Element:create()
 -- element:addChild(Element2:create())
 -- element:table2Ncl(0)
--- 
+--
 -- -- must to produce
 -- <element>
 --  <element2/>

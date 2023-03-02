@@ -1,33 +1,33 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements SimpleCondition Class representing <b>&lt;simpleCondition&gt;</b> element.
--- 
+--
 -- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=simplecondition">
 -- http://handbook.ncl.org.br/doku.php?id=simplecondition</a>
--- 
+--
 -- @module SimpleCondition
--- 
+--
 -- @extends #NCLElement
--- 
+--
 -- @author Gabriel Pereira Mendes
--- 
--- @usage 
+--
+-- @usage
 -- -- The module needs to be imported to be used with the instruction
--- local SimpleCondition = require "core/connectors/SimpleCondition" 
+-- local SimpleCondition = require "core/connectors/SimpleCondition"
 local SimpleCondition = NCLElem:extends()
 
 ---
 -- Name of <b>&lt;simpleCondition&gt;</b> element.
--- 
+--
 -- @field [parent=#SimpleCondition] #string nameElem
 SimpleCondition.nameElem = "simpleCondition"
 
 ---
 -- List containing the data types of each attribute
 -- belonging to <b>&lt;simpleCondition&gt;</b> element.
--- 
--- @field [parent=#SimpleCondition] #table attributesTypeMap 
+--
+-- @field [parent=#SimpleCondition] #table attributesTypeMap
 SimpleCondition.attributesTypeMap = {
   role = "string",
   delay = {"string", "number"},
@@ -42,7 +42,7 @@ SimpleCondition.attributesTypeMap = {
 ---
 -- List containing all possible pre-definied values to string attributes
 -- belonging to <b>&lt;simpleCondition&gt;</b> element.
--- 
+--
 -- @field [parent=#SimpleCondition] #table attributesStringValueMap
 SimpleCondition.attributesStringValueMap = {
   eventType = {"presentation", "selection", "attribution"},
@@ -63,15 +63,15 @@ SimpleCondition.attributesStringValueMap = {
 ---
 -- List containing all possible pre-definied symbols to numeric attributes
 -- belonging to <b>&lt;simpleCondition&gt;</b> element.
--- 
--- @field [parent=#SimpleCondition] #table attributesSymbolMap 
+--
+-- @field [parent=#SimpleCondition] #table attributesSymbolMap
 SimpleCondition.attributesSymbolMap = {
   delay = "s"
 }
 
 ---
--- Returns a new SimpleCondition object. 
--- 
+-- Returns a new SimpleCondition object.
+--
 -- @function [parent=#SimpleCondition] create
 -- @param #table attributes list of attributes to be initialized.
 -- @return #SimpleCondition new SimpleCondition object created.
@@ -86,7 +86,7 @@ function SimpleCondition:create(attributes)
   simpleCondition.min = nil
   simpleCondition.max = nil
   simpleCondition.qualifier = nil
-  
+
   simpleCondition.symbols = {}
 
   if(attributes ~= nil)then
@@ -97,9 +97,9 @@ function SimpleCondition:create(attributes)
 end
 
 ---
--- Sets a value to `role` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `role` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setRole
 -- @param #string role `role` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -108,9 +108,9 @@ function SimpleCondition:setRole(role)
 end
 
 ---
--- Returns the value of the `role` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `role` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getRole
 -- @return #string `role` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getRole()
@@ -118,9 +118,9 @@ function SimpleCondition:getRole()
 end
 
 ---
--- Sets a value to `delay` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `delay` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setDelay
 -- @param #stringOrnumber delay `delay` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -129,9 +129,9 @@ function SimpleCondition:setDelay(delay)
 end
 
 ---
--- Returns the value of the `delay` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `delay` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getDelay
 -- @return #stringOrnumber `delay` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getDelay()
@@ -139,9 +139,9 @@ function SimpleCondition:getDelay()
 end
 
 ---
--- Sets a value to `eventType` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `eventType` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setEventType
 -- @param #string eventType `eventType` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -150,9 +150,9 @@ function SimpleCondition:setEventType(eventType)
 end
 
 ---
--- Returns the value of the `eventType` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `eventType` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getEventType
 -- @return #string `eventType` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getEventType()
@@ -160,9 +160,9 @@ function SimpleCondition:getEventType()
 end
 
 ---
--- Sets a value to `key` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `key` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setKey
 -- @param #string key `key` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -171,9 +171,9 @@ function SimpleCondition:setKey(key)
 end
 
 ---
--- Returns the value of the `key` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `key` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getKey
 -- @return #string `key` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getKey()
@@ -181,9 +181,9 @@ function SimpleCondition:getKey()
 end
 
 ---
--- Sets a value to `transition` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `transition` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setTransition
 -- @param #string transition `transition` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -192,9 +192,9 @@ function SimpleCondition:setTransition(transition)
 end
 
 ---
--- Returns the value of the `transition` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `transition` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getTransition
 -- @return #string `transition` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getTransition()
@@ -202,9 +202,9 @@ function SimpleCondition:getTransition()
 end
 
 ---
--- Sets a value to `min` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `min` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#min] setMin
 -- @param #stringOrnumber min `min` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -213,9 +213,9 @@ function SimpleCondition:setMin(min)
 end
 
 ---
--- Returns the value of the `min` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `min` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getMin
 -- @return #stringOrnumber `min` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getMin()
@@ -223,9 +223,9 @@ function SimpleCondition:getMin()
 end
 
 ---
--- Sets a value to `max` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `max` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setMax
 -- @param #stringOrnumber max `max` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -234,9 +234,9 @@ function SimpleCondition:setMax(max)
 end
 
 ---
--- Returns the value of the `max` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `max` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getMax
 -- @return #stringOrnumber `max` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getMax()
@@ -244,9 +244,9 @@ function SimpleCondition:getMax()
 end
 
 ---
--- Sets a value to `qualifier` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Sets a value to `qualifier` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] setQualifier
 -- @param #string qualifier `qualifier` attribute of the
 -- <b>&lt;simpleCondition&gt;</b> element.
@@ -255,9 +255,9 @@ function SimpleCondition:setQualifier(qualifier)
 end
 
 ---
--- Returns the value of the `qualifier` attribute of the 
--- <b>&lt;simpleCondition&gt;</b> element. 
--- 
+-- Returns the value of the `qualifier` attribute of the
+-- <b>&lt;simpleCondition&gt;</b> element.
+--
 -- @function [parent=#SimpleCondition] getQualifier
 -- @return #string `qualifier` attribute of the <b>&lt;simpleCondition&gt;</b> element.
 function SimpleCondition:getQualifier()

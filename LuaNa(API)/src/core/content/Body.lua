@@ -1,13 +1,13 @@
-local NCLElem = require "core/NCLElem"
-local Port = require "core/interface/Port"
-local Property = require "core/interface/Property"
-local Media = require "core/content/Media"
-local CompositeNodes = require "core/content/CompositeNode"
+local NCLElem = require "../../src/core/NCLElem"
+local Port = require "../../src/core/interface/Port"
+local Property = require "../../src/core/interface/Property"
+local Media = require "../../src/core/content/Media"
+local CompositeNodes = require "../../src/core/content/CompositeNode"
 local Context = CompositeNodes[1]
 local Switch = CompositeNodes[2]
-local Link = require "core/linking/Link"
-local Meta = require "core/metadata/Meta"
-local MetaData = require "core/metadata/MetaData"
+local Link = require "../../src/core/linking/Link"
+local Meta = require "../../src/core/metadata/Meta"
+local MetaData = require "../../src/core/metadata/MetaData"
 
 ---
 -- Implements Body Class representing <b>&lt;body&gt;</b> element.

@@ -1,7 +1,7 @@
-local NCLElem = require "core/NCLElem"
-local SimpleCondition = require "core/connectors/SimpleCondition"
-local AssessmentStatement = require "core/connectors/AssessmentStatement"
-local CompoundStatement = require "core/connectors/CompoundStatement"
+local NCLElem = require "../../src/core/NCLElem"
+local SimpleCondition = require "../../src/core/connectors/SimpleCondition"
+local AssessmentStatement = require "../../src/core/connectors/AssessmentStatement"
+local CompoundStatement = require "../../src/core/connectors/CompoundStatement"
 
 ---
 -- Implements CompoundCondition Class representing <b>&lt;compoundCondition&gt;</b> element.

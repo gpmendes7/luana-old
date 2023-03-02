@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local ImportNCL = require "core/importation/ImportNCL"
+local NCLElem = require "../../src/core/NCLElem"
+local ImportNCL = require "../../src/core/importation/ImportNCL"
 
 ---
 -- Implements ImportedDocumentBase Class representing <b>&lt;importedDocumentBase&gt;</b> element.

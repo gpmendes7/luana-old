@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements Region Class representing <b>&lt;region&gt;</b> element.

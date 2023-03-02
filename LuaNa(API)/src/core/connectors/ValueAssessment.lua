@@ -1,40 +1,40 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements ValueAssessment Class representing <b>&lt;valueAssessment&gt;</b> element.
--- 
+--
 -- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=valueassessment">
 -- http://handbook.ncl.org.br/doku.php?id=valueassessment</a>
--- 
+--
 -- @module ValueAssessment
--- 
+--
 -- @extends #NCLElement
--- 
+--
 -- @author Gabriel Pereira Mendes
--- 
--- @usage 
+--
+-- @usage
 -- -- The module needs to be imported to be used with the instruction
--- local ValueAssessment = require "core/connectors/ValueAssessment" 
+-- local ValueAssessment = require "core/connectors/ValueAssessment"
 local ValueAssessment = NCLElem:extends()
 
 ---
 -- Name of <b>&lt;valueAssessment&gt;</b> element.
--- 
+--
 -- @field [parent=#ValueAssessment] #string nameElem
 ValueAssessment.nameElem = "valueAssessment"
 
 ---
 -- List containing the data types of each attribute
 -- belonging to <b>&lt;valueAssessment&gt;</b> element.
--- 
--- @field [parent=#ValueAssessment] #table attributesTypeMap 
+--
+-- @field [parent=#ValueAssessment] #table attributesTypeMap
 ValueAssessment.attributesTypeMap = {
   value = "string"
 }
 
 ---
--- Returns a new ValueAssessment object. 
--- 
+-- Returns a new ValueAssessment object.
+--
 -- @function [parent=#ValueAssessment] create
 -- @param #table attributes list of attributes to be initialized.
 -- @return #ValueAssessment new ValueAssessment object created.
@@ -51,9 +51,9 @@ function ValueAssessment:create(attributes)
 end
 
 ---
--- Sets a value to `value` attribute of the 
--- <b>&lt;valueAssessment&gt;</b> element. 
--- 
+-- Sets a value to `value` attribute of the
+-- <b>&lt;valueAssessment&gt;</b> element.
+--
 -- @function [parent=#ValueAssessment] setValue
 -- @param #string value `value` attribute of the
 -- <b>&lt;valueAssessment&gt;</b> element.
@@ -62,9 +62,9 @@ function ValueAssessment:setValue(value)
 end
 
 ---
--- Returns the value of the `value` attribute of the 
--- <b>&lt;valueAssessment&gt;</b> element. 
--- 
+-- Returns the value of the `value` attribute of the
+-- <b>&lt;valueAssessment&gt;</b> element.
+--
 -- @function [parent=#ValueAssessment] getValue
 -- @return #string `value` attribute of the <b>&lt;valueAssessment&gt;</b> element.
 function ValueAssessment:getValue()

@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements Rule Class representing <b>&lt;rule&gt;</b> element.

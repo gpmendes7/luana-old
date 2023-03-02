@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements Property Class representing <b>&lt;property&gt;</b> element.

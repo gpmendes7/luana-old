@@ -1,6 +1,6 @@
-local AssessmentStatement = require "core/connectors/AssessmentStatement"
-local AttributeAssessment = require "core/connectors/AttributeAssessment"
-local ValueAssessment = require "core/connectors/ValueAssessment"
+local AssessmentStatement = require "../../src/core/connectors/AssessmentStatement"
+local AttributeAssessment = require "../../src/core/connectors/AttributeAssessment"
+local ValueAssessment = require "../../src/core/connectors/ValueAssessment"
 
 local function test1()
   local assessmentStatement = AssessmentStatement:create()

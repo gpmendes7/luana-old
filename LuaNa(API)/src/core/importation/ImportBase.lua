@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements ImportBase Class representing <b>&lt;importBase&gt;</b> element.

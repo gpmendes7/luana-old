@@ -1,7 +1,7 @@
-local NCLElem = require "core/NCLElem"
-local DescriptorSwitch = require "core/switches/DescriptorSwitch"
-local ImportBase = require "core/importation/ImportBase"
-local Descriptor = require "core/layout/Descriptor"
+local NCLElem = require "../../src/core/NCLElem"
+local DescriptorSwitch = require "../../src/core/switches/DescriptorSwitch"
+local ImportBase = require "../../src/core/importation/ImportBase"
+local Descriptor = require "../../src/core/layout/Descriptor"
 
 ---
 -- Implements DescriptorBase Class representing <b>&lt;descriptorBase&gt;</b> element.

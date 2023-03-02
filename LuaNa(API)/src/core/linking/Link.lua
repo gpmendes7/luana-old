@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
-local LinkParam = require "core/linking/LinkParam"
-local Bind = require "core/linking/Bind"
+local NCLElem = require "../../src/core/NCLElem"
+local LinkParam = require "../../src/core/linking/LinkParam"
+local Bind = require "../../src/core/linking/Bind"
 
 ---
 -- Implements Link Class representing <b>&lt;link&gt;</b> element.

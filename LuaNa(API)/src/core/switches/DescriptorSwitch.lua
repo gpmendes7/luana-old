@@ -1,7 +1,7 @@
-local NCLElem = require "core/NCLElem"
-local DefaultDescriptor = require "core/switches/DefaultDescriptor"
-local BindRule = require "core/switches/BindRule"
-local Descriptor = require "core/layout/Descriptor"
+local NCLElem = require "../../src/core/NCLElem"
+local DefaultDescriptor = require "../../src/core/switches/DefaultDescriptor"
+local BindRule = require "../../src/core/switches/BindRule"
+local Descriptor = require "../../src/core/layout/Descriptor"
 
 ---
 -- Implements DescriptorSwitch Class representing <b>&lt;descriptorSwitch&gt;</b> element.

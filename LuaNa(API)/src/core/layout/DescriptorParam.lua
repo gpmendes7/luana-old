@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements DescriptorParam Class representing <b>&lt;descriptorParam&gt;</b> element.

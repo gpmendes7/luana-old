@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local Rule = require "core/switches/Rule"
+local NCLElem = require "../../src/core/NCLElem"
+local Rule = require "../../src/core/switches/Rule"
 
 ---
 -- Implements CompositeRule Class representing <b>&lt;compositeRule&gt;</b> element.

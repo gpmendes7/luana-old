@@ -1,13 +1,13 @@
-local NCLElem = require "core/NCLElem"
-local Port = require "core/interface/Port"
-local Property = require "core/interface/Property"
-local Media = require "core/content/Media"
-local Link = require "core/linking/Link"
-local Meta = require "core/metadata/Meta"
-local MetaData = require "core/metadata/MetaData"
-local DefaultComponent = require "core/switches/DefaultComponent"
-local SwitchPort = require "core/switches/SwitchPort"
-local BindRule = require "core/switches/BindRule"
+local NCLElem = require "../../src/core/NCLElem"
+local Port = require "../../src/core/interface/Port"
+local Property = require "../../src/core/interface/Property"
+local Media = require "../../src/core/content/Media"
+local Link = require "../../src/core/linking/Link"
+local Meta = require "../../src/core/metadata/Meta"
+local MetaData = require "../../src/core/metadata/MetaData"
+local DefaultComponent = require "../../src/core/switches/DefaultComponent"
+local SwitchPort = require "../../src/core/switches/SwitchPort"
+local BindRule = require "../../src/core/switches/BindRule"
 
 ---
 -- Implements Context Class representing <b>&lt;context&gt;</b> element and

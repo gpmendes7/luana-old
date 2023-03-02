@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local SimpleAction = require "core/connectors/SimpleAction"
+local NCLElem = require "../../src/core/NCLElem"
+local SimpleAction = require "../../src/core/connectors/SimpleAction"
 
 ---
 -- Implements CompoundAction Class representing <b>&lt;compoundAction&gt;</b> element.

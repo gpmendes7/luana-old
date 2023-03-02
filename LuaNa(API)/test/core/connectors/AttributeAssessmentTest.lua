@@ -1,4 +1,4 @@
-local AttributeAssessment = require "core/connectors/AttributeAssessment"
+local AttributeAssessment = require "../../src/core/connectors/AttributeAssessment"
 
 local function test1()
   local attributeAssessment = AttributeAssessment:create()

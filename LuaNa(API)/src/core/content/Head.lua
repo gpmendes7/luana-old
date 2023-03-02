@@ -1,12 +1,12 @@
-local NCLElem = require "core/NCLElem"
-local ImportedDocumentBase = require "core/importation/ImportedDocumentBase"
-local RuleBase = require "core/switches/RuleBase"
-local TransitionBase = require "core/transition/TransitionBase"
-local RegionBase = require "core/layout/RegionBase"
-local DescriptorBase = require "core/layout/DescriptorBase"
-local ConnectorBase = require "core/connectors/ConnectorBase"
-local Meta = require "core/metadata/Meta"
-local MetaData = require "core/metadata/MetaData"
+local NCLElem = require "../../src/core/NCLElem"
+local ImportedDocumentBase = require "../../src/core/importation/ImportedDocumentBase"
+local RuleBase = require "../../src/core/switches/RuleBase"
+local TransitionBase = require "../../src/core/transition/TransitionBase"
+local RegionBase = require "../../src/core/layout/RegionBase"
+local DescriptorBase = require "../../src/core/layout/DescriptorBase"
+local ConnectorBase = require "../../src/core/connectors/ConnectorBase"
+local Meta = require "../../src/core/metadata/Meta"
+local MetaData = require "../../src/core/metadata/MetaData"
 
 ---
 -- Implements Head Class representing <b>&lt;head&gt;</b> element.

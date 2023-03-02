@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
-local ImportBase = require "core/importation/ImportBase"
-local Transition = require "core/transition/Transition"
+local NCLElem = require "../../src/core/NCLElem"
+local ImportBase = require "../../src/core/importation/ImportBase"
+local Transition = require "../../src/core/transition/Transition"
 
 local TransitionBase = NCLElem:extends()
 

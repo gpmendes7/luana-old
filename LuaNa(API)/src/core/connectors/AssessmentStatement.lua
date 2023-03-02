@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
-local AttributeAssessment = require "core/connectors/AttributeAssessment"
-local ValueAssessment = require "core/connectors/ValueAssessment"
+local NCLElem = require "../../src/core/NCLElem"
+local AttributeAssessment = require "../../src/core/connectors/AttributeAssessment"
+local ValueAssessment = require "../../src/core/connectors/ValueAssessment"
 
 ---
 -- Implements AssessmentStatement Class representing <b>&lt;assessmentStatement&gt;</b> element.

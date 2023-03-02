@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
-local ImportBase = require "core/importation/ImportBase"
-local Region = require "core/layout/Region"
+local NCLElem = require "../../src/core/NCLElem"
+local ImportBase = require "../../src/core/importation/ImportBase"
+local Region = require "../../src/core/layout/Region"
 
 ---
 -- Implements RegionBase Class representing <b>&lt;regionBase&gt;</b> element.

@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local BindParam = require "core/linking/BindParam"
+local NCLElem = require "../../src/core/NCLElem"
+local BindParam = require "../../src/core/linking/BindParam"
 
 ---
 -- Implements Bind Class representing <b>&lt;bind&gt;</b> element.

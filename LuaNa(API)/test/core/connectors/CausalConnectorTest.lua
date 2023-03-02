@@ -1,9 +1,9 @@
-local CausalConnector = require "core/connectors/CausalConnector"
-local ConnectorParam = require "core/connectors/ConnectorParam"
-local SimpleCondition = require "core/connectors/SimpleCondition"
-local CompoundCondition = require "core/connectors/CompoundCondition"
-local SimpleAction = require "core/connectors/SimpleAction"
-local CompoundAction = require "core/connectors/CompoundAction"
+local CausalConnector = require "../../src/core/connectors/CausalConnector"
+local ConnectorParam = require "../../src/core/connectors/ConnectorParam"
+local SimpleCondition = require "../../src/core/connectors/SimpleCondition"
+local CompoundCondition = require "../../src/core/connectors/CompoundCondition"
+local SimpleAction = require "../../src/core/connectors/SimpleAction"
+local CompoundAction = require "../../src/core/connectors/CompoundAction"
 
 local function test1()
   local causalConnector = CausalConnector:create()

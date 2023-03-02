@@ -1,37 +1,37 @@
-local NCLElem = require "core/NCLElem"
-local ConnectorParam = require "core/connectors/ConnectorParam"
-local SimpleCondition = require "core/connectors/SimpleCondition"
-local CompoundCondition = require "core/connectors/CompoundCondition"
-local SimpleAction = require "core/connectors/SimpleAction"
-local CompoundAction = require "core/connectors/CompoundAction"
+local NCLElem = require "../../src/core/NCLElem"
+local ConnectorParam = require "../../src/core/connectors/ConnectorParam"
+local SimpleCondition = require "../../src/core/connectors/SimpleCondition"
+local CompoundCondition = require "../../src/core/connectors/CompoundCondition"
+local SimpleAction = require "../../src/core/connectors/SimpleAction"
+local CompoundAction = require "../../src/core/connectors/CompoundAction"
 
 ---
 -- Implements CausalConnector Class representing <b>&lt;causalConnector&gt;</b> element.
---  
+--
 -- Implemented based on: <a href="http://handbook.ncl.org.br/doku.php?id=causalconnector">
 -- http://handbook.ncl.org.br/doku.php?id=causalconnector</a>
--- 
+--
 -- @module CausalConnector
--- 
+--
 -- @extends #NCLElement
--- 
+--
 -- @author Gabriel Pereira Mendes
--- 
--- @usage 
+--
+-- @usage
 -- -- The module needs to be imported to be used with the instruction
--- local CausalConnector = require "core/connectors/CausalConnector" 
+-- local CausalConnector = require "core/connectors/CausalConnector"
 local CausalConnector = NCLElem:extends()
 
 ---
 -- Name of <b>&lt;causalConnector&gt;</b> element.
--- 
--- @field [parent=#CausalConnector] #string nameElem 
+--
+-- @field [parent=#CausalConnector] #string nameElem
 CausalConnector.nameElem = "causalConnector"
 
 ---
 -- List with maps to associate classes representing
 -- children elements from <b>&lt;causalConnector&gt;</b> element.
--- 
+--
 -- @field [parent=#CausalConnector] #table childrenMap
 CausalConnector.childrenMap = {
   connectorParam = {ConnectorParam, "many"},
@@ -44,22 +44,22 @@ CausalConnector.childrenMap = {
 ---
 -- List containing the data types of each attribute
 -- belonging to <b>&lt;causalConnector&gt;</b> element.
--- 
--- @field [parent=#CausalConnector] #table attributesTypeMap  
+--
+-- @field [parent=#CausalConnector] #table attributesTypeMap
 CausalConnector.attributesTypeMap = {
   id = "string"
 }
 
 ---
--- Returns a new CausalConnector object. 
+-- Returns a new CausalConnector object.
 -- If `full` flag is not nil, the object will
 -- receive default children objects of each children class.
--- 
--- This case, `full` must be passed to the method with a valid number.  
--- 
+--
+-- This case, `full` must be passed to the method with a valid number.
+--
 -- @function [parent=#CausalConnector] create
 -- @param #table attributes list of attributes to be initialized.
--- @param #number full numeric flag to indicate if the object 
+-- @param #number full numeric flag to indicate if the object
 --                will be created with filled children list.
 -- @return #CausalConnector new CausalConnector object created.
 function CausalConnector:create(attributes, full)
@@ -86,9 +86,9 @@ function CausalConnector:create(attributes, full)
 end
 
 ---
--- Sets a value to `id` attribute of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Sets a value to `id` attribute of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] setId
 -- @param #string id `id` attribute of the
 -- <b>&lt;causalConnector&gt;</b> element.
@@ -97,9 +97,9 @@ function CausalConnector:setId(id)
 end
 
 ---
--- Returns the value of the `id` attribute of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Returns the value of the `id` attribute of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] getId
 -- @return #string `id` attribute of the <b>&lt;causalConnector&gt;</b> element.
 function CausalConnector:getId()
@@ -107,11 +107,11 @@ function CausalConnector:getId()
 end
 
 ---
--- Adds a <b>&lt;connectorParam&gt;</b> child element of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Adds a <b>&lt;connectorParam&gt;</b> child element of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] addConnectorParam
--- @param #ConnectorParam connectorParam object representing the 
+-- @param #ConnectorParam connectorParam object representing the
 -- <b>&lt;connectorParam&gt;</b> element.
 function CausalConnector:addConnectorParam(connectorParam)
   if((type(connectorParam) == "table"
@@ -135,10 +135,10 @@ function CausalConnector:addConnectorParam(connectorParam)
 end
 
 ---
--- Returns a <b>&lt;connectorParam&gt;</b> child element of the 
+-- Returns a <b>&lt;connectorParam&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element
 -- in position `p`.
---  
+--
 -- @function [parent=#CausalConnector] getConnectorParamPos
 -- @param #number p  position of the object representing the <b>&lt;connectorParam&gt;</b> element.
 function CausalConnector:getConnectorParamPos(p)
@@ -154,7 +154,7 @@ end
 ---
 -- Adds so many <b>&lt;connectorParam&gt;</b> child elements of the <b>&lt;causalConnector&gt;</b> element
 -- passed as parameters.
--- 
+--
 -- @function [parent=#CausalConnector] setConnectorParams
 -- @param #ConnectorParam ... objects representing the <b>&lt;connectorParam&gt;</b>
 function CausalConnector:setConnectorParams(...)
@@ -166,9 +166,9 @@ function CausalConnector:setConnectorParams(...)
 end
 
 ---
--- Removes a <b>&lt;connectorParam&gt;</b> child element of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Removes a <b>&lt;connectorParam&gt;</b> child element of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] removeConnectorParam
 -- @param #ConnectorParam connectorParam object representing the <b>&lt;connectorParam&gt;</b> element.
 function CausalConnector:removeConnectorParam(connectorParam)
@@ -195,9 +195,9 @@ function CausalConnector:removeConnectorParam(connectorParam)
 end
 
 ---
--- Removes a <b>&lt;connectorParam&gt;</b> child element of the 
+-- Removes a <b>&lt;connectorParam&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element in position `p`.
--- 
+--
 -- @function [parent=#CausalConnector] removeConnectorParamPos
 -- @param #number p position of the <b>&lt;connectorParam&gt;</b> child element.
 function CausalConnector:removeConnectorParamPos(p)
@@ -216,11 +216,11 @@ function CausalConnector:removeConnectorParamPos(p)
 end
 
 ---
--- Sets the <b>&lt;simpleCondition&gt;</b> child element of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Sets the <b>&lt;simpleCondition&gt;</b> child element of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] setSimpleCondition
--- @param #SimpleCondition simpleCondition object representing the 
+-- @param #SimpleCondition simpleCondition object representing the
 -- <b>&lt;simpleCondition&gt;</b> element.
 function CausalConnector:setSimpleCondition(simpleCondition)
   if((type(simpleCondition) == "table"
@@ -252,9 +252,9 @@ function CausalConnector:setSimpleCondition(simpleCondition)
 end
 
 ---
--- Returns the <b>&lt;simpleCondition&gt;</b> child element of the 
+-- Returns the <b>&lt;simpleCondition&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
---  
+--
 -- @function [parent=#CausalConnector] getSimpleCondition
 -- @return #SimpleCondition simpleCondition object representing the <b>&lt;simpleCondition&gt;</b> element.
 function CausalConnector:getSimpleCondition()
@@ -262,9 +262,9 @@ function CausalConnector:getSimpleCondition()
 end
 
 ---
--- Removes the <b>&lt;simpleCondition&gt;</b> child element of the 
+-- Removes the <b>&lt;simpleCondition&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
--- 
+--
 -- @function [parent=#CausalConnector] removeSimpleCondition
 function CausalConnector:removeSimpleCondition()
   self:removeChild(self.simpleCondition)
@@ -272,11 +272,11 @@ function CausalConnector:removeSimpleCondition()
 end
 
 ---
--- Sets the <b>&lt;compoundCondition&gt;</b> child element of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Sets the <b>&lt;compoundCondition&gt;</b> child element of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] setCompoundCondition
--- @param #CompoundCondition compoundCondition object representing the 
+-- @param #CompoundCondition compoundCondition object representing the
 -- <b>&lt;compoundCondition&gt;</b> element.
 function CausalConnector:setCompoundCondition(compoundCondition)
   if((type(compoundCondition) == "table"
@@ -308,9 +308,9 @@ function CausalConnector:setCompoundCondition(compoundCondition)
 end
 
 ---
--- Returns the <b>&lt;compoundCondition&gt;</b> child element of the 
+-- Returns the <b>&lt;compoundCondition&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
---  
+--
 -- @function [parent=#CausalConnector] getCompoundCondition
 -- @return #CompoundCondition compoundCondition object representing the <b>&lt;compoundCondition&gt;</b> element.
 function CausalConnector:getCompoundCondition()
@@ -318,9 +318,9 @@ function CausalConnector:getCompoundCondition()
 end
 
 ---
--- Removes the <b>&lt;compoundCondition&gt;</b> child element of the 
+-- Removes the <b>&lt;compoundCondition&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
--- 
+--
 -- @function [parent=#CausalConnector] removeCompoundCondition
 function CausalConnector:removeCompoundCondition()
   self:removeChild(self.compoundCondition)
@@ -328,11 +328,11 @@ function CausalConnector:removeCompoundCondition()
 end
 
 ---
--- Sets the <b>&lt;simpleAction&gt;</b> child element of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Sets the <b>&lt;simpleAction&gt;</b> child element of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] setSimpleAction
--- @param #SimpleAction simpleAction object representing the 
+-- @param #SimpleAction simpleAction object representing the
 -- <b>&lt;simpleAction&gt;</b> element.
 function CausalConnector:setSimpleAction(simpleAction)
   if((type(simpleAction) == "table"
@@ -364,9 +364,9 @@ function CausalConnector:setSimpleAction(simpleAction)
 end
 
 ---
--- Returns the <b>&lt;simpleAction&gt;</b> child element of the 
+-- Returns the <b>&lt;simpleAction&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
---  
+--
 -- @function [parent=#CausalConnector] getSimpleAction
 -- @return #SimpleAction simpleAction object representing the <b>&lt;simpleAction&gt;</b> element.
 function CausalConnector:getSimpleAction()
@@ -374,9 +374,9 @@ function CausalConnector:getSimpleAction()
 end
 
 ---
--- Removes the <b>&lt;simpleAction&gt;</b> child element of the 
+-- Removes the <b>&lt;simpleAction&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
--- 
+--
 -- @function [parent=#CausalConnector] removeSimpleAction
 function CausalConnector:removeSimpleAction()
   self:removeChild(self.simpleAction)
@@ -384,11 +384,11 @@ function CausalConnector:removeSimpleAction()
 end
 
 ---
--- Sets the <b>&lt;compoundAction&gt;</b> child element of the 
--- <b>&lt;causalConnector&gt;</b> element. 
--- 
+-- Sets the <b>&lt;compoundAction&gt;</b> child element of the
+-- <b>&lt;causalConnector&gt;</b> element.
+--
 -- @function [parent=#CausalConnector] setCompoundAction
--- @param #CompoundAction compoundAction object representing the 
+-- @param #CompoundAction compoundAction object representing the
 -- <b>&lt;compoundAction&gt;</b> element
 function CausalConnector:setCompoundAction(compoundAction)
   if((type(compoundAction) == "table"
@@ -420,9 +420,9 @@ function CausalConnector:setCompoundAction(compoundAction)
 end
 
 ---
--- Returns the <b>&lt;compoundAction&gt;</b> child element of the 
+-- Returns the <b>&lt;compoundAction&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
---  
+--
 -- @function [parent=#CausalConnector] getCompoundAction
 -- @return #CompoundAction compoundAction object representing the <b>&lt;compoundAction&gt;</b> element.
 function CausalConnector:getCompoundAction()
@@ -430,9 +430,9 @@ function CausalConnector:getCompoundAction()
 end
 
 ---
--- Removes the <b>&lt;compoundAction&gt;</b> child element of the 
+-- Removes the <b>&lt;compoundAction&gt;</b> child element of the
 -- <b>&lt;causalConnector&gt;</b> element.
--- 
+--
 -- @function [parent=#CausalConnector] removeCompoundAction
 function CausalConnector:removeCompoundAction()
   self:removeChild(self.compoundAction)

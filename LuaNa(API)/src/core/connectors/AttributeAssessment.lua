@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements AttributeAssessment Class representing <b>&lt;attributeAssessment&gt;</b> element.

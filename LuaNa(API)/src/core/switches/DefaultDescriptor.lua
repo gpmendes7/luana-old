@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements DefaultDescriptor Class representing <b>&lt;defaultDescriptor&gt;</b> element.

@@ -1,4 +1,4 @@
-require("core/LuaNa")
+require("../../src/core/LuaNa")
 
 local function test1()
   local d1 = Descriptor:create()

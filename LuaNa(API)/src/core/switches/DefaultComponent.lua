@@ -1,4 +1,4 @@
-local NCLElem = require "core/NCLElem"
+local NCLElem = require "../../src/core/NCLElem"
 
 ---
 -- Implements DefaultComponent Class representing <b>&lt;defaultComponent&gt;</b> element.

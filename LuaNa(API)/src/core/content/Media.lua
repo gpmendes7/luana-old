@@ -1,6 +1,6 @@
-local NCLElem = require "core/NCLElem"
-local Area = require "core/interface/Area"
-local Property = require "core/interface/Property"
+local NCLElem = require "../../src/core/NCLElem"
+local Area = require "../../src/core/interface/Area"
+local Property = require "../../src/core/interface/Property"
 
 ---
 -- Implements Media Class representing <b>&lt;media&gt;</b> element.

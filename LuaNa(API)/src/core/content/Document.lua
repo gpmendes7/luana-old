@@ -1,7 +1,7 @@
-local NCLElem = require("core/NCLElem")
-local Validator = require("valid/Validator")
-local Head = require("core/content/Head")
-local Body = require("core/content/Body")
+local NCLElem = require("../../src/core/NCLElem")
+local Validator = require("../../src/valid/Validator")
+local Head = require("../../src/core/content/Head")
+local Body = require("../../src/core/content/Body")
 
 ---
 -- Implements Document Class representing <b>&lt;ncl&gt;</b> element. 

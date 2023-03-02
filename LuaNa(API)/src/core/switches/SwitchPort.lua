@@ -1,5 +1,5 @@
-local NCLElem = require "core/NCLElem"
-local Mapping = require "core/switches/Mapping"
+local NCLElem = require "../../src/core/NCLElem"
+local Mapping = require "../../src/core/switches/Mapping"
 
 ---
 -- Implements SwitchPort Class representing <b>&lt;switchPort&gt;</b> element.
