@@ -1,13 +1,13 @@
-local NCLElem = require "../../src/core/NCLElem"
-local Port = require "../../src/core/interface/Port"
-local Property = require "../../src/core/interface/Property"
-local Media = require "../../src/core/content/Media"
-local Link = require "../../src/core/linking/Link"
-local Meta = require "../../src/core/metadata/Meta"
-local MetaData = require "../../src/core/metadata/MetaData"
-local DefaultComponent = require "../../src/core/switches/DefaultComponent"
-local SwitchPort = require "../../src/core/switches/SwitchPort"
-local BindRule = require "../../src/core/switches/BindRule"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local Port = require ".LuaNa(API)/src/core/interface/Port"
+local Property = require "LuaNa(API)/src/core/interface/Property"
+local Media = require "LuaNa(API)/src/core/content/Media"
+local Link = require "LuaNa(API)/src/core/linking/Link"
+local Meta = require "LuaNa(API)/src/core/metadata/Meta"
+local MetaData = require "LuaNa(API)/src/core/metadata/MetaData"
+local DefaultComponent = require "LuaNa(API)/src/core/switches/DefaultComponent"
+local SwitchPort = require "LuaNa(API)/src/core/switches/SwitchPort"
+local BindRule = require "LuaNa(API)/src/core/switches/BindRule"
 
 ---
 -- Implements Context Class representing <b>&lt;context&gt;</b> element and

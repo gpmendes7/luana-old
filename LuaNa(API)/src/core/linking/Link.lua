@@ -1,6 +1,6 @@
-local NCLElem = require "../../src/core/NCLElem"
-local LinkParam = require "../../src/core/linking/LinkParam"
-local Bind = require "../../src/core/linking/Bind"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local LinkParam = require "LuaNa(API)/src/core/linking/LinkParam"
+local Bind = require "LuaNa(API)/src/core/linking/Bind"
 
 ---
 -- Implements Link Class representing <b>&lt;link&gt;</b> element.

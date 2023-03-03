@@ -1,5 +1,5 @@
-local NCLElem = require "../../src/core/NCLElem"
-local DescriptorParam = require "../../src/core/layout/DescriptorParam"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local DescriptorParam = require "LuaNa(API)/src/core/layout/DescriptorParam"
 
 ---
 -- Implements Descriptor Class representing <b>&lt;descriptor&gt;</b> element.

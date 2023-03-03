@@ -1,4 +1,4 @@
-local NCLElem = require "../../src/core/NCLElem"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
 
 ---
 -- Implements SimpleCondition Class representing <b>&lt;simpleCondition&gt;</b> element.

@@ -1,4 +1,4 @@
-local NCLElem = require "../../src/core/NCLElem"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
 
 ---
 -- Implements BindRule Class representing <b>&lt;bindRule&gt;</b> element.

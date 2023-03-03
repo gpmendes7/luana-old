@@ -24,4 +24,8 @@ function Validator:isInvalidString(v)
     end
 end
 
+function Validator:isBlank(s)
+	return s == nil or s:match("%S") == nil
+end
+
 return Validator

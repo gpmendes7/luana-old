@@ -1,4 +1,4 @@
-local NCLElem = require "../../src/core/NCLElem"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
 
 ---
 -- Implements ImportNCL Class representing <b>&lt;importNCL&gt;</b> element.

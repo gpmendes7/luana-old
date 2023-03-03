@@ -1,5 +1,5 @@
-local NCLElem = require "../../src/core/NCLElem"
-local ImportNCL = require "../../src/core/importation/ImportNCL"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local ImportNCL = require "LuaNa(API)/src/core/importation/ImportNCL"
 
 ---
 -- Implements ImportedDocumentBase Class representing <b>&lt;importedDocumentBase&gt;</b> element.

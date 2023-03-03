@@ -1,4 +1,4 @@
-local NCLElem = require "../../src/core/NCLElem"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
 
 ---
 -- Implements Area Class representing <b>&lt;area&gt;</b> element.

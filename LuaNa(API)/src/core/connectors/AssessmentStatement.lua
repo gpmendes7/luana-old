@@ -1,6 +1,6 @@
-local NCLElem = require "../../src/core/NCLElem"
-local AttributeAssessment = require "../../src/core/connectors/AttributeAssessment"
-local ValueAssessment = require "../../src/core/connectors/ValueAssessment"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local AttributeAssessment = require "LuaNa(API)/src/core/connectors/AttributeAssessment"
+local ValueAssessment = require "LuaNa(API)/src/core/connectors/ValueAssessment"
 
 ---
 -- Implements AssessmentStatement Class representing <b>&lt;assessmentStatement&gt;</b> element.

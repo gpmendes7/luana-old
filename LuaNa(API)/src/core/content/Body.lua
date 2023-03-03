@@ -1,13 +1,13 @@
-local NCLElem = require "../../src/core/NCLElem"
-local Port = require "../../src/core/interface/Port"
-local Property = require "../../src/core/interface/Property"
-local Media = require "../../src/core/content/Media"
-local CompositeNodes = require "../../src/core/content/CompositeNode"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local Port = require "LuaNa(API)/src/core/interface/Port"
+local Property = require "LuaNa(API)/src/core/interface/Property"
+local Media = require "LuaNa(API)/src/core/content/Media"
+local CompositeNodes = require "LuaNa(API)/src/core/content/CompositeNode"
 local Context = CompositeNodes[1]
 local Switch = CompositeNodes[2]
-local Link = require "../../src/core/linking/Link"
-local Meta = require "../../src/core/metadata/Meta"
-local MetaData = require "../../src/core/metadata/MetaData"
+local Link = require "LuaNa(API)/src/core/linking/Link"
+local Meta = require "LuaNa(API)/src/core/metadata/Meta"
+local MetaData = require "LuaNa(API)/src/core/metadata/MetaData"
 
 ---
 -- Implements Body Class representing <b>&lt;body&gt;</b> element.

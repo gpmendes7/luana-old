@@ -1,7 +1,7 @@
-local NCLElem = require "../../src/core/NCLElem"
-local DefaultDescriptor = require "../../src/core/switches/DefaultDescriptor"
-local BindRule = require "../../src/core/switches/BindRule"
-local Descriptor = require "../../src/core/layout/Descriptor"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local DefaultDescriptor = require "LuaNa(API)/src/core/switches/DefaultDescriptor"
+local BindRule = require "LuaNa(API)/src/core/switches/BindRule"
+local Descriptor = require "LuaNa(API)/src/core/layout/Descriptor"
 
 ---
 -- Implements DescriptorSwitch Class representing <b>&lt;descriptorSwitch&gt;</b> element.

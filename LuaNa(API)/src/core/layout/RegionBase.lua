@@ -1,6 +1,6 @@
-local NCLElem = require "../../src/core/NCLElem"
-local ImportBase = require "../../src/core/importation/ImportBase"
-local Region = require "../../src/core/layout/Region"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local ImportBase = require "LuaNa(API)/src/core/importation/ImportBase"
+local Region = require "LuaNa(API)/src/core/layout/Region"
 
 ---
 -- Implements RegionBase Class representing <b>&lt;regionBase&gt;</b> element.

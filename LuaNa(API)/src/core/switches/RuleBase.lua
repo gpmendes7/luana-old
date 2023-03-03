@@ -1,7 +1,7 @@
-local NCLElem = require "../../src/core/NCLElem"
-local ImportBase = require "../../src/core/importation/ImportBase"
-local Rule = require "../../src/core/switches/Rule"
-local CompositeRule = require "../../src/core/switches/CompositeRule"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local ImportBase = require "LuaNa(API)/src/core/importation/ImportBase"
+local Rule = require "LuaNa(API)/src/core/switches/Rule"
+local CompositeRule = require "LuaNa(API)/src/core/switches/CompositeRule"
 
 ---
 -- Implements RuleBase Class representing <b>&lt;ruleBase&gt;</b> element.

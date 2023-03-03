@@ -1,7 +1,0 @@
-master: branch principal do repositório.
-
-attributes: branch com as refatorações feitas sobre os atributos das classes.
-
-tests: branch com as refatorações feitas sobre os testes unitários que avaliam os métodos das classes.
-
-doc: branch com alterações para adição de documentação nas classes da API utilizando LuaDoc.

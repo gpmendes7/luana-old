@@ -1,6 +1,6 @@
-require("core/LuaNa")
+require("LuaNa(API)/src/core/LuaNa")
 
-local fileName = "test/createDocument/docs/document1.ncl"
+local fileName = "LuaNa(API)/test/createDocument/docs/document1.ncl"
 local doc = Document:create()
 doc:loadNcl(fileName)
 
@@ -36,7 +36,7 @@ local body = doc:getBody()
 
 local titulo1 = Media:create({type = "text/html",
   id = "titulo1",
-  src = "test/createDocument/media/ginga.html"})
+  src = "LuaNa(API)/test/createDocument/media/ginga.html"})
 titulo1:setDescriptor(dTitulo1)
 
 body:addMedia(titulo1)
@@ -65,6 +65,6 @@ lVideo1Titulo1Stop:addBind(bind4)
 
 body:setLinks(lVideo1Titulo1Start, lVideo1Titulo1Stop)
 
-fileName = "test/createDocument/docs/document2.ncl"
+fileName = "LuaNa(API)/test/createDocument/docs/document2.ncl"
 doc:saveNcl(fileName)
-os.execute("java -jar ncl-validator-1.4.20.jar -nl pt_BR "..fileName)
+os.execute("java -jar LuaNa(API)/ncl-validator-1.4.20.jar -nl pt_BR "..fileName)

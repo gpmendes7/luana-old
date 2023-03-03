@@ -1,6 +1,6 @@
-local NCLElem = require "../../src/core/NCLElem"
-local Area = require "../../src/core/interface/Area"
-local Property = require "../../src/core/interface/Property"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local Area = require "LuaNa(API)/src/core/interface/Area"
+local Property = require "LuaNa(API)/src/core/interface/Property"
 
 ---
 -- Implements Media Class representing <b>&lt;media&gt;</b> element.

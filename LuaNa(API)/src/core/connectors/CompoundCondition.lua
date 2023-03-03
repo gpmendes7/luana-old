@@ -1,7 +1,7 @@
-local NCLElem = require "../../src/core/NCLElem"
-local SimpleCondition = require "../../src/core/connectors/SimpleCondition"
-local AssessmentStatement = require "../../src/core/connectors/AssessmentStatement"
-local CompoundStatement = require "../../src/core/connectors/CompoundStatement"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local SimpleCondition = require "LuaNa(API)/src/core/connectors/SimpleCondition"
+local AssessmentStatement = require "LuaNa(API)/src/core/connectors/AssessmentStatement"
+local CompoundStatement = require "LuaNa(API)/src/core/connectors/CompoundStatement"
 
 ---
 -- Implements CompoundCondition Class representing <b>&lt;compoundCondition&gt;</b> element.

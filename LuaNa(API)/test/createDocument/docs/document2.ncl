@@ -22,8 +22,8 @@
  </head>
  <body>
   <port id="pInicio" component="video1"/>
-  <media src="test/createDocument/media/abertura.mpg" descriptor="dVideo1" id="video1" type="video/mpeg"/>
-  <media src="test/createDocument/media/ginga.html" descriptor="dTitulo1" id="titulo1" type="text/html"/>
+  <media src="LuaNa(API)/test/createDocument/media/abertura.mpg" descriptor="dVideo1" id="video1" type="video/mpeg"/>
+  <media src="LuaNa(API)/test/createDocument/media/ginga.html" descriptor="dTitulo1" id="titulo1" type="text/html"/>
   <link id="lVideo1Titulo1Start" xconnector="connectors#onBeginStart">
    <bind component="video1" role="onBegin"/>
    <bind component="titulo1" role="start"/>

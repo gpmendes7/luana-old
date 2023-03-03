@@ -1,5 +1,5 @@
-local NCLElem = require "../../src/core/NCLElem"
-local AssessmentStatement = require "../../src/core/connectors/AssessmentStatement"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local AssessmentStatement = require "LuaNa(API)/src/core/connectors/AssessmentStatement"
 
 ---
 -- Implements CompoundStatement Class representing <b>&lt;compoundStatement&gt;</b> element.

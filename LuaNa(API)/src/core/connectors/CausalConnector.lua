@@ -1,9 +1,9 @@
-local NCLElem = require "../../src/core/NCLElem"
-local ConnectorParam = require "../../src/core/connectors/ConnectorParam"
-local SimpleCondition = require "../../src/core/connectors/SimpleCondition"
-local CompoundCondition = require "../../src/core/connectors/CompoundCondition"
-local SimpleAction = require "../../src/core/connectors/SimpleAction"
-local CompoundAction = require "../../src/core/connectors/CompoundAction"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local ConnectorParam = require "LuaNa(API)/src/core/connectors/ConnectorParam"
+local SimpleCondition = require "LuaNa(API)/src/core/connectors/SimpleCondition"
+local CompoundCondition = require "LuaNa(API)/src/core/connectors/CompoundCondition"
+local SimpleAction = require "LuaNa(API)/src/core/connectors/SimpleAction"
+local CompoundAction = require "LuaNa(API)/src/core/connectors/CompoundAction"
 
 ---
 -- Implements CausalConnector Class representing <b>&lt;causalConnector&gt;</b> element.

@@ -1,5 +1,5 @@
-local NCLElem = require "../../src/core/NCLElem"
-local SimpleAction = require "../../src/core/connectors/SimpleAction"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local SimpleAction = require "LuaNa(API)/src/core/connectors/SimpleAction"
 
 ---
 -- Implements CompoundAction Class representing <b>&lt;compoundAction&gt;</b> element.

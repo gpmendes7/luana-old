@@ -1,11 +1,9 @@
-package.path = package.path .. ";../../?.lua"
-
-require("../../src/core/LuaNa")
+require("LuaNa(API)/src/core/LuaNa")
 
 local function test1()
   local doc = Document:create()
 
-  doc:loadNcl("../../docs/nclcd/exemplo01.ncl")
+  doc:loadNcl("LuaNa(API)/docs/nclcd/exemplo01.ncl")
 
   local rgTV = doc:getDescendantByAttribute("id", "rgTV")
   assert(rgTV:getRegionPos(1):getId() == "rgVideo1", "Error!")
@@ -24,7 +22,7 @@ end
 local function test2()
   local doc = Document:create()
 
-  doc:loadNcl("../../docs/nclcd/exemplo02.ncl")
+  doc:loadNcl("LuaNa(API)/docs/nclcd/exemplo02.ncl")
 
   local rgTV = doc:getDescendantByAttribute("id", "rgTV")
   assert(rgTV:getRegionPos(1):getId() == "rgTitulo1", "Error!")
@@ -50,7 +48,7 @@ end
 local function test3()
   local doc = Document:create()
 
-  doc:loadNcl("../../docs/gingahero/main.ncl")
+  doc:loadNcl("LuaNa(API)/docs/gingahero/main.ncl")
 
   local rgTv = doc:getDescendantByAttribute("id", "rgTv")
   assert(rgTv.ass[1]:getId() == "dSong", "Error!")

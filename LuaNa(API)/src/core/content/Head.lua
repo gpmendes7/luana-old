@@ -1,12 +1,12 @@
-local NCLElem = require "../../src/core/NCLElem"
-local ImportedDocumentBase = require "../../src/core/importation/ImportedDocumentBase"
-local RuleBase = require "../../src/core/switches/RuleBase"
-local TransitionBase = require "../../src/core/transition/TransitionBase"
-local RegionBase = require "../../src/core/layout/RegionBase"
-local DescriptorBase = require "../../src/core/layout/DescriptorBase"
-local ConnectorBase = require "../../src/core/connectors/ConnectorBase"
-local Meta = require "../../src/core/metadata/Meta"
-local MetaData = require "../../src/core/metadata/MetaData"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local ImportedDocumentBase = require "LuaNa(API)/src/core/importation/ImportedDocumentBase"
+local RuleBase = require "LuaNa(API)/src/core/switches/RuleBase"
+local TransitionBase = require "LuaNa(API)/src/core/transition/TransitionBase"
+local RegionBase = require "LuaNa(API)/src/core/layout/RegionBase"
+local DescriptorBase = require "LuaNa(API)/src/core/layout/DescriptorBase"
+local ConnectorBase = require "LuaNa(API)/src/core/connectors/ConnectorBase"
+local Meta = require "LuaNa(API)/src/core/metadata/Meta"
+local MetaData = require "LuaNa(API)/src/core/metadata/MetaData"
 
 ---
 -- Implements Head Class representing <b>&lt;head&gt;</b> element.

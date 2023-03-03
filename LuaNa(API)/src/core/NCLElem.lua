@@ -1,5 +1,5 @@
-local Class = require "../../src/oo/Class"
-local Validator = require "../../src/valid/Validator"
+local Class = require "LuaNa(API)/src/oo/Class"
+local Validator = require "LuaNa(API)/src/valid/Validator"
 
 ---
 -- Implements NCLElemet Class representing all elements in NCL language.
@@ -791,6 +791,11 @@ function NCLElem:ncl2Table()
   self:readAttributes()
 
   local childrenNcl = self:readChildrenNcl()
+  
+  if(Validator:isBlank(childrenNcl))then
+     return
+  end
+  
   if(childrenNcl ~= nil)then
     repeat
       t = string.find(childrenNcl, ">")

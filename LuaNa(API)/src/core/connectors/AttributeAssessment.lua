@@ -1,4 +1,4 @@
-local NCLElem = require "../../src/core/NCLElem"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
 
 ---
 -- Implements AttributeAssessment Class representing <b>&lt;attributeAssessment&gt;</b> element.

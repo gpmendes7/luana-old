@@ -1,7 +1,7 @@
-local NCLElem = require("../../src/core/NCLElem")
-local Validator = require("../../src/valid/Validator")
-local Head = require("../../src/core/content/Head")
-local Body = require("../../src/core/content/Body")
+local NCLElem = require("LuaNa(API)/src/core/NCLElem")
+local Validator = require("LuaNa(API)/src/valid/Validator")
+local Head = require("LuaNa(API)/src/core/content/Head")
+local Body = require("LuaNa(API)/src/core/content/Body")
 
 ---
 -- Implements Document Class representing <b>&lt;ncl&gt;</b> element. 

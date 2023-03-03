@@ -1,6 +1,6 @@
-local NCLElem = require "../../src/core/NCLElem"
-local ImportBase = require "../../src/core/importation/ImportBase"
-local CausalConnector = require "../../src/core/connectors/CausalConnector"
+local NCLElem = require "LuaNa(API)/src/core/NCLElem"
+local ImportBase = require "LuaNa(API)/src/core/importation/ImportBase"
+local CausalConnector = require "LuaNa(API)/src/core/connectors/CausalConnector"
 
 ---
 -- Implements ConnectorBase Class representing <b>&lt;connectorBase&gt;</b> element.

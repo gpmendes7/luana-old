@@ -1,4 +1,4 @@
-require("core/LuaNa")
+require("LuaNa(API)/src/core/LuaNa")
 
 local doc = Document:create({id="exemplo03ConnBase",
                              xmlns="http://www.ncl.org.br/NCL3.0/EDTVProfile"}, 
@@ -19,6 +19,6 @@ head:setConnectorBase(connectorBase)
 
 doc:setHead(head)
 
-local fileName = "test/createDocument/docs/connectorBase3.conn"
+local fileName = "LuaNa(API)/test/createDocument/docs/connectorBase3.conn"
 doc:saveNcl(fileName)
-os.execute("java -jar ncl-validator-1.4.20.jar -nl pt_BR "..fileName)
+os.execute("java -jar LuaNa(API)/ncl-validator-1.4.20.jar -nl pt_BR "..fileName)
